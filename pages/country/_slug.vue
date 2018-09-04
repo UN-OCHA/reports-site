@@ -2,7 +2,7 @@
   <div>
 
     <nav class="app-bar">
-      <button class="btn btn--toggle" title="Toggle menu">🍔</button>
+      <button class="btn btn--toggle" title="Toggle menu"><span class="element-invisible">Toggle menu</span></button>
     </nav>
 
     <header class="container header" role="banner">

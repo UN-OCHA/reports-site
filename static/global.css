@@ -31,6 +31,49 @@ body {
   }
 }
 
+/**
+ * Drupal 7 — Hide elements from all users.
+ *
+ * Used for elements which should not be immediately displayed to any user. An
+ * example would be a collapsible fieldset that will be expanded with a click
+ * from a user. The effect of this class can be toggled with the jQuery show()
+ * and hide() functions.
+ */
+.element-hidden {
+  display: none;
+}
+
+/**
+ * Drupal 7 — Hide elements visually, but keep them available for screen-readers.
+ *
+ * Used for information required for screen-reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ */
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+/**
+ * Drupal 7 — keyboard-focusable hidden elements
+ *
+ * The .element-focusable class extends the .element-invisible class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+.element-invisible.element-focusable:active,
+.element-invisible.element-focusable:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+}
+
+
 .container {
   max-width: 1200px;
   margin: 2rem 1rem;
@@ -42,7 +85,7 @@ body {
 @media (min-width: 600px) {
   .container {
     margin: 2rem;
-    margin-left: 5rem;
+    margin-left: 6rem;
   }
 }
 
@@ -93,16 +136,18 @@ body {
   left: 0;
   right: 0;
   width: auto;
-  height: 2rem;
+  height: 3rem;
+  padding: .5rem 1rem;
   background: #4c8cca;
 }
 
 .app-bar .btn--toggle {
+  width: 2rem;
   height: 2rem;
-  font-size: 1.6em;
   border: 0;
   color: white;
-  background: transparent;
+  background: transparent url('/icons/icon--hamburger.svg') center no-repeat;
+  background-size: contain;
   cursor: pointer;
 }
 
@@ -110,13 +155,12 @@ body {
   .app-bar {
     right: auto;
     bottom: 0;
-    width: 3rem;
+    width: 4rem;
     height: auto;
+    padding: 2rem 1rem;
   }
   .app-bar .btn--toggle {
     width: 100%;
-    margin-top: 2rem;
-    font-size: 1.6em;
   }
 }
 
@@ -135,9 +179,6 @@ body {
   }
   24% {
     transform: rotate(0deg) scale(1);
-  }
-  100% {
-    transform: rotate(720deg) scale(1);
   }
 }
 /* END FUN: just for funsies, definitely revamp this :) */
