@@ -1,0 +1,33 @@
+{
+  "name": "reports-site",
+  "version": "1.0.0",
+  "description": "Digital Situation Reports",
+  "license": "Apache-2.0",
+  "author": "UNOCHA",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/markdownit": "^1.2.1",
+    "@nuxtjs/moment": "^1.0.0",
+    "ajv": "^6.5.3",
+    "contentful": "^7.0.1",
+    "moment": "^2.22.2",
+    "nuxt": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0"
+  }
+}

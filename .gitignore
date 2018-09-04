@@ -1,0 +1,10 @@
+# node dependencies/logs
+node_modules
+npm-debug.log
+
+# Nuxt build/generate directories
+.nuxt
+dist
+
+# Contentful API keys
+.contentful.json

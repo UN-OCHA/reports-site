@@ -1,0 +1,298 @@
+/**
+ * Until a better build system is in place, global styles go here
+ */
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  background: hsl(0, 0%, 97%);
+  padding-top: 2rem;
+}
+
+@media (min-width: 600px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem 1rem;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+@media (min-width: 600px) {
+  .container {
+    margin: 2rem;
+    margin-left: 5rem;
+  }
+}
+
+.title {
+  display: block;
+  color: #4c8cca;
+  font-family: "RobotoCondensed-Bold", sans-serif; /* @TODO: local font must be served publicly */
+  font-weight: 700;
+  font-size: 1.8em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  display: block;
+  font-family: "RobotoCondensed-Regular", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: #4c8cca;
+}
+
+.last-updated {
+  display: block;
+  font-family: "RobotoCondensed-Italic", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  color: #4c8cca;
+}
+.last-updated::first-letter {
+  text-transform: capitalize;
+}
+
+
+[class*="viz--"] {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .viz--480 {
+    display: initial;
+  }
+}
+
+/*—— App —————————————————————————————————————————————————————————————————————*/
+
+.app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 2rem;
+  background: #4c8cca;
+}
+
+.app-bar .btn--toggle {
+  height: 2rem;
+  font-size: 1.6em;
+  border: 0;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .app-bar {
+    right: auto;
+    bottom: 0;
+    width: 3rem;
+    height: auto;
+  }
+  .app-bar .btn--toggle {
+    width: 100%;
+    margin-top: 2rem;
+    font-size: 1.6em;
+  }
+}
+
+/* BEGIN FUN: just for funsies, definitely revamp this :) */
+.app-bar .btn--toggle:focus {
+  animation: btn--toggle 1s ease-in-out 1;
+  outline: 0;
+}
+
+@keyframes btn--toggle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  6% {
+    transform: rotate(0deg) scale(1.5);
+  }
+  24% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(720deg) scale(1);
+  }
+}
+/* END FUN: just for funsies, definitely revamp this :) */
+
+/*—— SitRep Header ———————————————————————————————————————————————————————————*/
+
+.header[role="banner"] {
+  border-bottom: 3px solid #4c8cca;
+  padding-bottom: 1rem;
+}
+
+.header__logo-link {
+  float: left;
+  padding-right: 10px;
+  margin-top: 7px;
+  margin-right: 10px;
+  border-right: 2px solid #4c8cca;
+}
+
+.header__logo {
+  width: 55px;
+  height: auto;
+}
+
+/*—— General content —————————————————————————————————————————————————————————*/
+
+main img {
+  max-width: 100%;
+}
+main ul {
+  margin: 0;
+  padding: 1em 0 0 2em;
+}
+main li {
+}
+main a {
+  color: #4c8cca;
+}
+main code {
+  display: inline-block;
+  padding: 0 .25em;
+  background-color: #eee;
+  color: black;
+  border-radius: 3px;
+}
+main figure {
+  position: relative;
+  padding: 8px 8px 5px 8px;
+  background: #ddd;
+  border-radius: 3px;
+}
+main figure img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+main figcaption {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  max-width: 80%;
+  padding: .666em 1.333em;
+  background: rgba(0,0,0,0.666);
+  color: white;
+  border-radius: 5px 0 0 0;
+}
+
+/*—— Cards ———————————————————————————————————————————————————————————————————*/
+
+.card {
+  margin: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.card-title {
+  margin-bottom: 1rem;
+  color: #444;
+  font-family: "RobotoCondensed-Bold";
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+.card-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.card-actions .btn {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  margin: 0;
+  margin-left: .5rem;
+  opacity: 1;
+  transition: opacity .3333s ease-out;
+}
+
+.card-actions .btn:hover {
+  opacity: .8;
+  transition: opacity .1666s ease-out;
+}
+
+.btn--download {
+  background: url('/icons/icon--download.svg') center no-repeat;
+  background-size: contain;
+}
+
+.btn--share {
+  background: url('/icons/icon--share.svg') center no-repeat;
+  background-size: contain;
+}
+
+
+/*—— Markdown ————————————————————————————————————————————————————————————————*/
+
+.md {
+
+}
+.md p {
+  margin-bottom: 1em;
+}
+.md p img {
+  display: block;
+  margin: 1em 0;
+}
+
+/*—— Footer ——————————————————————————————————————————————————————————————————*/
+
+.footer {
+  border-top: 3px solid #4c8cca;
+  padding-top: 1em;
+  font-size: .85em;
+}
+
+.footer__text {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+
+.footer__links {
+  margin: 0;
+  padding: 0;
+}
+
+.footer__link {
+  display: inline-block;
+  margin-right: 2em;
+}
+.footer__link a {
+  color: hsla(211, 100%, 65%);
+}
