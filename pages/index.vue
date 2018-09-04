@@ -15,7 +15,7 @@
       <h2 class="subtitle">Choose a report (currently using <code>{{ active_content_type }}</code> content-type):</h2>
       <ul class="sitrep-list">
         <li :key="entry.id" v-for="entry in entries">
-          <nuxt-link :to="'/country/' + entry.sys.id">{{ entry.fields.title }}</nuxt-link>
+          <nuxt-link :to="'/country/' + entry.fields.slug">{{ entry.fields.title }}</nuxt-link>
         </li>
       </ul>
     </main>

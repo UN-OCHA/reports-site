@@ -1,13 +1,17 @@
 const config = require('./.contentful.json');
 
 module.exports = {
+  //
+  // Environment variables
+  //
   env: {
     CTF_SPACE_ID: config.CTF_SPACE_ID,
     CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN
   },
-  /*
-  ** Headers of the page
-  */
+  //
+  //
+  // Headers of the page
+  //
   head: {
     title: 'Digital SitRep',
     meta: [
@@ -20,13 +24,13 @@ module.exports = {
       { rel: 'stylesheet', type: 'text/css', href: '/global.css' }
     ]
   },
-  /*
-  ** Customize the progress bar color
-  */
+  //
+  // Customize the progress bar color
+  //
   loading: { color: '#026CB6', height: '6px' },
-  /*
-  **
-  */
+  //
+  // Additional modules for our site
+  //
   modules: [
     '@nuxtjs/markdownit',
     ['@nuxtjs/moment', ['fr']],
@@ -34,13 +38,13 @@ module.exports = {
   markdownit: {
     injected: true
   },
-  /*
-  ** Build configuration
-  */
+  //
+  // Build configuration
+  //
   build: {
-    /*
-    ** Run ESLint on save
-    */
+    //
+    // Run ESLint on save
+    //
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

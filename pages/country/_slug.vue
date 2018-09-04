@@ -45,23 +45,28 @@
   import {createClient} from '~/plugins/contentful.js';
 
   const client = createClient();
+  const active_content_type = 'sitrep';
 
-  // These fields are special purpose and aren't displayed in the primary content
-  const hideFields = ['title', 'dateUpdated', 'footer'];
+  // These are special-purpose and shouldn't be displayed in the main content.
+  const hideFields = ['title', 'dateUpdated', 'footer', 'slug'];
 
   export default {
     validate ({params}) {
-      return typeof params.id === 'string';
+      return typeof params.slug === 'string';
     },
     // `env` is available in the context object
     asyncData ({env, params}) {
       return Promise.all([
-        // fetch single Entry
-        client.getEntry(params.id)
-      ]).then(([entry]) => {
+        // fetch single Entry by slug
+        client.getEntries({
+          'content_type': active_content_type,
+          'fields.slug': params.slug
+        })
+      ]).then(([entries]) => {
         // return data that should be available in the template
+        console.log(entries);
         return {
-          entry: entry,
+          entry: entries.items[0],
           hideFields: hideFields,
         }
       }).catch(console.error)
