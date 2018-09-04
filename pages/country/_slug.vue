@@ -64,7 +64,6 @@
         })
       ]).then(([entries]) => {
         // return data that should be available in the template
-        console.log(entries);
         return {
           entry: entries.items[0],
           hideFields: hideFields,
