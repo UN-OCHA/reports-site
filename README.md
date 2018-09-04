@@ -19,6 +19,8 @@ $ npm start
 $ npm run generate
 ```
 
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+
 ## Contentful setup
 
 All content is stored on Contentful. To access the service you need a [Space ID](https://www.contentful.com/developers/docs/concepts/multiple-environments/)  and a [Content Delivery API key](https://www.contentful.com/developers/docs/references/content-delivery-api/). Place them in a file at the repo root called `.contentful.json`:
@@ -29,6 +31,3 @@ All content is stored on Contentful. To access the service you need a [Space ID]
   "CTF_CDA_ACCESS_TOKEN": "0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqr"
 }
 ```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
-
