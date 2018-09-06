@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="app-bar">
-      <button class="btn btn--toggle">🍔</button>
+      <button class="btn btn--toggle"><span class="element-invisible">Toggle Menu</span></button>
     </nav>
     <header class="container header" role="banner">
       <span class="header__logo-link">
