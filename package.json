@@ -29,5 +29,9 @@
     "eslint-plugin-vue": "^4.0.0",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0"
+  },
+  "engines": {
+    "node": "8.11.4",
+    "npm": "6.4.1"
   }
 }
