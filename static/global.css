@@ -318,6 +318,7 @@ main figcaption {
   border-top: 3px solid #4c8cca;
   padding-top: 1em;
   font-size: .85em;
+  overflow-x: hidden; /* long links shouldn't break layout */
 }
 
 .footer__text {
