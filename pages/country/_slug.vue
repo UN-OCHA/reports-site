@@ -14,19 +14,53 @@
       <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('YYYY-MM-DD') }}</time></span>
     </header>
 
+    <!-- <pre class="container">{{ entry.fields.article }}</pre> -->
     <main class="container">
-      <section class="card"
+      <section class="card card--keyMessages">
+        <h2 class="card__title">Key Messages</h2>
+        <ul>
+          <li :key="message.sys.id" v-for="message in entry.fields.keyMessages" class="card__content">
+            <h4>{{ message.fields.title }}</h4>
+            <div class="md" v-html="$md.render(message.fields.message)"></div>
+          </li>
+        </ul>
+      </section>
+      <section class="card card--keyFigures">
+        <h2 class="card__title">Key Figures</h2>
+        <p>Data TBD as we pull from FTS</p>
+      </section>
+      <section class="card card--image">
+        <h2 class="card__title">{{ entry.fields.image.fields.title }}</h2>
+        <img :src="entry.fields.image.fields.file.url">
+      </section>
+      <section class="card card--contacts">
+        <h3 class="card__title">Contacts</h3>
+        <address :key="contact.sys.id" v-for="contact in entry.fields.contacts" class="card__contact contact">
+          <h4 class="contact__name">{{ contact.fields.name }}</h4>
+          <span class="contact__job-title">{{ contact.fields.jobTitle }}</span><br>
+          <a class="contact__email" :href="'mailto:' + contact.fields.email">{{ contact.fields.email }}</a>
+          <br><br>
+        </address>
+      </section>
+      <section class="card card--article">
+        <h3 class="card__title">Analysis</h3>
+        <div :key="article.sys.id" v-for="article in entry.fields.article" class="card__content">
+          <h4>{{ article.fields.title }}</h4>
+          <div class="md" v-html="$md.render(article.fields.article)"></div>
+        </div>
+      </section>
+      <!-- <section class="card"
         :key="fieldName"
         v-for="(field, fieldName) in entry.fields"
         v-if="!hideFields.includes(fieldName)">
-          <h3 class="card-title">{{ fieldName }}</h3>
-          <!-- {{ field }} -->
+          <h3 class="card__title">{{ fieldName }}</h3>
+          <pre>{{ field }}</pre>
 
-          <!-- <div class="card-actions">
+          <div class="card__actions">
             <button class="btn btn--download" title="Download this card"></button>
             <button class="btn btn--share" title="Share this card"></button>
-          </div> -->
-      </section>
+          </div>
+      </section> -->
     </main>
 
     <footer class="container footer" v-if="entry.fields.footer">
@@ -48,7 +82,7 @@
   const active_content_type = 'sitrep';
 
   // These are special-purpose and shouldn't be displayed in the main content.
-  const hideFields = ['title', 'dateUpdated', 'footer', 'slug'];
+  const hideFields = ['title', 'dateUpdated', 'footer', 'slug', 'keyMessages', 'keyFigures', 'contacts'];
 
   export default {
     validate ({params}) {

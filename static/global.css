@@ -259,7 +259,7 @@ main figcaption {
   position: relative;
 }
 
-.card-title {
+.card__title {
   margin-bottom: 1rem;
   color: #444;
   font-family: "RobotoCondensed-Bold";
@@ -267,13 +267,13 @@ main figcaption {
   text-transform: uppercase;
 }
 
-.card-actions {
+.card__actions {
   position: absolute;
   top: 1rem;
   right: 1rem;
 }
 
-.card-actions .btn {
+.card__actions .btn {
   width: 1rem;
   height: 1rem;
   border: 0;
@@ -283,7 +283,7 @@ main figcaption {
   transition: opacity .3333s ease-out;
 }
 
-.card-actions .btn:hover {
+.card__actions .btn:hover {
   opacity: .8;
   transition: opacity .1666s ease-out;
 }
@@ -337,4 +337,56 @@ main figcaption {
 }
 .footer__link a {
   color: hsla(211, 100%, 65%);
+}
+
+
+/*—— Grid for main content ———————————————————————————————————————————————————*/
+
+@supports (display: grid) {
+  @media (min-width: 900px) {
+    main {
+      display: grid;
+      grid-template-areas: "keyMessages keyFigures"
+                           "keyMessages image"
+                           "keyMessages contacts"
+                           "everythingElse everythingElse";
+      grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);
+      grid-template-columns: 2fr 1fr;
+      grid-gap: 1rem;
+    }
+
+    /* by default assign all cards to EverythingElse region */
+    .card {
+      grid-area: everythingElse;
+      margin-bottom: 0;
+    }
+
+    /* drop selected cards into their homes */
+    .card--keyMessages {
+      grid-area: keyMessages;
+    }
+    .card--keyFigures {
+      grid-area: keyFigures;
+    }
+    .card--image {
+      grid-area: image;
+    }
+    .card--contacts {
+      grid-area: contacts;
+    }
+  }
+}
+
+
+.contact {
+  font-style: normal;
+}
+.contact__name {
+
+}
+.contact__job-title {
+  color: #999;
+}
+.contact__email {
+
 }
