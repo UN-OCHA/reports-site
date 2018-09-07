@@ -3,7 +3,8 @@ version: '2.1'
 services: 
 
   app:
-    image: unocha/reports-site:dev
+    # image: unocha/reports-site:dev
+    build: .
     ports:
     - 3000:3000
     environment:

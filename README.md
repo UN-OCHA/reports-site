@@ -31,3 +31,17 @@ All content is stored on Contentful. To access the service you need a [Space ID]
   "CTF_CDA_ACCESS_TOKEN": "0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqr"
 }
 ```
+
+## Use it with docker
+
+Use
+
+  `docker-compose up -d`
+
+then access it on http://localhost:3000
+
+If this is the first time you run it, it will build locally the image first.
+To rebuild the docker image and restart the application, use
+
+  `docker-compose build; docker-compose up -d`
+
