@@ -1,12 +1,14 @@
-const config = require('./.contentful.json');
+// const config = require('./.contentful.json');
 
 module.exports = {
   //
   // Environment variables
   //
   env: {
-    CTF_SPACE_ID: config.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN
+    // CTF_SPACE_ID: config.CTF_SPACE_ID,
+    // CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
   },
   //
   //
