@@ -1,14 +1,11 @@
-// const config = require('./.contentful.json');
+// Load current contents of .env file
+require('dotenv').config();
 
 module.exports = {
   //
   // Environment variables
   //
   env: {
-    // CTF_SPACE_ID: config.CTF_SPACE_ID,
-    // CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
   },
   //
   //
@@ -34,6 +31,7 @@ module.exports = {
   // Additional modules for our site
   //
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
     ['@nuxtjs/moment', ['fr']],
   ],
