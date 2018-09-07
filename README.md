@@ -34,11 +34,14 @@ All content is stored on Contentful. To access the service you need a [Space ID]
 
 ## Use it with docker
 
-Set your CTF variables in the `.env` file. Use
+Set your CTF variables in an `.env` file:
 
-  `docker-compose up -d`
+```
+echo "CTF_SPACE_ID=0123456789ab" > .env
+echo "CTF_CDA_ACCESS_TOKEN=0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqr" >> .env
+```
 
-then access it on http://localhost:3000
+Use `docker-compose up -d` then access it on http://localhost:3000
 
 If this is the first time you run it, it will build locally the image first.
 To rebuild the docker image and restart the application, use
