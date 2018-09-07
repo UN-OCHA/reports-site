@@ -15,7 +15,7 @@
     </header>
 
     <!-- <pre class="container">{{ entry.fields.article }}</pre> -->
-    <main class="container">
+    <main class="container report">
       <section class="card card--keyMessages">
         <h2 class="card__title">Key Messages</h2>
         <ul>
@@ -108,6 +108,41 @@
 </script>
 
 <style>
+/*—— Report ——————————————————————————————————————————————————————————————————*/
 
+@supports (display: grid) {
+  @media (min-width: 900px) {
+    .report {
+      display: grid;
+      grid-template-areas: "keyMessages keyFigures"
+                           "keyMessages image"
+                           "keyMessages contacts"
+                           "everythingElse everythingElse";
+      /*grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);*/
+      grid-template-columns: 2fr 1fr;
+      grid-gap: 1rem;
+    }
+
+    /* by default assign all cards to EverythingElse region */
+    .card {
+      grid-area: everythingElse;
+      margin-bottom: 0;
+    }
+
+    /* drop selected cards into their homes */
+    .card--keyMessages {
+      grid-area: keyMessages;
+    }
+    .card--keyFigures {
+      grid-area: keyFigures;
+    }
+    .card--image {
+      grid-area: image;
+    }
+    .card--contacts {
+      grid-area: contacts;
+    }
+  }
+}
 </style>
 

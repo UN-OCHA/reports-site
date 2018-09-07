@@ -312,6 +312,23 @@ main figcaption {
   margin: 1em 0;
 }
 
+
+/*—— Card: Contacts ——————————————————————————————————————————————————————————*/
+
+.contact {
+  font-style: normal;
+}
+.contact__name {
+
+}
+.contact__job-title {
+  color: #999;
+}
+.contact__email {
+
+}
+
+
 /*—— Footer ——————————————————————————————————————————————————————————————————*/
 
 .footer {
@@ -337,56 +354,4 @@ main figcaption {
 }
 .footer__link a {
   color: hsla(211, 100%, 65%);
-}
-
-
-/*—— Grid for main content ———————————————————————————————————————————————————*/
-
-@supports (display: grid) {
-  @media (min-width: 900px) {
-    main {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages image"
-                           "keyMessages contacts"
-                           "everythingElse everythingElse";
-      grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);
-      grid-template-columns: 2fr 1fr;
-      grid-gap: 1rem;
-    }
-
-    /* by default assign all cards to EverythingElse region */
-    .card {
-      grid-area: everythingElse;
-      margin-bottom: 0;
-    }
-
-    /* drop selected cards into their homes */
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--image {
-      grid-area: image;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
-  }
-}
-
-
-.contact {
-  font-style: normal;
-}
-.contact__name {
-
-}
-.contact__job-title {
-  color: #999;
-}
-.contact__email {
-
 }

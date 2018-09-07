@@ -53,6 +53,12 @@
 </script>
 
 <style>
-
+@supports (display: grid) {
+  @media (min-width: 900px) {
+    main {
+      display: block;
+    }
+  }
+}
 </style>
 
