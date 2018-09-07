@@ -1,0 +1,11 @@
+version: '2.1'
+
+services: 
+
+  app:
+    image: unocha/reports-site:dev
+    ports:
+    - 3000:3000
+    environment:
+      CTF_SPACE_ID:
+      CTF_CDA_ACCESS_TOKEN:
