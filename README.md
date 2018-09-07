@@ -34,7 +34,7 @@ All content is stored on Contentful. To access the service you need a [Space ID]
 
 ## Use it with docker
 
-Use
+Set your CTF variables in the `.env` file. Use
 
   `docker-compose up -d`
 
