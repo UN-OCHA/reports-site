@@ -6,3 +6,9 @@ ENV CTF_SPACE_ID=0123456789ab \
 WORKDIR /srv/www
 
 COPY . .
+
+RUN apk add -U ncurses && \
+    npm install && \
+    npm run-script build && \
+    mv run_node /etc/services.d/node/run
+
