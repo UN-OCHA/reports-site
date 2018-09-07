@@ -8,5 +8,5 @@ services:
     ports:
     - 3000:3000
     environment:
-      CTF_SPACE_ID: '0123456789ab'
-      CTF_CDA_ACCESS_TOKEN: '0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqr'
+      CTF_SPACE_ID:
+      CTF_CDA_ACCESS_TOKEN:
