@@ -14,7 +14,6 @@
       <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('YYYY-MM-DD') }}</time></span>
     </header>
 
-    <!-- <pre class="container">{{ entry.fields.article }}</pre> -->
     <main class="container report">
       <section class="card card--keyMessages">
         <h2 class="card__title">Key Messages</h2>
@@ -28,10 +27,6 @@
       <section class="card card--keyFigures">
         <h2 class="card__title">Key Figures</h2>
         <p>Data TBD as we pull from FTS</p>
-      </section>
-      <section class="card card--image">
-        <h2 class="card__title">{{ entry.fields.image.fields.title }}</h2>
-        <img :src="entry.fields.image.fields.file.url">
       </section>
       <section class="card card--contacts">
         <h3 class="card__title">Contacts</h3>
@@ -49,18 +44,6 @@
           <div class="md" v-html="$md.render(article.fields.article)"></div>
         </div>
       </section>
-      <!-- <section class="card"
-        :key="fieldName"
-        v-for="(field, fieldName) in entry.fields"
-        v-if="!hideFields.includes(fieldName)">
-          <h3 class="card__title">{{ fieldName }}</h3>
-          <pre>{{ field }}</pre>
-
-          <div class="card__actions">
-            <button class="btn btn--download" title="Download this card"></button>
-            <button class="btn btn--share" title="Share this card"></button>
-          </div>
-      </section> -->
     </main>
 
     <footer class="container footer" v-if="entry.fields.footer">
@@ -81,9 +64,6 @@
   const client = createClient();
   const active_content_type = 'sitrep';
 
-  // These are special-purpose and shouldn't be displayed in the main content.
-  const hideFields = ['title', 'dateUpdated', 'footer', 'slug', 'keyMessages', 'keyFigures', 'contacts'];
-
   export default {
     validate ({params}) {
       return typeof params.slug === 'string';
@@ -93,14 +73,14 @@
       return Promise.all([
         // fetch single Entry by slug
         client.getEntries({
+          'include': 4,
           'content_type': active_content_type,
-          'fields.slug': params.slug
+          'fields.slug': params.slug,
         })
       ]).then(([entries]) => {
         // return data that should be available in the template
         return {
-          entry: entries.items[0],
-          hideFields: hideFields,
+          entry: entries.items[0]
         }
       }).catch(console.error)
     }
