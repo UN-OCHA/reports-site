@@ -15,17 +15,22 @@
     </header>
 
     <main class="container report">
-      <section class="card card--keyMessages">
+      <section class="card card--keyMessageSection key-messages">
         <h2 class="card__title">Key Messages</h2>
-        <ul>
-          <li :key="message.sys.id" v-for="message in entry.fields.keyMessages" class="card__content">
+        <ul class="key-messages__message-list">
+          <li :key="message.sys.id" v-for="message in entry.fields.keyMessageSection.fields.keyMessages" class="key-messages__message">
             <h4>{{ message.fields.title }}</h4>
             <div class="md" v-html="$md.render(message.fields.message)"></div>
           </li>
         </ul>
+        <img class="key-messages__image" :src="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.file.url" :alt="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.description">
       </section>
       <section class="card card--keyFigures">
         <h2 class="card__title">Key Figures</h2>
+        <p>Data TBD</p>
+      </section>
+      <section class="card card--keyFinancials">
+        <h2 class="card__title">Key Financials</h2>
         <p>Data TBD as we pull from FTS</p>
       </section>
       <section class="card card--contacts">
@@ -95,7 +100,7 @@
     .report {
       display: grid;
       grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages image"
+                           "keyMessages keyFinancials"
                            "keyMessages contacts"
                            "everythingElse everythingElse";
       /*grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);*/
@@ -110,19 +115,39 @@
     }
 
     /* drop selected cards into their homes */
-    .card--keyMessages {
+    .card--keyMessageSection {
       grid-area: keyMessages;
     }
     .card--keyFigures {
       grid-area: keyFigures;
     }
-    .card--image {
-      grid-area: image;
+    .card--keyFinancials {
+      grid-area: keyFinancials;
     }
     .card--contacts {
       grid-area: contacts;
     }
   }
+}
+
+.key-messages {
+
+}
+.key-messages__message-list {
+  width: 50%;
+  float: left;
+}
+.key-messages__message {
+  margin-right: 1rem;
+}
+.key-messages__image {
+  width: 50%;
+  float: right;
+}
+.key-messages::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 </style>
 
