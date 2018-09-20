@@ -16,16 +16,7 @@
 
     <!-- <pre class="container">{{ entry.fields.keyMessageSection }}</pre> -->
     <main class="container report">
-      <section class="card card--keyMessageSection key-messages">
-        <h2 class="card__title">Key Messages</h2>
-        <ul class="key-messages__message-list">
-          <li :key="message.sys.id" v-for="message in entry.fields.keyMessageSection.fields.keyMessages" class="key-messages__message">
-            <h4>{{ message.fields.title }}</h4>
-            <div class="md" v-html="$md.render(message.fields.message)"></div>
-          </li>
-        </ul>
-        <img class="key-messages__image" :src="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.file.url" :alt="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.description">
-      </section>
+      <KeyMessages :content="entry.fields.keyMessageSection"></KeyMessages>
 
       <section class="card card--keyFigures">
         <h2 class="card__title">Key Figures</h2>
@@ -69,15 +60,18 @@
 
 <script>
   import {createClient} from '~/plugins/contentful.js';
+  import KeyMessages from '~/components/KeyMessages';
 
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
+    // Validate the country slug using this function.
     validate ({params}) {
       return typeof params.slug === 'string';
     },
-    // `env` is available in the context object
+
+    // Nuxt uses this to make async API calls to Contentful during SSR.
     asyncData ({env, params}) {
       return Promise.all([
         // fetch single Entry by slug
@@ -92,6 +86,11 @@
           entry: entries.items[0]
         }
       }).catch(console.error)
+    },
+
+    // Declare any components we're using here
+    components: {
+      KeyMessages
     }
   }
 </script>
@@ -107,7 +106,7 @@
                            "keyMessages keyFinancials"
                            "keyMessages contacts"
                            "everythingElse everythingElse";
-      grid-template-rows: repeat(3, 1fr) minmax(150px, max-content);
+      grid-template-rows: repeat(3, 1fr) minmax(120px, max-content);
       grid-template-columns: 2fr 1fr;
       grid-gap: 1rem;
     }
@@ -139,26 +138,6 @@
       margin-bottom: 1rem;
     }
   }
-}
-
-.key-messages {
-
-}
-.key-messages__message-list {
-  width: 50%;
-  float: left;
-}
-.key-messages__message {
-  margin-right: 1rem;
-}
-.key-messages__image {
-  width: 50%;
-  float: right;
-}
-.key-messages::after {
-  content: '';
-  display: table;
-  clear: both;
 }
 </style>
 
