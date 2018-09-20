@@ -14,6 +14,7 @@
       <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('YYYY-MM-DD') }}</time></span>
     </header>
 
+    <!-- <pre class="container">{{ entry.fields.keyMessageSection }}</pre> -->
     <main class="container report">
       <section class="card card--keyMessageSection key-messages">
         <h2 class="card__title">Key Messages</h2>

@@ -355,3 +355,9 @@ main figcaption {
 .footer__link a {
   color: hsla(211, 100%, 65%);
 }
+
+/*—— DevTools ————————————————————————————————————————————————————————————————*/
+
+pre {
+  background: repeating-linear-gradient(to right, #eee 0, #eee 15px, #ddd 15px, #ddd 30px);
+}
