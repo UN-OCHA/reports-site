@@ -25,14 +25,17 @@
         </ul>
         <img class="key-messages__image" :src="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.file.url" :alt="entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.description">
       </section>
+
       <section class="card card--keyFigures">
         <h2 class="card__title">Key Figures</h2>
         <p>Data TBD</p>
       </section>
+
       <section class="card card--keyFinancials">
         <h2 class="card__title">Key Financials</h2>
         <p>Data TBD as we pull from FTS</p>
       </section>
+
       <section class="card card--contacts">
         <h3 class="card__title">Contacts</h3>
         <address :key="contact.sys.id" v-for="contact in entry.fields.contacts" class="card__contact contact">
@@ -42,12 +45,12 @@
           <br><br>
         </address>
       </section>
-      <section class="card card--article">
-        <h3 class="card__title">Analysis</h3>
-        <div :key="article.sys.id" v-for="article in entry.fields.article" class="card__content">
-          <h4>{{ article.fields.title }}</h4>
+
+      <section class="section--everythingElse">
+        <article :key="article.sys.id" v-for="article in entry.fields.article"  class="card card--article">
+          <h3 class="card__title">{{ article.fields.title }}</h3>
           <div class="md" v-html="$md.render(article.fields.article)"></div>
-        </div>
+        </article>
       </section>
     </main>
 
@@ -103,18 +106,17 @@
                            "keyMessages keyFinancials"
                            "keyMessages contacts"
                            "everythingElse everythingElse";
-      /*grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);*/
+      grid-template-rows: repeat(3, 1fr) minmax(150px, max-content);
       grid-template-columns: 2fr 1fr;
       grid-gap: 1rem;
     }
 
-    /* by default assign all cards to EverythingElse region */
+    /* Card defaults */
     .card {
-      grid-area: everythingElse;
       margin-bottom: 0;
     }
 
-    /* drop selected cards into their homes */
+    /* Drop selected cards into their homes */
     .card--keyMessageSection {
       grid-area: keyMessages;
     }
@@ -126,6 +128,14 @@
     }
     .card--contacts {
       grid-area: contacts;
+    }
+
+    /* Assign all cards to EverythingElse region */
+    .section--everythingElse {
+      grid-area: everythingElse;
+    }
+    .section--everythingElse .card {
+      margin-bottom: 1rem;
     }
   }
 }
