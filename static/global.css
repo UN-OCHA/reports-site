@@ -89,34 +89,6 @@ body {
   }
 }
 
-.title {
-  display: block;
-  color: #4c8cca;
-  font-family: "RobotoCondensed-Bold", sans-serif; /* @TODO: local font must be served publicly */
-  font-weight: 700;
-  font-size: 1.8em;
-  text-transform: uppercase;
-}
-
-.subtitle {
-  display: block;
-  font-family: "RobotoCondensed-Regular", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  color: #4c8cca;
-}
-
-.last-updated {
-  display: block;
-  font-family: "RobotoCondensed-Italic", sans-serif;
-  font-weight: 400;
-  font-size: 1em;
-  color: #4c8cca;
-}
-.last-updated::first-letter {
-  text-transform: capitalize;
-}
-
 
 [class*="viz--"] {
   display: none;
@@ -126,26 +98,6 @@ body {
   .viz--480 {
     display: initial;
   }
-}
-
-/*—— SitRep Header ———————————————————————————————————————————————————————————*/
-
-.header[role="banner"] {
-  border-bottom: 3px solid #4c8cca;
-  padding-bottom: 1rem;
-}
-
-.header__logo-link {
-  float: left;
-  padding-right: 10px;
-  margin-top: 7px;
-  margin-right: 10px;
-  border-right: 2px solid #4c8cca;
-}
-
-.header__logo {
-  width: 55px;
-  height: auto;
 }
 
 /*—— General content —————————————————————————————————————————————————————————*/
