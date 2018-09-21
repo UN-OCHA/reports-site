@@ -8,15 +8,14 @@ module.exports = {
   env: {
   },
   //
-  //
-  // Headers of the page
+  // Global <head> metadata
   //
   head: {
-    title: 'Digital SitRep',
+    title: 'Digital Situation Report',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Digital SitRep' }
+      { name: 'description', content: 'Digital Situation Report' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
