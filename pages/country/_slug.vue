@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppBar />
-    <HeaderLeft :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
+    <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
     <main class="container report">
       <KeyMessages :content="entry.fields.keyMessageSection" />
@@ -26,8 +26,8 @@
 
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
+  import AppHeader from '~/components/AppHeader';
   import Contacts from '~/components/Contacts';
-  import HeaderLeft from '~/components/HeaderLeft';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
@@ -40,8 +40,8 @@
     components: {
       AppBar,
       AppFooter,
+      AppHeader,
       Contacts,
-      HeaderLeft,
       KeyFigures,
       KeyFinancials,
       KeyMessages
