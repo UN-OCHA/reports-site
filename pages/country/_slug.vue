@@ -1,11 +1,11 @@
 <template>
   <div>
-    <AppBar></AppBar>
-    <HeaderLeft :title="entry.fields.title" :updated="entry.fields.dateUpdated"></HeaderLeft>
+    <AppBar />
+    <HeaderLeft :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
     <main class="container report">
-      <KeyMessages :content="entry.fields.keyMessageSection"></KeyMessages>
-      <KeyFigures></KeyFigures>
+      <KeyMessages :content="entry.fields.keyMessageSection" />
+      <KeyFigures />
       <KeyFinancials />
 
       <section class="card card--contacts">
