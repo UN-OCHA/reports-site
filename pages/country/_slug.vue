@@ -4,10 +4,12 @@
     <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
     <main class="container report">
-      <KeyMessages :content="entry.fields.keyMessageSection" />
-      <KeyFigures />
-      <KeyFinancials />
-      <Contacts :contacts="entry.fields.contacts" />
+      <section class="section--primary">
+        <KeyMessages :content="entry.fields.keyMessageSection" />
+        <KeyFigures />
+        <KeyFinancials />
+        <Contacts :contacts="entry.fields.contacts" />
+      </section>
 
       <section class="section--everythingElse">
         <Articles :articles="entry.fields.article" />
@@ -74,19 +76,19 @@
 
 @supports (display: grid) {
   @media (min-width: 900px) {
-    .report {
+    .section--primary {
       display: grid;
       grid-template-areas: "keyMessages keyFigures"
                            "keyMessages keyFinancials"
-                           "keyMessages contacts"
-                           "everythingElse everythingElse";
-      grid-template-rows: repeat(3, 1fr) minmax(120px, max-content);
+                           "keyMessages contacts";
+      grid-template-rows: repeat(3, 1fr);
       grid-template-columns: 2fr 1fr;
       grid-gap: 1rem;
+      margin-bottom: 1rem;
     }
 
-    /* Card defaults */
-    .card {
+    /* Primary Card defaults */
+    .section--primary .card {
       margin-bottom: 0;
     }
 
@@ -104,9 +106,8 @@
       grid-area: contacts;
     }
 
-    /* Assign all cards to EverythingElse region */
+    /* All other cards will appear in EverythingElse section */
     .section--everythingElse {
-      grid-area: everythingElse;
     }
     .section--everythingElse .card {
       margin-bottom: 1rem;
