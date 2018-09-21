@@ -210,22 +210,6 @@ main figcaption {
   margin: 1em 0;
 }
 
-
-/*—— Card: Contacts ——————————————————————————————————————————————————————————*/
-
-.contact {
-  font-style: normal;
-}
-.contact__name {
-
-}
-.contact__job-title {
-  color: #999;
-}
-.contact__email {
-
-}
-
 /*—— DevTools ————————————————————————————————————————————————————————————————*/
 
 pre {
