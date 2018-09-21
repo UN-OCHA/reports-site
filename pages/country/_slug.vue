@@ -7,16 +7,7 @@
       <KeyMessages :content="entry.fields.keyMessageSection" />
       <KeyFigures />
       <KeyFinancials />
-
-      <section class="card card--contacts">
-        <h3 class="card__title">Contacts</h3>
-        <address :key="contact.sys.id" v-for="contact in entry.fields.contacts" class="card__contact contact">
-          <h4 class="contact__name">{{ contact.fields.name }}</h4>
-          <span class="contact__job-title">{{ contact.fields.jobTitle }}</span><br>
-          <a class="contact__email" :href="'mailto:' + contact.fields.email">{{ contact.fields.email }}</a>
-          <br><br>
-        </address>
-      </section>
+      <Contacts :contacts="entry.fields.contacts" />
 
       <section class="section--everythingElse">
         <article :key="article.sys.id" v-for="article in entry.fields.article"  class="card card--article">
@@ -42,6 +33,7 @@
   import {createClient} from '~/plugins/contentful.js';
 
   import AppBar from '~/components/AppBar';
+  import Contacts from '~/components/Contacts';
   import HeaderLeft from '~/components/HeaderLeft';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
@@ -54,6 +46,7 @@
     // Declare any components we're using here
     components: {
       AppBar,
+      Contacts,
       HeaderLeft,
       KeyFigures,
       KeyFinancials,
