@@ -19,8 +19,6 @@
 </template>
 
 <script>
-  import {createClient} from '~/plugins/contentful.js';
-
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
@@ -30,6 +28,7 @@
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
 
+  import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 

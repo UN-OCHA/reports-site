@@ -3,9 +3,13 @@
     <nuxt-link to="/" class="logo-link">
       <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
     </nuxt-link>
-    <h1 class="title" v-text="title"></h1>
+
+    <h1 class="title" v-if="title">{{ title }}</h1>
+    <h1 class="title" v-else>UN OCHA</h1>
+
     <span class="subtitle">Situation Report</span>
-    <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+    <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+    <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
   </header>
 </template>
 

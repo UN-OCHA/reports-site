@@ -1,16 +1,8 @@
 <template>
   <div>
-    <nav class="app-bar">
-      <button class="btn btn--toggle"><span class="element-invisible">Toggle Menu</span></button>
-    </nav>
-    <header class="container header" role="banner">
-      <span class="header__logo-link">
-        <img class="header__logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
-      </span>
-      <h1 class="title">reports.unocha.org</h1>
-      <span class="subtitle">Situation Report</span>
-      <span class="last-updated">no timestamp on homepage</span>
-    </header>
+    <AppBar />
+    <AppHeader />
+
     <main class="container">
       <h2 class="subtitle">Choose a report (currently using <code>{{ active_content_type }}</code> content-type):</h2>
       <ul class="sitrep-list">
@@ -26,12 +18,20 @@
 </template>
 
 <script>
-  import {createClient} from '~/plugins/contentful.js';
+  import AppBar from '~/components/AppBar';
+  import AppHeader from '~/components/AppHeader';
 
+  import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
+    // Declare any components we're using here
+    components: {
+      AppBar,
+      AppHeader,
+    },
+
     // `env` is available in the context object
     asyncData ({env}) {
       return Promise.all([
