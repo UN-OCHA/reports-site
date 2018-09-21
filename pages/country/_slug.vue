@@ -1,10 +1,6 @@
 <template>
   <div>
-
-    <nav class="app-bar">
-      <button class="btn btn--toggle" title="Toggle menu"><span class="element-invisible">Toggle menu</span></button>
-    </nav>
-
+    <AppBar></AppBar>
     <header class="container header" role="banner">
       <nuxt-link to="/" class="header__logo-link">
         <img class="header__logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
@@ -60,12 +56,20 @@
 
 <script>
   import {createClient} from '~/plugins/contentful.js';
+
+  import AppBar from '~/components/AppBar';
   import KeyMessages from '~/components/KeyMessages';
 
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
+    // Declare any components we're using here
+    components: {
+      AppBar,
+      KeyMessages
+    },
+
     // Validate the country slug using this function.
     validate ({params}) {
       return typeof params.slug === 'string';
@@ -86,11 +90,6 @@
           entry: entries.items[0]
         }
       }).catch(console.error)
-    },
-
-    // Declare any components we're using here
-    components: {
-      KeyMessages
     }
   }
 </script>
