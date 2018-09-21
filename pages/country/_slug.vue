@@ -10,10 +10,7 @@
       <Contacts :contacts="entry.fields.contacts" />
 
       <section class="section--everythingElse">
-        <article :key="article.sys.id" v-for="article in entry.fields.article"  class="card card--article">
-          <h3 class="card__title">{{ article.fields.title }}</h3>
-          <div class="md" v-html="$md.render(article.fields.article)"></div>
-        </article>
+        <Articles :articles="entry.fields.article" />
       </section>
     </main>
 
@@ -27,6 +24,7 @@
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
+  import Articles from '~/components/Articles';
   import Contacts from '~/components/Contacts';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
@@ -41,6 +39,7 @@
       AppBar,
       AppFooter,
       AppHeader,
+      Articles,
       Contacts,
       KeyFigures,
       KeyFinancials,
