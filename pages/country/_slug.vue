@@ -17,15 +17,7 @@
       </section>
     </main>
 
-    <footer class="container footer" v-if="entry.fields.footer">
-      <p class="footer__text">{{ entry.fields.footer.fields.defaultFooterText }}</p>
-      <ul class="footer__links">
-        <li class="footer__link" v-if="entry.fields.footer.fields.relatedLink"><a :href="entry.fields.footer.fields.relatedLink" target="_blank" rel="noopener">{{ entry.fields.footer.fields.relatedLink }}</a></li>
-        <li class="footer__link" v-if="entry.fields.footer.fields.relatedLink2"><a :href="entry.fields.footer.fields.relatedLink2" target="_blank" rel="noopener">{{ entry.fields.footer.fields.relatedLink2 }}</a></li>
-        <li class="footer__link"><a href="https://www.reliefweb.int" target="_blank" rel="noopener">https://www.reliefweb.int</a></li>
-      </ul>
-    </footer>
-
+    <AppFooter :footer="entry.fields.footer" />
   </div>
 </template>
 
@@ -33,6 +25,7 @@
   import {createClient} from '~/plugins/contentful.js';
 
   import AppBar from '~/components/AppBar';
+  import AppFooter from '~/components/AppFooter';
   import Contacts from '~/components/Contacts';
   import HeaderLeft from '~/components/HeaderLeft';
   import KeyFigures from '~/components/KeyFigures';
@@ -46,6 +39,7 @@
     // Declare any components we're using here
     components: {
       AppBar,
+      AppFooter,
       Contacts,
       HeaderLeft,
       KeyFigures,
