@@ -6,11 +6,7 @@
     <main class="container report">
       <KeyMessages :content="entry.fields.keyMessageSection"></KeyMessages>
       <KeyFigures></KeyFigures>
-
-      <section class="card card--keyFinancials">
-        <h2 class="card__title">Key Financials</h2>
-        <p>Data TBD as we pull from FTS</p>
-      </section>
+      <KeyFinancials />
 
       <section class="card card--contacts">
         <h3 class="card__title">Contacts</h3>
@@ -48,6 +44,7 @@
   import AppBar from '~/components/AppBar';
   import HeaderLeft from '~/components/HeaderLeft';
   import KeyFigures from '~/components/KeyFigures';
+  import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
 
   const client = createClient();
@@ -59,6 +56,7 @@
       AppBar,
       HeaderLeft,
       KeyFigures,
+      KeyFinancials,
       KeyMessages
     },
 
