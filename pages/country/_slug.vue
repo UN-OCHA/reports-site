@@ -5,11 +5,7 @@
 
     <main class="container report">
       <KeyMessages :content="entry.fields.keyMessageSection"></KeyMessages>
-
-      <section class="card card--keyFigures">
-        <h2 class="card__title">Key Figures</h2>
-        <p>Data TBD</p>
-      </section>
+      <KeyFigures></KeyFigures>
 
       <section class="card card--keyFinancials">
         <h2 class="card__title">Key Financials</h2>
@@ -51,6 +47,7 @@
 
   import AppBar from '~/components/AppBar';
   import HeaderLeft from '~/components/HeaderLeft';
+  import KeyFigures from '~/components/KeyFigures';
   import KeyMessages from '~/components/KeyMessages';
 
   const client = createClient();
@@ -61,6 +58,7 @@
     components: {
       AppBar,
       HeaderLeft,
+      KeyFigures,
       KeyMessages
     },
 
