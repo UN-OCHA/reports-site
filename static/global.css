@@ -262,7 +262,7 @@ main figcaption {
 .card__title {
   margin-bottom: 1rem;
   color: #444;
-  font-family: "RobotoCondensed-Bold";
+  font-family: "RobotoCondensed-Bold", sans-serif;
   font-size: 17px;
   text-transform: uppercase;
 }
