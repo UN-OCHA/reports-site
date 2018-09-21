@@ -1,16 +1,8 @@
 <template>
   <div>
     <AppBar></AppBar>
-    <header class="container header" role="banner">
-      <nuxt-link to="/" class="header__logo-link">
-        <img class="header__logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
-      </nuxt-link>
-      <h1 class="title">{{ entry.fields.title }}</h1>
-      <span class="subtitle">Situation Report</span>
-      <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('YYYY-MM-DD') }}</time></span>
-    </header>
+    <HeaderLeft :title="entry.fields.title" :updated="entry.fields.dateUpdated"></HeaderLeft>
 
-    <!-- <pre class="container">{{ entry.fields.keyMessageSection }}</pre> -->
     <main class="container report">
       <KeyMessages :content="entry.fields.keyMessageSection"></KeyMessages>
 
@@ -58,6 +50,7 @@
   import {createClient} from '~/plugins/contentful.js';
 
   import AppBar from '~/components/AppBar';
+  import HeaderLeft from '~/components/HeaderLeft';
   import KeyMessages from '~/components/KeyMessages';
 
   const client = createClient();
@@ -67,6 +60,7 @@
     // Declare any components we're using here
     components: {
       AppBar,
+      HeaderLeft,
       KeyMessages
     },
 
