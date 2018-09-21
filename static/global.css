@@ -89,34 +89,6 @@ body {
   }
 }
 
-.title {
-  display: block;
-  color: #4c8cca;
-  font-family: "RobotoCondensed-Bold", sans-serif; /* @TODO: local font must be served publicly */
-  font-weight: 700;
-  font-size: 1.8em;
-  text-transform: uppercase;
-}
-
-.subtitle {
-  display: block;
-  font-family: "RobotoCondensed-Regular", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  color: #4c8cca;
-}
-
-.last-updated {
-  display: block;
-  font-family: "RobotoCondensed-Italic", sans-serif;
-  font-weight: 400;
-  font-size: 1em;
-  color: #4c8cca;
-}
-.last-updated::first-letter {
-  text-transform: capitalize;
-}
-
 
 [class*="viz--"] {
   display: none;
@@ -126,81 +98,6 @@ body {
   .viz--480 {
     display: initial;
   }
-}
-
-/*—— App —————————————————————————————————————————————————————————————————————*/
-
-.app-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: auto;
-  height: 3rem;
-  padding: .5rem 1rem;
-  background: #4c8cca;
-}
-
-.app-bar .btn--toggle {
-  width: 2rem;
-  height: 2rem;
-  border: 0;
-  color: white;
-  background: transparent url('/icons/icon--hamburger.svg') center no-repeat;
-  background-size: contain;
-  cursor: pointer;
-}
-
-@media (min-width: 600px) {
-  .app-bar {
-    right: auto;
-    bottom: 0;
-    width: 4rem;
-    height: auto;
-    padding: 2rem 1rem;
-  }
-  .app-bar .btn--toggle {
-    width: 100%;
-  }
-}
-
-/* BEGIN FUN: just for funsies, definitely revamp this :) */
-.app-bar .btn--toggle:focus {
-  animation: btn--toggle 1s ease-in-out 1;
-  outline: 0;
-}
-
-@keyframes btn--toggle {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  6% {
-    transform: rotate(0deg) scale(1.5);
-  }
-  24% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-/* END FUN: just for funsies, definitely revamp this :) */
-
-/*—— SitRep Header ———————————————————————————————————————————————————————————*/
-
-.header[role="banner"] {
-  border-bottom: 3px solid #4c8cca;
-  padding-bottom: 1rem;
-}
-
-.header__logo-link {
-  float: left;
-  padding-right: 10px;
-  margin-top: 7px;
-  margin-right: 10px;
-  border-right: 2px solid #4c8cca;
-}
-
-.header__logo {
-  width: 55px;
-  height: auto;
 }
 
 /*—— General content —————————————————————————————————————————————————————————*/
@@ -235,6 +132,7 @@ main figure img {
   height: auto;
   margin: 0;
   padding: 0;
+  border-radius: 5px;
 }
 main figcaption {
   position: absolute;
@@ -262,7 +160,7 @@ main figcaption {
 .card__title {
   margin-bottom: 1rem;
   color: #444;
-  font-family: "RobotoCondensed-Bold";
+  font-family: "RobotoCondensed-Bold", sans-serif;
   font-size: 17px;
   text-transform: uppercase;
 }
@@ -312,81 +210,8 @@ main figcaption {
   margin: 1em 0;
 }
 
-/*—— Footer ——————————————————————————————————————————————————————————————————*/
+/*—— DevTools ————————————————————————————————————————————————————————————————*/
 
-.footer {
-  border-top: 3px solid #4c8cca;
-  padding-top: 1em;
-  font-size: .85em;
-  overflow-x: hidden; /* long links shouldn't break layout */
-}
-
-.footer__text {
-  font-style: italic;
-  margin-bottom: 1em;
-}
-
-.footer__links {
-  margin: 0;
-  padding: 0;
-}
-
-.footer__link {
-  display: inline-block;
-  margin-right: 2em;
-}
-.footer__link a {
-  color: hsla(211, 100%, 65%);
-}
-
-
-/*—— Grid for main content ———————————————————————————————————————————————————*/
-
-@supports (display: grid) {
-  @media (min-width: 900px) {
-    main {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages image"
-                           "keyMessages contacts"
-                           "everythingElse everythingElse";
-      grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);
-      grid-template-columns: 2fr 1fr;
-      grid-gap: 1rem;
-    }
-
-    /* by default assign all cards to EverythingElse region */
-    .card {
-      grid-area: everythingElse;
-      margin-bottom: 0;
-    }
-
-    /* drop selected cards into their homes */
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--image {
-      grid-area: image;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
-  }
-}
-
-
-.contact {
-  font-style: normal;
-}
-.contact__name {
-
-}
-.contact__job-title {
-  color: #999;
-}
-.contact__email {
-
+pre {
+  background: repeating-linear-gradient(to right, #eee 0, #eee 15px, #ddd 15px, #ddd 30px);
 }
