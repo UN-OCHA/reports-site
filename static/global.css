@@ -267,6 +267,10 @@ main figcaption {
   text-transform: uppercase;
 }
 
+.card img {
+  border-radius: 5px;
+}
+
 .card__actions {
   position: absolute;
   top: 1rem;
