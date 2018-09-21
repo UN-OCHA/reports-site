@@ -132,6 +132,7 @@ main figure img {
   height: auto;
   margin: 0;
   padding: 0;
+  border-radius: 5px;
 }
 main figcaption {
   position: absolute;
@@ -162,10 +163,6 @@ main figcaption {
   font-family: "RobotoCondensed-Bold", sans-serif;
   font-size: 17px;
   text-transform: uppercase;
-}
-
-.card img {
-  border-radius: 5px;
 }
 
 .card__actions {
