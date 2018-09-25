@@ -1,0 +1,15 @@
+patch-package
+--- a/node_modules/@nuxtjs/markdownit/index.js
++++ b/node_modules/@nuxtjs/markdownit/index.js
+@@ -17,7 +17,10 @@ module.exports = function nuxtMarkdownit (options) {
+     if (vueLoader.query && vueLoader.query.loaders) {
+       vueLoader.query.loaders['md'] = markDownItLoader
+     } else {
+-       // Sets options loaders (>= rc6)
++      // Sets options loaders (>= rc6)
++      if (!vueLoader.options.loaders) {
++        vueLoader.options.loaders = {}
++      }
+       vueLoader.options.loaders['md'] = markDownItLoader
+     }
+ 
