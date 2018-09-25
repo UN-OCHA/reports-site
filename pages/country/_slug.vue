@@ -16,7 +16,7 @@
       </section>
     </main>
 
-    <AppFooter :footer="entry.fields.footer" />
+    <AppFooter :footer="entry.fields.footer" :slug="entry.fields.slug" />
   </div>
 </template>
 
