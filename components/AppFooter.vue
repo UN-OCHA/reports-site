@@ -1,11 +1,16 @@
 <template>
-  <footer class="container footer" v-if="footer">
-    <p class="text">{{ footer.fields.defaultFooterText }}</p>
-    <ul class="links">
-      <li class="link" v-if="footer.fields.relatedLink"><a :href="footer.fields.relatedLink" target="_blank" rel="noopener">{{ footer.fields.relatedLink }}</a></li>
-      <li class="link" v-if="footer.fields.relatedLink2"><a :href="footer.fields.relatedLink2" target="_blank" rel="noopener">{{ footer.fields.relatedLink2 }}</a></li>
-      <li class="link"><a href="https://www.reliefweb.int" target="_blank" rel="noopener">https://www.reliefweb.int</a></li>
-    </ul>
+  <footer class="container footer">
+    <div v-if="footer">
+      <p class="text">{{ footer.fields.defaultFooterText }}</p>
+      <ul class="links">
+        <li class="link" v-if="footer.fields.relatedLink"><a :href="footer.fields.relatedLink" target="_blank" rel="noopener">{{ footer.fields.relatedLink }}</a></li>
+        <li class="link" v-if="footer.fields.relatedLink2"><a :href="footer.fields.relatedLink2" target="_blank" rel="noopener">{{ footer.fields.relatedLink2 }}</a></li>
+        <li class="link"><a href="https://www.reliefweb.int" target="_blank" rel="noopener">https://www.reliefweb.int</a></li>
+      </ul>
+    </div>
+    <div v-else>
+      Need some default footer text! When the Contentful <code>footer</code> data isn't present, we show this.
+    </div>
   </footer>
 </template>
 

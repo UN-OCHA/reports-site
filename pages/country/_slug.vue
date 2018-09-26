@@ -4,7 +4,7 @@
     <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
     <main class="container report">
-      <section class="section--primary">
+      <section class="section--primary clearfix">
         <KeyMessages :content="entry.fields.keyMessageSection" />
         <KeyFigures :content="entry.fields.keyFigure" />
         <KeyFinancials />
@@ -72,10 +72,31 @@
 </script>
 
 <style>
-/*—— Report ——————————————————————————————————————————————————————————————————*/
 
-@supports (display: grid) {
-  @media (min-width: 900px) {
+/*—— Report Desktop layout ———————————————————————————————————————————————————*/
+
+@media (min-width: 900px) {
+
+  .card--keyMessageSection {
+    float: left;
+    width: 73%;
+    width: calc(75% - 1rem);
+    height: 90vh;
+    margin-right: 1rem;
+  }
+
+  .card--keyFigures,
+  .card--keyFinancials,
+  .card--contacts {
+    float: left;
+    width: calc(25%);
+    margin-bottom: 1rem;
+
+    /* This group of three cards must resolve to height of keyMessageSection */
+    height: calc(30vh - .666rem);
+  }
+
+  @supports (display: grid) {
     .section--primary {
       display: grid;
       grid-template-areas: "keyMessages keyFigures"
@@ -87,8 +108,12 @@
       margin-bottom: 1rem;
     }
 
-    /* Primary Card defaults */
+    /* Cards are set with CSS Grid and don't need any special treatment */
     .section--primary .card {
+      float: none;
+      width: auto;
+      height: auto;
+      margin-right: 0;
       margin-bottom: 0;
     }
 
@@ -112,7 +137,7 @@
     .section--everythingElse .card {
       margin-bottom: 1rem;
     }
-  }
-}
+  } /* @supports (display: grid) */
+} /* @media (min-width: 900px) */
 </style>
 

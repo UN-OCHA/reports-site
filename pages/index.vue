@@ -11,15 +11,14 @@
         </li>
       </ul>
     </main>
-    <footer class="container footer">
-      <p>FPO: Need some global footer text!</p>
-    </footer>
+    <AppFooter />
   </div>
 </template>
 
 <script>
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
+  import AppFooter from '~/components/AppFooter';
 
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
@@ -30,6 +29,7 @@
     components: {
       AppBar,
       AppHeader,
+      AppFooter,
     },
 
     // `env` is available in the context object

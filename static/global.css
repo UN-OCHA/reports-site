@@ -73,6 +73,19 @@ body {
   height: auto;
 }
 
+/**
+ * Drupal 7 — automatically clear floats.
+ */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+/*—— Site Container ——————————————————————————————————————————————————————————*/
 
 .container {
   max-width: 1200px;
@@ -102,6 +115,9 @@ body {
 
 /*—— General content —————————————————————————————————————————————————————————*/
 
+main {
+  display: block; /* IE11 fix */
+}
 main img {
   max-width: 100%;
 }
