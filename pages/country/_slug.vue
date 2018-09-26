@@ -6,7 +6,7 @@
     <main class="container report">
       <section class="section--primary">
         <KeyMessages :content="entry.fields.keyMessageSection" />
-        <KeyFigures />
+        <KeyFigures :content="entry.fields.keyFigure" />
         <KeyFinancials />
         <Contacts :contacts="entry.fields.contacts" />
       </section>
