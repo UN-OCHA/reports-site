@@ -1,7 +1,7 @@
 <template>
   <section class="card card--keyFigures">
     <h2 class="card__title">Key Figures</h2>
-    <div class="figures">
+    <div class="figures clearfix">
       <figure v-for="figure in content">
         <span class="data">{{ figure.fields.figure }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
