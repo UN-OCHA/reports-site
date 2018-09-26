@@ -121,7 +121,7 @@ main code {
   color: black;
   border-radius: 3px;
 }
-main figure {
+main figure:has(img) {
   position: relative;
   padding: 8px 8px 5px 8px;
   background: #ddd;
@@ -134,7 +134,7 @@ main figure img {
   padding: 0;
   border-radius: 5px;
 }
-main figcaption {
+main figure img ~ figcaption {
   position: absolute;
   right: 8px;
   bottom: 8px;

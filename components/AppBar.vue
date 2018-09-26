@@ -5,7 +5,8 @@
 </template>
 
 <script>
-
+  export default {
+  }
 </script>
 
 <style scoped>
@@ -14,6 +15,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     width: auto;
     height: 3rem;
     padding: .5rem 1rem;

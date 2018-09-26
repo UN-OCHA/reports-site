@@ -6,7 +6,7 @@
     <main class="container report">
       <section class="section--primary">
         <KeyMessages :content="entry.fields.keyMessageSection" />
-        <KeyFigures />
+        <KeyFigures :content="entry.fields.keyFigure" />
         <KeyFinancials />
         <Contacts :contacts="entry.fields.contacts" />
       </section>
@@ -82,7 +82,7 @@
                            "keyMessages keyFinancials"
                            "keyMessages contacts";
       grid-template-rows: repeat(3, 1fr);
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 3fr 1fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
     }
