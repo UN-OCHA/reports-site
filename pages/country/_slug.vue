@@ -82,7 +82,7 @@
                            "keyMessages keyFinancials"
                            "keyMessages contacts";
       grid-template-rows: repeat(3, 1fr);
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 3fr 1fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
     }
