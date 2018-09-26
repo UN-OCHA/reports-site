@@ -28,10 +28,13 @@
       display: grid;
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
+      grid-gap: 1rem;
     }
 
     figure {
       float: none;
+      width: auto;
+      margin-bottom: 0;
     }
   }
 
