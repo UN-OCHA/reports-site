@@ -34,8 +34,8 @@
   }
 
   .logo {
-    width: 55px;
-    height: auto;
+    width: 53px;
+    height: 61px;
   }
 
   .title {
