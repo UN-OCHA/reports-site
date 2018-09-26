@@ -115,6 +115,9 @@ body {
 
 /*—— General content —————————————————————————————————————————————————————————*/
 
+main {
+  display: block; /* IE11 fix */
+}
 main img {
   max-width: 100%;
 }
