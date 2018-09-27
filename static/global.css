@@ -215,11 +215,12 @@ main figure img ~ figcaption {
 
 /*—— Markdown ————————————————————————————————————————————————————————————————*/
 
-.md {
-
+.md {}
+.md * {
+  margin-bottom: 1em;
 }
 .md p {
-  margin-bottom: 1em;
+  line-height: 1.5;
 }
 .md p img {
   display: block;
