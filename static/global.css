@@ -137,29 +137,6 @@ main code {
   color: black;
   border-radius: 3px;
 }
-main figure:has(img) {
-  position: relative;
-  padding: 8px 8px 5px 8px;
-  background: #ddd;
-  border-radius: 3px;
-}
-main figure img {
-  width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
-  border-radius: 5px;
-}
-main figure img ~ figcaption {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  max-width: 80%;
-  padding: .666em 1.333em;
-  background: rgba(0,0,0,0.666);
-  color: white;
-  border-radius: 5px 0 0 0;
-}
 
 /*—— Cards ———————————————————————————————————————————————————————————————————*/
 

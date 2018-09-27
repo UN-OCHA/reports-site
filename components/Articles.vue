@@ -7,7 +7,12 @@
           <h3>{{ article.fields.title }}</h3>
           <div v-html="$md.render(article.fields.article)"></div>
         </div>
-        <img class="article__image" v-if="article.fields.image" :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.description">
+        <div class="article__image" v-if="article.fields.image">
+          <figure>
+            <img :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.title">
+            <figcaption v-if="article.fields.image.fields.description">{{ article.fields.image.fields.description }}</figcaption>
+          </figure>
+        </div>
       </div>
     </article>
   </div>
@@ -60,5 +65,27 @@
         width: 100%;
       }
     }
+  }
+
+
+  figure {
+    position: relative;
+  }
+  figure img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+  }
+  figure img ~ figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    max-width: 80%;
+    padding: .666em 1.333em;
+    background: rgba(0,0,0,0.666);
+    color: white;
+    border-radius: 5px 0 5px 0;
   }
 </style>
