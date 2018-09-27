@@ -11,6 +11,9 @@ module.exports = {
   // Global <head> metadata
   //
   head: {
+    htmlAttrs: {
+      lang: 'en-US'
+    },
     title: 'Digital Situation Report',
     meta: [
       { charset: 'utf-8' },
