@@ -20,9 +20,13 @@
 </script>
 
 <style scoped>
+
+.image {
+  width: 100%;
+}
+
 @media (min-width: 600px) {
   .key-messages__area {
-
   }
   .message-list {
     width: 50%;
