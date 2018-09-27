@@ -8,7 +8,7 @@ WORKDIR /srv/www
 COPY . .
 
 RUN apk add -U ncurses && \
-    npm install && \
-    npm run-script build && \
+    yarn install && \
+    yarn run build && \
     mv run_node /etc/services.d/node/run
 
