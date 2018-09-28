@@ -26,7 +26,7 @@
   @supports (display: grid) {
     .figures {
       display: grid;
-      grid-template-rows: 1fr 1fr;
+      /*grid-template-rows: 1fr 1fr;*/
       grid-template-columns: 1fr 1fr;
       grid-gap: 1rem;
     }
