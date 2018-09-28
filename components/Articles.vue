@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article :key="article.sys.id" v-for="article in articles"  class="card card--article article">
+    <article :key="article.sys.id" v-for="article in articles"  class="card card--article article clearfix">
       <span class="card__title">{{ article.fields.sectionHeading }}</span>
       <div class="article__content" v-bind:class="{ 'article__content--has-image': article.fields.image }">
         <div class="article__text md">
@@ -31,13 +31,14 @@
   }
 
   @media (min-width: 900px) {
-    .article__text {
+    .article__content--has-image .article__text {
       float: left;
       clear: left;
       width: calc(66.666% - 1rem);
+      margin-right: 1rem;
     }
 
-    .article__image {
+    .article__content--has-image .article__image {
       float: left;
       width: 33.333%;
     }
@@ -51,10 +52,11 @@
         grid-gap: 1rem;
       }
 
-      .article__text,
-      .article__image {
+      .article__content--has-image .article__text,
+      .article__content--has-image .article__image {
         float: none;
         width: auto;
+        margin: 0;
       }
 
       .article__text {
