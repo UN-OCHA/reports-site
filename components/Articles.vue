@@ -20,7 +20,34 @@
 
 <script>
   export default {
-    props: ['articles']
+    props: ['articles'],
+
+    beforeCreate: function () {
+      // Automatically open all links within Markdown content in a new tab. We
+      // have to apply two attributes. The second is for security. This code was
+      // taken from official docs at the link below:
+      //
+      // @see https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
+
+      // Remember old renderer, if overriden, or proxy to default renderer
+      var defaultRender = this.$md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options);
+      };
+
+      // Our custom renderer rule which adds target/rel attributes.
+      this.$md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+        // Open in a new window/tab
+        tokens[idx].attrPush(['target', '_blank']);
+
+        // Set an attribute for security purposes when opening in a new tab.
+        //
+        // @see https://mathiasbynens.github.io/rel-noopener/
+        tokens[idx].attrPush(['rel', 'noopener'])
+
+        // Pass token to default renderer.
+        return defaultRender(tokens, idx, options, env, self);
+      };
+    }
   }
 </script>
 
