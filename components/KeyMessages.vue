@@ -23,6 +23,7 @@
 
 .image {
   width: 100%;
+  border-radius: 5px;
 }
 
 @media (min-width: 600px) {
