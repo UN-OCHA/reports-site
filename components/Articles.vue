@@ -50,8 +50,25 @@
     },
 
     mounted: function () {
+      // Do some client-side manipulation of the Articles to expose a read-more
+      // button on long entries. The reason this is done in the DOM is because
+      // it's basically a one-way operation and we want to avoid executing this
+      // in the SSR. The plain response should not truncate content in any way.
+
+      // polyfill NodeList.forEach in IE11. grumble.
+      //
+      // @see https://toddmotto.com/ditch-the-array-foreach-call-nodelist-hack/
+      var forEach = function (array, callback, scope) {
+        for (var i = 0; i < array.length; i++) {
+          callback.call(scope, i, array[i]);
+        }
+      };
+
+      // Get our list of Articles from DOM.
+      var articles = document.querySelectorAll('.article');
+
       // Calculate height of each article and truncate text if it is very long.
-      document.querySelectorAll('.article').forEach(function (el) {
+      forEach(articles, function (index, el) {
         // When the element exceeds our arbitrary height limit, apply the class
         // that truncates and adds a 'Read More' link.
         if (el.clientHeight > 500) {
@@ -63,7 +80,6 @@
           });
         }
       });
-
     }
   }
 </script>
