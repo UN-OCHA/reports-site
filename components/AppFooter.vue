@@ -20,12 +20,12 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .footer {
     border-top: 3px solid #4c8cca;
     padding-top: 1em;
     font-size: .85em;
-    overflow-x: hidden; /* long links shouldn't break layout */
+    overflow-x: hidden; // long links shouldn't break layout
   }
 
   .text {
@@ -44,6 +44,6 @@
   }
 
   .link a {
-    color: hsla(211, 100%, 65%);
+    color: hsl(211, 100%, 65%);
   }
 </style>
