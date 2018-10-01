@@ -47,6 +47,23 @@
         // Pass token to default renderer.
         return defaultRender(tokens, idx, options, env, self);
       };
+    },
+
+    mounted: function () {
+      // Calculate height of each article and truncate text if it is very long.
+      document.querySelectorAll('.article').forEach(function (el) {
+        // When the element exceeds our arbitrary height limit, apply the class
+        // that truncates and adds a 'Read More' link.
+        if (el.clientHeight > 500) {
+          el.classList.add('article--has-more');
+
+          // Listen for clicks in this area and expand when user interacts.
+          el.addEventListener('click', function (ev) {
+            el.classList.add('is--expanded');
+          });
+        }
+      });
+
     }
   }
 </script>
@@ -96,7 +113,6 @@
     }
   }
 
-
   figure {
     position: relative;
   }
@@ -116,5 +132,51 @@
     background: rgba(0,0,0,0.666);
     color: white;
     border-radius: 5px 0 5px 0;
+  }
+
+  /*—— Read more: initial ————————————————————————————————————————————————————*/
+
+  .article--has-more .article__text {
+    position: relative;
+    max-height: 280px;
+    overflow: hidden;
+    margin-bottom: 1em;
+    transition: max-height .3333s ease-in-out;
+  }
+  .article--has-more .article__text::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8em;
+    background-image: linear-gradient(to bottom, transparent 0%, #fff 75%);
+    opacity: 1;
+    transition: opacity .3333s ease-in-out;
+  }
+  .article--has-more .article__text::after {
+    cursor: pointer;
+    content: 'Read More';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: hsl(0, 0%, 50%);
+    text-transform: uppercase;
+    transition: opacity .1666s ease-in-out;
+  }
+  html[lang^="fr"] .article--has-more .article__text::after {
+    content: 'Lire Plus';
+  }
+
+  /*—— Read more: Expanded ———————————————————————————————————————————————————*/
+
+  .article--has-more.is--expanded .article__text {
+    max-height: 1000px;
+  }
+  .article--has-more.is--expanded .article__text::before {
+    opacity: 0;
+  }
+  .article--has-more.is--expanded .article__text::after {
+    opacity: 0;
   }
 </style>
