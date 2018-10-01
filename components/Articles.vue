@@ -68,25 +68,29 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .card__title {
     display: block;
     margin-bottom: 1rem;
   }
 
   @media (min-width: 900px) {
-    .article__content--has-image .article__text {
-      float: left;
-      clear: left;
-      width: calc(66.666% - 1rem);
-      margin-right: 1rem;
+    // Default styles are float-based. This covers a wide range of old browsers.
+    .article__content--has-image {
+      .article__text {
+        float: left;
+        clear: left;
+        width: calc(66.666% - 1rem);
+        margin-right: 1rem;
+      }
+
+      .article__image {
+        float: left;
+        width: 33.333%;
+      }
     }
 
-    .article__content--has-image .article__image {
-      float: left;
-      width: 33.333%;
-    }
-
+    // When CSS Grid support is detected, we rely on that instead.
     @supports (display: grid) {
       .article__content--has-image {
         display: grid;
@@ -94,18 +98,19 @@
         grid-template-rows: 1fr;
         grid-template-columns: 2fr 1fr;
         grid-gap: 1rem;
-      }
 
-      .article__content--has-image .article__text,
-      .article__content--has-image .article__image {
-        float: none;
-        width: auto;
-        margin: 0;
+        .article__text,
+        .article__image {
+          float: none;
+          width: auto;
+          margin: 0;
+        }
       }
 
       .article__text {
         grid-area: articleText;
       }
+
       .article__image {
         grid-area: articleImages;
         width: 100%;
@@ -134,7 +139,7 @@
     border-radius: 5px 0 5px 0;
   }
 
-  /*—— Read more: initial ————————————————————————————————————————————————————*/
+  //—— Read more: initial ——————————————————————————————————————————————————————
 
   .article--has-more .article__text {
     position: relative;
@@ -142,41 +147,47 @@
     overflow: hidden;
     margin-bottom: 1em;
     transition: max-height .3333s ease-in-out;
-  }
-  .article--has-more .article__text::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 8em;
-    background-image: linear-gradient(to bottom, transparent 0%, #fff 75%);
-    opacity: 1;
-    transition: opacity .3333s ease-in-out;
-  }
-  .article--has-more .article__text::after {
-    cursor: pointer;
-    content: 'Read More';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    color: hsl(0, 0%, 50%);
-    text-transform: uppercase;
-    transition: opacity .1666s ease-in-out;
-  }
-  html[lang^="fr"] .article--has-more .article__text::after {
-    content: 'Lire Plus';
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 8em;
+      background-image: linear-gradient(to bottom, transparent 0%, #fff 75%);
+      opacity: 1;
+      transition: opacity .3333s ease-in-out;
+    }
+
+    &::after {
+      cursor: pointer;
+      content: 'MISSING TRANSLATION: Read More';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      color: hsl(0, 0%, 50%);
+      text-transform: uppercase;
+      transition: opacity .1666s ease-in-out;
+
+      // Translation: Read More
+      html[lang^="en"] & {content: 'Read More'; }
+      html[lang^="fr"] & {content: 'Lire Plus'; }
+    }
   }
 
-  /*—— Read more: Expanded ———————————————————————————————————————————————————*/
 
-  .article--has-more.is--expanded .article__text {
-    max-height: 1000px;
-  }
-  .article--has-more.is--expanded .article__text::before {
-    opacity: 0;
-  }
-  .article--has-more.is--expanded .article__text::after {
-    opacity: 0;
+  //—— Read more: Expanded —————————————————————————————————————————————————————
+
+  .article--has-more.is--expanded {
+    .article__text {
+      max-height: 1000px;
+    }
+    .article__text::before {
+      opacity: 0;
+    }
+    .article__text::after {
+      opacity: 0;
+    }
   }
 </style>
