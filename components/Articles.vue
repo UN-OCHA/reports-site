@@ -171,7 +171,7 @@
       right: 0;
       bottom: 0;
       height: 8em;
-      background-image: linear-gradient(to bottom, transparent 0%, #fff 75%);
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
     }
 
     &::after {
