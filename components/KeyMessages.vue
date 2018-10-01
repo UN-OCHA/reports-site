@@ -34,6 +34,7 @@
     float: left;
   }
   .message {
+    font-size: 1.1em;
     margin-right: 1rem;
   }
   .image {
