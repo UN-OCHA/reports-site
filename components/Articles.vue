@@ -156,8 +156,6 @@
       bottom: 0;
       height: 8em;
       background-image: linear-gradient(to bottom, transparent 0%, #fff 75%);
-      opacity: 1;
-      transition: opacity .3333s ease-in-out;
     }
 
     &::after {
@@ -184,7 +182,7 @@
       max-height: 1000px;
     }
     .article__text::before {
-      opacity: 0;
+      content: none;
     }
     .article__text::after {
       opacity: 0;
