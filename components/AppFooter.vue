@@ -5,7 +5,7 @@
       <ul class="links">
         <li class="link" v-if="footer.fields.relatedLink"><a :href="footer.fields.relatedLink" target="_blank" rel="noopener">{{ footer.fields.relatedLink }}</a></li>
         <li class="link" v-if="footer.fields.relatedLink2"><a :href="footer.fields.relatedLink2" target="_blank" rel="noopener">{{ footer.fields.relatedLink2 }}</a></li>
-        <li class="link"><a href="https://www.reliefweb.int" target="_blank" rel="noopener">https://www.reliefweb.int</a></li>
+        <li class="link" v-if="footer.fields.relatedLink3"><a :href="footer.fields.relatedLink3" target="_blank" rel="noopener">{{ footer.fields.relatedLink3 }}</a></li>
       </ul>
     </div>
     <div v-else>
@@ -20,12 +20,12 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .footer {
     border-top: 3px solid #4c8cca;
     padding-top: 1em;
     font-size: .85em;
-    overflow-x: hidden; /* long links shouldn't break layout */
+    overflow-x: hidden; // long links shouldn't break layout
   }
 
   .text {
@@ -44,6 +44,6 @@
   }
 
   .link a {
-    color: hsla(211, 100%, 65%);
+    color: hsl(211, 100%, 65%);
   }
 </style>
