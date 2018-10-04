@@ -1,11 +1,13 @@
-// Load current contents of .env file
-require('dotenv').config();
+// Load contents of .env file to connect to Contentful.
+const dotenv = require('dotenv').config().parsed;
 
 module.exports = {
   //
   // Environment variables
   //
   env: {
+    CTF_SPACE_ID: dotenv.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: dotenv.CTF_CDA_ACCESS_TOKEN,
   },
   //
   // Global <head> metadata
