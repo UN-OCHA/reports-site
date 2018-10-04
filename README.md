@@ -27,6 +27,8 @@ CTF_SPACE_ID=0123456789ab
 CTF_CDA_ACCESS_TOKEN=0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqr
 ```
 
+They will be copied to `.contentful.json` during the docker build step (see below).
+
 ## Docker setup/development
 
 ```bash
