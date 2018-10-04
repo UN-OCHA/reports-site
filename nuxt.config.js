@@ -33,7 +33,6 @@ module.exports = {
   // Additional modules for our site
   //
   modules: [
-    '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
     ['@nuxtjs/moment', ['fr']],
   ],
