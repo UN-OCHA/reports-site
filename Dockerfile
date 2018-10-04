@@ -7,7 +7,9 @@ WORKDIR /srv/www
 
 COPY . .
 
-RUN apk add -U ncurses && \
+RUN apk add -U \
+        ncurses \
+        gettext && \
     yarn install && \
     yarn run build && \
     mv run_node /etc/services.d/node/run
