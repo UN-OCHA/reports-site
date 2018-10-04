@@ -1,10 +1,12 @@
+const api = require('./.contentful.json');
+
 module.exports = {
   //
   // Environment variables
   //
   env: {
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
+    CTF_SPACE_ID: api.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
   },
   //
   // Global <head> metadata
