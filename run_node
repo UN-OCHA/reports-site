@@ -4,10 +4,10 @@ cd $NODE_APP_DIR
 
 # generates the config file if not already present
 CONFIG_FILE=.contentful.json
-[ -f ${CONFIG_FILE} ] || envsubst < ${CONFIG_FILE}.tmpl > ${CONFIG_FILE}
-
-# generate the client static files
-[ -f ${CONFIG_FILE} ] || node_modules/nuxt/bin/nuxt-generate
+if [ ! -f ${CONFIG_FILE} ]; then
+    envsubst < ${CONFIG_FILE}.tmpl > ${CONFIG_FILE}
+    node_modules/nuxt/bin/nuxt-generate
+fi
 
 # the deps install and the build occured in the Dockerfile
 echo "==> Starting the server"
