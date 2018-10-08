@@ -19,7 +19,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .header[role="banner"] {
     border-bottom: 3px solid #4c8cca;
     padding-bottom: 1rem;
@@ -41,27 +41,39 @@
   .title {
     display: block;
     color: #4c8cca;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: sans-serif;
     font-weight: 700;
     font-size: 1.8em;
     text-transform: uppercase;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
 
   .subtitle {
     display: block;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: sans-serif;
     font-weight: 400;
     font-size: 1.2em;
     color: #4c8cca;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
 
   .last-updated {
     display: block;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: sans-serif;
     font-weight: 400;
     font-style: italic;
     font-size: 1em;
     color: #4c8cca;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
   .last-updated::first-letter {
     text-transform: capitalize;

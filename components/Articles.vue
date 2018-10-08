@@ -91,8 +91,12 @@
   }
 
   .article__title {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: sans-serif;
     font-weight: 700;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
 
   @media (min-width: 900px) {
@@ -186,9 +190,13 @@
       left: 0;
       bottom: 0;
       color: hsl(0, 0%, 50%);
-      font-family: "Roboto", sans-serif;
+      font-family: sans-serif;
       text-transform: uppercase;
       transition: opacity .1666s ease-in-out;
+
+      .wf-loaded & {
+        font-family: "Roboto", sans-serif;
+      }
 
       // Translation: Read More
       html[lang^="en"] & {content: 'Read More'; }
