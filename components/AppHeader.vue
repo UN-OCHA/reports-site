@@ -41,7 +41,7 @@
   .title {
     display: block;
     color: #4c8cca;
-    font-family: "RobotoCondensed-Bold", sans-serif; /* @TODO: local font must be served publicly */
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 700;
     font-size: 1.8em;
     text-transform: uppercase;
@@ -49,7 +49,7 @@
 
   .subtitle {
     display: block;
-    font-family: "RobotoCondensed-Regular", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 400;
     font-size: 1.2em;
     color: #4c8cca;
@@ -57,8 +57,9 @@
 
   .last-updated {
     display: block;
-    font-family: "RobotoCondensed-Italic", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 400;
+    font-style: italic;
     font-size: 1em;
     color: #4c8cca;
   }

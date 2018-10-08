@@ -39,7 +39,7 @@
   }
 
   .data {
-    font-family: "RobotoCondensed-Bold", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-size: 2em;
     font-weight: 700;
     color: #4A8CCA;
