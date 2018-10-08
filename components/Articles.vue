@@ -4,7 +4,7 @@
       <span class="card__title">{{ article.fields.sectionHeading }}</span>
       <div class="article__content" v-bind:class="{ 'article__content--has-image': article.fields.image }">
         <div class="article__text md">
-          <h3>{{ article.fields.title }}</h3>
+          <h3 class="article__title">{{ article.fields.title }}</h3>
           <div v-html="$md.render(article.fields.article)"></div>
         </div>
         <div class="article__image" v-if="article.fields.image">
@@ -88,6 +88,15 @@
   .card__title {
     display: block;
     margin-bottom: 1rem;
+  }
+
+  .article__title {
+    font-family: sans-serif;
+    font-weight: 700;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
 
   @media (min-width: 900px) {
@@ -181,8 +190,13 @@
       left: 0;
       bottom: 0;
       color: hsl(0, 0%, 50%);
+      font-family: sans-serif;
       text-transform: uppercase;
       transition: opacity .1666s ease-in-out;
+
+      .wf-loaded & {
+        font-family: "Roboto", sans-serif;
+      }
 
       // Translation: Read More
       html[lang^="en"] & {content: 'Read More'; }

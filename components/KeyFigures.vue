@@ -16,7 +16,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   figure {
     float: left;
     width: 49%;
@@ -39,10 +39,14 @@
   }
 
   .data {
-    font-family: "RobotoCondensed-Bold", sans-serif;
+    font-family: sans-serif;
     font-size: 2em;
     font-weight: 700;
     color: #4A8CCA;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
   figcaption {
     font-size: .8em;
