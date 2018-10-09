@@ -20,6 +20,10 @@ html {
   box-sizing: border-box;
 }
 
+html.wf-loaded {
+  font-family: Roboto; /* no fallback because `html` has system fonts as fallback. */
+}
+
 body {
   background: hsl(0, 0%, 97%);
   padding-top: 2rem;
