@@ -12,7 +12,7 @@
       </section>
 
       <section class="section--everythingElse">
-        <Articles :articles="entry.fields.article" />
+        <Article :key="article.sys.id" :article="article" v-for="article in entry.fields.article" />
       </section>
     </main>
 
@@ -24,7 +24,7 @@
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
-  import Articles from '~/components/Articles';
+  import Article from '~/components/Article';
   import Contacts from '~/components/Contacts';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
@@ -40,7 +40,7 @@
       AppBar,
       AppFooter,
       AppHeader,
-      Articles,
+      Article,
       Contacts,
       KeyFigures,
       KeyFinancials,

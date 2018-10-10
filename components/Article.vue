@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <article :key="article.sys.id" v-for="article in articles"  class="card card--article article clearfix">
-      <span class="card__title">{{ article.fields.sectionHeading }}</span>
-      <div class="article__content" v-bind:class="{ 'article__content--has-image': article.fields.image }">
-        <div class="article__text md">
-          <h3 class="article__title">{{ article.fields.title }}</h3>
-          <div v-html="$md.render(article.fields.article)"></div>
-        </div>
-        <div class="article__image" v-if="article.fields.image">
-          <figure>
-            <img :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.title">
-            <figcaption v-if="article.fields.image.fields.description">{{ article.fields.image.fields.description }}</figcaption>
-          </figure>
-        </div>
+  <article class="card card--article article clearfix">
+    <span class="card__title">{{ article.fields.sectionHeading }}</span>
+    <div class="article__content" v-bind:class="{ 'article__content--has-image': article.fields.image }">
+      <div class="article__text md">
+        <h3 class="article__title">{{ article.fields.title }}</h3>
+        <div v-html="$md.render(article.fields.article)"></div>
       </div>
-    </article>
-  </div>
+      <div class="article__image" v-if="article.fields.image">
+        <figure>
+          <img :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.title">
+          <figcaption v-if="article.fields.image.fields.description">{{ article.fields.image.fields.description }}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
   export default {
-    props: ['articles'],
+    props: ['article'],
 
     beforeCreate: function () {
       // Automatically open all links within Markdown content in a new tab. We
