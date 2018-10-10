@@ -12,7 +12,7 @@
       </section>
 
       <section class="section--everythingElse">
-        <Article :key="article.sys.id" :content="article" v-for="article in entry.fields.article" />
+        <Article :content="article" v-for="article in entry.fields.article" :key="article.sys.id" />
       </section>
     </main>
 

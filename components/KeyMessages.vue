@@ -1,5 +1,6 @@
 <template>
-  <article class="card card--keyMessages key-messages" :id="'cf-' + content.sys.id">
+  <article class="card card--keyMessages key-messages" :id="this.cssId">
+    <CardActions :frag="'#' + this.cssId" />
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -18,6 +19,11 @@
   export default {
     extends: Card,
     props: ['content'],
+    computed: {
+      cssId: function () {
+        return 'cf-' + this.content.sys.id;
+      }
+    }
   }
 </script>
 

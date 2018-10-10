@@ -1,5 +1,6 @@
 <template>
-  <section class="card card--keyFinancials" :id="'cf-' + this.uid">
+  <section class="card card--keyFinancials" :id="this.cssId">
+    <CardActions :frag="'#' + this.cssId" />
     <h2 class="card__title">Key Financials</h2>
     <p>Data TBD as we pull from FTS</p>
     <p v-if="content">content: {{ content }}</p>
@@ -12,8 +13,8 @@
     extends: Card,
     props: ['content'],
     computed: {
-      uid: function () {
-        return 'TBD_keyFinancials_unique_id';
+    cssId: function () {
+        return 'cf-' + 'TBD_keyFinancials_unique_id';
       }
     }
   }

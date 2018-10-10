@@ -1,5 +1,6 @@
 <template>
-  <section class="card card--keyFigures" :id="'cf-' + this.uid">
+  <section class="card card--keyFigures" :id="this.cssId">
+    <CardActions :frag="'#' + this.cssId" />
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content">
@@ -16,8 +17,8 @@
     extends: Card,
     props: ['content'],
     computed: {
-      uid: function () {
-        return this.content.map((item) => item.sys.id).join('_');
+      cssId: function () {
+        return 'cf-' + this.content.map((item) => item.sys.id).join('_');
       }
     }
   }
