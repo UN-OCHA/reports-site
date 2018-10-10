@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFinancials">
+  <section class="card card--keyFinancials" :id="'cf-' + this.uid">
     <h2 class="card__title">Key Financials</h2>
     <p>Data TBD as we pull from FTS</p>
     <p v-if="content">content: {{ content }}</p>
@@ -11,6 +11,11 @@
   export default {
     extends: Card,
     props: ['content'],
+    computed: {
+      uid: function () {
+        return 'TBD_keyFinancials_unique_id';
+      }
+    }
   }
 </script>
 

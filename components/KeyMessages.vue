@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--keyMessages key-messages">
+  <article class="card card--keyMessages key-messages" :id="'cf-' + content.sys.id">
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">

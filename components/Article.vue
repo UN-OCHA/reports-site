@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--article article clearfix">
+  <article class="card card--article article clearfix" :id="'cf-' + content.sys.id">
     <span class="card__title">{{ content.fields.sectionHeading }}</span>
     <div class="article__content" v-bind:class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__text md">

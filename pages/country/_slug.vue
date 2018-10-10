@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="'cf-' + entry.sys.id">
     <AppBar />
     <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
