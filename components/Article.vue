@@ -1,15 +1,15 @@
 <template>
   <article class="card card--article article clearfix">
-    <span class="card__title">{{ article.fields.sectionHeading }}</span>
-    <div class="article__content" v-bind:class="{ 'article__content--has-image': article.fields.image }">
+    <span class="card__title">{{ content.fields.sectionHeading }}</span>
+    <div class="article__content" v-bind:class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__text md">
-        <h3 class="article__title">{{ article.fields.title }}</h3>
-        <div v-html="$md.render(article.fields.article)"></div>
+        <h3 class="article__title">{{ content.fields.title }}</h3>
+        <div v-html="$md.render(content.fields.article)"></div>
       </div>
-      <div class="article__image" v-if="article.fields.image">
+      <div class="article__image" v-if="content.fields.image">
         <figure>
-          <img :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.title">
-          <figcaption v-if="article.fields.image.fields.description">{{ article.fields.image.fields.description }}</figcaption>
+          <img :src="content.fields.image.fields.file.url" :alt="content.fields.image.fields.title">
+          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
       </div>
     </div>
@@ -17,8 +17,10 @@
 </template>
 
 <script>
+  import Card from './Card.vue';
   export default {
-    props: ['article'],
+    extends: Card,
+    props: ['content'],
 
     beforeCreate: function () {
       // Automatically open all links within Markdown content in a new tab. We

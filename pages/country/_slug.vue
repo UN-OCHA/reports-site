@@ -7,12 +7,12 @@
       <section class="section--primary clearfix">
         <KeyMessages :content="entry.fields.keyMessageSection" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials />
-        <Contacts :contacts="entry.fields.contacts" />
+        <KeyFinancials :content="false" />
+        <Contacts :content="entry.fields.contacts" />
       </section>
 
       <section class="section--everythingElse">
-        <Article :key="article.sys.id" :article="article" v-for="article in entry.fields.article" />
+        <Article :key="article.sys.id" :content="article" v-for="article in entry.fields.article" />
       </section>
     </main>
 

@@ -14,8 +14,10 @@
 </template>
 
 <script>
+  import Card from './Card.vue';
   export default {
-    props: ['content']
+    extends: Card,
+    props: ['content'],
   }
 </script>
 
