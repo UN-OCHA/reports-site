@@ -28,7 +28,6 @@
   @supports (display: grid) {
     .figures {
       display: grid;
-      /*grid-template-rows: 1fr 1fr;*/
       grid-template-columns: 1fr 1fr;
       grid-gap: 1rem;
     }
@@ -50,6 +49,7 @@
       font-family: "Roboto Condensed", sans-serif;
     }
   }
+
   figcaption {
     font-size: .8em;
     color: #A7A9AC;

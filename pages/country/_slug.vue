@@ -77,7 +77,7 @@
 
 @media (min-width: 900px) {
 
-  .card--keyMessageSection {
+  .card--keyMessages {
     float: left;
     width: 73%;
     width: calc(75% - 1rem);
@@ -92,7 +92,7 @@
     width: calc(25%);
     margin-bottom: 1rem;
 
-    /* This group of three cards must resolve to height of keyMessageSection */
+    /* This group of three cards must resolve to height of keyMessages */
     height: calc(30vh - .666rem);
   }
 
@@ -102,7 +102,6 @@
       grid-template-areas: "keyMessages keyFigures"
                            "keyMessages keyFinancials"
                            "keyMessages contacts";
-      /*grid-template-rows: repeat(3, 1fr);*/
       grid-template-columns: 3fr 1fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
@@ -118,7 +117,7 @@
     }
 
     /* Drop selected cards into their homes */
-    .card--keyMessageSection {
+    .card--keyMessages {
       grid-area: keyMessages;
     }
     .card--keyFigures {
