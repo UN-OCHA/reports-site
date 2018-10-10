@@ -18,7 +18,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .contact {
     font-style: normal;
   }

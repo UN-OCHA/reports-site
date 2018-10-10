@@ -18,7 +18,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss">// NOT scoped, we want styles to "extend" to children
   .card {
     margin: 0;
     margin-bottom: 1rem;
