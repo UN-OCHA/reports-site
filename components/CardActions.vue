@@ -1,5 +1,5 @@
 <template>
-  <div class="actions">
+  <div class="actions" v-show="!snapInProgress">
     <button class="btn btn--download" @click="requestSnap"></button>
   </div>
 </template>
@@ -8,17 +8,29 @@
   import axios from 'axios';
   export default {
     props: ['frag'],
+    data() {
+      return {
+        snapInProgress: false,
+      };
+    },
     methods: {
       requestSnap: function() {
         const sitRepUrl = window.location.href;
         const snapEndpoint = 'http://localhost:8442/snap/';
         const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&frag=${encodeURIComponent(this.frag)}`;
 
+        setTimeout(() => {this.snapInProgress = true;}, 166); // 166ms to allow CSS transition to finish
+        console.log('😃🤳 Snap requested...', snapRequest);
+
         axios
           .post(snapRequest)
-          .then(console.log('😃🤳 Snap requested...', snapRequest));
+          .then((response) => {
+            this.handleSnap(response);
+          });
       },
-      handleSnap: function() {
+      handleSnap: function(response) {
+        this.snapInProgress = false;
+
         console.log('📸 handling Snap...');
       }
     }
