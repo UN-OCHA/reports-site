@@ -73,10 +73,49 @@
 
 <style>
 
-/*—— Report Desktop layout ———————————————————————————————————————————————————*/
+/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
 
-@media (min-width: 900px) {
+@media print and (min-width: 15cm), screen and (min-width: 900px) {
+  @supports (display: grid) {
+    .section--primary {
+      display: grid;
+      grid-template-areas: "keyMessages  keyMessages    keyMessages"
+                           "keyFigures   keyFinancials  contacts";
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 1rem;
+      margin-bottom: 1rem;
+      page-break-after: always;
+    }
 
+    .section--primary .card {
+      margin-bottom: 0;
+    }
+
+    .card--keyMessages {
+      grid-area: keyMessages;
+    }
+    .card--keyFigures {
+      grid-area: keyFigures;
+    }
+    .card--keyFinancials {
+      grid-area: keyFinancials;
+    }
+    .card--contacts {
+      grid-area: contacts;
+    }
+  } /* @supports (display: grid) */
+} /* @media print, screen and (min-width: 900px) */
+
+/*—— Report Large layout —————————————————————————————————————————————————————*/
+
+@media screen and (min-width: 1164px) {
+  /**
+   * No CSS Grid support
+   *
+   * Given the landscape and browser trends, there is only one definition for
+   * large screens lacking CSS Grid. We're defining a float layout with some
+   * height units to ensure uniformity.
+   */
   .card--keyMessages {
     float: left;
     width: 73%;
@@ -96,6 +135,11 @@
     height: calc(30vh - .666rem);
   }
 
+  /**
+   * CSS Grid
+   *
+   * We can do whatever we want here because CSS Grid is the best!
+   */
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -137,6 +181,6 @@
       margin-bottom: 1rem;
     }
   } /* @supports (display: grid) */
-} /* @media (min-width: 900px) */
+} /* @media (min-width: 1164px) */
 </style>
 
