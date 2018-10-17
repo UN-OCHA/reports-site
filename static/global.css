@@ -227,6 +227,11 @@ main code {
   body {
     background-color: white;
   }
+
+  .md a[href]::after {
+    content: " (" attr(href) ") ";
+    text-decoration: none;
+  }
 }
 
 /*—— DevTools ————————————————————————————————————————————————————————————————*/
