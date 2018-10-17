@@ -30,4 +30,10 @@
   }
 
   .email {}
+
+  @media print {
+    .card {
+      page-break-inside: avoid;
+    }
+  }
 </style>

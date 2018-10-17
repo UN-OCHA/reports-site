@@ -37,4 +37,13 @@
       font-family: "Roboto Condensed", sans-serif;
     }
   }
+
+  @media print {
+    .card {
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 3px solid #4c8cca;
+      padding-bottom: 2rem;
+    }
+  }
 </style>

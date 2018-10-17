@@ -20,4 +20,10 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  @media print {
+    .card {
+      page-break-inside: avoid;
+    }
+  }
+</style>

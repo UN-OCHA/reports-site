@@ -24,12 +24,14 @@ html.wf-loaded {
   font-family: Roboto; /* no fallback because `html` has system fonts as fallback. */
 }
 
-body {
-  background: hsl(0, 0%, 97%);
-  padding-top: 2rem;
+@media screen {
+  body {
+    background: hsl(0, 0%, 97%);
+    padding-top: 2rem;
+  }
 }
 
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   body {
     padding-top: 0;
   }
@@ -164,7 +166,7 @@ body {
   box-shadow: none;
 }
 
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   .container {
     margin: 2rem;
     margin-left: 6rem;
@@ -207,7 +209,6 @@ main code {
   border-radius: 3px;
 }
 
-
 /*—— Markdown ————————————————————————————————————————————————————————————————*/
 
 .md {}
@@ -220,6 +221,19 @@ main code {
 .md p img {
   display: block;
   margin: 1em 0;
+}
+
+/*—— Print ———————————————————————————————————————————————————————————————————*/
+
+@media print {
+  body {
+    background-color: white;
+  }
+
+  .md a[href]::after {
+    content: " (" attr(href) ") ";
+    text-decoration: none;
+  }
 }
 
 /*—— DevTools ————————————————————————————————————————————————————————————————*/

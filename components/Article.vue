@@ -105,7 +105,7 @@
     }
   }
 
-  @media (min-width: 900px) {
+  @media screen and (min-width: 900px) {
     // Default styles are float-based. This covers a wide range of old browsers.
     .article__content--has-image {
       .article__text {
@@ -151,6 +151,10 @@
 
   figure {
     position: relative;
+
+    @media print {
+      page-break-inside: avoid;
+    }
   }
 
   figure img {
@@ -162,18 +166,25 @@
   }
 
   figure img ~ figcaption {
-    position: absolute;
-    right: 0;
-    bottom: 3px;
-    max-width: 80%;
-    padding: .666em 1.333em;
-    background: rgba(0,0,0,0.666);
-    color: white;
-    border-radius: 5px 0 5px 0;
+    @media screen {
+      position: absolute;
+      right: 0;
+      bottom: 3px;
+      max-width: 80%;
+      padding: .666em 1.333em;
+      background: rgba(0,0,0,0.666);
+      color: white;
+      border-radius: 5px 0 5px 0;
+    }
+    @media print {
+      margin: .25cm 1cm;
+      color: black;
+      background: none;
+      font-style: italic;
+    }
   }
 
   @media screen {
-
     //—— Read more: initial ————————————————————————————————————————————————————
     .article__text.article--has-more {
       position: relative;

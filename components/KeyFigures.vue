@@ -60,4 +60,10 @@
     font-size: .8em;
     color: #A7A9AC;
   }
+
+  @media print {
+    .card {
+      page-break-inside: avoid;
+    }
+  }
 </style>

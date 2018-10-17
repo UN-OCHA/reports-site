@@ -27,14 +27,14 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 .image {
   width: 100%;
   border-radius: 5px;
 }
 
-@media (min-width: 600px) {
+@media print, screen and (min-width: 800px) {
   .key-messages__area {
   }
   .message-list {

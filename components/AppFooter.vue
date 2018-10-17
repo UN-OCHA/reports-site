@@ -46,4 +46,16 @@
   .link a {
     color: hsl(211, 100%, 65%);
   }
+
+  @media print {
+    .footer {
+      border-top: 0;
+      padding-top: 0;
+      font-size: 1em;
+      page-break-inside: avoid;
+    }
+    .link {
+      display: block;
+    }
+  }
 </style>
