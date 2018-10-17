@@ -9,7 +9,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .app-bar {
     position: fixed;
     top: 0;
@@ -59,6 +59,12 @@
     }
     24% {
       transform: rotate(0deg) scale(1);
+    }
+  }
+
+  @media print {
+    .app-bar {
+      display: none;
     }
   }
 </style>

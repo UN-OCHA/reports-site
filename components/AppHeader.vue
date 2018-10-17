@@ -75,7 +75,16 @@
       font-family: "Roboto Condensed", sans-serif;
     }
   }
+
   .last-updated::first-letter {
     text-transform: capitalize;
+  }
+
+  @media print {
+    // Hide the logo because we'll configure the PDF Snaps to include it at the
+    // top of each page when printing.
+    .logo-link {
+      display: none;
+    }
   }
 </style>

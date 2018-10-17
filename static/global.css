@@ -164,7 +164,7 @@ body {
   box-shadow: none;
 }
 
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   .container {
     margin: 2rem;
     margin-left: 6rem;
@@ -207,7 +207,6 @@ main code {
   border-radius: 3px;
 }
 
-
 /*—— Markdown ————————————————————————————————————————————————————————————————*/
 
 .md {}
@@ -220,6 +219,14 @@ main code {
 .md p img {
   display: block;
   margin: 1em 0;
+}
+
+/*—— Print ———————————————————————————————————————————————————————————————————*/
+
+@media print {
+  body {
+    background-color: white;
+  }
 }
 
 /*—— DevTools ————————————————————————————————————————————————————————————————*/
