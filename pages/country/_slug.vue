@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="'cf-' + entry.sys.id">
     <AppBar />
     <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
 
@@ -7,12 +7,12 @@
       <section class="section--primary clearfix">
         <KeyMessages :content="entry.fields.keyMessageSection" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials />
-        <Contacts :contacts="entry.fields.contacts" />
+        <KeyFinancials :content="false" />
+        <Contacts :content="entry.fields.contacts" />
       </section>
 
       <section class="section--everythingElse">
-        <Articles :articles="entry.fields.article" />
+        <Article :content="article" v-for="article in entry.fields.article" :key="article.sys.id" />
       </section>
     </main>
 
@@ -24,7 +24,7 @@
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
-  import Articles from '~/components/Articles';
+  import Article from '~/components/Article';
   import Contacts from '~/components/Contacts';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
@@ -40,7 +40,7 @@
       AppBar,
       AppFooter,
       AppHeader,
-      Articles,
+      Article,
       Contacts,
       KeyFigures,
       KeyFinancials,
@@ -77,7 +77,7 @@
 
 @media (min-width: 900px) {
 
-  .card--keyMessageSection {
+  .card--keyMessages {
     float: left;
     width: 73%;
     width: calc(75% - 1rem);
@@ -92,7 +92,7 @@
     width: calc(25%);
     margin-bottom: 1rem;
 
-    /* This group of three cards must resolve to height of keyMessageSection */
+    /* This group of three cards must resolve to height of keyMessages */
     height: calc(30vh - .666rem);
   }
 
@@ -102,7 +102,6 @@
       grid-template-areas: "keyMessages keyFigures"
                            "keyMessages keyFinancials"
                            "keyMessages contacts";
-      /*grid-template-rows: repeat(3, 1fr);*/
       grid-template-columns: 3fr 1fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
@@ -118,7 +117,7 @@
     }
 
     /* Drop selected cards into their homes */
-    .card--keyMessageSection {
+    .card--keyMessages {
       grid-area: keyMessages;
     }
     .card--keyFigures {

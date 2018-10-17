@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--keyMessageSection key-messages">
+  <article class="card card--keyMessages key-messages" :id="this.cssId">
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -10,16 +10,24 @@
       </ul>
       <img class="image" :src="content.fields.keyMessageMainImage.fields.file.url" :alt="content.fields.keyMessageMainImage.fields.description">
     </div>
+    <CardActions :frag="'#' + this.cssId" />
   </article>
 </template>
 
 <script>
+  import Card from './Card.vue';
   export default {
-    props: ['content']
+    extends: Card,
+    props: ['content'],
+    computed: {
+      cssId: function () {
+        return 'cf-' + this.content.sys.id;
+      }
+    }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .image {
   width: 100%;

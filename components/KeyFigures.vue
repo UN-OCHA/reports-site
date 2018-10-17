@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFigures">
+  <section class="card card--keyFigures" :id="this.cssId">
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content">
@@ -7,12 +7,20 @@
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
     </div>
+    <CardActions :frag="'#' + this.cssId" />
   </section>
 </template>
 
 <script>
+  import Card from './Card.vue';
   export default {
-    props: ['content']
+    extends: Card,
+    props: ['content'],
+    computed: {
+      cssId: function () {
+        return 'cf-' + this.content.map((item) => item.sys.id).join('_');
+      }
+    }
   }
 </script>
 
@@ -26,7 +34,6 @@
   @supports (display: grid) {
     .figures {
       display: grid;
-      /*grid-template-rows: 1fr 1fr;*/
       grid-template-columns: 1fr 1fr;
       grid-gap: 1rem;
     }
@@ -48,6 +55,7 @@
       font-family: "Roboto Condensed", sans-serif;
     }
   }
+
   figcaption {
     font-size: .8em;
     color: #A7A9AC;
