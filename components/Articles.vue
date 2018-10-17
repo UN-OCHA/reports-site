@@ -65,7 +65,7 @@
       };
 
       // Get our list of Articles from DOM.
-      var articles = document.querySelectorAll('.article');
+      var articles = document.querySelectorAll('.article__text');
 
       // Calculate height of each article and truncate text if it is very long.
       forEach(articles, function (index, el) {
@@ -146,6 +146,7 @@
   figure {
     position: relative;
   }
+
   figure img {
     width: 100%;
     height: auto;
@@ -153,6 +154,7 @@
     padding: 0;
     border-radius: 5px;
   }
+
   figure img ~ figcaption {
     position: absolute;
     right: 0;
@@ -165,8 +167,9 @@
   }
 
   @media screen {
+
     //—— Read more: initial ————————————————————————————————————————————————————
-    .article--has-more .article__text {
+    .article__text.article--has-more {
       position: relative;
       max-height: 280px;
       overflow: hidden;
@@ -206,15 +209,16 @@
 
     //—— Read more: Expanded ———————————————————————————————————————————————————
     .article--has-more.is--expanded {
-      .article__text {
-        max-height: 1000px;
-      }
-      .article__text::before {
+      max-height: 1000px;
+
+      &::before {
         content: none;
       }
-      .article__text::after {
+
+      &::after {
         opacity: 0;
       }
     }
+
   } // @media screen
 </style>
