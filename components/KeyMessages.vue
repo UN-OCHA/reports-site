@@ -1,6 +1,5 @@
 <template>
   <article class="card card--keyMessages key-messages" :id="this.cssId">
-    <CardActions :frag="'#' + this.cssId" />
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -11,6 +10,7 @@
       </ul>
       <img class="image" :src="content.fields.keyMessageMainImage.fields.file.url" :alt="content.fields.keyMessageMainImage.fields.description">
     </div>
+    <CardActions :frag="'#' + this.cssId" />
   </article>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="actions" v-show="!snapInProgress">
-    <button class="btn btn--download" @click="requestSnap"></button>
+  <div class="actions" v-show="false/*!snapInProgress*/">
+    <button class="btn btn--download" @click="requestSnap"><span class="element-invisible">Save as PNG</span></button>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
       requestSnap: function() {
         const sitRepUrl = window.location.href;
         const snapEndpoint = 'http://localhost:8442/snap/';
-        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&frag=${encodeURIComponent(this.frag)}`;
+        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}`;
 
         setTimeout(() => {this.snapInProgress = true;}, 166); // 166ms to allow CSS transition to finish
         console.log('😃🤳 Snap requested...', snapRequest);

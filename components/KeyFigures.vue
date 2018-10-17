@@ -1,6 +1,5 @@
 <template>
   <section class="card card--keyFigures" :id="this.cssId">
-    <CardActions :frag="'#' + this.cssId" />
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content">
@@ -8,6 +7,7 @@
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
     </div>
+    <CardActions :frag="'#' + this.cssId" />
   </section>
 </template>
 
