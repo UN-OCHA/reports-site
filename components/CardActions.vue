@@ -1,5 +1,5 @@
 <template>
-  <div class="actions" v-show="!snapInProgress">
+  <div class="actions" v-show="false/*!snapInProgress*/">
     <button class="btn btn--download" @click="requestSnap"><span class="element-invisible">Save as PNG</span></button>
   </div>
 </template>
