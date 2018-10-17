@@ -164,58 +164,57 @@
     border-radius: 5px 0 5px 0;
   }
 
-  //—— Read more: initial ——————————————————————————————————————————————————————
+  @media screen {
+    //—— Read more: initial ————————————————————————————————————————————————————
+    .article--has-more .article__text {
+      position: relative;
+      max-height: 280px;
+      overflow: hidden;
+      margin-bottom: 1em;
+      transition: max-height .3333s ease-in-out;
 
-  .article--has-more .article__text {
-    position: relative;
-    max-height: 280px;
-    overflow: hidden;
-    margin-bottom: 1em;
-    transition: max-height .3333s ease-in-out;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 8em;
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
-    }
-
-    &::after {
-      cursor: pointer;
-      content: 'MISSING TRANSLATION: Read More';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      color: hsl(0, 0%, 50%);
-      font-family: sans-serif;
-      text-transform: uppercase;
-      transition: opacity .1666s ease-in-out;
-
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 8em;
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
       }
 
-      // Translation: Read More
-      html[lang^="en"] & {content: 'Read More'; }
-      html[lang^="fr"] & {content: 'Lire Plus'; }
-    }
-  }
+      &::after {
+        cursor: pointer;
+        content: 'MISSING TRANSLATION: Read More';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: hsl(0, 0%, 50%);
+        font-family: sans-serif;
+        text-transform: uppercase;
+        transition: opacity .1666s ease-in-out;
 
+        .wf-loaded & {
+          font-family: "Roboto", sans-serif;
+        }
 
-  //—— Read more: Expanded —————————————————————————————————————————————————————
+        // Translation: Read More
+        html[lang^="en"] & {content: 'Read More'; }
+        html[lang^="fr"] & {content: 'Lire Plus'; }
+      }
+    }
 
-  .article--has-more.is--expanded {
-    .article__text {
-      max-height: 1000px;
+    //—— Read more: Expanded ———————————————————————————————————————————————————
+    .article--has-more.is--expanded {
+      .article__text {
+        max-height: 1000px;
+      }
+      .article__text::before {
+        content: none;
+      }
+      .article__text::after {
+        opacity: 0;
+      }
     }
-    .article__text::before {
-      content: none;
-    }
-    .article__text::after {
-      opacity: 0;
-    }
-  }
+  } // @media screen
 </style>
