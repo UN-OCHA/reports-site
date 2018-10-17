@@ -71,7 +71,7 @@
       };
 
       // Get our list of Articles from DOM.
-      var articles = document.querySelectorAll('.article');
+      var articles = document.querySelectorAll('.article__text');
 
       // Calculate height of each article and truncate text if it is very long.
       forEach(articles, function (index, el) {
@@ -152,6 +152,7 @@
   figure {
     position: relative;
   }
+
   figure img {
     width: 100%;
     height: auto;
@@ -159,6 +160,7 @@
     padding: 0;
     border-radius: 5px;
   }
+
   figure img ~ figcaption {
     position: absolute;
     right: 0;
@@ -170,58 +172,59 @@
     border-radius: 5px 0 5px 0;
   }
 
-  //—— Read more: initial ——————————————————————————————————————————————————————
+  @media screen {
 
-  .article--has-more .article__text {
-    position: relative;
-    max-height: 280px;
-    overflow: hidden;
-    margin-bottom: 1em;
-    transition: max-height .3333s ease-in-out;
+    //—— Read more: initial ————————————————————————————————————————————————————
+    .article__text.article--has-more {
+      position: relative;
+      max-height: 280px;
+      overflow: hidden;
+      margin-bottom: 1em;
+      transition: max-height .3333s ease-in-out;
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 8em;
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
-    }
-
-    &::after {
-      cursor: pointer;
-      content: 'MISSING TRANSLATION: Read More';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      color: hsl(0, 0%, 50%);
-      font-family: sans-serif;
-      text-transform: uppercase;
-      transition: opacity .1666s ease-in-out;
-
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 8em;
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 75%);
       }
 
-      // Translation: Read More
-      html[lang^="en"] & {content: 'Read More'; }
-      html[lang^="fr"] & {content: 'Lire Plus'; }
+      &::after {
+        cursor: pointer;
+        content: 'MISSING TRANSLATION: Read More';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: hsl(0, 0%, 50%);
+        font-family: sans-serif;
+        text-transform: uppercase;
+        transition: opacity .1666s ease-in-out;
+
+        .wf-loaded & {
+          font-family: "Roboto", sans-serif;
+        }
+
+        // Translation: Read More
+        html[lang^="en"] & {content: 'Read More'; }
+        html[lang^="fr"] & {content: 'Lire Plus'; }
+      }
     }
-  }
 
-
-  //—— Read more: Expanded —————————————————————————————————————————————————————
-
-  .article--has-more.is--expanded {
-    .article__text {
+    //—— Read more: Expanded ———————————————————————————————————————————————————
+    .article--has-more.is--expanded {
       max-height: 1000px;
+
+      &::before {
+        content: none;
+      }
+
+      &::after {
+        opacity: 0;
+      }
     }
-    .article__text::before {
-      content: none;
-    }
-    .article__text::after {
-      opacity: 0;
-    }
-  }
+
+  } // @media screen
 </style>
