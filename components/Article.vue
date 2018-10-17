@@ -1,6 +1,5 @@
 <template>
   <article class="card card--article article clearfix" :id="this.cssId">
-    <CardActions :frag="'#' + this.cssId" />
     <span class="card__title">{{ content.fields.sectionHeading }}</span>
     <div class="article__content" v-bind:class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__text md">
@@ -14,6 +13,7 @@
         </figure>
       </div>
     </div>
+    <CardActions :frag="'#' + this.cssId" />
   </article>
 </template>
 
