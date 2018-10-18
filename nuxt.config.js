@@ -37,6 +37,7 @@ module.exports = {
   modules: [
     '@nuxtjs/markdownit',
     ['@nuxtjs/moment', ['fr']],
+    ['@nuxtjs/google-tag-manager', { id: 'GTM-W4PXQBG' }],
   ],
   markdownit: {
     injected: true
