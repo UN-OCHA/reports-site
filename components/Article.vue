@@ -112,16 +112,16 @@
   @media screen and (min-width: 900px) {
     // Default styles are float-based. This covers a wide range of old browsers.
     .article__content--has-image {
+      .article__image {
+        float: right;
+        width: 33.333%;
+      }
+
       .article__text {
         float: left;
         clear: left;
         width: calc(66.666% - 1rem);
         margin-right: 1rem;
-      }
-
-      .article__image {
-        float: left;
-        width: 33.333%;
       }
     }
 
