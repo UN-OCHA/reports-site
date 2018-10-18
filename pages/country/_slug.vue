@@ -73,9 +73,9 @@
 
 <style>
 
-/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
+/*—— Report Medium layout ——————————————————————————————————————————————*/
 
-@media print and (min-width: 15cm), screen and (min-width: 900px) {
+@media screen and (min-width: 760px) {
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -104,11 +104,12 @@
       grid-area: contacts;
     }
   } /* @supports (display: grid) */
-} /* @media print, screen and (min-width: 900px) */
+} /* @media screen and (min-width: 760px) */
 
-/*—— Report Large layout —————————————————————————————————————————————————————*/
+/*—— Report Large/Print layout —————————————————————————————————————————————————————*/
 
-@media screen and (min-width: 1164px) {
+@media print and (min-width: 15cm),
+       screen and (min-width: 1164px) {
   /**
    * No CSS Grid support
    *
@@ -181,6 +182,6 @@
       margin-bottom: 1rem;
     }
   } /* @supports (display: grid) */
-} /* @media (min-width: 1164px) */
+} /* @media print and (min-width: 15cm), screen and (min-width: 1164px) */
 </style>
 
