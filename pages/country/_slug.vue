@@ -73,9 +73,9 @@
 
 <style>
 
-/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
+/*—— Report Medium layout ——————————————————————————————————————————————*/
 
-@media print and (min-width: 15cm), screen and (min-width: 900px) {
+@media screen and (min-width: 760px) {
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -104,11 +104,12 @@
       grid-area: contacts;
     }
   } /* @supports (display: grid) */
-} /* @media print, screen and (min-width: 900px) */
+} /* @media screen and (min-width: 760px) */
 
-/*—— Report Large layout —————————————————————————————————————————————————————*/
+/*—— Report Large/Print layout —————————————————————————————————————————————————————*/
 
-@media screen and (min-width: 1164px) {
+@media print and (min-width: 15cm),
+       screen and (min-width: 1164px) {
   /**
    * No CSS Grid support
    *
@@ -181,6 +182,33 @@
       margin-bottom: 1rem;
     }
   } /* @supports (display: grid) */
-} /* @media (min-width: 1164px) */
+} /* @media print and (min-width: 15cm), screen and (min-width: 1164px) */
+
+/*—— Print styles ————————————————————————————————————————————————————————————*/
+@media print {
+  body {
+    font-size: 12pt;
+  }
+
+  .section--primary {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card--keyMessages {
+    border-right: 1px solid #ddd;
+    border-bottom: 0;
+    padding: 0;
+    font-size: 1em;
+  }
+  .card--keyFigures {
+    border-bottom: 1px solid #ddd;
+  }
+  .card--keyFinancials {
+    border-bottom: 1px solid #ddd;
+  }
+  .card--contacts {
+    border-bottom: 0;
+  }
+}
 </style>
 

@@ -35,5 +35,8 @@
     .card {
       page-break-inside: avoid;
     }
+    .job-title {
+      color: #666;
+    }
   }
 </style>

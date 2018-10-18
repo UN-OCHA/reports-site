@@ -2,15 +2,15 @@
   <article class="card card--article article clearfix" :id="this.cssId">
     <span class="card__title">{{ content.fields.sectionHeading }}</span>
     <div class="article__content" v-bind:class="{ 'article__content--has-image': content.fields.image }">
-      <div class="article__text md">
-        <h3 class="article__title">{{ content.fields.title }}</h3>
-        <div v-html="$md.render(content.fields.article)"></div>
-      </div>
       <div class="article__image" v-if="content.fields.image">
         <figure>
           <img :src="content.fields.image.fields.file.url" :alt="content.fields.image.fields.title">
           <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
+      </div>
+      <div class="article__text md">
+        <h3 class="article__title">{{ content.fields.title }}</h3>
+        <div v-html="$md.render(content.fields.article)"></div>
       </div>
     </div>
     <CardActions :frag="'#' + this.cssId" />
@@ -105,19 +105,23 @@
     }
   }
 
+  .article__image {
+    margin-bottom: 1rem;
+  }
+
   @media screen and (min-width: 900px) {
     // Default styles are float-based. This covers a wide range of old browsers.
     .article__content--has-image {
+      .article__image {
+        float: right;
+        width: 33.333%;
+      }
+
       .article__text {
         float: left;
         clear: left;
         width: calc(66.666% - 1rem);
         margin-right: 1rem;
-      }
-
-      .article__image {
-        float: left;
-        width: 33.333%;
       }
     }
 
@@ -127,7 +131,7 @@
         display: grid;
         grid-template-areas: 'articleText articleImages';
         grid-template-rows: 1fr;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 6fr 4fr;
         grid-gap: 1rem;
 
         .article__text,
@@ -169,7 +173,7 @@
     @media screen {
       position: absolute;
       right: 0;
-      bottom: 3px;
+      bottom: 4px;
       max-width: 80%;
       padding: .666em 1.333em;
       background: rgba(0,0,0,0.666);
@@ -238,4 +242,12 @@
     }
 
   } // @media screen
+
+  @media print {
+    .article__image {
+      float: right;
+      max-width: 40%;
+      margin-left: 2em;
+    }
+  }
 </style>

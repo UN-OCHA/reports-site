@@ -60,7 +60,7 @@
       display: grid;
       grid-template-areas: "km-messages km-image";
       grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 2fr;
       grid-gap: 1rem;
     }
 
@@ -71,16 +71,22 @@
     }
 
     .message-list {
-      grid-area: "km-messages";
+      grid-area: km-messages;
     }
 
     .image {
-      grid-area: "km-image";
+      grid-area: km-image;
     }
 
     .key-messages__area::after {
       content: none;
     }
+  }
+} /* print, screen and (min-width: 800px) */
+
+@media print {
+  .message {
+    font-size: 1em;
   }
 }
 </style>

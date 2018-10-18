@@ -65,5 +65,11 @@
     .card {
       page-break-inside: avoid;
     }
+    .data {
+      color: inherit;
+    }
+    figcaption {
+      color: #67696C;
+    }
   }
 </style>
