@@ -42,7 +42,8 @@
     .card {
       box-shadow: none;
       border-radius: 0;
-      border-bottom: 3px solid #4c8cca;
+      border-bottom: 1px solid #ddd;
+      padding: 0 1rem;
       padding-bottom: 2rem;
     }
   }

@@ -183,5 +183,32 @@
     }
   } /* @supports (display: grid) */
 } /* @media print and (min-width: 15cm), screen and (min-width: 1164px) */
+
+/*—— Print styles ————————————————————————————————————————————————————————————*/
+@media print {
+  body {
+    font-size: 12pt;
+  }
+
+  .section--primary {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card--keyMessages {
+    border-right: 1px solid #ddd;
+    border-bottom: 0;
+    padding: 0;
+    font-size: 1em;
+  }
+  .card--keyFigures {
+    border-bottom: 1px solid #ddd;
+  }
+  .card--keyFinancials {
+    border-bottom: 1px solid #ddd;
+  }
+  .card--contacts {
+    border-bottom: 0;
+  }
+}
 </style>
 
