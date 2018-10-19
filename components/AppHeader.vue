@@ -23,6 +23,10 @@
   .header[role="banner"] {
     border-bottom: 3px solid #4c8cca;
     padding-bottom: 1rem;
+
+    @media print {
+      margin-bottom: 2rem;
+    }
   }
 
   .logo-link {
@@ -31,6 +35,10 @@
     margin-top: 7px;
     margin-right: 10px;
     border-right: 2px solid #4c8cca;
+
+    @media print {
+      margin-top: 0;
+    }
   }
 
   .logo {
@@ -78,13 +86,5 @@
 
   .last-updated::first-letter {
     text-transform: capitalize;
-  }
-
-  @media print {
-    // Hide the logo because we'll configure the PDF Snaps to include it at the
-    // top of each page when printing.
-    .logo-link {
-      display: none;
-    }
   }
 </style>
