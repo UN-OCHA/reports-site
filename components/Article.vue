@@ -109,50 +109,6 @@
     margin-bottom: 1rem;
   }
 
-  @media screen and (min-width: 900px) {
-    // Default styles are float-based. This covers a wide range of old browsers.
-    .article__content--has-image {
-      .article__image {
-        float: right;
-        width: 33.333%;
-      }
-
-      .article__text {
-        float: left;
-        clear: left;
-        width: calc(66.666% - 1rem);
-        margin-right: 1rem;
-      }
-    }
-
-    // When CSS Grid support is detected, we rely on that instead.
-    @supports (display: grid) {
-      .article__content--has-image {
-        display: grid;
-        grid-template-areas: 'articleText articleImages';
-        grid-template-rows: 1fr;
-        grid-template-columns: 6fr 4fr;
-        grid-gap: 1rem;
-
-        .article__text,
-        .article__image {
-          float: none;
-          width: auto;
-          margin: 0;
-        }
-      }
-
-      .article__text {
-        grid-area: articleText;
-      }
-
-      .article__image {
-        grid-area: articleImages;
-        width: 100%;
-      }
-    }
-  }
-
   figure {
     position: relative;
 
@@ -188,8 +144,58 @@
     }
   }
 
+  @media screen and (min-width: 900px) {
+    //
+    // Float-based layout
+    //
+    .article__content--has-image {
+      .article__image {
+        float: right;
+        width: 33.333%;
+      }
+
+      .article__text {
+        float: left;
+        clear: left;
+        width: calc(66.666% - 1rem);
+        margin-right: 1rem;
+      }
+    }
+
+    //
+    // CSS Grid layout
+    //
+    @supports (display: grid) {
+      .article__content--has-image {
+        display: grid;
+        grid-template-areas: 'articleText articleImages';
+        grid-template-rows: 1fr;
+        grid-template-columns: 6fr 4fr;
+        grid-gap: 1rem;
+
+        .article__text,
+        .article__image {
+          float: none;
+          width: auto;
+          margin: 0;
+        }
+      }
+
+      .article__text {
+        grid-area: articleText;
+      }
+
+      .article__image {
+        grid-area: articleImages;
+        width: 100%;
+      }
+    }
+  }
+
   @media screen {
-    //—— Read more: initial ————————————————————————————————————————————————————
+    //
+    // Read more: initial state
+    //
     .article__text.article--has-more {
       position: relative;
       max-height: 280px;
@@ -228,7 +234,9 @@
       }
     }
 
-    //—— Read more: Expanded ———————————————————————————————————————————————————
+    //
+    // Read more: Expanded state
+    //
     .article--has-more.is--expanded {
       max-height: 1000px;
 
@@ -240,9 +248,12 @@
         opacity: 0;
       }
     }
-
   } // @media screen
 
+
+  //
+  // Print layout
+  //
   @media print {
     .article__image {
       float: right;

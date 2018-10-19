@@ -32,6 +32,29 @@
     cursor: pointer;
   }
 
+  .app-bar .btn--toggle:focus {
+    animation: btn--toggle 1s ease-in-out 1;
+    outline: 0;
+  }
+
+  //
+  // Animation: hamburger toggle
+  //
+  @keyframes btn--toggle {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    6% {
+      transform: rotate(0deg) scale(1.5);
+    }
+    24% {
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  //
+  // Tablet+ layout
+  //
   @media (min-width: 600px) {
     .app-bar {
       right: auto;
@@ -45,23 +68,9 @@
     }
   }
 
-  .app-bar .btn--toggle:focus {
-    animation: btn--toggle 1s ease-in-out 1;
-    outline: 0;
-  }
-
-  @keyframes btn--toggle {
-    0% {
-      transform: rotate(0deg) scale(1);
-    }
-    6% {
-      transform: rotate(0deg) scale(1.5);
-    }
-    24% {
-      transform: rotate(0deg) scale(1);
-    }
-  }
-
+  //
+  // Print layout
+  //
   @media print {
     .app-bar {
       display: none;

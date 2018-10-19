@@ -43,8 +43,7 @@
       box-shadow: none;
       border-radius: 0;
       border-bottom: 1px solid #ddd;
-      padding: 0 1rem;
-      padding-bottom: 2rem;
+      padding: 0 0 1rem 0;
     }
   }
 </style>

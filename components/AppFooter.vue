@@ -26,6 +26,12 @@
     padding-top: 1em;
     font-size: .85em;
     overflow-x: hidden; // long links shouldn't break layout
+
+    @media print {
+      padding-top: 1rem;
+      font-size: 1em;
+      page-break-inside: avoid;
+    }
   }
 
   .text {
@@ -41,21 +47,18 @@
   .link {
     display: inline-block;
     margin-right: 2em;
+
+    @media print {
+      display: block;
+      margin-bottom: .5em;
+    }
   }
 
   .link a {
-    color: hsl(211, 100%, 65%);
-  }
+    color: #4c8cca;
 
-  @media print {
-    .footer {
-      border-top: 0;
-      padding-top: 0;
-      font-size: 1em;
-      page-break-inside: avoid;
-    }
-    .link {
-      display: block;
+    @media print {
+      text-decoration: none;
     }
   }
 </style>

@@ -66,7 +66,8 @@
       page-break-inside: avoid;
     }
     .data {
-      color: inherit;
+      color: #4A8CCA;
+      color: cmyk(68, 34, 0 , 0);
     }
     figcaption {
       color: #67696C;

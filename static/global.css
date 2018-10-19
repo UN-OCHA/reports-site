@@ -215,6 +215,9 @@ main code {
 .md * {
   margin-bottom: 1em;
 }
+.md *:last-child {
+  margin-bottom: 0;
+}
 .md p {
   line-height: 1.5;
 }
@@ -227,17 +230,30 @@ main code {
 
 @media print {
   body {
+    /**
+     * Correct the colors on the printouts using Snap Service (Puppeteer).
+     */
+    -webkit-print-color-adjust: exact;
+
     background-color: white;
     font-size: 10pt !important;
+    padding: 10mm;
   }
 
-  main ul {
-    padding: 0 0 0 1em;
+  .container {
+    margin: 0;
   }
 
-  .md a[href]::after {
-    content: " (" attr(href) ") ";
+  main p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .md a[href] {
     text-decoration: none;
+  }
+  .md a[href]::after {
+    content: " <" attr(href) "> ";
   }
 }
 
