@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div v-else>
-      Need some default footer text! When the Contentful <code>footer</code> data isn't present, we show this.
+      <p class="text"><abbr title="United Nations Office for the Coordination of Humanitarian Affairs">OCHA</abbr> coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.</p>
     </div>
   </footer>
 </template>
@@ -22,6 +22,7 @@
 
 <style lang="scss" scoped>
   .footer {
+    clear: both;
     border-top: 3px solid #4c8cca;
     padding-top: 1em;
     font-size: .85em;
