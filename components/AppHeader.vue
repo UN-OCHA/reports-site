@@ -28,6 +28,14 @@
 
     @media print {
       margin-bottom: 2rem;
+
+      // This class is added by Snap Service before generating a PDF. Since people
+      // might choose to print the site without Snap, we have to wrap the specific
+      // customizations in this conditional class.
+      .snap--pdf & {
+        display: none;
+        margin-bottom: 0;
+      }
     }
   }
 
