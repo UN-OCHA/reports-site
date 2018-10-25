@@ -52,17 +52,38 @@
       return typeof params.slug === 'string';
     },
 
+    // In order to render a dynamic page title, we first set up the empty object
+    // that will be populated by asyncData.
+    data () {
+      return {
+        entry: {},
+      }
+    },
+
+    // We use the object populated by asyncData here. It might be empty at first
+    // but we can guard against that with a conditional.
+    head() {
+      // In case the data is not loaded properly we don't want to produce either
+      // a blank title or an error. The SSR will produce the correct title so
+      // this is out an abundance of caution and will rarely be seen.
+      const pageTitle = this.entry.fields.title || 'Loading...';
+
+      return {
+        // %s is the default site title. In our case the name of the website.
+        titleTemplate: `${pageTitle} | %s`,
+      };
+    },
+
     // Nuxt uses this to make async API calls to Contentful during SSR.
     asyncData ({env, params}) {
       return Promise.all([
-        // fetch single Entry by slug
+        // Fetch single Entry by slug
         client.getEntries({
           'include': 4,
           'content_type': active_content_type,
           'fields.slug': params.slug,
         })
       ]).then(([entries]) => {
-        // return data that should be available in the template
         return {
           entry: entries.items[0]
         }
