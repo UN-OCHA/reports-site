@@ -137,7 +137,7 @@
       border-radius: 5px 0 5px 0;
     }
     @media print {
-      margin: .25cm 1cm;
+      margin: .25cm;
       color: black;
       background: none;
       font-style: italic;
