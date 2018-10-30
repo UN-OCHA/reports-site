@@ -32,6 +32,12 @@
       width: 49%;
       margin-bottom: 1rem;
     }
+
+    .none {
+      width: 100%;
+      float: none;
+      margin-bottom: 1rem;
+    }
   }
 
   @supports (display: grid) {
@@ -44,6 +50,10 @@
         float: none;
         width: auto;
         margin-bottom: 0;
+      }
+
+      .none {
+        grid-column: 1 / span 2;
       }
     }
   }

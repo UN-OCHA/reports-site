@@ -2,7 +2,10 @@
   <section class="card card--keyFinancials" :id="this.cssId">
     <h2 class="card__title">Key Financials</h2>
     <div class="figures clearfix">
-      <figure v-for="figure in content" :key="figure.sys.id">
+      <div v-if="!content" class="none">
+        No Financial data to display.
+      </div>
+      <figure v-else v-for="figure in content" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
@@ -19,8 +22,13 @@
     extends: Card,
     props: ['content', 'ftsUrl'],
     computed: {
-      cssId: function () {
-        return 'cf-' + this.content.map((item) => item.sys.id).join('_');
+      cssId() {
+        if (this.content) {
+          return 'cf-' + this.content.map((item) => item.sys.id).join('_');
+        }
+        else {
+          return 'cf-keyFinancials-notAvailable';
+        }
       }
     }
   }
@@ -51,6 +59,11 @@
         margin-right: 1em;
       }
     }
+  }
 
+  .snap--png {
+    .fts-url {
+      display: none;
+    }
   }
 </style>
