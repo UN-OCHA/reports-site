@@ -1,20 +1,25 @@
 <template>
   <section class="card card--keyFinancials" :id="this.cssId">
     <h2 class="card__title">Key Financials</h2>
-    <p>Data TBD as we pull from FTS</p>
-    <p v-if="content">content: {{ content }}</p>
+    <div class="figures clearfix">
+      <figure v-for="figure in content">
+        <span class="data">{{ figure.fields.financial }}</span>
+        <figcaption>{{ figure.fields.caption }}</figcaption>
+      </figure>
+    </div>
     <CardActions :frag="'#' + this.cssId" />
   </section>
 </template>
 
 <script>
   import Card from './Card.vue';
+  import KeyFigures from './KeyFigures.vue';
   export default {
     extends: Card,
     props: ['content'],
     computed: {
-    cssId: function () {
-        return 'cf-' + 'TBD_keyFinancials_unique_id';
+      cssId: function () {
+        return 'cf-' + this.content.map((item) => item.sys.id).join('_');
       }
     }
   }

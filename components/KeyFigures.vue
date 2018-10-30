@@ -24,11 +24,14 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  figure {
-    float: left;
-    width: 49%;
-    margin-bottom: 1rem;
+<!-- not scoped so we can share with Financials -->
+<style lang="scss">
+  .figures {
+    figure {
+      float: left;
+      width: 49%;
+      margin-bottom: 1rem;
+    }
   }
 
   @supports (display: grid) {
@@ -36,41 +39,43 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 1rem;
-    }
 
-    figure {
-      float: none;
-      width: auto;
-      margin-bottom: 0;
-    }
-  }
-
-  .data {
-    font-family: sans-serif;
-    font-size: 2em;
-    font-weight: 700;
-    color: #4A8CCA;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
+      figure {
+        float: none;
+        width: auto;
+        margin-bottom: 0;
+      }
     }
   }
 
-  figcaption {
-    font-size: .8em;
-    color: #A7A9AC;
-  }
-
-  @media print {
-    .card {
-      page-break-inside: avoid;
-    }
+  .figures {
     .data {
+      font-family: sans-serif;
+      font-size: 2em;
+      font-weight: 700;
       color: #4A8CCA;
-      color: cmyk(68, 34, 0 , 0);
+
+      .wf-loaded & {
+        font-family: "Roboto Condensed", sans-serif;
+      }
     }
+
     figcaption {
-      color: #67696C;
+      font-size: .8em;
+      color: #A7A9AC;
+    }
+
+    @media print {
+      .card {
+        page-break-inside: avoid;
+      }
+      .data {
+        color: #4A8CCA;
+        color: cmyk(68, 34, 0 , 0);
+      }
+      figcaption {
+        color: #67696C;
+      }
     }
   }
 </style>
