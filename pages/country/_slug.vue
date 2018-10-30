@@ -7,7 +7,7 @@
       <section class="section--primary clearfix">
         <KeyMessages :content="entry.fields.keyMessageSection" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials :content="false" />
+        <KeyFinancials :content="entry.fields.keyFinancialsManual" :ftsUrl="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
       </section>
 

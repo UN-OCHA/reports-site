@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
+    "contentful-migration": "^0.7.0",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
