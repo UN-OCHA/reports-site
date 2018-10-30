@@ -7,6 +7,7 @@
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
     </div>
+    <a v-if="!!ftsUrl" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
     <CardActions :frag="'#' + this.cssId" />
   </section>
 </template>
@@ -16,7 +17,7 @@
   import KeyFigures from './KeyFigures.vue';
   export default {
     extends: Card,
-    props: ['content'],
+    props: ['content', 'ftsUrl'],
     computed: {
       cssId: function () {
         return 'cf-' + this.content.map((item) => item.sys.id).join('_');
@@ -26,9 +27,30 @@
 </script>
 
 <style lang="scss" scoped>
+  .fts-url {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    text-align: right;
+  }
+
   @media print {
     .card {
       page-break-inside: avoid;
     }
+
+    .fts-url {
+      position: static;
+      display: block;
+      margin-top: 1em;
+      text-align: left;
+      text-decoration: none;
+
+      &::after {
+        content: ': ' attr(href);
+        margin-right: 1em;
+      }
+    }
+
   }
 </style>
