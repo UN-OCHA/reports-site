@@ -4,6 +4,7 @@ const contentful = require('contentful');
 // these will be set via `env` property in nuxt.config.js
 const config = {
   space: process.env.CTF_SPACE_ID,
+  environment: process.env.CTF_ENVIRONMENT || 'master',
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN
 }
 

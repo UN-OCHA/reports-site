@@ -6,6 +6,7 @@ module.exports = {
   //
   env: {
     CTF_SPACE_ID: api.CTF_SPACE_ID,
+    CTF_ENVIRONMENT: api.CTF_ENVIRONMENT,
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
   },
   //
