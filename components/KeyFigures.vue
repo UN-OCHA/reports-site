@@ -2,7 +2,7 @@
   <section class="card card--keyFigures" :id="this.cssId">
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
-      <figure v-for="figure in content">
+      <figure v-for="figure in content" :key="figure.sys.id">
         <span class="data">{{ figure.fields.figure }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
