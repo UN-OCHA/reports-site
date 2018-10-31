@@ -1,7 +1,7 @@
 <template>
   <div class="page--sitrep" :id="'cf-' + entry.sys.id">
     <AppBar />
-    <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" />
+    <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" :mailchimp="entry.fields.mailchimpSignup" />
 
     <main class="container report">
       <section class="section--primary clearfix">
