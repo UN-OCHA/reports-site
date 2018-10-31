@@ -44,14 +44,35 @@
     }
   }
 
-  .title-area {
-    float: left;
-    width: 33%;
-  }
   .meta-area {
-    float: right;
-    text-align: right;
-    width: 33%;
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 600px) {
+    .title-area {
+      float: left;
+      width: 66%;
+    }
+    .meta-area {
+      float: right;
+      width: 33%;
+      text-align: right;
+      margin: 0;
+    }
+
+    @supports (display: grid) {
+      .header {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 1rem;
+      }
+
+      .title-area,
+      .meta-area {
+        float: none;
+        width: auto;
+      }
+    }
   }
 
   .logo-link {
