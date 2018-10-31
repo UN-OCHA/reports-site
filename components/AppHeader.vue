@@ -1,23 +1,28 @@
 <template>
-  <header class="container header" role="banner">
-    <nuxt-link to="/" class="logo-link">
-      <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
-    </nuxt-link>
+  <header class="container header clearfix" role="banner">
+    <div class="title-area">
+      <nuxt-link to="/" class="logo-link">
+        <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
+      </nuxt-link>
 
-    <h1 class="title" v-if="title">{{ title }}</h1>
-    <h1 class="title" v-else>Situation Reports</h1>
+      <h1 class="title" v-if="title">{{ title }}</h1>
+      <h1 class="title" v-else>Situation Reports</h1>
 
-    <span class="subtitle" v-if="title">Situation Report</span>
-    <span class="subtitle" v-else>United Nations Office for the Coordination of Humanitarian Affairs</span>
+      <span class="subtitle" v-if="title">Situation Report</span>
+      <span class="subtitle" v-else>United Nations Office for the Coordination of Humanitarian Affairs</span>
 
-    <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
-    <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
+      <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+      <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
+    </div>
+    <div class="meta-area">
+      <a class="subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+    </div>
   </header>
 </template>
 
 <script>
   export default {
-    props: ['title', 'updated']
+    props: ['title', 'updated', 'mailchimp']
   }
 </script>
 
@@ -37,6 +42,16 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  .title-area {
+    float: left;
+    width: 33%;
+  }
+  .meta-area {
+    float: right;
+    text-align: right;
+    width: 33%;
   }
 
   .logo-link {
@@ -96,5 +111,19 @@
 
   .last-updated::first-letter {
     text-transform: capitalize;
+  }
+
+  .subscribe {
+    display: inline-block;
+    border-radius: 1em;
+    padding: .25em 1em;
+    background: #4c8cca;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", Roboto, sans-serif;
+    }
   }
 </style>
