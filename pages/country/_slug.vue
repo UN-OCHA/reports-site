@@ -12,6 +12,7 @@
       </section>
 
       <section class="section--everythingElse">
+        <Cluster :content="cluster" v-for="cluster in entry.fields.clusters" :key="cluster.sys.id" />
         <Article :content="article" v-for="article in entry.fields.article" :key="article.sys.id" />
       </section>
     </main>
@@ -25,6 +26,7 @@
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
   import Article from '~/components/Article';
+  import Cluster from '~/components/Cluster';
   import Contacts from '~/components/Contacts';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
@@ -41,6 +43,7 @@
       AppFooter,
       AppHeader,
       Article,
+      Cluster,
       Contacts,
       KeyFigures,
       KeyFinancials,

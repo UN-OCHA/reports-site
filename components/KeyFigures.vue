@@ -24,7 +24,7 @@
   }
 </script>
 
-<!-- not scoped so we can share with Financials -->
+<!-- NOT scoped so we can be inherited by other components which use Figures -->
 <style lang="scss">
   .figures {
     figure {

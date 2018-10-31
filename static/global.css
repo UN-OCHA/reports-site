@@ -226,6 +226,24 @@ main code {
   margin: 1em 0;
 }
 
+/*—— Rich Text ———————————————————————————————————————————————————————————————*/
+
+.rich-text {}
+.rich-text p {
+  margin-bottom: 1em;
+}
+.rich-text ul,
+.rich-text ol {
+  margin: 0 1em 1em 1.2em;
+  padding: 0;
+}
+.rich-text li {
+  margin-bottom: .5em;
+}
+.rich-text li:last-child {
+  margin-bottom: 0;
+}
+
 /*—— Print ———————————————————————————————————————————————————————————————————*/
 
 @media print {
@@ -260,5 +278,6 @@ main code {
 /*—— DevTools ————————————————————————————————————————————————————————————————*/
 
 pre {
+  clear: both;
   background: repeating-linear-gradient(to right, #eee 0, #eee 15px, #ddd 15px, #ddd 30px);
 }
