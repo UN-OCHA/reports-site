@@ -51,13 +51,13 @@
     },
 
     // Validate the country slug using this function.
-    validate ({params}) {
+    validate({params}) {
       return typeof params.slug === 'string';
     },
 
     // In order to render a dynamic page title, we first set up the empty object
     // that will be populated by asyncData.
-    data () {
+    data() {
       return {
         entry: {},
       }
@@ -74,11 +74,26 @@
       return {
         // %s is the default site title. In our case the name of the website.
         titleTemplate: `${pageTitle} | %s`,
+
+        // @see https://nuxtjs.org/api/pages-head/
+        meta: [
+          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessageSection.fields.keyMessages.map(msg => msg.fields.message).join(' — ') },
+          { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
+          { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
+          { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
+          { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
+          { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'og-type', name: 'og:type', content: 'website' },
+          { hid: 'og-url', name: 'og:url', content: `https://reports.unocha.org/country/${this.entry.fields.slug}` },
+          { hid: 'og-title', name: 'og:title', content: this.entry.fields.title },
+          { hid: 'og-desc', name: 'og:description', content: this.entry.fields.keyMessageSection.fields.keyMessages.map(msg => msg.fields.message).join(' — ') },
+          { hid: 'og-image', name: 'og:image', content: 'https:' + this.entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.file.url },
+        ],
       };
     },
 
     // Nuxt uses this to make async API calls to Contentful during SSR.
-    asyncData ({env, params}) {
+    asyncData({env, params}) {
       return Promise.all([
         // Fetch single Entry by slug
         client.getEntries({
