@@ -7,7 +7,7 @@
           {{ message.fields.keyMessage }}
         </li>
       </ul>
-      <!-- <img class="image" :src="keyImage.fields.file.url" :alt="keyImage.fields.description"> -->
+      <img class="image" :src="image.fields.file.url" :alt="image.fields.description">
     </div>
     <CardActions :frag="'#' + this.cssId" />
   </article>
@@ -17,7 +17,7 @@
   import Card from './Card.vue';
   export default {
     extends: Card,
-    props: ['messages', 'keyImage'],
+    props: ['messages', 'image'],
     computed: {
       cssId() {
         return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;

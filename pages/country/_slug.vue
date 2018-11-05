@@ -9,7 +9,7 @@
 
     <main class="container report">
       <section class="section--primary clearfix">
-        <KeyMessages :messages="entry.fields.keyMessages" />
+        <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
         <KeyFinancials :content="entry.fields.keyFinancialsManual" :ftsUrl="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
@@ -80,7 +80,7 @@
 
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
-          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessageSection.fields.keyMessages.map(msg => msg.fields.message).join(' — ') },
+          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
@@ -89,8 +89,8 @@
           { hid: 'og-type', name: 'og:type', content: 'website' },
           { hid: 'og-url', name: 'og:url', content: `https://reports.unocha.org/country/${this.entry.fields.slug}` },
           { hid: 'og-title', name: 'og:title', content: this.entry.fields.title },
-          { hid: 'og-desc', name: 'og:description', content: this.entry.fields.keyMessageSection.fields.keyMessages.map(msg => msg.fields.message).join(' — ') },
-          { hid: 'og-image', name: 'og:image', content: 'https:' + this.entry.fields.keyMessageSection.fields.keyMessageMainImage.fields.file.url },
+          { hid: 'og-desc', name: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'og-image', name: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
         ],
       };
     },
