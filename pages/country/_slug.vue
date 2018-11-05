@@ -9,7 +9,7 @@
 
     <main class="container report">
       <section class="section--primary clearfix">
-        <KeyMessages :content="entry.fields.keyMessageSection" />
+        <KeyMessages :messages="entry.fields.keyMessages" />
         <KeyFigures :content="entry.fields.keyFigure" />
         <KeyFinancials :content="entry.fields.keyFinancialsManual" :ftsUrl="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
