@@ -3,12 +3,11 @@
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">
-        <li :key="message.sys.id" v-for="message in content.fields.keyMessages" class="message">
-          <h4>{{ message.fields.title }}</h4>
-          <div class="md" v-html="$md.render(message.fields.message)"></div>
+        <li :key="message.sys.id" v-for="message in messages" class="message">
+          {{ message.fields.keyMessage }}
         </li>
       </ul>
-      <img class="image" :src="content.fields.keyMessageMainImage.fields.file.url" :alt="content.fields.keyMessageMainImage.fields.description">
+      <img class="image" :src="image.fields.file.url" :alt="image.fields.description">
     </div>
     <CardActions :frag="'#' + this.cssId" />
   </article>
@@ -18,10 +17,10 @@
   import Card from './Card.vue';
   export default {
     extends: Card,
-    props: ['content'],
+    props: ['messages', 'image'],
     computed: {
-      cssId: function () {
-        return 'cf-' + this.content.sys.id;
+      cssId() {
+        return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
       }
     }
   }
@@ -36,6 +35,7 @@
 .message {
   font-size: 1.1em;
   margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
 @media print and (min-width: 6in), screen and (min-width: 800px) {

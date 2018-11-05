@@ -1,5 +1,7 @@
 /**
- * Until a better build system is in place, global styles go here
+ * Global, site-wide CSS.
+ *
+ * Styles specific to a components should be included inside each .vue file.
  */
 
 *,

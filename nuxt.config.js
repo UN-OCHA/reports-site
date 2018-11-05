@@ -8,6 +8,7 @@ module.exports = {
     CTF_SPACE_ID: api.CTF_SPACE_ID,
     CTF_ENVIRONMENT: api.CTF_ENVIRONMENT,
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
+    baseUrl: api.BASE_URL || 'https://reports.unocha.org',
   },
   //
   // Global <head> metadata
@@ -21,7 +22,7 @@ module.exports = {
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'description', content: 'Digital Situation Report' }
+      { hid: 'dsr-desc', name: 'description', content: 'Digital Situation Reports' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
