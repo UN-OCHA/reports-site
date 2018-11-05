@@ -7,22 +7,31 @@
 
       <h1 class="title" v-if="title">{{ title }}</h1>
       <h1 class="title" v-else>Situation Reports</h1>
-
       <span class="subtitle" v-if="title">Situation Report</span>
       <span class="subtitle" v-else>United Nations Office for the Coordination of Humanitarian Affairs</span>
-
       <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
-      <a class="subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+      <a class="share subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+      <a class="share twitter" v-if="social && this.socialUrlTwitter" :href="socialUrlTwitter" target="_blank" rel="noopener">Tweet</a>
+      <a class="share facebook" v-if="social && this.socialUrlFacebook" :href="socialUrlFacebook" target="_blank" rel="noopener">Facebook</a>
     </div>
   </header>
 </template>
 
 <script>
   export default {
-    props: ['title', 'updated', 'mailchimp']
+    props: ['title', 'updated', 'mailchimp', 'social'],
+    data() {
+      let socialMessage = 'This is a placeholder message.';
+      let socialBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+
+      return {
+        socialUrlFacebook: `https://www.facebook.com/sharer/sharer.php?u=${socialBaseUrl}`,
+        socialUrlTwitter: `https://twitter.com/intent/tweet?text=${socialMessage}%0A%0A${socialBaseUrl}`,
+      }
+    }
   }
 </script>
 
@@ -134,10 +143,11 @@
     text-transform: capitalize;
   }
 
-  .subscribe {
+  .share {
     display: inline-block;
     border-radius: 1em;
     padding: .25em 1em;
+    margin-bottom: .25em;
     background: #4c8cca;
     color: white;
     text-decoration: none;

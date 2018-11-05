@@ -1,7 +1,11 @@
 <template>
   <div class="page--sitrep" :id="'cf-' + entry.sys.id">
     <AppBar />
-    <AppHeader :title="entry.fields.title" :updated="entry.fields.dateUpdated" :mailchimp="entry.fields.mailchimpSignup" />
+    <AppHeader
+      :title="entry.fields.title"
+      :updated="entry.fields.dateUpdated"
+      :mailchimp="entry.fields.mailchimpSignup"
+      :social="true" />
 
     <main class="container report">
       <section class="section--primary clearfix">
@@ -55,8 +59,7 @@
       return typeof params.slug === 'string';
     },
 
-    // In order to render a dynamic page title, we first set up the empty object
-    // that will be populated by asyncData.
+    // Set up an empty object that will be populated by asyncData.
     data() {
       return {
         entry: {},
