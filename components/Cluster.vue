@@ -5,8 +5,10 @@
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
       <div class="figures clearfix" v-if="content.fields.clusterFigures">
         <figure v-for="figure in content.fields.clusterFigures" :key="figure.sys.id">
-          <span class="data">{{ figure.fields.figure }}</span>
-          <figcaption>{{ figure.fields.caption }}</figcaption>
+          <div v-if="typeof figure !== 'undefined' && typeof figure.fields !== 'undefined' && typeof figure.fields.figure !== 'undefined'">
+            <span class="data">{{ figure.fields.figure }}</span>
+            <figcaption>{{ figure.fields.caption }}</figcaption>
+          </div>
         </figure>
       </div>
     </div>
