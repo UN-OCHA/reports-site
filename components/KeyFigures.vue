@@ -27,38 +27,20 @@
 <!-- NOT scoped so we can be inherited by other components which use Figures -->
 <style lang="scss">
   .figures {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
     figure {
-      float: left;
-      width: 49%;
+      flex-basis: 50%;
       margin-bottom: 1rem;
     }
 
-    .none {
-      width: 100%;
-      float: none;
-      margin-bottom: 1rem;
+    .figures-none {
+      flex-basis: 100%;
     }
-  }
 
-  @supports (display: grid) {
-    .figures {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 1rem;
-
-      figure {
-        float: none;
-        width: auto;
-        margin-bottom: 0;
-      }
-
-      .none {
-        grid-column: 1 / span 2;
-      }
-    }
-  }
-
-  .figures {
     .data {
       font-family: sans-serif;
       font-size: 2em;

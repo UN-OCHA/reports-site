@@ -79,15 +79,26 @@
     margin-bottom: 1rem;
   }
 
+  //
+  // Float layout for old desktops.
+  //
   @media (min-width: 700px) {
     .cluster__title {
       float: left;
       width: 49%;
     }
+
+    // Cluster Figures flow from the right, not left like KF.
     .figures {
       float: right;
       width: 49%;
       text-align: right;
+      flex-direction: row-reverse;
+
+      * {
+        flex-basis: 50%;
+        padding-left: 1rem;
+      }
     }
   }
 
@@ -116,23 +127,9 @@
 
     @supports (display: grid) {
       .cluster__meta {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-gap: 1rem;
         padding-bottom: 0;
         margin-bottom: 1rem;
         page-break-after: always;
-
-        // unset legacy layout
-        * {
-          float: none;
-          width: auto;
-          margin: 0;
-        }
-
-        .figures {
-          grid-gap: 0;
-        }
       }
 
       .cluster__content {
