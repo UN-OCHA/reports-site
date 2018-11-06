@@ -2,7 +2,7 @@
   <section class="card card--keyFinancials" :id="this.cssId">
     <h2 class="card__title">Key Financials</h2>
     <div class="figures clearfix">
-      <div v-if="!content" class="none">
+      <div v-if="!content" class="figures-none">
         No Financial data to display.
       </div>
       <figure v-else v-for="figure in content" :key="figure.sys.id">
