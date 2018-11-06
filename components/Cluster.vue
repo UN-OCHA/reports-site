@@ -33,7 +33,6 @@
 <script>
   import Card from './Card.vue';
   import KeyFigures from './KeyFigures.vue';
-  // import { BLOCKS.PARAGRAPH } from '@contentful/rich-text-types';
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
@@ -44,14 +43,16 @@
         return 'cf-' + this.content.sys.id;
       }
     },
+
     data() {
       return {
         richNeeds: '',
         richResponse: '',
         richGaps: '',
-      }
+      };
     },
-    beforeMount() {
+
+    created() {
       // Any custom render-methods would go here.
       const richOptions = {};
 
