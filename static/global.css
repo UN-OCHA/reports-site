@@ -211,28 +211,22 @@ main code {
   border-radius: 3px;
 }
 
-/*—— Markdown ————————————————————————————————————————————————————————————————*/
-
-.md {}
-.md * {
-  margin-bottom: 1em;
-}
-.md *:last-child {
-  margin-bottom: 0;
-}
-.md p {
-  line-height: 1.5;
-}
-.md p img {
-  display: block;
-  margin: 1em 0;
-}
-
 /*—— Rich Text ———————————————————————————————————————————————————————————————*/
 
 .rich-text {}
-.rich-text p {
+.rich-text * {
   margin-bottom: 1em;
+}
+.rich-text *:last-child {
+  margin-bottom: 0;
+}
+.rich-text p {
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+.rich-text p img {
+  display: block;
+  margin: 1em 0;
 }
 .rich-text ul,
 .rich-text ol {
@@ -269,10 +263,10 @@ main code {
     widows: 3;
   }
 
-  .md a[href] {
+  .rich-text a[href] {
     text-decoration: none;
   }
-  .md a[href]::after {
+  .rich-text a[href]::after {
     content: " <" attr(href) "> ";
   }
 }
