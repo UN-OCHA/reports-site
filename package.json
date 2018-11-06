@@ -17,7 +17,6 @@
     "@contentful/rich-text-html-renderer": "^9.0.0",
     "@contentful/rich-text-types": "^9.0.0",
     "@nuxtjs/google-tag-manager": "^2.1.0",
-    "@nuxtjs/markdownit": "^1.2.2",
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",

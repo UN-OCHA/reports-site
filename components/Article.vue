@@ -8,9 +8,9 @@
           <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
       </div>
-      <div class="article__text md">
+      <div class="article__text">
         <h3 class="article__title">{{ content.fields.title }}</h3>
-        <div v-html="$md.render(content.fields.article)"></div>
+        <div class="rich-text" v-html="this.richBody"></div>
       </div>
     </div>
     <CardActions :frag="'#' + this.cssId" />
@@ -19,43 +19,31 @@
 
 <script>
   import Card from './Card.vue';
+  import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
   export default {
     extends: Card,
     props: ['content'],
+
     computed: {
-      cssId: function() {
+      cssId() {
         return 'cf-' + this.content.sys.id;
       }
     },
 
-    beforeCreate: function () {
-      // Automatically open all links within Markdown content in a new tab. We
-      // have to apply two attributes. The second is for security. This code was
-      // taken from official docs at the link below:
-      //
-      // @see https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
-
-      // Remember old renderer, if overriden, or proxy to default renderer
-      var defaultRender = this.$md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
-        return self.renderToken(tokens, idx, options);
-      };
-
-      // Our custom renderer rule which adds target/rel attributes.
-      this.$md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
-        // Open in a new window/tab
-        tokens[idx].attrPush(['target', '_blank']);
-
-        // Set an attribute for security purposes when opening in a new tab.
-        //
-        // @see https://mathiasbynens.github.io/rel-noopener/
-        tokens[idx].attrPush(['rel', 'noopener'])
-
-        // Pass token to default renderer.
-        return defaultRender(tokens, idx, options, env, self);
+    data() {
+      return {
+        richBody: '',
       };
     },
 
-    mounted: function () {
+    created() {
+      // Any custom render-methods would go here.
+      const richOptions = {};
+      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+    },
+
+    mounted() {
       // Do some client-side manipulation of the Articles to expose a read-more
       // button on long entries. The reason this is done in the DOM is because
       // it's basically a one-way operation and we want to avoid executing this
@@ -99,6 +87,7 @@
   .article__title {
     font-family: sans-serif;
     font-weight: 700;
+    margin-bottom: 1em;
 
     .wf-loaded & {
       font-family: "Roboto Condensed", sans-serif;
