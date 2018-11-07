@@ -209,6 +209,7 @@
       background-position: 50% 50%;
       background-repeat: no-repeat;
       background-size: 20px 16px;
+      cursor: pointer;
 
       border: 0;
       width: 32px;
