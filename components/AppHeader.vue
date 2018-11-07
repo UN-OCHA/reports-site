@@ -13,23 +13,45 @@
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
-      <a class="share subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
-      <a class="share twitter" v-if="social && this.socialUrlTwitter" :href="socialUrlTwitter" target="_blank" rel="noopener">Tweet</a>
-      <a class="share facebook" v-if="social && this.socialUrlFacebook" :href="socialUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+      <div>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+      <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
+        <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
+          <span class="element-invisible">Share this page</span>
+        </button>
+        <div class="share__options card">
+          <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+          <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
   export default {
-    props: ['title', 'updated', 'mailchimp', 'social'],
+    props: {
+      'title': String,
+      'updated': String,
+      'mailchimp': String,
+      'share': Boolean,
+    },
+
     data() {
-      let socialMessage = `Read the latest from ${this.title}'s Situation Report`;
-      let socialBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+      let shareMessage = `Read the latest from ${this.title}'s Situation Report`;
+      let shareBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
 
       return {
-        socialUrlFacebook: `https://www.facebook.com/sharer/sharer.php?u=${socialBaseUrl}`,
-        socialUrlTwitter: `https://twitter.com/intent/tweet?text=${socialMessage}%0A%0A${socialBaseUrl}`,
+        shareUrlFacebook: `https://www.facebook.com/sharer/sharer.php?u=${shareBaseUrl}`,
+        shareUrlTwitter: `https://twitter.com/intent/tweet?text=${shareMessage}%0A%0A${shareBaseUrl}`,
+        shareIsOpen: false,
+      }
+    },
+
+    methods: {
+      toggleShare() {
+        this.shareIsOpen = !this.shareIsOpen;
       }
     }
   }
@@ -57,10 +79,14 @@
     margin-top: 1rem;
   }
 
+  .title-area {
+    margin-right: 2rem;
+  }
+
   @media screen and (min-width: 600px) {
     .title-area {
       float: left;
-      width: 66%;
+      width: calc(66% - 2rem);
     }
     .meta-area {
       float: right;
@@ -80,6 +106,7 @@
       .meta-area {
         float: none;
         width: auto;
+        margin: 0;
       }
     }
   }
@@ -143,7 +170,7 @@
     text-transform: capitalize;
   }
 
-  .share {
+  .cta {
     display: inline-block;
     border-radius: 1em;
     padding: .25em 1em;
@@ -155,6 +182,111 @@
 
     .wf-loaded & {
       font-family: "Roboto Condensed", Roboto, sans-serif;
+    }
+  }
+
+  .meta-area {
+    @media (min-width: 700px) {
+      position: relative;
+    }
+  }
+
+  .share {
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+
+    @media (min-width: 700px) {
+      position: relative;
+      top: auto;
+      right: auto;
+    }
+
+    &__toggle {
+      display: inline-block;
+      background-color: transparent;
+      background-image: url('/icons/icon--share.svg');
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: 20px 16px;
+      cursor: pointer;
+
+      border: 0;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+
+      &:focus,
+      .share--is-open & {
+        outline: none;
+        border-radius: 7px;
+        background-color: #fff;
+        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .share--is-open & {
+        border-radius: 7px 7px 0 0;
+      }
+    }
+
+    &__options {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      z-index: 10;
+
+      border-radius: 7px 0 7px 7px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transform: scale(0);
+      transform-origin: 100% 0%;
+      transition: .1666s ease-in-out;
+      transition-property: opacity, transform;
+      overflow: hidden;
+
+      .share--is-open & {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    &__option {
+      display: inline-block;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-size: 36px;
+      background-position: 50% 0%;
+      width: 60px;
+      height: 48px;
+      padding-top: 38px;
+      margin-bottom: 1rem;
+      font-size: .8em;
+      color: #333;
+      text-decoration: none;
+      text-align: center;
+
+      @media (min-width: 700px) {
+        margin-bottom: 0;
+      }
+
+      // Styles to support drop-down effect.
+      opacity: 0;
+      transform: scale(2);
+      transform-origin: 0% 100%;
+      transition: .1666s ease-in-out;
+      transition-property: opacity, transform;
+
+      .share--is-open & {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    &--twitter {
+      background-image: url('/icons/icon--share-tw.svg');
+    }
+    &--facebook {
+      background-image: url('/icons/icon--share-fb.svg');
     }
   }
 </style>
