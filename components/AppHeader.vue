@@ -24,7 +24,7 @@
   export default {
     props: ['title', 'updated', 'mailchimp', 'social'],
     data() {
-      let socialMessage = 'This is a placeholder message.';
+      let socialMessage = `Read the latest from ${this.title}'s Situation Report`;
       let socialBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
 
       return {
