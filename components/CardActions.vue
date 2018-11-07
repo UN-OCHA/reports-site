@@ -1,11 +1,12 @@
 <template>
-  <div class="actions" v-show="false/*!snapInProgress*/">
+  <div class="actions" v-show="!snapInProgress">
     <button class="btn btn--download" @click="requestSnap"><span class="element-invisible">Save as PNG</span></button>
   </div>
 </template>
 
 <script>
   import axios from 'axios';
+
   export default {
     props: ['frag'],
     data() {
@@ -20,24 +21,50 @@
         const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}`;
 
         setTimeout(() => {this.snapInProgress = true;}, 166); // 166ms to allow CSS transition to finish
-        console.log('😃🤳 Snap requested...', snapRequest);
+        // console.log('😃🤳 Snap requested...', snapRequest);
 
-        axios
-          .post(snapRequest)
+        axios({
+            url: snapRequest,
+            method: 'POST',
+            responseType: 'arraybuffer',
+          })
           .then((response) => {
             this.handleSnap(response);
+          })
+          .catch((err) => {
+            this.handleSnapFailure(err);
           });
       },
-      handleSnap: function(response) {
+
+      handleSnap(response) {
+        // Reset the UI
         this.snapInProgress = false;
 
-        console.log('📸 handling Snap...');
-      }
+        // Force downloading of the PNG
+        // @see https://gist.github.com/Tomassito/a5b4d29f459b9383dc3daa313ae5f73b
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `SitRep-${Date.now()}.png`);
+        link.click();
+
+        // Clean up memory
+        window.URL.revokeObjectURL(url);
+      },
+
+      handleSnapFailure(err) {
+        this.snapInProgress = false;
+        console.error('handleSnapFailure:', err);
+      },
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  .snap--png .actions {
+    display: none;
+  }
+
   .actions {
     position: absolute;
     top: 1rem;
