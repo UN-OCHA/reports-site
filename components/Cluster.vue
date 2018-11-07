@@ -100,7 +100,6 @@
 
       * {
         flex-basis: 50%;
-        padding-left: 1rem;
       }
     }
   }
