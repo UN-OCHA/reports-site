@@ -79,6 +79,10 @@
     margin-top: 1rem;
   }
 
+  .title-area {
+    margin-right: 2rem;
+  }
+
   @media screen and (min-width: 600px) {
     .title-area {
       float: left;
@@ -102,6 +106,7 @@
       .meta-area {
         float: none;
         width: auto;
+        margin: 0;
       }
     }
   }
@@ -180,9 +185,22 @@
     }
   }
 
+  .meta-area {
+    @media (min-width: 700px) {
+      position: relative;
+    }
+  }
 
   .share {
-    position: relative;
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+
+    @media (min-width: 700px) {
+      position: relative;
+      top: auto;
+      right: auto;
+    }
 
     &__toggle {
       display: inline-block;
@@ -213,10 +231,11 @@
     &__options {
       position: absolute;
       top: 32px;
-      right: -4px;
+      right: 0;
       z-index: 10;
 
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border-radius: 7px 0 7px 7px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
       opacity: 0;
       transform: scale(0);
       transform-origin: 100% 0%;
@@ -239,11 +258,17 @@
       width: 60px;
       height: 48px;
       padding-top: 38px;
+      margin-bottom: 1rem;
       font-size: .8em;
       color: #333;
       text-decoration: none;
       text-align: center;
 
+      @media (min-width: 700px) {
+        margin-bottom: 0;
+      }
+
+      // Styles to support drop-down effect.
       opacity: 0;
       transform: scale(2);
       transform-origin: 0% 100%;
