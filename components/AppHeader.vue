@@ -86,7 +86,7 @@
   @media screen and (min-width: 600px) {
     .title-area {
       float: left;
-      width: 66%;
+      width: calc(66% - 2rem);
     }
     .meta-area {
       float: right;
