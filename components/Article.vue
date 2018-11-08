@@ -1,5 +1,6 @@
 <template>
   <article class="card card--article article clearfix" :id="this.cssId">
+    <CardHeader />
     <span class="card__title">{{ content.fields.sectionHeading }}</span>
     <div class="article__content" v-bind:class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
@@ -14,6 +15,7 @@
       </div>
     </div>
     <CardActions :frag="'#' + this.cssId" />
+    <CardFooter />
   </article>
 </template>
 
@@ -226,6 +228,9 @@
     //
     // Read more: Expanded state
     //
+    // Also used by Snap Service.
+    //
+    .snap--png .article__text.article--has-more,
     .article--has-more.is--expanded {
       max-height: 1000px;
 

@@ -76,4 +76,11 @@
       display: none;
     }
   }
+
+  //
+  // Snap Service: suppress the bar completely.
+  //
+  .snap--png .app-bar {
+    display: none;
+  }
 </style>

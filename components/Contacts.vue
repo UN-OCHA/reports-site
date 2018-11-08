@@ -12,9 +12,13 @@
 
 <script>
   import Card from './Card.vue';
+
   export default {
     extends: Card,
-    props: ['content'],
+
+    props: {
+      'content': Array,
+    },
   }
 </script>
 

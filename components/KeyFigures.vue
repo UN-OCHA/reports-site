@@ -1,5 +1,6 @@
 <template>
   <section class="card card--keyFigures" :id="this.cssId">
+    <CardHeader />
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content" :key="figure.sys.id">
@@ -8,14 +9,20 @@
       </figure>
     </div>
     <CardActions :frag="'#' + this.cssId" />
+    <CardFooter />
   </section>
 </template>
 
 <script>
   import Card from './Card.vue';
+
   export default {
     extends: Card,
-    props: ['content'],
+
+    props: {
+      'content': Array,
+    },
+
     computed: {
       cssId: function () {
         return 'cf-' + this.content.map((item) => item.sys.id).join('_');

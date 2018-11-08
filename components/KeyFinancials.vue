@@ -1,5 +1,6 @@
 <template>
   <section class="card card--keyFinancials" :id="this.cssId">
+    <CardHeader />
     <h2 class="card__title">Key Financials</h2>
     <div class="figures clearfix">
       <div v-if="!content" class="figures-none">
@@ -12,15 +13,22 @@
     </div>
     <a v-if="!!ftsUrl" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
     <CardActions :frag="'#' + this.cssId" />
+    <CardFooter />
   </section>
 </template>
 
 <script>
   import Card from './Card.vue';
   import KeyFigures from './KeyFigures.vue';
+
   export default {
     extends: Card,
-    props: ['content', 'ftsUrl'],
+
+    props: {
+      'content': Array,
+      'ftsUrl': String,
+    },
+
     computed: {
       cssId() {
         if (this.content) {
