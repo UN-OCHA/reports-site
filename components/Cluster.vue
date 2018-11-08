@@ -1,5 +1,6 @@
 <template>
   <section class="card card--cluster cluster" :id="this.cssId">
+    <CardHeader />
     <h2 class="card__title">Cluster Status</h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
@@ -27,6 +28,7 @@
       </div>
     </div>
     <CardActions :frag="'#' + this.cssId" />
+    <CardFooter />
   </section>
 </template>
 
@@ -37,7 +39,11 @@
 
   export default {
     extends: Card,
-    props: ['content'],
+
+    props: {
+      'content': Object,
+    },
+
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;

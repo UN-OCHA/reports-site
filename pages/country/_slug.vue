@@ -51,7 +51,7 @@
       Contacts,
       KeyFigures,
       KeyFinancials,
-      KeyMessages
+      KeyMessages,
     },
 
     // Validate the country slug using this function.

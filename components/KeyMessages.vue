@@ -1,5 +1,6 @@
 <template>
   <article class="card card--keyMessages key-messages" :id="this.cssId">
+    <CardHeader />
     <h2 class="card__title">Key Messages</h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -10,14 +11,21 @@
       <img class="image" :src="image.fields.file.url" :alt="image.fields.description">
     </div>
     <CardActions :frag="'#' + this.cssId" />
+    <CardFooter />
   </article>
 </template>
 
 <script>
   import Card from './Card.vue';
+
   export default {
     extends: Card,
-    props: ['messages', 'image'],
+
+    props: {
+      'messages': Array,
+      'image': Object,
+    },
+
     computed: {
       cssId() {
         return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;

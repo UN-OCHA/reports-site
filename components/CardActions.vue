@@ -2,8 +2,8 @@
   <div class="actions">
     <button class="btn btn--download"
             :class="{ 'btn--is-active': snapInProgress }"
-            @click="requestSnap"
-            :disabled="snapInProgress">
+            :disabled="snapInProgress"
+            @click="requestSnap">
       <span class="element-invisible">Save as PNG</span>
     </button>
   </div>
@@ -72,7 +72,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .snap--png .actions {
+  // Snap Service applies these classes to <html> while generating a screenshot.
+  // It is not toggled or otherwise invoked by Vue itself. This class is only
+  // used inside Snap Service's Puppeteer process.
+  .snap--png .actions,
+  .snap--pdf .actions {
     display: none;
   }
 
