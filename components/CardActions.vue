@@ -66,6 +66,8 @@
 
         // For now, we are only logging the error in console. No visual feedback.
         console.error('handleSnapFailure:', err);
+
+        alert("PNG Downloads are not fully functional yet.\n\n Thanks for your patience!");
       },
     }
   }
