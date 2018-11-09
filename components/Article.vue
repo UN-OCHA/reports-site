@@ -100,41 +100,6 @@
     margin-bottom: 1rem;
   }
 
-  figure {
-    position: relative;
-
-    @media print {
-      page-break-inside: avoid;
-    }
-  }
-
-  figure img {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    border-radius: 5px;
-  }
-
-  figure img ~ figcaption {
-    @media screen {
-      position: absolute;
-      right: 0;
-      bottom: 4px;
-      max-width: 80%;
-      padding: .666em 1.333em;
-      background: rgba(0,0,0,0.666);
-      color: white;
-      border-radius: 5px 0 5px 0;
-    }
-    @media print {
-      margin: .25cm;
-      color: black;
-      background: none;
-      font-style: italic;
-    }
-  }
-
   @media screen and (min-width: 900px) {
     //
     // Float-based layout
