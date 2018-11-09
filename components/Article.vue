@@ -225,6 +225,7 @@
         height: auto !important;
 
         &::before {
+          content: none;
           opacity: 0;
         }
       }
