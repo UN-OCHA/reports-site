@@ -8,7 +8,10 @@
           {{ message.fields.keyMessage }}
         </li>
       </ul>
-      <img class="image" :src="image.fields.file.url" :alt="image.fields.description">
+      <figure v-if="image && typeof image.fields !== 'undefined'">
+        <img class="image" :src="'https:' + image.fields.file.url" :alt="image.fields.title">
+        <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
+      </figure>
     </div>
     <CardActions :frag="'#' + this.cssId" />
     <CardFooter />
