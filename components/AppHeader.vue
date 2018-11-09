@@ -23,6 +23,7 @@
         <div class="share__options card">
           <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
           <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">Email</a>
         </div>
       </div>
     </div>
@@ -39,10 +40,12 @@
     },
 
     data() {
+      let shareSubject = `Situation Report: ${this.title} ${this.today}`;
       let shareMessage = `Read the latest from ${this.title}'s Situation Report`;
       let shareBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
 
       return {
+        shareUrlEmail: `mailto:?subject=${shareSubject}&body=${shareMessage}%0A%0A${shareBaseUrl}`,
         shareUrlFacebook: `https://www.facebook.com/sharer/sharer.php?u=${shareBaseUrl}`,
         shareUrlTwitter: `https://twitter.com/intent/tweet?text=${shareMessage}%0A%0A${shareBaseUrl}`,
         shareIsOpen: false,
@@ -52,7 +55,14 @@
     methods: {
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
-      }
+      },
+    },
+
+    computed: {
+      today() {
+        let now = new Date();
+        return now.getFullYear() + '-' + ("00" + (now.getMonth() + 1)).slice(-2) + '-' + ("00" + now.getDate()).slice(-2);
+      },
     }
   }
 </script>
@@ -287,6 +297,10 @@
     }
     &--facebook {
       background-image: url('/icons/icon--share-fb.svg');
+    }
+    &--email {
+      background-image: url('/icons/icon--contact.svg');
+      background-position: 50% 30%;
     }
   }
 </style>
