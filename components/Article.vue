@@ -192,7 +192,7 @@
       max-height: 280px;
       overflow: hidden;
       margin-bottom: 1em;
-      transition: max-height .3333s ease-in-out;
+      transition: max-height 1s ease-in-out;
 
       &::before {
         content: '';
@@ -232,7 +232,7 @@
     //
     .snap--png .article__text.article--has-more,
     .article--has-more.is--expanded {
-      max-height: 1000px;
+      max-height: 4000px;
 
       &::before {
         content: none;
