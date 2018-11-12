@@ -4,7 +4,8 @@
     <h2 class="card__title">Key Figures</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content" :key="figure.sys.id">
-        <span class="data">{{ figure.fields.figure }}</span>
+        <a v-if="figure.fields.source" :href="figure.fields.source" class="data" target="_blank" rel="noopener">{{ figure.fields.figure }}</a>
+        <span v-else class="data">{{ figure.fields.figure }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
     </div>
@@ -53,9 +54,29 @@
       font-size: 2em;
       font-weight: 700;
       color: #4A8CCA;
+      text-decoration: none;
+      position: relative;
 
       .wf-loaded & {
         font-family: "Roboto Condensed", sans-serif;
+      }
+    }
+
+    a[href].data {
+      margin-right: .6em; // make room for the external icon
+
+      &::after {
+        display: block;
+        content: '';
+        width: .4em;
+        height: .4em;
+        position: absolute;
+        top: .1em;
+        right: -.5em;
+
+        background-image: url('/icons/icon--outofsite.svg');
+        background-position: 50% 50%;
+        background-size: contain;
       }
     }
 
