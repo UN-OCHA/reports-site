@@ -43,8 +43,7 @@
   // Snap Service applies these classes to <html> while generating a screenshot.
   // It is not toggled or otherwise invoked by Vue itself. This class is only
   // used inside Snap Service's Puppeteer process.
-  .snap--png .card__snap-footer,
-  .snap--pdf .card__snap-footer {
+  .snap--png .card__snap-footer {
     display: block;
   }
 

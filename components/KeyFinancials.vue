@@ -59,8 +59,10 @@
       position: static;
       display: block;
       margin-top: 1em;
+      padding-right: 1em;
       text-align: left;
       text-decoration: none;
+      word-break: break-all;
 
       &::after {
         content: ': ' attr(href);
