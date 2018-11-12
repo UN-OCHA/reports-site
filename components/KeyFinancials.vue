@@ -55,6 +55,10 @@
       page-break-inside: avoid;
     }
 
+    .card--keyFinancials {
+      border-bottom: 0;
+    }
+
     .fts-url {
       position: static;
       display: block;

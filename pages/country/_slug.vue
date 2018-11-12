@@ -115,7 +115,7 @@
 
 <style>
 
-/*—— Report Medium layout ——————————————————————————————————————————————*/
+/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
 
 @media print and (min-width: 10cm),
        screen and (min-width: 760px) {
@@ -149,7 +149,7 @@
   } /* @supports (display: grid) */
 } /* @media print and (min-width: 10cm), screen and (min-width: 760px) */
 
-/*—— Report Large/Print layout —————————————————————————————————————————————————————*/
+/*—— Report Large layout —————————————————————————————————————————————————————*/
 
 @media screen and (min-width: 1164px) {
   /**
@@ -249,16 +249,16 @@
   .card--keyFigures {
     border-right: 1px solid #ddd;
     border-bottom: 0;
-    padding-top: 1em;
+    margin-bottom: 0;
   }
   .card--keyFinancials {
     border-right: 1px solid #ddd;
     border-bottom: 0;
-    padding-top: 1em;
+    margin-bottom: 0;
   }
   .card--contacts {
     border: 0;
-    padding-top: 1em;
+    margin-bottom: 0;
   }
 }
 </style>
