@@ -39,6 +39,11 @@
     .card {
       page-break-inside: avoid;
     }
+
+    .card--contacts {
+      border-bottom: 0;
+    }
+
     .job-title {
       color: #666;
     }
