@@ -78,6 +78,11 @@
         background-position: 50% 50%;
         background-size: contain;
       }
+
+      .snap--png &::after,
+      .snap--pdf &::after {
+        content: none;
+      }
     }
 
     figcaption {
