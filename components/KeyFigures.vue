@@ -71,7 +71,7 @@
         width: .4em;
         height: .4em;
         position: absolute;
-        top: .1em;
+        bottom: .23em;
         right: -.5em;
 
         background-image: url('/icons/icon--outofsite.svg');
