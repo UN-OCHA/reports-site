@@ -118,6 +118,10 @@
         width: auto;
         margin: 0;
       }
+
+      .clearfix::after {
+        content: none;
+      }
     }
   }
 
@@ -187,6 +191,7 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
+    font-size: 1.1em;
     text-decoration: none;
     text-transform: uppercase;
 

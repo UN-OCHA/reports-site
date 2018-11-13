@@ -87,7 +87,7 @@
 
     figcaption {
       font-size: .8em;
-      color: #A7A9AC;
+      color: #666;
     }
 
     @media print {

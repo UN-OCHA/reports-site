@@ -56,7 +56,7 @@
   }
 
   .link a {
-    color: #4c8cca;
+    color: darken(#4c8cca, 10%);
 
     @media print {
       text-decoration: none;
