@@ -29,6 +29,7 @@ html.wf-loaded {
 @media screen {
   body {
     background: hsl(0, 0%, 97%);
+    color: #333;
     padding-top: 2rem;
   }
 }

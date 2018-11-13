@@ -48,6 +48,7 @@
     right: 1rem;
     bottom: 1rem;
     text-align: right;
+    color: darken(#4a8cca, 10%);
   }
 
   @media print {

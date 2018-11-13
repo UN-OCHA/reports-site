@@ -30,10 +30,12 @@
   .name {}
 
   .job-title {
-    color: #999;
+    color: #666;
   }
 
-  .email {}
+  .email {
+    color: darken(#4a8cca, 10%);
+  }
 
   @media print {
     .card {
