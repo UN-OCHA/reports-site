@@ -4,7 +4,7 @@
     <h2 class="card__title">Key Financials</h2>
     <div class="figures clearfix">
       <figure v-if="ftsData" v-for="figure in ftsData" :key="figure.sys.id">
-        <span class="data">{{ figure.fields.figure }}</span>
+        <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-else class="figures-none">
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import Card from './Card.vue';
   import KeyFigures from './KeyFigures.vue';
 
@@ -28,75 +27,62 @@
     props: {
       'content': Array,
       'ftsUrl': String,
-      'ftsPlanId': Number,
     },
 
     data() {
       return {
-        ftsData: [],
+        ftsPlanId: 639,
       }
     },
 
     computed: {
       cssId() {
-        if (this.content) {
+        if (typeof this.content === 'Array' && this.content.length > 0) {
           return 'cf-' + this.content.map((item) => item.sys.id).join('_');
         }
         else {
           return 'cf-keyFinancials-notAvailable';
         }
       },
-    },
 
-    // Nuxt uses this to make async API calls to Contentful during SSR.
-    mounted() {
-      return Promise.all([
-        axios({
-          url: '/data/v2-flow-plan-overview-progress-2018.json',
-          method: 'GET',
-        })
-      ])
-      .then(([response]) => this.formatFTSData(response))
-      .catch(console.error)
-    },
-
-    methods: {
-      formatFTSData(response) {
-        const plan = response.data.data.plans.filter(plan => plan.id === 639)[0];
+      ftsData() {
+        const plan = this.content.filter(plan => plan.id === this.ftsPlanId)[0];
 
         // The structure mimics Contentful JSON API so that our template above
         // doesn't have to be duplicated based on input data.
-        this.ftsData = [
+        return [
           {
             sys: {
-              id: `${639}-requirements.revisedRequirements`,
+              id: `${this.ftsPlanId}-requirements.revisedRequirements`,
             },
             fields: {
-              figure: '$' + this.formatNumber(plan.requirements.revisedRequirements),
+              financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
               caption: 'requirements.revisedRequirements',
             },
           },
           {
             sys: {
-              id: `${639}-funding.totalFunding`,
+              id: `${this.ftsPlanId}-funding.totalFunding`,
             },
             fields: {
-              figure: '$' + this.formatNumber(plan.funding.totalFunding),
+              financial: '$' + this.formatNumber(plan.funding.totalFunding),
               caption: 'funding.totalFunding',
             },
           },
           {
             sys: {
-              id: `${639}-funding.progress`,
+              id: `${this.ftsPlanId}-funding.progress`,
             },
             fields: {
-              figure: Math.round(plan.funding.progress) + '%',
+              financial: Math.round(plan.funding.progress) + '%',
               caption: 'funding.progress',
             },
           },
         ];
       },
+    },
 
+    methods: {
       formatNumber(n) {
         const ranges = [
           { divider: 1e12 , suffix: 'T' },
