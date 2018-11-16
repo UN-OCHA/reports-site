@@ -6,7 +6,7 @@ module.exports = {
   //
   env: {
     CTF_SPACE_ID: api.CTF_SPACE_ID,
-    CTF_ENVIRONMENT: api.CTF_ENVIRONMENT,
+    CTF_ENVIRONMENT: api.CTF_ENVIRONMENT || 'master',
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
     baseUrl: api.BASE_URL || 'https://reports.dev.ahconu.org',
     tmpBasicAuthUser: api.BASIC_AUTH_USER || '',
