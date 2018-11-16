@@ -25,11 +25,11 @@
 
     methods: {
       requestSnap: function() {
-        const sitRepUrl = window.location.href;
-        const snapEndpoint = 'http://localhost:8442/snap/';
-        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}`;
+        this.snapInProgress = true;
 
-        setTimeout(() => {this.snapInProgress = true;}, 166); // 166ms to allow CSS transition to finish
+        const sitRepUrl = window.location.href;
+        const snapEndpoint = window.location.origin + '/snap';
+        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}`;
 
         axios({
             url: snapRequest,
