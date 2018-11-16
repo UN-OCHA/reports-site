@@ -112,8 +112,9 @@
           ? axios({
               url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
               method: 'GET',
-              headers: {
-                'Authorization': `Basic ${process.env.basicAuth}`
+              auth: {
+                username: process.env.tmpBasicAuthUser,
+                password: process.env.tmpBasicAuthPass,
               }
             }).then(response => response.data)
           : axios({
