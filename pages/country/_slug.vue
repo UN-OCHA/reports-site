@@ -100,22 +100,26 @@
     // Nuxt uses this to make async API calls to Contentful during SSR.
     asyncData({env, params}) {
       return Promise.all([
-        // Fetch single Entry by slug
+        // Contentful: fetch single Entry by slug
         client.getEntries({
           'include': 4,
           'content_type': active_content_type,
           'fields.slug': params.slug,
         }),
 
-        // Fetch FTS data:
-        // - clients use Ajax request
-        // - SSR uses require() off local filesystem
-        (typeof window !== 'undefined')
+        // FTS: fetch all v2 plans.
+        (process.server)
           ? axios({
-              url: '/data/v2-flow-plan-overview-progress-2018.json',
+              url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
+              method: 'GET',
+              headers: {
+                'Authorization': `Basic ${process.env.basicAuth}`
+              }
+            }).then(response => response.data)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2018',
               method: 'GET',
             }).then(response => response.data)
-          : require('~/static/data/v2-flow-plan-overview-progress-2018.json')
       ]).then(([entries, ftsData]) => {
         return {
           entry: entries.items[0],
