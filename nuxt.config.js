@@ -8,7 +8,9 @@ module.exports = {
     CTF_SPACE_ID: api.CTF_SPACE_ID,
     CTF_ENVIRONMENT: api.CTF_ENVIRONMENT,
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
-    baseUrl: api.BASE_URL || 'https://reports.unocha.org',
+    baseUrl: api.BASE_URL || 'https://reports.dev.ahconu.org',
+    tmpBasicAuthUser: api.BASIC_AUTH_USER || '',
+    tmpBasicAuthPass: api.BASIC_AUTH_PASS || '',
   },
   //
   // Global <head> metadata

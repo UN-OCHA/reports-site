@@ -11,7 +11,7 @@
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials :content="entry.fields.keyFinancialsManual" :ftsUrl="entry.fields.keyFinancialsUrl" />
+        <KeyFinancials :content="ftsData" :ftsUrl="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
       </section>
 
@@ -36,6 +36,7 @@
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
 
+  import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
@@ -59,10 +60,11 @@
       return typeof params.slug === 'string';
     },
 
-    // Set up an empty object that will be populated by asyncData.
+    // Set up empty objects that will be populated by asyncData.
     data() {
       return {
         entry: {},
+        ftsData: {}
       }
     },
 
@@ -98,15 +100,31 @@
     // Nuxt uses this to make async API calls to Contentful during SSR.
     asyncData({env, params}) {
       return Promise.all([
-        // Fetch single Entry by slug
+        // Contentful: fetch single Entry by slug
         client.getEntries({
           'include': 4,
           'content_type': active_content_type,
           'fields.slug': params.slug,
-        })
-      ]).then(([entries]) => {
+        }),
+
+        // FTS: fetch all v2 plans.
+        (process.server)
+          ? axios({
+              url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
+              method: 'GET',
+              auth: {
+                username: process.env.tmpBasicAuthUser,
+                password: process.env.tmpBasicAuthPass,
+              }
+            }).then(response => response.data)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2018',
+              method: 'GET',
+            }).then(response => response.data)
+      ]).then(([entries, ftsData]) => {
         return {
-          entry: entries.items[0]
+          entry: entries.items[0],
+          ftsData: ftsData.data.plans,
         }
       }).catch(console.error)
     }

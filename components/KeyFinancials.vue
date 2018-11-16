@@ -3,13 +3,13 @@
     <CardHeader />
     <h2 class="card__title">Key Financials</h2>
     <div class="figures clearfix">
-      <div v-if="!content" class="figures-none">
-        No Financial data to display.
-      </div>
-      <figure v-else v-for="figure in content" :key="figure.sys.id">
+      <figure v-if="ftsData" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
+      <div v-else class="figures-none">
+        Financial data could not be found.
+      </div>
     </div>
     <a v-if="!!ftsUrl" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
     <CardActions :frag="'#' + this.cssId" />
@@ -29,16 +29,90 @@
       'ftsUrl': String,
     },
 
+    data() {
+      return {
+        ftsPlanId: 639,
+      }
+    },
+
     computed: {
       cssId() {
-        if (this.content) {
+        if (typeof this.content === 'Array' && this.content.length > 0) {
           return 'cf-' + this.content.map((item) => item.sys.id).join('_');
         }
         else {
           return 'cf-keyFinancials-notAvailable';
         }
-      }
-    }
+      },
+
+      ftsData() {
+        const plan = this.content.filter(plan => plan.id === this.ftsPlanId)[0];
+
+        // The structure mimics Contentful JSON API so that our template above
+        // doesn't have to be duplicated based on input data.
+        return [
+          {
+            sys: {
+              id: `${this.ftsPlanId}-requirements.revisedRequirements`,
+            },
+            fields: {
+              financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
+              caption: 'requirements.revisedRequirements',
+            },
+          },
+          {
+            sys: {
+              id: `${this.ftsPlanId}-funding.totalFunding`,
+            },
+            fields: {
+              financial: '$' + this.formatNumber(plan.funding.totalFunding),
+              caption: 'funding.totalFunding',
+            },
+          },
+          {
+            sys: {
+              id: `${this.ftsPlanId}-funding.progress`,
+            },
+            fields: {
+              financial: Math.round(plan.funding.progress) + '%',
+              caption: 'funding.progress',
+            },
+          },
+        ];
+      },
+    },
+
+    methods: {
+      formatNumber(n) {
+        const ranges = [
+          { divider: 1e12 , suffix: 'T' },
+          { divider: 1e9 , suffix: 'B' },
+          { divider: 1e6 , suffix: 'M' },
+          { divider: 1e3 , suffix: 'K' }
+        ];
+
+        function doFormatting(n) {
+          // if negative, add a minus and format the positive number.
+          if (n < 0) {
+            return '-' + doFormatting(-n);
+          }
+
+          // Determine which unit we're attaching
+          for (var i = 0; i < ranges.length; i++) {
+            if (n >= ranges[i].divider) {
+              // the + is a coercion to String, which allows us to use toFixed()
+              // but it will skip the decimal when equal to 0
+              return +(n / ranges[i].divider).toFixed(1) + ranges[i].suffix;
+            }
+          }
+
+          return n;
+        }
+
+        return doFormatting(n);
+      },
+    },
+
   }
 </script>
 

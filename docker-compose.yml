@@ -11,3 +11,5 @@ services:
       CTF_SPACE_ID:
       CTF_ENVIRONMENT:
       CTF_CDA_ACCESS_TOKEN:
+      BASE_URL:
+      BASIC_AUTH:
