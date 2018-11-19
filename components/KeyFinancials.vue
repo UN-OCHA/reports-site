@@ -11,7 +11,7 @@
         Financial data could not be found.
       </div>
     </div>
-    <a v-if="!!ftsUrl" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
+    <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
     <CardActions :frag="'#' + this.cssId" />
     <CardFooter />
   </section>
@@ -29,12 +29,6 @@
       'ftsUrl': String,
     },
 
-    data() {
-      return {
-        ftsPlanId: 639,
-      }
-    },
-
     computed: {
       cssId() {
         if (typeof this.content === 'Array' && this.content.length > 0) {
@@ -43,6 +37,10 @@
         else {
           return 'cf-keyFinancials-notAvailable';
         }
+      },
+
+      ftsPlanId() {
+        return Number(this.ftsUrl.match(/\d+/)[0]);
       },
 
       ftsData() {
