@@ -29,7 +29,7 @@
 
         const sitRepUrl = window.location.href;
         const snapEndpoint = window.location.origin + '/snap';
-        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}`;
+        const snapRequest = `${snapEndpoint}?url=${encodeURIComponent(sitRepUrl)}&output=png&width=${window.innerWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.frag)}&user=ocha&pass=dev`;
 
         axios({
             url: snapRequest,
