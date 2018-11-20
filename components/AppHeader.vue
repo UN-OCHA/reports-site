@@ -9,7 +9,7 @@
       <h1 class="title" v-else>{{ $t('Situation Reports') }}</h1>
       <span class="subtitle" v-if="title">{{ $t('Situation Report') }}</span>
       <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs') }}</span>
-      <span class="last-updated" v-if="updated">{{ $t('Last updated') }}: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+      <span class="last-updated" v-if="updated">{{ $t('Last updated') }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
