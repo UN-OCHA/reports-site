@@ -2,28 +2,28 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link to="/" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
+        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs')">
       </nuxt-link>
 
       <h1 class="title" v-if="title">{{ title }}</h1>
-      <h1 class="title" v-else>Situation Reports</h1>
-      <span class="subtitle" v-if="title">Situation Report</span>
-      <span class="subtitle" v-else>United Nations Office for the Coordination of Humanitarian Affairs</span>
-      <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+      <h1 class="title" v-else>{{ $t('Situation Reports') }}</h1>
+      <span class="subtitle" v-if="title">{{ $t('Situation Report') }}</span>
+      <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs') }}</span>
+      <span class="last-updated" v-if="updated">{{ $t('Last updated') }}: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
       <div>
-        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
-          <span class="element-invisible">Share this page</span>
+          <span class="element-invisible">{{ $t('Share this page') }}</span>
         </button>
         <div class="share__options card">
           <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
           <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">Email</a>
+          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email') }}</a>
         </div>
       </div>
     </div>
