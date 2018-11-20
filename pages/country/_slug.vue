@@ -68,15 +68,6 @@
       }
     },
 
-    computed: {
-      locales() {
-        return this.$store.state.locales;
-      },
-      locale() {
-        return this.$store.state.locale;
-      }
-    },
-
     methods: {
       switchLanguage (localeCode) {
         document.cookie = `locale=${localeCode}`;

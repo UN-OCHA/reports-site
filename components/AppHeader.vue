@@ -15,6 +15,14 @@
     <div class="meta-area">
       <div>
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
+        <select class="language" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
+          <option v-for="lang in locales"
+            :key="lang.code"
+            :value="lang.code"
+            :selected="lang.code === locale">
+            {{ lang.name }}
+          </option>
+        </select>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
@@ -56,6 +64,11 @@
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
       },
+
+      switchLanguage (localeCode) {
+        document.cookie = `locale=${localeCode}`;
+        location.reload();
+      }
     },
 
     computed: {
@@ -63,6 +76,14 @@
         let now = new Date();
         return now.getFullYear() + '-' + ("00" + (now.getMonth() + 1)).slice(-2) + '-' + ("00" + now.getDate()).slice(-2);
       },
+
+      locales() {
+        return this.$store.state.locales;
+      },
+
+      locale() {
+        return this.$store.state.locale;
+      }
     }
   }
 </script>
