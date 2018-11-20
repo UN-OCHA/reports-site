@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import en from '~/locales/en.js';
+import fr from '~/locales/fr.js';
 
 Vue.use(VueI18n);
 
@@ -10,8 +12,8 @@ export default ({ app, store }) => {
     locale: store.state.locale,
     fallbackLocale: 'en',
     messages: {
-      'en': require('~/locales/en.js'),
-      'fr': require('~/locales/fr.js'),
+      'en': en,
+      'fr': fr,
     }
   });
 
@@ -21,7 +23,6 @@ export default ({ app, store }) => {
   //   if (app.i18n.locale === app.i18n.fallbackLocale) {
   //     return `/${link}`;
   //   }
-
   //   return `/${app.i18n.locale}/${link}`;
   // }
 }

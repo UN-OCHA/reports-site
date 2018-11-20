@@ -14,8 +14,7 @@
     </div>
     <div class="meta-area">
       <div>
-        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
-        <select class="language" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
+        <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
           <option v-for="lang in locales"
             :key="lang.code"
             :value="lang.code"
@@ -23,6 +22,7 @@
             {{ lang.name }}
           </option>
         </select>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
@@ -66,6 +66,16 @@
       },
 
       switchLanguage (localeCode) {
+        // @TODO: ideally we would just set the store and have everything update
+        //        without a refresh. This requires all the values to be computed
+        //        props and even when switched over it doesn't seem to work.
+        //
+        this.$store.commit('SET_LANG', localeCode);
+
+        //
+        // Instead, set a cookie and do a full refresh. This is inefficient but
+        // reliable.
+        //
         document.cookie = `locale=${localeCode}`;
         location.reload();
       }
@@ -207,6 +217,7 @@
 
   .cta {
     display: inline-block;
+    border: none;
     border-radius: 1em;
     padding: .25em 1em;
     margin-bottom: .25em;
@@ -219,6 +230,11 @@
     .wf-loaded & {
       font-family: "Roboto Condensed", Roboto, sans-serif;
     }
+  }
+
+  .lang-switcher {
+    @extend .cta;
+    appearance: none;
   }
 
   .meta-area {

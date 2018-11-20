@@ -9,7 +9,7 @@ export const state = () => ({
       name: 'FR'
     }
   ],
-  locale: 'en'
+  locale: 'fr'
 });
 
 export const mutations = {

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // System
   'lang': 'fr',
   'lang-name': 'Français',
@@ -15,15 +15,30 @@ module.exports = {
   'Share this page': 'Partagez cette page',
   'Email': 'Email',
 
-  // Cards
+  // Key Messages
   'Key Messages': 'Messages clés',
+
+  // Key Figures
   'Key Figures': 'Chiffres clés',
+
+  // Funding
   'Funding': 'Financement',
+  'Requirements': 'Requirements',
+  'Progress': 'Progress',
+
+  // Contacts
   'Contacts': 'Contacts',
+
+  // Clusters
   'Cluster Status': 'Statut du cluster',
   'Needs': 'Besoins',
   'Response': 'Réponse',
   'Gaps': 'Besoins non couverts',
+
+  // Articles
+  'Analysis': 'Analyse',
+  'Background': 'Contexte',
+  'Forecast': 'Prévisions',
   'Read more': 'Lire davantage',
   'Read less': 'Lire moins',
 }
