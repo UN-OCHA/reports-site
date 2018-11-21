@@ -2,14 +2,14 @@
   <article class="card card--article article clearfix" :id="this.cssId">
     <CardHeader />
     <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
-    <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
+    <div class="article__content" ref="article" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
-        <figure>
+        <figure ref="articleImg">
           <img :src="content.fields.image.fields.file.url" :alt="content.fields.image.fields.title">
           <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
       </div>
-      <div class="article__text" ref="article" :class="{
+      <div class="article__text" :class="{
         'is--expandable': this.isExpandable,
         'is--expanded': this.isExpanded,
       }" :style="{
@@ -51,19 +51,21 @@
         return 'cf-' + this.content.sys.id;
       },
 
-      // Allows us to smoothly transition between unknown article heights and
-      // a known minimum. Returns 'auto' when no transition is possible.
+      // Allows us to smoothly transition between unknown min-max heights.
+      // Returns 'auto' when no transition is necessary.
       getArticleHeight() {
         if (!this.isExpandable) {
           return 'auto'
         } else {
-          return this.isExpanded ? this.articleHeight : '280px';
+          return this.isExpanded ? this.articleHeight + 'px' : this.articleMinHeight + 'px';
         }
       }
     },
 
     data() {
       return {
+        articleMinGrowth: 150,
+        articleMinHeight: 200,
         articleHeight: 'auto',
         isExpandable: false,
         isExpanded: false,
@@ -81,12 +83,17 @@
       // Do some client-side manipulation of the Articles to expose a read-more
       // button on some entries. We calculate the height of the article as
       // rendered in browser then truncate when it exceeds a certain height.
-      var article = this.$refs['article'];
+      let article = this.$refs['article'];
+      let articleImg = this.$refs['articleImg'];
 
-      // When the element exceeds our arbitrary height limit, apply the class
-      // that truncates and adds a 'Read More' link.
-      if (article.clientHeight > 500) {
-        this.articleHeight = article.clientHeight + 'px';
+      // Set the article's min-height to the height of the image
+      this.articleMinHeight = (!!articleImg) ? articleImg.clientHeight : this.articleMinHeight;
+
+      // If the truncated article text will be sufficiently longer than the
+      // accompanying image or the minimum defined in data(), then we apply
+      // the 'Read More' treatment.
+      if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
+        this.articleHeight = article.clientHeight;
         this.isExpandable = true;
       }
     }
