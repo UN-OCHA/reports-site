@@ -1,7 +1,7 @@
 <template>
   <article class="card card--article article clearfix" :id="this.cssId">
     <CardHeader />
-    <span class="card__title">{{ $t(content.fields.sectionHeading) }}</span>
+    <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure>
@@ -25,7 +25,7 @@
       class="btn--toggle-text"
       :class="{ 'is--expanded': this.isExpanded }"
       @click="isExpanded = !isExpanded">
-      {{ isExpanded ? $t('Read less') : $t('Read more') }}
+      {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
     <CardActions :frag="'#' + this.cssId" />
@@ -34,12 +34,17 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
     extends: Card,
-    props: ['content'],
+    mixins: [Global],
+
+    props: {
+      'content': Object,
+    },
 
     computed: {
       cssId() {

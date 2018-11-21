@@ -1,7 +1,7 @@
 <template>
   <section class="card card--cluster cluster" :id="this.cssId">
     <CardHeader />
-    <h2 class="card__title">Cluster Status</h2>
+    <h2 class="card__title">{{ $t('Cluster Status', locale) }}</h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
       <div class="figures clearfix" v-if="content.fields.clusterFigures">
@@ -15,15 +15,15 @@
     </div>
     <div class="cluster__content clearfix">
       <div class="cluster__bucket">
-        <h3 class="cluster__bucket-title">Needs</h3>
+        <h3 class="cluster__bucket-title">{{ $t('Needs', locale) }}</h3>
         <div class="rich-text" v-html="this.richNeeds"></div>
       </div>
       <div class="cluster__bucket">
-        <h3 class="cluster__bucket-title">Response</h3>
+        <h3 class="cluster__bucket-title">{{ $t('Response', locale) }}</h3>
         <div class="rich-text" v-html="this.richResponse"></div>
       </div>
       <div class="cluster__bucket">
-        <h3 class="cluster__bucket-title">Gaps</h3>
+        <h3 class="cluster__bucket-title">{{ $t('Gaps', locale) }}</h3>
         <div class="rich-text" v-html="this.richGaps"></div>
       </div>
     </div>
@@ -33,12 +33,14 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
-  import KeyFigures from './KeyFigures.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
+  import KeyFigures from '~/components/KeyFigures';
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
     extends: Card,
+    mixins: [Global],
 
     props: {
       'content': Object,

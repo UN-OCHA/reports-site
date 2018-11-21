@@ -2,19 +2,19 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link to="/" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs')">
+        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
 
       <h1 class="title" v-if="title">{{ title }}</h1>
-      <h1 class="title" v-else>{{ $t('Situation Reports') }}</h1>
-      <span class="subtitle" v-if="title">{{ $t('Situation Report') }}</span>
-      <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs') }}</span>
-      <span class="last-updated" v-if="updated">{{ $t('Last updated') }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
+      <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
+      <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
+      <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs', locale) }}</span>
+      <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
       <div>
-        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
         <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
           <option v-for="lang in locales"
             :key="lang.code"
@@ -39,7 +39,11 @@
 </template>
 
 <script>
+  import Global from '~/components/_Global';
+
   export default {
+    mixins: [Global],
+
     props: {
       'title': String,
       'updated': String,
@@ -66,18 +70,11 @@
       },
 
       switchLanguage (localeCode) {
-        // @TODO: ideally we would just set the store and have everything update
-        //        without a refresh. This requires all the values to be computed
-        //        props and even when switched over it doesn't seem to work.
-        //
+        // Update the store
         this.$store.commit('SET_LANG', localeCode);
 
-        //
-        // Instead, set a cookie and do a full refresh. This is inefficient but
-        // reliable.
-        //
+        // Set a cookie for any full refresh that might occur.
         document.cookie = `locale=${localeCode}`;
-        location.reload();
       }
     },
 
@@ -86,14 +83,6 @@
         let now = new Date();
         return now.getFullYear() + '-' + ("00" + (now.getMonth() + 1)).slice(-2) + '-' + ("00" + now.getDate()).slice(-2);
       },
-
-      locales() {
-        return this.$store.state.locales;
-      },
-
-      locale() {
-        return this.$store.state.locale;
-      }
     }
   }
 </script>
