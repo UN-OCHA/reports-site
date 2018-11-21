@@ -1,7 +1,7 @@
 <template>
   <section class="card card--keyFigures" :id="this.cssId">
     <CardHeader />
-    <h2 class="card__title">{{ $t('Key Figures') }}</h2>
+    <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content" :key="figure.sys.id">
         <a v-if="figure.fields.source" :href="figure.fields.source" class="data" target="_blank" rel="noopener">{{ figure.fields.figure }}</a>
@@ -15,10 +15,12 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
 
   export default {
     extends: Card,
+    mixins: [Global],
 
     props: {
       'content': Array,

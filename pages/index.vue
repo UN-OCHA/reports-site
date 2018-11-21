@@ -5,15 +5,15 @@
 
     <main class="container">
       <section class="card card--intro md">
-        <h2 class="card__title">{{ $t('About this site') }}</h2>
+        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
         <p>The Digital Situation Report aims to simplify OCHA's current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users' time by automating distribution and design. As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.</p>
       </section>
       <section class="card card--sitreps">
-        <h2 class="card__title">{{ $t('Recently updated') }}:</h2>
+        <h2 class="card__title">{{ $t('Recently updated', locale) }}:</h2>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
             <nuxt-link :to="'/country/' + entry.fields.slug">{{ entry.fields.title }}</nuxt-link>
-            <span class="last-updated">{{ $t('Last updated') }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('ll') }}</time></span>
+            <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('ll') }}</time></span>
           </li>
         </ul>
       </section>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import Global from '~/components/_Global';
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
@@ -34,6 +35,8 @@
   const active_content_type = 'sitrep';
 
   export default {
+    mixins: [Global],
+
     // Declare any components we're using here
     components: {
       AppBar,

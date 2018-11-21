@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import Global from '~/components/_Global';
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
@@ -42,7 +43,8 @@
   const active_content_type = 'sitrep';
 
   export default {
-    // Declare all child components we're using.
+    mixins: [Global],
+
     components: {
       AppBar,
       AppFooter,

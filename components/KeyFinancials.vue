@@ -1,14 +1,14 @@
 <template>
   <section class="card card--keyFinancials" :id="this.cssId">
     <CardHeader />
-    <h2 class="card__title">{{ $t('Funding') }}</h2>
+    <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
     <div class="figures clearfix">
       <figure v-if="ftsData" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-else class="figures-none">
-        {{ $t('Financial data could not be found.') }}
+        {{ $t('Financial data could not be found.', locale) }}
       </div>
     </div>
     <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
@@ -18,11 +18,12 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
-  import KeyFigures from './KeyFigures.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
 
   export default {
     extends: Card,
+    mixins: [Global],
 
     props: {
       'content': Array,
@@ -55,7 +56,7 @@
             },
             fields: {
               financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
-              caption: this.$t('Requirements'),
+              caption: this.$t('Requirements', this.locale),
             },
           },
           {
@@ -64,7 +65,7 @@
             },
             fields: {
               financial: '$' + this.formatNumber(plan.funding.totalFunding),
-              caption: this.$t('Funding'),
+              caption: this.$t('Funding', this.locale),
             },
           },
           {
@@ -73,7 +74,7 @@
             },
             fields: {
               financial: Math.round(plan.funding.progress) + '%',
-              caption: this.$t('Progress'),
+              caption: this.$t('Progress', this.locale),
             },
           },
         ];

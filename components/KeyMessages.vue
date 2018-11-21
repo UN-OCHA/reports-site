@@ -1,7 +1,7 @@
 <template>
   <article class="card card--keyMessages key-messages" :id="this.cssId">
     <CardHeader />
-    <h2 class="card__title">{{ $t('Key Messages') }}</h2>
+    <h2 class="card__title">{{ $t('Key Messages', locale) }}</h2>
     <div class="key-messages__area">
       <ul class="message-list">
         <li :key="message.sys.id" v-for="message in messages" class="message">
@@ -19,10 +19,12 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
 
   export default {
     extends: Card,
+    mixins: [Global],
 
     props: {
       'messages': Array,
@@ -32,7 +34,7 @@
     computed: {
       cssId() {
         return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
-      }
+      },
     }
   }
 </script>
