@@ -8,10 +8,12 @@
           {{ message.fields.keyMessage }}
         </li>
       </ul>
-      <figure v-if="image && typeof image.fields !== 'undefined'">
-        <img class="image" :src="'https:' + image.fields.file.url" :alt="image.fields.title">
-        <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
-      </figure>
+      <div class="image-area" v-if="image && typeof image.fields !== 'undefined'">
+        <figure>
+          <img class="image" :src="'https:' + image.fields.file.url" :alt="image.fields.title">
+          <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
+        </figure>
+      </div>
     </div>
     <CardActions :frag="'#' + this.cssId" />
     <CardFooter />
@@ -41,7 +43,7 @@
 
 <style scoped>
 
-.image {
+.image-area {
   width: 100%;
   border-radius: 5px;
 }
@@ -61,7 +63,7 @@
   .message {
     margin-right: 1rem;
   }
-  .image {
+  .image-area {
     width: 50%;
     float: right;
   }
@@ -81,7 +83,7 @@
     }
 
     .message-list,
-    .image {
+    .image-area {
       width: 100%;
       float: none;
     }
@@ -90,7 +92,7 @@
       grid-area: km-messages;
     }
 
-    .image {
+    .image-area {
       grid-area: km-image;
     }
 
