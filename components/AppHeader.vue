@@ -14,6 +14,7 @@
     </div>
     <div class="meta-area">
       <div>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
         <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
           <option v-for="lang in locales"
             :key="lang.code"
@@ -22,7 +23,6 @@
             {{ lang.name }}
           </option>
         </select>
-        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
