@@ -7,10 +7,6 @@
 
 <script>
   export default {
-    props: {
-      'frag': String,
-    },
-
     data() {
       return {}
     },

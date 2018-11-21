@@ -1,6 +1,6 @@
 <template>
   <section class="card card--contacts">
-    <h3 class="card__title">{{ $t('Contacts') }}</h3>
+    <h3 class="card__title">{{ $t('Contacts', locale) }}</h3>
     <address :key="contact.sys.id" v-for="contact in content" class="card__contact contact">
       <h4 class="name">{{ contact.fields.name }}</h4>
       <span class="job-title">{{ contact.fields.jobTitle }}</span><br>
@@ -11,10 +11,12 @@
 </template>
 
 <script>
-  import Card from './Card.vue';
+  import Global from '~/components/_Global';
+  import Card from '~/components/Card';
 
   export default {
     extends: Card,
+    mixins: [Global],
 
     props: {
       'content': Array,
