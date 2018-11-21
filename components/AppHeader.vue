@@ -2,28 +2,36 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link to="/" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
+        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs')">
       </nuxt-link>
 
       <h1 class="title" v-if="title">{{ title }}</h1>
-      <h1 class="title" v-else>Situation Reports</h1>
-      <span class="subtitle" v-if="title">Situation Report</span>
-      <span class="subtitle" v-else>United Nations Office for the Coordination of Humanitarian Affairs</span>
-      <span class="last-updated" v-if="updated"><span class="viz--480">Last </span> updated: <time :datetime="updated">{{ $moment(updated).format('YYYY-MM-DD') }}</time></span>
+      <h1 class="title" v-else>{{ $t('Situation Reports') }}</h1>
+      <span class="subtitle" v-if="title">{{ $t('Situation Report') }}</span>
+      <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs') }}</span>
+      <span class="last-updated" v-if="updated">{{ $t('Last updated') }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
       <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
     </div>
     <div class="meta-area">
       <div>
-        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">Subscribe</a>
+        <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
+          <option v-for="lang in locales"
+            :key="lang.code"
+            :value="lang.code"
+            :selected="lang.code === locale">
+            {{ lang.name }}
+          </option>
+        </select>
+        <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe') }}</a>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
-          <span class="element-invisible">Share this page</span>
+          <span class="element-invisible">{{ $t('Share this page') }}</span>
         </button>
         <div class="share__options card">
           <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
           <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">Email</a>
+          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email') }}</a>
         </div>
       </div>
     </div>
@@ -56,6 +64,21 @@
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
       },
+
+      switchLanguage (localeCode) {
+        // @TODO: ideally we would just set the store and have everything update
+        //        without a refresh. This requires all the values to be computed
+        //        props and even when switched over it doesn't seem to work.
+        //
+        this.$store.commit('SET_LANG', localeCode);
+
+        //
+        // Instead, set a cookie and do a full refresh. This is inefficient but
+        // reliable.
+        //
+        document.cookie = `locale=${localeCode}`;
+        location.reload();
+      }
     },
 
     computed: {
@@ -63,6 +86,14 @@
         let now = new Date();
         return now.getFullYear() + '-' + ("00" + (now.getMonth() + 1)).slice(-2) + '-' + ("00" + now.getDate()).slice(-2);
       },
+
+      locales() {
+        return this.$store.state.locales;
+      },
+
+      locale() {
+        return this.$store.state.locale;
+      }
     }
   }
 </script>
@@ -186,6 +217,7 @@
 
   .cta {
     display: inline-block;
+    border: none;
     border-radius: 1em;
     padding: .25em 1em;
     margin-bottom: .25em;
@@ -198,6 +230,11 @@
     .wf-loaded & {
       font-family: "Roboto Condensed", Roboto, sans-serif;
     }
+  }
+
+  .lang-switcher {
+    @extend .cta;
+    appearance: none;
   }
 
   .meta-area {

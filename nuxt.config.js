@@ -43,6 +43,16 @@ module.exports = {
     ['@nuxtjs/google-tag-manager', { id: 'GTM-W4PXQBG' }],
   ],
   //
+  // Router
+  //
+  router: {
+    middleware: 'i18n'
+  },
+  //
+  // Plugins
+  //
+  plugins: ['~/plugins/i18n.js'],
+  //
   // Build configuration
   //
   build: {

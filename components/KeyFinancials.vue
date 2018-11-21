@@ -1,14 +1,14 @@
 <template>
   <section class="card card--keyFinancials" :id="this.cssId">
     <CardHeader />
-    <h2 class="card__title">Key Financials</h2>
+    <h2 class="card__title">{{ $t('Funding') }}</h2>
     <div class="figures clearfix">
       <figure v-if="ftsData" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-else class="figures-none">
-        Financial data could not be found.
+        {{ $t('Financial data could not be found.') }}
       </div>
     </div>
     <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
@@ -55,7 +55,7 @@
             },
             fields: {
               financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
-              caption: 'requirements.revisedRequirements',
+              caption: this.$t('Requirements'),
             },
           },
           {
@@ -64,7 +64,7 @@
             },
             fields: {
               financial: '$' + this.formatNumber(plan.funding.totalFunding),
-              caption: 'funding.totalFunding',
+              caption: this.$t('Funding'),
             },
           },
           {
@@ -73,7 +73,7 @@
             },
             fields: {
               financial: Math.round(plan.funding.progress) + '%',
-              caption: 'funding.progress',
+              caption: this.$t('Progress'),
             },
           },
         ];

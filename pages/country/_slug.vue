@@ -68,6 +68,13 @@
       }
     },
 
+    methods: {
+      switchLanguage (localeCode) {
+        document.cookie = `locale=${localeCode}`;
+        location.reload();
+      }
+    },
+
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {

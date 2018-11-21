@@ -1,7 +1,7 @@
 <template>
   <article class="card card--article article clearfix" :id="this.cssId">
     <CardHeader />
-    <span class="card__title">{{ content.fields.sectionHeading }}</span>
+    <span class="card__title">{{ $t(content.fields.sectionHeading) }}</span>
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure>
@@ -25,7 +25,7 @@
       class="btn--toggle-text"
       :class="{ 'is--expanded': this.isExpanded }"
       @click="isExpanded = !isExpanded">
-      {{ isExpanded ? 'Read Less' : 'Read More' }}
+      {{ isExpanded ? $t('Read less') : $t('Read more') }}
     </button>
 
     <CardActions :frag="'#' + this.cssId" />
