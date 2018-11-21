@@ -9,6 +9,10 @@ export default {
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
 
+  // Homepage
+  'About this site': 'About this site',
+  'Recently updated': 'Recently updated',
+
   // AppHeader
   'Subscribe': 'Subscribe',
   'Last updated': 'Last updated',
