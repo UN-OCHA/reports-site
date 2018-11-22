@@ -64,10 +64,7 @@
 
     // Set up empty objects that will be populated by asyncData.
     data() {
-      return {
-        entry: {},
-        ftsData: {}
-      }
+      return {}
     },
 
     // We use the object populated by asyncData here. It might be empty at first
