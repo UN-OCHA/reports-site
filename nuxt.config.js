@@ -92,7 +92,6 @@ module.exports = {
         })
         .then((res) => {
           return res.items.map((page) => {
-            // console.log(page.fields);
             return route = '/country/' + page.fields.slug;
           });
         });
