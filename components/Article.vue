@@ -5,7 +5,11 @@
     <div class="article__content" ref="article" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure ref="articleImg">
-          <img :src="content.fields.image.fields.file.url" :alt="content.fields.image.fields.title">
+          <img
+            :src="content.fields.image.fields.file.url"
+            :alt="content.fields.image.fields.title"
+            :width="content.fields.image.fields.file.details.image.width"
+            :height="content.fields.image.fields.file.details.image.height">
           <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
       </div>
@@ -87,7 +91,7 @@
       let articleImg = this.$refs['articleImg'];
 
       // Set the article's min-height to the height of the image
-      this.articleMinHeight = (!!articleImg) ? articleImg.clientHeight : this.articleMinHeight;
+      this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.clientHeight, this.articleMinHeight) : this.articleMinHeight;
 
       // If the truncated article text will be sufficiently longer than the
       // accompanying image or the minimum defined in data(), then we apply
