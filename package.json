@@ -24,6 +24,7 @@
     "fontfaceobserver": "^2.0.13",
     "moment": "^2.22.2",
     "nuxt": "^2.3.1",
+    "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
     "webpack": "^4.20.2"
   },

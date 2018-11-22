@@ -1,5 +1,5 @@
 <template>
-  <div class="page--sitrep" :id="'cf-' + entry.sys.id">
+  <div class="page--sitrep" :id="'cf-' + entry.sys.id" @click="noop">
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
@@ -67,13 +67,6 @@
       return {
         entry: {},
         ftsData: {}
-      }
-    },
-
-    methods: {
-      switchLanguage (localeCode) {
-        document.cookie = `locale=${localeCode}`;
-        location.reload();
       }
     },
 

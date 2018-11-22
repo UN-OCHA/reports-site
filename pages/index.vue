@@ -1,5 +1,5 @@
 <template>
-  <div class="page--front">
+  <div class="page--front" @click="noop">
     <AppBar />
     <AppHeader />
 

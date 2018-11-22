@@ -25,7 +25,7 @@
         </select>
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
-        <button class="share__toggle" @click="toggleShare" @blur="shareIsOpen = false">
+        <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
           <span class="element-invisible">{{ $t('Share this page') }}</span>
         </button>
         <div class="share__options card">
@@ -40,9 +40,10 @@
 
 <script>
   import Global from '~/components/_Global';
+  import { mixin as clickaway } from 'vue-clickaway';
 
   export default {
-    mixins: [Global],
+    mixins: [Global, clickaway],
 
     props: {
       'title': String,
@@ -65,8 +66,24 @@
     },
 
     methods: {
+      click(ev) {
+        // In order to normalize touch events, we trigger the click handler
+        // immediately and stop event propagation.
+        this.toggleShare();
+        ev.stopPropagation();
+        ev.preventDefault();
+      },
+
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
+      },
+
+      openShare() {
+        this.shareIsOpen = true;
+      },
+
+      closeShare() {
+        this.shareIsOpen = false;
       },
 
       switchLanguage (localeCode) {
@@ -75,7 +92,7 @@
 
         // Set a cookie for any full refresh that might occur.
         document.cookie = `locale=${localeCode}`;
-      }
+      },
     },
 
     computed: {
