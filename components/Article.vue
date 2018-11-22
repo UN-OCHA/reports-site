@@ -4,8 +4,9 @@
     <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
-        <figure ref="articleImg">
+        <figure>
           <img
+            ref="articleImg"
             :src="content.fields.image.fields.file.url"
             :alt="content.fields.image.fields.title"
             :width="content.fields.image.fields.file.details.image.width"
@@ -91,7 +92,7 @@
       let articleImg = this.$refs['articleImg'];
 
       // Set the article's min-height to the height of the image
-      this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.clientHeight, this.articleMinHeight) : this.articleMinHeight;
+      this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
 
       // If the truncated article text will be sufficiently longer than the
       // accompanying image or the minimum defined in data(), then we apply
