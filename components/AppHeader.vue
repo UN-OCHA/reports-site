@@ -10,7 +10,7 @@
         <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs', locale) }}</span>
-        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('ll') }}</time></span>
       </div>
     </div>
     <div class="meta-area">
@@ -54,14 +54,7 @@
     },
 
     data() {
-      let shareSubject = `Situation Report: ${this.title} ${this.today}`;
-      let shareMessage = `Read the latest from ${this.title}'s Situation Report`;
-      let shareBaseUrl = typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
-
       return {
-        shareUrlEmail: `mailto:?subject=${shareSubject}&body=${shareMessage}%0A%0A${shareBaseUrl}`,
-        shareUrlFacebook: `https://www.facebook.com/sharer/sharer.php?u=${shareBaseUrl}`,
-        shareUrlTwitter: `https://twitter.com/intent/tweet?text=${shareMessage}%0A%0A${shareBaseUrl}`,
         shareIsOpen: false,
       }
     },
@@ -98,8 +91,30 @@
 
     computed: {
       today() {
-        let now = new Date();
-        return now.getFullYear() + '-' + ("00" + (now.getMonth() + 1)).slice(-2) + '-' + ("00" + now.getDate()).slice(-2);
+        return this.$moment(Date.now()).locale(this.locale).format('ll');
+      },
+
+      shareBaseUrl() {
+        return typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+      },
+
+      shareMessage() {
+        return `Read the latest from ${this.title}'s Situation Report`;
+      },
+
+      shareUrlEmail() {
+        const subjectDate = (this.today) ? ' — ' + this.today : '';
+        const shareSubject = `Situation Report: ${this.title} ${subjectDate}`;
+
+        return `mailto:?subject=${shareSubject}&body=${this.shareMessage}%0A%0A${this.shareBaseUrl}`;
+      },
+
+      shareUrlFacebook() {
+        return `https://www.facebook.com/sharer/sharer.php?u=${this.shareBaseUrl}`;
+      },
+
+      shareUrlTwitter() {
+        return `https://twitter.com/intent/tweet?text=${this.shareMessage}%0A%0A${this.shareBaseUrl}`;
       },
     }
   }
