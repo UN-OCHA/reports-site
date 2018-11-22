@@ -1,4 +1,13 @@
+// Contentful + Environment variables
 const api = require('./.contentful.json');
+
+// These allow us to query Contentful and get all of our valid URLs.
+const contentful = require('contentful');
+const client = contentful.createClient({
+  space: api.CTF_SPACE_ID,
+  environment: api.CTF_ENVIRONMENT,
+  accessToken: api.CTF_CDA_ACCESS_TOKEN,
+});
 
 module.exports = {
   //
@@ -68,6 +77,24 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  //
+  // Static Generation config
+  //
+  generate: {
+    routes: function () {
+      const active_content_type = 'sitrep';
+
+      return client.getEntries({
+          'include': 2,
+          'content_type': active_content_type,
+        })
+        .then((res) => {
+          return res.items.map((page) => {
+            return route = '/country/' + page.fields.slug;
+          });
+        });
     }
   }
 }
