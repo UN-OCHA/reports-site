@@ -5,12 +5,13 @@
         <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
 
-      <h1 class="title" v-if="title">{{ title }}</h1>
-      <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
-      <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
-      <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs', locale) }}</span>
-      <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
-      <span class="last-updated" v-else aria-hidden="true">&nbsp;</span>
+      <div class="title-area__headings">
+        <h1 class="title" v-if="title">{{ title }}</h1>
+        <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
+        <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
+        <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs', locale) }}</span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('DD MMM YYYY') }}</time></span>
+      </div>
     </div>
     <div class="meta-area">
       <div>
@@ -162,8 +163,13 @@
     }
   }
 
+  .title-area {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
   .logo-link {
-    float: left;
+    flex: 0 0 53px;
     padding-right: 10px;
     margin-top: 7px;
     margin-right: 10px;
@@ -177,6 +183,10 @@
   .logo {
     width: 53px;
     height: 61px;
+  }
+
+  .title-area__headings {
+    flex: 1 0 90%;
   }
 
   .title {
