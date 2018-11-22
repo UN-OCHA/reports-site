@@ -2,7 +2,7 @@
   <article class="card card--article article clearfix" :id="this.cssId">
     <CardHeader />
     <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
-    <div class="article__content" ref="article" :class="{ 'article__content--has-image': content.fields.image }">
+    <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure ref="articleImg">
           <img
@@ -13,7 +13,7 @@
           <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
         </figure>
       </div>
-      <div class="article__text" :class="{
+      <div ref="article" class="article__text" :class="{
         'is--expandable': this.isExpandable,
         'is--expanded': this.isExpanded,
       }" :style="{
