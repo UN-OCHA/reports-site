@@ -26,12 +26,12 @@
       </div>
       <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
         <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
-          <span class="element-invisible">{{ $t('Share this page') }}</span>
+          <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
         </button>
         <div class="share__options card">
           <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
           <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email') }}</a>
+          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
         </div>
       </div>
     </div>
