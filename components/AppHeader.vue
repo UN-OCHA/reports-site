@@ -104,7 +104,7 @@
 
       shareUrlEmail() {
         const subjectDate = (this.today) ? ' — ' + this.today : '';
-        const shareSubject = `Situation Report: ${this.title} ${subjectDate}`;
+        const shareSubject = `${this.$t('Situation Report', this.locale)}: ${this.title} ${subjectDate}`;
 
         return `mailto:?subject=${shareSubject}&body=${this.shareMessage}%0A%0A${this.shareBaseUrl}`;
       },
