@@ -5,9 +5,9 @@
 </template>
 
 <script>
-  import CardActions from './CardActions.vue';
-  import CardHeader from './CardHeader.vue';
-  import CardFooter from './CardFooter.vue';
+  import CardActions from '~/components/CardActions';
+  import CardHeader from '~/components/CardHeader';
+  import CardFooter from '~/components/CardFooter';
 
   export default {
     components: {
@@ -28,5 +28,6 @@
   //
   .snap--png .card {
     border-radius: 0;
+    box-shadow: none;
   }
 </style>

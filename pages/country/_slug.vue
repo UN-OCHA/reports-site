@@ -5,7 +5,8 @@
       :title="entry.fields.title"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
-      :share="true" />
+      :share="true"
+      :snap="true" />
 
     <main class="container report">
       <section class="section--primary clearfix">
