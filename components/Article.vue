@@ -51,6 +51,17 @@
       'content': Object,
     },
 
+    data() {
+      return {
+        articleMinGrowth: 150,
+        articleMinHeight: 200,
+        articleHeight: 'auto',
+        isExpandable: false,
+        isExpanded: false,
+        richBody: '',
+      };
+    },
+
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
@@ -65,17 +76,6 @@
           return this.isExpanded ? this.articleHeight + 'px' : this.articleMinHeight + 'px';
         }
       }
-    },
-
-    data() {
-      return {
-        articleMinGrowth: 150,
-        articleMinHeight: 200,
-        articleHeight: 'auto',
-        isExpandable: false,
-        isExpanded: false,
-        richBody: '',
-      };
     },
 
     created() {
