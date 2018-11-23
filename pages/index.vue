@@ -4,12 +4,13 @@
     <AppHeader />
 
     <main class="container">
-      <section class="card card--intro md">
+      <section class="card card--intro rich-text">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <p>The Digital Situation Report aims to simplify OCHA's current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users' time by automating distribution and design. As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.</p>
+        <p>The Digital Situation Report aims to simplify OCHA's current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users' time by automating distribution and design.</p>
+        <p>As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.</p>
       </section>
       <section class="card card--sitreps">
-        <h2 class="card__title">{{ $t('Recently updated', locale) }}:</h2>
+        <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
             <nuxt-link :to="'/country/' + entry.fields.slug">{{ entry.fields.title }}</nuxt-link>
