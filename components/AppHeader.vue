@@ -25,14 +25,21 @@
           </option>
         </select>
       </div>
-      <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
-        <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
-          <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
-        </button>
-        <div class="share__options card">
-          <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
-          <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-          <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+      <div class="meta-area__actions">
+        <SnapPage
+          v-if="snap"
+          :title="title"
+          :subtitle="this.$t('Situation Report', locale)"
+          :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
+        <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
+          <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
+            <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
+          </button>
+          <div class="share__options card">
+            <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+            <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+            <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -41,16 +48,25 @@
 
 <script>
   import Global from '~/components/_Global';
+  import SnapPage from '~/components/SnapPage';
   import { mixin as clickaway } from 'vue-clickaway';
 
   export default {
-    mixins: [Global, clickaway],
+    mixins: [
+      Global,
+      clickaway
+    ],
+
+    components: {
+      SnapPage,
+    },
 
     props: {
       'title': String,
       'updated': String,
       'mailchimp': String,
       'share': Boolean,
+      'snap': Boolean,
     },
 
     data() {
@@ -146,6 +162,11 @@
 
   .meta-area {
     margin-top: 1rem;
+
+    // for .meta-area__actions
+    @media (min-width: 700px) {
+      position: relative;
+    }
   }
 
 
@@ -266,13 +287,7 @@
     appearance: none;
   }
 
-  .meta-area {
-    @media (min-width: 700px) {
-      position: relative;
-    }
-  }
-
-  .share {
+  .meta-area__actions {
     position: absolute;
     top: 4rem;
     right: 1rem;
@@ -282,6 +297,10 @@
       top: auto;
       right: auto;
     }
+  }
+
+  .share {
+    display: inline-block;
 
     &__toggle {
       display: inline-block;
