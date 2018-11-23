@@ -51,6 +51,17 @@
       'content': Object,
     },
 
+    data() {
+      return {
+        articleMinGrowth: 150,
+        articleMinHeight: 200,
+        articleHeight: 'auto',
+        isExpandable: false,
+        isExpanded: false,
+        richBody: '',
+      };
+    },
+
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
@@ -67,17 +78,6 @@
       }
     },
 
-    data() {
-      return {
-        articleMinGrowth: 150,
-        articleMinHeight: 200,
-        articleHeight: 'auto',
-        isExpandable: false,
-        isExpanded: false,
-        richBody: '',
-      };
-    },
-
     created() {
       // Any custom render-methods would go here.
       const richOptions = {};
@@ -85,24 +85,22 @@
     },
 
     mounted() {
-      this.$nextTick(function () {
-        // Do some client-side manipulation of the Articles to expose a read-more
-        // button on some entries. We calculate the height of the article as
-        // rendered in browser then truncate when it exceeds a certain height.
-        let article = this.$refs['article'];
-        let articleImg = this.$refs['articleImg'];
+      // Do some client-side manipulation of the Articles to expose a read-more
+      // button on some entries. We calculate the height of the article as
+      // rendered in browser then truncate when it exceeds a certain height.
+      let article = this.$refs['article'];
+      let articleImg = this.$refs['articleImg'];
 
-        // Set the article's min-height to the height of the image
-        this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
+      // Set the article's min-height to the height of the image
+      this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
 
-        // If the truncated article text will be sufficiently longer than the
-        // accompanying image or the minimum defined in data(), then we apply
-        // the 'Read More' treatment.
-        if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
-          this.articleHeight = article.clientHeight;
-          this.isExpandable = true;
-        }
-      });
+      // If the truncated article text will be sufficiently longer than the
+      // accompanying image or the minimum defined in data(), then we apply
+      // the 'Read More' treatment.
+      if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
+        this.articleHeight = article.clientHeight;
+        this.isExpandable = true;
+      }
     }
   }
 </script>
