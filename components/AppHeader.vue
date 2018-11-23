@@ -4,7 +4,6 @@
       <nuxt-link to="/" class="logo-link">
         <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
-
       <div class="title-area__headings">
         <h1 class="title" v-if="title">{{ title }}</h1>
         <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
@@ -13,6 +12,7 @@
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('ll') }}</time></span>
       </div>
     </div>
+
     <div class="meta-area">
       <div>
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
@@ -121,7 +121,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .header[role="banner"] {
+  .header {
     border-bottom: 3px solid #4c8cca;
     padding-bottom: 1rem;
 
@@ -138,13 +138,16 @@
     }
   }
 
+  .title-area {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-right: 2rem;
+  }
+
   .meta-area {
     margin-top: 1rem;
   }
 
-  .title-area {
-    margin-right: 2rem;
-  }
 
   @media screen and (min-width: 600px) {
     .title-area {
@@ -176,11 +179,6 @@
         content: none;
       }
     }
-  }
-
-  .title-area {
-    display: flex;
-    flex-flow: row nowrap;
   }
 
   .logo-link {
