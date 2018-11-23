@@ -28,6 +28,7 @@
       <div class="meta-area__actions">
         <SnapPage
           v-if="snap"
+          output="pdf"
           :title="title"
           :subtitle="this.$t('Situation Report', locale)"
           :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
