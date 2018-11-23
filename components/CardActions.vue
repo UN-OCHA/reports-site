@@ -116,17 +116,6 @@
     background-size: contain;
   }
 
-  @keyframes clicked {
-    from {
-      transform: translate(0) scale(1);
-      opacity: .8;
-    }
-    to {
-      transform: translateZ(300px) scale(5);
-      opacity: 0;
-    }
-  }
-
   .btn--is-active {
     animation: is-active 1s ease-in-out infinite;
     cursor: wait;
