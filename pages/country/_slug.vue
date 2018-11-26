@@ -266,7 +266,7 @@
   }
   .card--keyFigures {
     border-right: 1px solid #ddd;
-    border-bottom: 0;
+    border-bottom: 0 !important; /* override shared print/screen Grid styles */
     margin-bottom: 0;
   }
   .card--keyFinancials {
