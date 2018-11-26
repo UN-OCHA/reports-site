@@ -56,4 +56,8 @@
       box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
     }
   }
+
+  .btn--is-active {
+    cursor: wait;
+  }
 </style>
