@@ -6,8 +6,13 @@
 
 <script>
   import axios from 'axios';
+  import Global from '~/components/_Global';
 
   export default {
+    mixins: [
+      Global
+    ],
+
     props: {
       'output': String,
     },
@@ -29,6 +34,12 @@
 
       snapRequest() {
         return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=${this.output}&user=ocha&pass=dev`;
+      },
+
+      // We provide a very generic filename to be overridden in each specific
+      // use-case of the Snap component. See SnapCard and SnapPage for examples.
+      filename() {
+        return `SituationReport-${Date.now()}.${this.output}`;
       },
     },
 
@@ -58,7 +69,7 @@
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `SitRep-${Date.now()}.${this.output}`);
+        link.setAttribute('download', this.filename);
         link.click();
 
         // Clean up memory

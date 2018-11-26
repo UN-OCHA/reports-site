@@ -26,6 +26,11 @@
       snapRequest() {
         return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&user=ocha&pass=dev`;
       },
+
+      filename() {
+        const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.locale).format('DD MMM YYYY');
+        return `${this.$t('Situation Report', this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
+      },
     },
   }
 </script>
