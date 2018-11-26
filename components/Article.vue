@@ -236,6 +236,35 @@
   } // @media screen
 
   //
+  // Print layout
+  //
+  // Many styles from Snap are duplicated here in case someone uses native print.
+  //
+  @media print {
+    .article__image {
+      float: right;
+      max-width: 40%;
+      margin-left: 2em;
+    }
+
+    .is--expandable {
+      // Force full-height content.
+      height: auto !important;
+
+      // Remove white gradient that normally appears on expandable content.
+      &::before {
+        content: none;
+        opacity: 0;
+      }
+    }
+
+    // Do not show read-more button.
+    .btn--toggle-text {
+      display: none !important;
+    }
+  }
+
+  //
   // Snap Service
   //
   // While capturing PNG or PDF we need non-interactive elements:
@@ -260,18 +289,6 @@
     // Do not show read-more button.
     .btn--toggle-text {
       display: none !important;
-    }
-  }
-
-
-  //
-  // Print layout
-  //
-  @media print {
-    .article__image {
-      float: right;
-      max-width: 40%;
-      margin-left: 2em;
     }
   }
 </style>
