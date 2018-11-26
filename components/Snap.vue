@@ -6,8 +6,13 @@
 
 <script>
   import axios from 'axios';
+  import Global from '~/components/_Global';
 
   export default {
+    mixins: [
+      Global
+    ],
+
     props: {
       'output': String,
     },
