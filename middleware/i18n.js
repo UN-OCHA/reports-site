@@ -18,7 +18,7 @@ export default function ({ isHMR, app, store, route, params, req, error, redirec
       }
 
       // if the locale cookie is not set, fallback to accept-language header
-      if (!locale) {
+      if (!locale && !!req.headers['accept-language']) {
         locale = req.headers['accept-language'].split(',')[0].toLocaleLowerCase().substring(0, 2);
       }
 
