@@ -306,8 +306,20 @@ figure img {
   .rich-text a[href] {
     text-decoration: none;
   }
+
   .rich-text a[href]::after {
     content: " <" attr(href) "> ";
+  }
+
+  /**
+   * If the [href] starts with a hash, the printout cannot contain a meaningful
+   * destination. Hide it.
+   */
+  .rich-text a[href^="#"] {
+    display: none;
+  }
+  .rich-text a[href^="#"]::after {
+    content: none;
   }
 }
 
