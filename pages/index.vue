@@ -46,7 +46,7 @@
     },
 
     // `env` is available in the context object
-    asyncData({env}) {
+    asyncData({env, params, store}) {
       return Promise.all([
         // fetch all content ordered by creation date
         client.getEntries({
@@ -54,11 +54,14 @@
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-        // return data that should be available
-        // in the template
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_META', {
+          title: '',
+          dateUpdated: '',
+        });
+
         return {
           entries: entries.items,
-          'active_content_type': active_content_type,
         }
       }).catch(console.error)
     }

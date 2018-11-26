@@ -1,4 +1,5 @@
 export const state = () => ({
+  locale: 'fr',
   locales: [
     {
       code: 'en',
@@ -9,13 +10,23 @@ export const state = () => ({
       name: 'Français'
     }
   ],
-  locale: 'fr'
+  reportMeta: {
+    title: '',
+    dateUpdated: '',
+  },
 });
 
 export const mutations = {
   SET_LANG(state, locale) {
     if (state.locales.find(el => el.code === locale)) {
       state.locale = locale
+    }
+  },
+
+  SET_META(state, meta) {
+    state.reportMeta = {
+      title: meta.title,
+      dateUpdated: meta.dateUpdated,
     }
   }
 };

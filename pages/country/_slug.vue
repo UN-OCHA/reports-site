@@ -98,7 +98,7 @@
     },
 
     // Nuxt uses this to make async API calls to Contentful during SSR.
-    asyncData({env, params}) {
+    asyncData({env, params, store}) {
       return Promise.all([
         // Contentful: fetch single Entry by slug
         client.getEntries({
@@ -122,6 +122,13 @@
               method: 'GET',
             }).then(response => response.data)
       ]).then(([entries, ftsData]) => {
+
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_META', {
+          title: entries.items[0].fields.title,
+          dateUpdated: entries.items[0].fields.dateUpdated,
+        });
+
         return {
           entry: entries.items[0],
           ftsData: ftsData.data.plans,
