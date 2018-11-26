@@ -36,7 +36,7 @@
     background-color: transparent;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: 20px 16px;
+    background-size: 14px 20px;
     cursor: pointer;
 
     border: 0;
