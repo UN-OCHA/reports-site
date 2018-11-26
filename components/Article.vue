@@ -233,34 +233,62 @@
         opacity: 0;
       }
     }
-
-    //
-    // Snap Service should force full-height content.
-    //
-    .snap--png {
-      .is--expandable {
-        height: auto !important;
-
-        &::before {
-          content: none;
-          opacity: 0;
-        }
-      }
-      .btn--toggle-text {
-        display: none;
-      }
-    }
   } // @media screen
-
 
   //
   // Print layout
+  //
+  // Many styles from Snap are duplicated here in case someone uses native print.
   //
   @media print {
     .article__image {
       float: right;
       max-width: 40%;
       margin-left: 2em;
+    }
+
+    .is--expandable {
+      // Force full-height content.
+      height: auto !important;
+
+      // Remove white gradient that normally appears on expandable content.
+      &::before {
+        content: none;
+        opacity: 0;
+      }
+    }
+
+    // Do not show read-more button.
+    .btn--toggle-text {
+      display: none !important;
+    }
+  }
+
+  //
+  // Snap Service
+  //
+  // While capturing PNG or PDF we need non-interactive elements:
+  //
+  // * Ensure text content is totally visible
+  // * Don't render read-more buttons.
+  //
+  //
+  .snap--png,
+  .snap--pdf {
+    .is--expandable {
+      // Force full-height content.
+      height: auto !important;
+
+      // Remove white gradient that normally appears on expandable content.
+      &::before {
+        content: none;
+        opacity: 0;
+      }
+    }
+
+    // Do not show read-more button.
+    .btn--toggle-text {
+      display: none !important;
     }
   }
 </style>
