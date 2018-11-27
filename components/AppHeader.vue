@@ -286,6 +286,7 @@
   .lang-switcher {
     @extend .cta;
     appearance: none;
+    cursor: pointer;
   }
 
   .meta-area__actions {
