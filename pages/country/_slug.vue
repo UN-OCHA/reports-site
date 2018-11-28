@@ -262,7 +262,6 @@
   }
   .section--everythingElse {
     page-break-before: always;
-    padding-top: 10mm;
   }
   .section--everythingElse .card:last-child {
     border-bottom: 0;
