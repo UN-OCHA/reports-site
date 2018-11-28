@@ -318,6 +318,11 @@
       height: 32px;
       text-align: center;
 
+      &:hover {
+        opacity: .8;
+        transition: opacity .1666s ease-out;
+      }
+
       &:focus,
       .share--is-open & {
         outline: none;
