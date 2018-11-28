@@ -278,6 +278,12 @@
     text-decoration: none;
     text-transform: uppercase;
 
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+      transition: opacity .1666s ease-out;
+    }
+
     .wf-loaded & {
       font-family: "Roboto Condensed", Roboto, sans-serif;
     }
@@ -286,6 +292,7 @@
   .lang-switcher {
     @extend .cta;
     appearance: none;
+    cursor: pointer;
   }
 
   .meta-area__actions {
@@ -316,6 +323,11 @@
       width: 32px;
       height: 32px;
       text-align: center;
+
+      &:hover {
+        opacity: .8;
+        transition: opacity .1666s ease-out;
+      }
 
       &:focus,
       .share--is-open & {
