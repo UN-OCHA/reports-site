@@ -278,6 +278,12 @@
     text-decoration: none;
     text-transform: uppercase;
 
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+      transition: opacity .1666s ease-out;
+    }
+
     .wf-loaded & {
       font-family: "Roboto Condensed", Roboto, sans-serif;
     }
