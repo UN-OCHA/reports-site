@@ -97,44 +97,70 @@
       };
     },
 
-    // Nuxt uses this to make async API calls to Contentful during SSR.
+    // asyncData is an official API event of Nuxt. It's used to fetch data for
+    // both SSR and client-side navigations.
     asyncData({env, params, store}) {
-      return Promise.all([
-        // Contentful: fetch single Entry by slug
-        client.getEntries({
-          'include': 4,
-          'content_type': active_content_type,
-          'fields.slug': params.slug,
-        }),
+      const slug = params.slug;
+      return fetchAsyncData({env, slug, store});
+    },
 
-        // FTS: fetch all v2 plans.
-        (process.server)
-          ? axios({
-              url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
-              method: 'GET',
-              auth: {
-                username: process.env.tmpBasicAuthUser,
-                password: process.env.tmpBasicAuthPass,
-              }
-            }).then(response => response.data)
-          : axios({
-              url: '/v2/fts/flow/plan/overview/progress/2018',
-              method: 'GET',
-            }).then(response => response.data)
-      ]).then(([entries, ftsData]) => {
+    // In cases where HTML response contained stale content, our second call to
+    // Contentful/FTS will ensure that everything is up to date.
+    mounted() {
+      const env = {};
+      const slug = this.$route.params.slug;
+      const store = this.$store;
 
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_META', {
-          title: entries.items[0].fields.title,
-          dateUpdated: entries.items[0].fields.dateUpdated,
-        });
+      fetchAsyncData({env, slug, store}).then((response) => {
+        // Update the client-side model with fresh API responses.
+        this.entry = response.entry;
+        this.ftsData = response.ftsData;
+      });
+    },
+  }
 
-        return {
-          entry: entries.items[0],
-          ftsData: ftsData.data.plans,
-        }
-      }).catch(console.error)
-    }
+  // In order to fetch data both during asyncData() and at other times of our
+  // own choosing, we have our own custom function which is defined out side
+  // our export.
+  function fetchAsyncData({env, slug, store}) {
+    return Promise.all([
+      // Contentful: fetch single Entry by slug
+      client.getEntries({
+        'include': 4,
+        'content_type': active_content_type,
+        'fields.slug': slug,
+      }),
+
+      // FTS: fetch all v2 plans.
+      (process.server)
+        ? axios({
+            url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
+            method: 'GET',
+            auth: {
+              username: process.env.tmpBasicAuthUser,
+              password: process.env.tmpBasicAuthPass,
+            }
+          }).then(response => response.data)
+        : axios({
+            url: '/v2/fts/flow/plan/overview/progress/2018',
+            method: 'GET',
+          })
+          .then(response => response.data)
+          .catch(console.error)
+    ]).then(([entries, ftsData]) => {
+
+      // For client-side, update our store with the fresh data.
+      store.commit('SET_META', {
+        slug: slug,
+        title: entries.items[0].fields.title,
+        dateUpdated: entries.items[0].fields.dateUpdated,
+      });
+
+      return {
+        entry: entries.items[0],
+        ftsData: ftsData.data.plans,
+      }
+    }).catch(console.error)
   }
 </script>
 
