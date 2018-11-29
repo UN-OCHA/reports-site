@@ -6,6 +6,7 @@
 
 <script>
   import axios from 'axios';
+  import file from 'file-saver';
   import Global from '~/components/_Global';
 
   export default {
@@ -64,16 +65,8 @@
         // Reset the UI
         this.snapInProgress = false;
 
-        // Force downloading of the PNG
-        // @see https://gist.github.com/Tomassito/a5b4d29f459b9383dc3daa313ae5f73b
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', this.filename);
-        link.click();
-
-        // Clean up memory
-        window.URL.revokeObjectURL(url);
+        // Download response as file
+        file.saveAs(new Blob([response.data]), this.filename);
       },
 
       handleSnapFailure(err) {
