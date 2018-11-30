@@ -165,9 +165,7 @@
     margin-top: 1rem;
 
     // for .meta-area__actions
-    @media (min-width: 700px) {
-      position: relative;
-    }
+    position: relative;
   }
 
 
@@ -297,14 +295,8 @@
 
   .meta-area__actions {
     position: absolute;
-    top: 4rem;
-    right: 1rem;
-
-    @media (min-width: 700px) {
-      position: relative;
-      top: auto;
-      right: auto;
-    }
+    bottom: 0;
+    right: 0;
   }
 
   .share {
