@@ -21,6 +21,7 @@
     data() {
       return {
         snapInProgress: false,
+        mimetype: '',
       }
     },
 
@@ -65,8 +66,12 @@
         // Reset the UI
         this.snapInProgress = false;
 
+        if (!this.mimetype) {
+          console.warn('No `mimetype` property was set on the Snap child component.');
+        }
+
         // Download response as file
-        file.saveAs(new Blob([response.data]), this.filename);
+        file.saveAs(new Blob([response.data], {type: this.mimetype}), this.filename);
       },
 
       handleSnapFailure(err) {
