@@ -169,7 +169,7 @@
   }
 
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 680px) {
     .title-area {
       float: left;
       width: calc(66% - 2rem);
@@ -184,7 +184,7 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 2fr 215px;
         grid-gap: 1rem;
       }
 
@@ -219,7 +219,7 @@
   }
 
   .title-area__headings {
-    flex: 1 0 90%;
+    flex: 1 0 80%;
   }
 
   .title {
@@ -272,7 +272,7 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
-    font-size: 1.1em;
+    font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;
 
@@ -369,10 +369,6 @@
       color: #333;
       text-decoration: none;
       text-align: center;
-
-      @media (min-width: 700px) {
-        margin-bottom: 0;
-      }
 
       // Styles to support drop-down effect.
       opacity: 0;
