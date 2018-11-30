@@ -37,9 +37,9 @@
             <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
           </button>
           <div class="share__options card">
-            <a class="share__option share--twitter" v-if="share && this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
-            <a class="share__option share--facebook" v-if="share && this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-            <a class="share__option share--email" v-if="share && this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+            <a class="share__option share--twitter" v-if="this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+            <a class="share__option share--facebook" v-if="this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+            <a class="share__option share--email" v-if="this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@
   }
 
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 680px) {
     .title-area {
       float: left;
       width: calc(66% - 2rem);
@@ -179,12 +179,13 @@
       width: 33%;
       text-align: right;
       margin: 0;
+      min-height: 70px;
     }
 
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 2fr 215px;
         grid-gap: 1rem;
       }
 
@@ -192,6 +193,7 @@
       .meta-area {
         float: none;
         width: auto;
+        min-height: auto;
         margin: 0;
       }
 
@@ -219,7 +221,7 @@
   }
 
   .title-area__headings {
-    flex: 1 0 90%;
+    flex: 1 0 80%;
   }
 
   .title {
@@ -272,7 +274,7 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
-    font-size: 1.1em;
+    font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;
 
@@ -369,10 +371,6 @@
       color: #333;
       text-decoration: none;
       text-align: center;
-
-      @media (min-width: 700px) {
-        margin-bottom: 0;
-      }
 
       // Styles to support drop-down effect.
       opacity: 0;
