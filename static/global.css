@@ -279,6 +279,40 @@ figure img {
   }
 }
 
+/*—— Buttons —————————————————————————————————————————————————————————————————*/
+
+.btn {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  margin: 0;
+  opacity: 1;
+  cursor: pointer;
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transform: scale(1); /* baseline for animations */
+  transition: .3333s ease-out;
+  transition-property: opacity, transform;
+}
+
+.btn:hover {
+  opacity: .8;
+  transition: opacity .1666s ease-out;
+}
+
+.btn--is-active {
+  animation: is-active 1s ease-in-out infinite;
+  cursor: wait;
+}
+
+@keyframes is-active {
+  50% {
+    transform: scale(1.3333);
+  }
+}
 
 /*—— Print ———————————————————————————————————————————————————————————————————*/
 
