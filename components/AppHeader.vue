@@ -179,6 +179,7 @@
       width: 33%;
       text-align: right;
       margin: 0;
+      min-height: 70px;
     }
 
     @supports (display: grid) {
@@ -192,6 +193,7 @@
       .meta-area {
         float: none;
         width: auto;
+        min-height: auto;
         margin: 0;
       }
 
