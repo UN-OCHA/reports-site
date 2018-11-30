@@ -20,6 +20,12 @@
       'selector': String,
     },
 
+    data() {
+      return {
+        mimetype: 'image/png',
+      }
+    },
+
     computed: {
       snapRequest() {
         // To deal with some layout issues on some cards, particularly Key Messages

@@ -22,6 +22,12 @@
       'description': String,
     },
 
+    data() {
+      return {
+        mimetype: 'application/pdf',
+      }
+    },
+
     computed: {
       snapRequest() {
         return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&user=ocha&pass=dev`;
