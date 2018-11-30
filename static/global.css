@@ -98,7 +98,7 @@ html.wf-loaded {
 /* DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto?subsets=latin */
 /* roboto-regular - latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -108,7 +108,7 @@ html.wf-loaded {
 }
 /* roboto-italic - latin */
 /*@font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto';
   font-style: italic;
   font-weight: 400;
@@ -118,7 +118,7 @@ html.wf-loaded {
 }*/
 /* roboto-700 - latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
@@ -130,7 +130,7 @@ html.wf-loaded {
 /* DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto-condensed?subsets=latin */
 /* roboto-condensed-regular - latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 400;
@@ -140,7 +140,7 @@ html.wf-loaded {
 }
 /* roboto-condensed-italic - latin */
 /*@font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto Condensed';
   font-style: italic;
   font-weight: 400;
@@ -150,7 +150,7 @@ html.wf-loaded {
 }*/
 /* roboto-condensed-700 - latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 700;
