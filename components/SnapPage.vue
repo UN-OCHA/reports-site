@@ -48,6 +48,7 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: 14px 20px;
+    background-image: url('/icons/icon--pdf.svg');
     cursor: pointer;
 
     border: 0;

@@ -43,3 +43,9 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .btn--download {
+    background-image: url('/icons/icon--download.svg');
+  }
+</style>

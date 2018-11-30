@@ -87,42 +87,8 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .btn {
-    width: 1rem;
-    height: 1rem;
-    border: 0;
-    margin: 0;
     margin-left: .5rem;
-    opacity: 1;
-    cursor: pointer;
-    background-color: transparent;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    transform: scale(1); // baseline for animation
-    transition: .3333s ease-out;
-    transition-property: opacity, transform;
-  }
-
-  .btn:hover {
-    opacity: .8;
-    transition: opacity .1666s ease-out;
-  }
-
-  .btn--download {background-image: url('/icons/icon--download.svg'); }
-  .btn--share {background-image: url('/icons/icon--share.svg'); }
-  .btn--pdf {background-image: url('/icons/icon--pdf.svg'); }
-
-  .btn--is-active {
-    animation: is-active 1s ease-in-out infinite;
-    cursor: wait;
-  }
-
-  @keyframes is-active {
-    50% {
-      transform: scale(1.3333);
-    }
   }
 </style>
