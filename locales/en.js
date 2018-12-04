@@ -8,6 +8,7 @@ export default {
   'United Nations Office for the Coordination of Humanitarian Affairs': 'United Nations Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
+  'No data available.': 'No data available.',
 
   // Homepage
   'About this site': 'About this site',
