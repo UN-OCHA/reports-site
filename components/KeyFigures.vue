@@ -8,6 +8,7 @@
         <span v-else class="data">{{ figure.fields.figure }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
+      <p v-if="!content">{{ $t('No data available.', locale) }}</p>
     </div>
     <CardActions :frag="'#' + this.cssId" />
     <CardFooter />
