@@ -33,11 +33,14 @@ module.exports = {
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'dsr-desc', name: 'description', content: 'Digital Situation Reports' }
+      { hid: 'dsr-desc', name: 'description', content: 'Digital Situation Reports' },
+      { hid: 'theme-color', name: 'theme-color', content: '#4c8cca' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '/global.css' }
+      { rel: 'stylesheet', type: 'text/css', href: '/global.css' },
+      { hid: 'manifest', rel: 'manifest', href: '/manifest.json' },
+      { hid: 'apple-touch-icon', rel: 'apple-touch-icon', href: '/icons/OCHADigSitrep-App-Icon_192.png' },
     ]
   },
   //
