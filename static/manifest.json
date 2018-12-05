@@ -1,0 +1,32 @@
+{
+  "short_name": "SitRep",
+  "name": "UN OCHA Situation Report",
+  "lang": "en-US",
+  "dir": "ltr",
+  "background_color": "#ffffff",
+  "theme_color": "#4c8cca",
+  "start_url": "/",
+  "orientation": "portrait",
+  "display": "browser",
+  "icons": [
+    {
+      "src": "/icons/OCHADigSitrep-App-Icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/OCHADigSitrep-App-Icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/OCHADigSitrep-App-Icon_144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/OCHADigSitrep-App-Icon.svg",
+      "type": "image/svg+xml"
+    }
+  ]
+}
