@@ -116,7 +116,12 @@
       },
 
       shareMessage() {
-        return `Read the latest from ${this.title}'s Situation Report`;
+        // This is done in two steps. Our translations are supplied with the
+        // literal string `COUNTRY` in them, so we first translate then replace
+        // with the dynamic value of COUNTRY. That substitution could also be
+        // localized if we want to maintain a list.
+        const country = /COUNTRY/gi;
+        return this.$t(`Read the latest from COUNTRY's Situation Report`, this.locale).replace(country, this.title);
       },
 
       shareUrlEmail() {
