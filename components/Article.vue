@@ -78,6 +78,27 @@
       }
     },
 
+    methods: {
+      computeArticleHeight() {
+        // Do some client-side manipulation of the Articles to expose a read-more
+        // button on some entries. We calculate the height of the article as
+        // rendered in browser then truncate when it exceeds a certain height.
+        let article = this.$refs['article'];
+        let articleImg = this.$refs['articleImg'];
+
+        // Set the article's min-height to the height of the image
+        this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
+
+        // If the truncated article text will be sufficiently longer than the
+        // accompanying image or the minimum defined in data(), then we apply
+        // the 'Read More' treatment.
+        if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
+          this.articleHeight = article.clientHeight;
+          this.isExpandable = true;
+        }
+      }
+    },
+
     created() {
       // Any custom render-methods would go here.
       const richOptions = {};
@@ -85,22 +106,9 @@
     },
 
     mounted() {
-      // Do some client-side manipulation of the Articles to expose a read-more
-      // button on some entries. We calculate the height of the article as
-      // rendered in browser then truncate when it exceeds a certain height.
-      let article = this.$refs['article'];
-      let articleImg = this.$refs['articleImg'];
-
-      // Set the article's min-height to the height of the image
-      this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
-
-      // If the truncated article text will be sufficiently longer than the
-      // accompanying image or the minimum defined in data(), then we apply
-      // the 'Read More' treatment.
-      if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
-        this.articleHeight = article.clientHeight;
-        this.isExpandable = true;
-      }
+      // When component mounts, we need to wait for any potential images to load
+      // before trying to calculate the truncated article size.
+      setTimeout(this.computeArticleHeight, 500);
     }
   }
 </script>
