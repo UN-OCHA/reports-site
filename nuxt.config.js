@@ -40,6 +40,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', type: 'text/css', href: '/global.css' },
       { hid: 'manifest', rel: 'manifest', href: '/manifest.json' },
+      { hid: 'apple-touch-icon', rel: 'apple-touch-icon', href: '/icons/OCHADigSitrep-App-Icon_192.png' },
     ]
   },
   //
