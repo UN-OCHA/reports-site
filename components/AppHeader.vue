@@ -2,13 +2,13 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link to="/" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs', locale)">
+        <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
         <h1 class="title" v-if="title">{{ title }}</h1>
         <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
-        <span class="subtitle" v-else>{{ $t('United Nations Office for the Coordination of Humanitarian Affairs', locale) }}</span>
+        <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('ll') }}</time></span>
       </div>
     </div>
@@ -34,7 +34,7 @@
           :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
         <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
           <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
-            <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
+            <span class="element-invisible">{{ $t('Share', locale) }}</span>
           </button>
           <div class="share__options card">
             <a class="share__option share--twitter" v-if="this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
@@ -116,7 +116,12 @@
       },
 
       shareMessage() {
-        return `Read the latest from ${this.title}'s Situation Report`;
+        // This is done in two steps. Our translations are supplied with the
+        // literal string `COUNTRY` in them, so we first translate then replace
+        // with the dynamic value of COUNTRY. That substitution could also be
+        // localized if we want to maintain a list.
+        const country = /COUNTRY/gi;
+        return this.$t(`Read the latest from COUNTRY's Situation Report`, this.locale).replace(country, this.title);
       },
 
       shareUrlEmail() {
