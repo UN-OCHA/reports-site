@@ -2,7 +2,7 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link to="/" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" :alt="$t('United Nations Office for the Coordination of Humanitarian Affairs', locale)">
+        <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
         <h1 class="title" v-if="title">{{ title }}</h1>
@@ -34,7 +34,7 @@
           :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
         <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
           <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
-            <span class="element-invisible">{{ $t('Share this page', locale) }}</span>
+            <span class="element-invisible">{{ $t('Share', locale) }}</span>
           </button>
           <div class="share__options card">
             <a class="share__option share--twitter" v-if="this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>

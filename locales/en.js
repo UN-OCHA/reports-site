@@ -5,7 +5,7 @@ export default {
 
   // Global
   'UN OCHA': 'UN OCHA',
-  'United Nations Office for the Coordination of Humanitarian Affairs': 'United Nations Office for the Coordination of Humanitarian Affairs',
+  'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
   'No data available.': 'No data available.',
@@ -15,10 +15,11 @@ export default {
   'Recently updated': 'Recently updated',
 
   // AppHeader
-  'Subscribe': 'Subscribe',
   'Last updated': 'Last updated',
-  'Share this page': 'Share this page',
+  'Subscribe': 'Subscribe',
+  'Share': 'Share',
   'Email': 'Email',
+  'Download': 'Download',
 
   // Key Messages
   'Key Messages': 'Key Messages',
@@ -30,6 +31,7 @@ export default {
   'Funding': 'Funding',
   'Requirements': 'Requirements',
   'Progress': 'Progress',
+  'Financial data could not be found.': 'Financial data could not be found.',
 
   // Contacts
   'Contacts': 'Contacts',
@@ -46,4 +48,8 @@ export default {
   'Forecast': 'Forecast',
   'Read more': 'Read more',
   'Read less': 'Read less',
+
+  // Sharing
+  'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
+  'Date of Creation': 'Date de création',
 }
