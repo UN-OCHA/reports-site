@@ -1,5 +1,7 @@
 /**
- * Until a better build system is in place, global styles go here
+ * Global, site-wide CSS.
+ *
+ * Styles specific to a components should be included inside each .vue file.
  */
 
 *,
@@ -20,12 +22,19 @@ html {
   box-sizing: border-box;
 }
 
-body {
-  background: hsl(0, 0%, 97%);
-  padding-top: 2rem;
+html.wf-loaded {
+  font-family: Roboto; /* no fallback because `html` has system fonts as fallback. */
 }
 
-@media (min-width: 600px) {
+@media screen {
+  body {
+    background: hsl(0, 0%, 97%);
+    color: #333;
+    padding-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 600px) {
   body {
     padding-top: 0;
   }
@@ -73,6 +82,84 @@ body {
   height: auto;
 }
 
+/**
+ * Drupal 7 — automatically clear floats.
+ */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/*—— Web Fonts ———————————————————————————————————————————————————————————————*/
+
+/* DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto?subsets=latin */
+/* roboto-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-regular.woff') format('woff');
+}
+/* roboto-italic - latin */
+/*@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Italic'), local('Roboto-Italic'),
+       url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-italic.woff') format('woff');
+}*/
+/* roboto-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url('/fonts/roboto-v18-latin-700.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-700.woff') format('woff');
+}
+
+/* DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto-condensed?subsets=latin */
+/* roboto-condensed-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Condensed'), local('RobotoCondensed-Regular'),
+       url('/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
+}
+/* roboto-condensed-italic - latin */
+/*@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Condensed Italic'), local('RobotoCondensed-Italic'),
+       url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
+}*/
+/* roboto-condensed-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'),
+       url('/fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
+}
+
+/*—— Site Container ——————————————————————————————————————————————————————————*/
 
 .container {
   max-width: 1200px;
@@ -82,39 +169,11 @@ body {
   box-shadow: none;
 }
 
-@media (min-width: 600px) {
+@media screen and (min-width: 600px) {
   .container {
     margin: 2rem;
     margin-left: 6rem;
   }
-}
-
-.title {
-  display: block;
-  color: #4c8cca;
-  font-family: "RobotoCondensed-Bold", sans-serif; /* @TODO: local font must be served publicly */
-  font-weight: 700;
-  font-size: 1.8em;
-  text-transform: uppercase;
-}
-
-.subtitle {
-  display: block;
-  font-family: "RobotoCondensed-Regular", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  color: #4c8cca;
-}
-
-.last-updated {
-  display: block;
-  font-family: "RobotoCondensed-Italic", sans-serif;
-  font-weight: 400;
-  font-size: 1em;
-  color: #4c8cca;
-}
-.last-updated::first-letter {
-  text-transform: capitalize;
 }
 
 
@@ -128,83 +187,11 @@ body {
   }
 }
 
-/*—— App —————————————————————————————————————————————————————————————————————*/
-
-.app-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: auto;
-  height: 3rem;
-  padding: .5rem 1rem;
-  background: #4c8cca;
-}
-
-.app-bar .btn--toggle {
-  width: 2rem;
-  height: 2rem;
-  border: 0;
-  color: white;
-  background: transparent url('/icons/icon--hamburger.svg') center no-repeat;
-  background-size: contain;
-  cursor: pointer;
-}
-
-@media (min-width: 600px) {
-  .app-bar {
-    right: auto;
-    bottom: 0;
-    width: 4rem;
-    height: auto;
-    padding: 2rem 1rem;
-  }
-  .app-bar .btn--toggle {
-    width: 100%;
-  }
-}
-
-/* BEGIN FUN: just for funsies, definitely revamp this :) */
-.app-bar .btn--toggle:focus {
-  animation: btn--toggle 1s ease-in-out 1;
-  outline: 0;
-}
-
-@keyframes btn--toggle {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  6% {
-    transform: rotate(0deg) scale(1.5);
-  }
-  24% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-/* END FUN: just for funsies, definitely revamp this :) */
-
-/*—— SitRep Header ———————————————————————————————————————————————————————————*/
-
-.header[role="banner"] {
-  border-bottom: 3px solid #4c8cca;
-  padding-bottom: 1rem;
-}
-
-.header__logo-link {
-  float: left;
-  padding-right: 10px;
-  margin-top: 7px;
-  margin-right: 10px;
-  border-right: 2px solid #4c8cca;
-}
-
-.header__logo {
-  width: 55px;
-  height: auto;
-}
-
 /*—— General content —————————————————————————————————————————————————————————*/
 
+main {
+  display: block; /* IE11 fix */
+}
 main img {
   max-width: 100%;
 }
@@ -224,169 +211,155 @@ main code {
   color: black;
   border-radius: 3px;
 }
-main figure {
-  position: relative;
-  padding: 8px 8px 5px 8px;
-  background: #ddd;
-  border-radius: 3px;
+
+/*—— Rich Text ———————————————————————————————————————————————————————————————*/
+
+.rich-text {}
+.rich-text * {
+  margin-bottom: 1em;
 }
-main figure img {
+.rich-text *:last-child {
+  margin-bottom: 0;
+}
+.rich-text p {
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+.rich-text p img {
+  display: block;
+  margin: 1em 0;
+}
+.rich-text ul,
+.rich-text ol {
+  margin: 0 1em 1em 1.2em;
+  padding: 0;
+}
+.rich-text li {
+  margin-bottom: .5em;
+}
+.rich-text li:last-child {
+  margin-bottom: 0;
+}
+
+/*—— Captioned Images ————————————————————————————————————————————————————————*/
+
+figure {
+  position: relative;
+}
+
+figure img {
   width: 100%;
   height: auto;
   margin: 0;
   padding: 0;
-}
-main figcaption {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  max-width: 80%;
-  padding: .666em 1.333em;
-  background: rgba(0,0,0,0.666);
-  color: white;
-  border-radius: 5px 0 0 0;
+  border-radius: 5px;
 }
 
-/*—— Cards ———————————————————————————————————————————————————————————————————*/
-
-.card {
-  margin: 0;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 7px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
-  position: relative;
+@media screen {
+  figure img ~ figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    max-width: 80%;
+    padding: .666em 1.333em;
+    background: rgba(0,0,0,0.666);
+    color: white;
+    border-radius: 5px 0 5px 0;
+  }
+}
+@media print {
+  figure {
+    page-break-inside: avoid;
+  }
+  figure img ~ figcaption {
+    margin: .25cm;
+    color: black;
+    background: none;
+    font-style: italic;
+  }
 }
 
-.card__title {
-  margin-bottom: 1rem;
-  color: #444;
-  font-family: "RobotoCondensed-Bold";
-  font-size: 17px;
-  text-transform: uppercase;
-}
+/*—— Buttons —————————————————————————————————————————————————————————————————*/
 
-.card__actions {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.card__actions .btn {
+.btn {
   width: 1rem;
   height: 1rem;
   border: 0;
   margin: 0;
-  margin-left: .5rem;
   opacity: 1;
-  transition: opacity .3333s ease-out;
+  cursor: pointer;
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transform: scale(1); /* baseline for animations */
+  transition: .3333s ease-out;
+  transition-property: opacity, transform;
 }
 
-.card__actions .btn:hover {
+.btn:hover {
   opacity: .8;
   transition: opacity .1666s ease-out;
 }
 
-.btn--download {
-  background: url('/icons/icon--download.svg') center no-repeat;
-  background-size: contain;
+.btn--is-active {
+  animation: is-active 1s ease-in-out infinite;
+  cursor: wait;
 }
 
-.btn--share {
-  background: url('/icons/icon--share.svg') center no-repeat;
-  background-size: contain;
-}
-
-
-/*—— Markdown ————————————————————————————————————————————————————————————————*/
-
-.md {
-
-}
-.md p {
-  margin-bottom: 1em;
-}
-.md p img {
-  display: block;
-  margin: 1em 0;
-}
-
-/*—— Footer ——————————————————————————————————————————————————————————————————*/
-
-.footer {
-  border-top: 3px solid #4c8cca;
-  padding-top: 1em;
-  font-size: .85em;
-  overflow-x: hidden; /* long links shouldn't break layout */
-}
-
-.footer__text {
-  font-style: italic;
-  margin-bottom: 1em;
-}
-
-.footer__links {
-  margin: 0;
-  padding: 0;
-}
-
-.footer__link {
-  display: inline-block;
-  margin-right: 2em;
-}
-.footer__link a {
-  color: hsla(211, 100%, 65%);
-}
-
-
-/*—— Grid for main content ———————————————————————————————————————————————————*/
-
-@supports (display: grid) {
-  @media (min-width: 900px) {
-    main {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages image"
-                           "keyMessages contacts"
-                           "everythingElse everythingElse";
-      grid-template-rows: repeat(3, 1fr) minmax(1fr, max-content);
-      grid-template-columns: 2fr 1fr;
-      grid-gap: 1rem;
-    }
-
-    /* by default assign all cards to EverythingElse region */
-    .card {
-      grid-area: everythingElse;
-      margin-bottom: 0;
-    }
-
-    /* drop selected cards into their homes */
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--image {
-      grid-area: image;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
+@keyframes is-active {
+  50% {
+    transform: scale(1.3333);
   }
 }
 
+/*—— Print ———————————————————————————————————————————————————————————————————*/
 
-.contact {
-  font-style: normal;
-}
-.contact__name {
+@media print {
+  body {
+    /**
+     * Correct the colors on the printouts using Snap Service (Puppeteer).
+     */
+    -webkit-print-color-adjust: exact;
 
-}
-.contact__job-title {
-  color: #999;
-}
-.contact__email {
+    background-color: white;
+    font-size: 10pt !important;
+    padding: 0 10mm;
+  }
 
+  .container {
+    margin: 0;
+  }
+
+  main p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .rich-text a[href] {
+    text-decoration: none;
+  }
+
+  .rich-text a[href]::after {
+    content: " <" attr(href) "> ";
+  }
+
+  /**
+   * If the [href] starts with a hash, the printout cannot contain a meaningful
+   * destination. Hide it.
+   */
+  .rich-text a[href^="#"] {
+    display: none;
+  }
+  .rich-text a[href^="#"]::after {
+    content: none;
+  }
+}
+
+/*—— DevTools ————————————————————————————————————————————————————————————————*/
+
+pre {
+  clear: both;
+  background: repeating-linear-gradient(to right, #eee 0, #eee 15px, #ddd 15px, #ddd 30px);
 }

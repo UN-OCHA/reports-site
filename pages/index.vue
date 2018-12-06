@@ -1,39 +1,53 @@
 <template>
-  <div>
-    <nav class="app-bar">
-      <button class="btn btn--toggle"><span class="element-invisible">Toggle Menu</span></button>
-    </nav>
-    <header class="container header" role="banner">
-      <span class="header__logo-link">
-        <img class="header__logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
-      </span>
-      <h1 class="title">reports.unocha.org</h1>
-      <span class="subtitle">Situation Report</span>
-      <span class="last-updated">no timestamp on homepage</span>
-    </header>
+  <div class="page--front" @click="noop">
+    <AppBar />
+    <AppHeader />
+
     <main class="container">
-      <h2 class="subtitle">Choose a report (currently using <code>{{ active_content_type }}</code> content-type):</h2>
-      <ul class="sitrep-list">
-        <li :key="entry.id" v-for="entry in entries">
-          <nuxt-link :to="'/country/' + entry.fields.slug">{{ entry.fields.title }}</nuxt-link>
-        </li>
-      </ul>
+      <section class="card card--intro rich-text">
+        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
+        <p>The Digital Situation Report aims to simplify OCHA's current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users' time by automating distribution and design.</p>
+        <p>As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.</p>
+      </section>
+      <section class="card card--sitreps">
+        <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
+        <ul class="sitrep-list">
+          <li class="sitrep" :key="entry.id" v-for="entry in entries">
+            <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
+            <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('ll') }}</time></span>
+          </li>
+        </ul>
+      </section>
     </main>
-    <footer class="container footer">
-      <p>FPO: Need some global footer text!</p>
-    </footer>
+
+    <AppFooter />
   </div>
 </template>
 
 <script>
-  import {createClient} from '~/plugins/contentful.js';
+  import Global from '~/components/_Global';
+  import AppBar from '~/components/AppBar';
+  import AppHeader from '~/components/AppHeader';
+  import AppFooter from '~/components/AppFooter';
+  import Card from '~/components/Card';
 
+  import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
+    mixins: [Global],
+
+    // Declare any components we're using here
+    components: {
+      AppBar,
+      AppHeader,
+      AppFooter,
+      Card,
+    },
+
     // `env` is available in the context object
-    asyncData ({env}) {
+    asyncData({env, params, store}) {
       return Promise.all([
         // fetch all content ordered by creation date
         client.getEntries({
@@ -41,18 +55,65 @@
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-        // return data that should be available
-        // in the template
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_META', {
+          title: '',
+          dateUpdated: '',
+        });
+
         return {
           entries: entries.items,
-          'active_content_type': active_content_type,
         }
       }).catch(console.error)
     }
   }
 </script>
 
-<style>
+<style scoped>
+  .sitrep-list {
+    margin: 1rem 0;
+    padding: 0;
+  }
+  .sitrep {
+    list-style-type: none;
+    margin: 0 0 .5rem 0;
+    padding: 0;
+  }
+  .last-updated {
+    color: #666;
+    font-style: italic;
+  }
 
+  @media (min-width: 760px) {
+    .card--intro {
+      float: right;
+      width: calc(33.333% - 1rem);
+      margin-left: 1rem;
+    }
+    .card--sitreps {
+      width: calc(66.666%);
+    }
+
+    @supports (display: grid) {
+      main {
+        display: grid;
+        grid-template-areas: "sitreps intro";
+        grid-template-columns: 2fr 3fr;
+        grid-gap: 1rem;
+      }
+
+      .card {
+        width: 100%;
+        margin: 0;
+      }
+
+      .card--intro {
+        grid-area: intro;
+      }
+      .card--sitreps {
+        grid-area: sitreps;
+      }
+    }
+  }
 </style>
 

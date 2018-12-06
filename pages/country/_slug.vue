@@ -1,113 +1,315 @@
 <template>
-  <div>
+  <div class="page--sitrep" :id="'cf-' + entry.sys.id" @click="noop">
+    <AppBar />
+    <AppHeader
+      :title="entry.fields.title"
+      :updated="entry.fields.dateUpdated"
+      :mailchimp="entry.fields.mailchimpSignup"
+      :share="true"
+      :snap="true" />
 
-    <nav class="app-bar">
-      <button class="btn btn--toggle" title="Toggle menu"><span class="element-invisible">Toggle menu</span></button>
-    </nav>
+    <main class="container report">
+      <section class="section--primary clearfix">
+        <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
+        <KeyFigures :content="entry.fields.keyFigure" />
+        <KeyFinancials :content="ftsData" :ftsUrl="entry.fields.keyFinancialsUrl" />
+        <Contacts :content="entry.fields.contacts" />
+      </section>
 
-    <header class="container header" role="banner">
-      <nuxt-link to="/" class="header__logo-link">
-        <img class="header__logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
-      </nuxt-link>
-      <h1 class="title">{{ entry.fields.title }}</h1>
-      <span class="subtitle">Situation Report</span>
-      <span class="last-updated"><span class="viz--480">Last </span> updated: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).format('YYYY-MM-DD') }}</time></span>
-    </header>
-
-    <!-- <pre class="container">{{ entry.fields.article }}</pre> -->
-    <main class="container">
-      <section class="card card--keyMessages">
-        <h2 class="card__title">Key Messages</h2>
-        <ul>
-          <li :key="message.sys.id" v-for="message in entry.fields.keyMessages" class="card__content">
-            <h4>{{ message.fields.title }}</h4>
-            <div class="md" v-html="$md.render(message.fields.message)"></div>
-          </li>
-        </ul>
+      <section class="section--everythingElse">
+        <Cluster :content="cluster" v-for="cluster in entry.fields.clusters" :key="cluster.sys.id" v-if="typeof cluster !== 'undefined' && typeof cluster.fields !== 'undefined'" />
+        <Article :content="article" v-for="article in entry.fields.article" :key="article.sys.id" v-if="typeof article !== 'undefined' && typeof article.fields !== 'undefined'" />
       </section>
-      <section class="card card--keyFigures">
-        <h2 class="card__title">Key Figures</h2>
-        <p>Data TBD as we pull from FTS</p>
-      </section>
-      <section class="card card--image">
-        <h2 class="card__title">{{ entry.fields.image.fields.title }}</h2>
-        <img :src="entry.fields.image.fields.file.url">
-      </section>
-      <section class="card card--contacts">
-        <h3 class="card__title">Contacts</h3>
-        <address :key="contact.sys.id" v-for="contact in entry.fields.contacts" class="card__contact contact">
-          <h4 class="contact__name">{{ contact.fields.name }}</h4>
-          <span class="contact__job-title">{{ contact.fields.jobTitle }}</span><br>
-          <a class="contact__email" :href="'mailto:' + contact.fields.email">{{ contact.fields.email }}</a>
-          <br><br>
-        </address>
-      </section>
-      <section class="card card--article">
-        <h3 class="card__title">Analysis</h3>
-        <div :key="article.sys.id" v-for="article in entry.fields.article" class="card__content">
-          <h4>{{ article.fields.title }}</h4>
-          <div class="md" v-html="$md.render(article.fields.article)"></div>
-        </div>
-      </section>
-      <!-- <section class="card"
-        :key="fieldName"
-        v-for="(field, fieldName) in entry.fields"
-        v-if="!hideFields.includes(fieldName)">
-          <h3 class="card__title">{{ fieldName }}</h3>
-          <pre>{{ field }}</pre>
-
-          <div class="card__actions">
-            <button class="btn btn--download" title="Download this card"></button>
-            <button class="btn btn--share" title="Share this card"></button>
-          </div>
-      </section> -->
     </main>
 
-    <footer class="container footer" v-if="entry.fields.footer">
-      <p class="footer__text">{{ entry.fields.footer.fields.defaultFooterText }}</p>
-      <ul class="footer__links">
-        <li class="footer__link" v-if="entry.fields.footer.fields.relatedLink"><a :href="entry.fields.footer.fields.relatedLink" target="_blank" rel="noopener">{{ entry.fields.footer.fields.relatedLink }}</a></li>
-        <li class="footer__link" v-if="entry.fields.footer.fields.relatedLink2"><a :href="entry.fields.footer.fields.relatedLink2" target="_blank" rel="noopener">{{ entry.fields.footer.fields.relatedLink2 }}</a></li>
-        <li class="footer__link"><a href="https://www.reliefweb.int" target="_blank" rel="noopener">https://www.reliefweb.int</a></li>
-      </ul>
-    </footer>
-
+    <AppFooter :footer="entry.fields.footer" />
   </div>
 </template>
 
 <script>
-  import {createClient} from '~/plugins/contentful.js';
+  import Global from '~/components/_Global';
+  import AppBar from '~/components/AppBar';
+  import AppFooter from '~/components/AppFooter';
+  import AppHeader from '~/components/AppHeader';
+  import Article from '~/components/Article';
+  import Cluster from '~/components/Cluster';
+  import Contacts from '~/components/Contacts';
+  import KeyFigures from '~/components/KeyFigures';
+  import KeyFinancials from '~/components/KeyFinancials';
+  import KeyMessages from '~/components/KeyMessages';
 
+  import axios from 'axios';
+  import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
-  // These are special-purpose and shouldn't be displayed in the main content.
-  const hideFields = ['title', 'dateUpdated', 'footer', 'slug', 'keyMessages', 'keyFigures', 'contacts'];
-
   export default {
-    validate ({params}) {
+    mixins: [Global],
+
+    components: {
+      AppBar,
+      AppFooter,
+      AppHeader,
+      Article,
+      Cluster,
+      Contacts,
+      KeyFigures,
+      KeyFinancials,
+      KeyMessages,
+    },
+
+    // Validate the country slug using this function.
+    validate({params}) {
       return typeof params.slug === 'string';
     },
-    // `env` is available in the context object
-    asyncData ({env, params}) {
-      return Promise.all([
-        // fetch single Entry by slug
-        client.getEntries({
-          'content_type': active_content_type,
-          'fields.slug': params.slug
-        })
-      ]).then(([entries]) => {
-        // return data that should be available in the template
-        return {
-          entry: entries.items[0],
-          hideFields: hideFields,
-        }
-      }).catch(console.error)
-    }
+
+    // Set up empty objects that will be populated by asyncData.
+    data() {
+      return {}
+    },
+
+    // We use the object populated by asyncData here. It might be empty at first
+    // but we can guard against that with a conditional.
+    head() {
+      // In case the data is not loaded properly we don't want to produce either
+      // a blank title or an error. The SSR will produce the correct title so
+      // this is out an abundance of caution and will rarely be seen.
+      const pageTitle = this.entry.fields.title || 'Loading...';
+
+      return {
+        // %s is the default site title. In our case the name of the website.
+        titleTemplate: `${pageTitle} | %s`,
+
+        // @see https://nuxtjs.org/api/pages-head/
+        meta: [
+          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
+          { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
+          { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
+          { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
+          { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'og-type', name: 'og:type', content: 'website' },
+          { hid: 'og-url', name: 'og:url', content: `https://reports.unocha.org/country/${this.entry.fields.slug}` },
+          { hid: 'og-title', name: 'og:title', content: this.entry.fields.title },
+          { hid: 'og-desc', name: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'og-image', name: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
+        ],
+      };
+    },
+
+    // asyncData is an official API event of Nuxt. It's used to fetch data for
+    // both SSR and client-side navigations.
+    asyncData({env, params, store}) {
+      const slug = params.slug;
+      return fetchAsyncData({env, slug, store});
+    },
+
+    // In cases where HTML response contained stale content, our second call to
+    // Contentful/FTS will ensure that everything is up to date.
+    mounted() {
+      const env = {};
+      const slug = this.$route.params.slug;
+      const store = this.$store;
+
+      fetchAsyncData({env, slug, store}).then((response) => {
+        // Update the client-side model with fresh API responses.
+        this.entry = response.entry;
+        this.ftsData = response.ftsData;
+      });
+    },
+  }
+
+  // In order to fetch data both during asyncData() and at other times of our
+  // own choosing, we have our own custom function which is defined out side
+  // our export.
+  function fetchAsyncData({env, slug, store}) {
+    return Promise.all([
+      // Contentful: fetch single Entry by slug
+      client.getEntries({
+        'include': 4,
+        'content_type': active_content_type,
+        'fields.slug': slug,
+      }),
+
+      // FTS: fetch all v2 plans.
+      (process.server)
+        ? axios({
+            url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
+            method: 'GET',
+            auth: {
+              username: process.env.tmpBasicAuthUser,
+              password: process.env.tmpBasicAuthPass,
+            }
+          }).then(response => response.data)
+        : axios({
+            url: '/v2/fts/flow/plan/overview/progress/2018',
+            method: 'GET',
+          })
+          .then(response => response.data)
+          .catch(console.error)
+    ]).then(([entries, ftsData]) => {
+
+      // For client-side, update our store with the fresh data.
+      store.commit('SET_META', {
+        slug: slug,
+        title: entries.items[0].fields.title,
+        dateUpdated: entries.items[0].fields.dateUpdated,
+      });
+
+      return {
+        entry: entries.items[0],
+        ftsData: ftsData.data.plans,
+      }
+    }).catch(console.error)
   }
 </script>
 
 <style>
 
+/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
+
+@media print and (min-width: 10cm),
+       screen and (min-width: 760px) {
+  @supports (display: grid) {
+    .section--primary {
+      display: grid;
+      grid-template-areas: "keyMessages  keyMessages    keyMessages"
+                           "keyFigures   keyFinancials  contacts";
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 1rem;
+      margin-bottom: 1rem;
+      page-break-after: always;
+    }
+
+    .section--primary .card {
+      margin-bottom: 0;
+    }
+
+    .card--keyMessages {
+      grid-area: keyMessages;
+    }
+    .card--keyFigures {
+      grid-area: keyFigures;
+    }
+    .card--keyFinancials {
+      grid-area: keyFinancials;
+    }
+    .card--contacts {
+      grid-area: contacts;
+    }
+  } /* @supports (display: grid) */
+} /* @media print and (min-width: 10cm), screen and (min-width: 760px) */
+
+/*—— Report Large layout —————————————————————————————————————————————————————*/
+
+@media screen and (min-width: 1164px) {
+  /**
+   * No CSS Grid support
+   *
+   * Given the landscape and browser trends, there is only one definition for
+   * large screens lacking CSS Grid. We're defining a float layout with some
+   * height units to ensure uniformity.
+   */
+  .card--keyMessages {
+    float: left;
+    width: 73%;
+    width: calc(75% - 1rem);
+    height: 90vh;
+    margin-right: 1rem;
+  }
+
+  .card--keyFigures,
+  .card--keyFinancials,
+  .card--contacts {
+    float: left;
+    width: calc(25%);
+    margin-bottom: 1rem;
+
+    /* This group of three cards must resolve to height of keyMessages */
+    height: calc(30vh - .666rem);
+  }
+
+  /**
+   * CSS Grid
+   *
+   * We can do whatever we want here because CSS Grid is the best!
+   */
+  @supports (display: grid) {
+    .section--primary {
+      display: grid;
+      grid-template-areas: "keyMessages keyFigures"
+                           "keyMessages keyFinancials"
+                           "keyMessages contacts";
+      grid-template-columns: 3fr 1fr;
+      grid-gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Cards are set with CSS Grid and don't need any special treatment */
+    .section--primary .card {
+      float: none;
+      width: auto;
+      height: auto;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    /* Drop selected cards into their homes */
+    .card--keyMessages {
+      grid-area: keyMessages;
+    }
+    .card--keyFigures {
+      grid-area: keyFigures;
+    }
+    .card--keyFinancials {
+      grid-area: keyFinancials;
+    }
+    .card--contacts {
+      grid-area: contacts;
+    }
+
+    /* All other cards will appear in EverythingElse section */
+    .section--everythingElse {
+    }
+    .section--everythingElse .card {
+      margin-bottom: 1rem;
+    }
+  } /* @supports (display: grid) */
+} /* @media screen and (min-width: 1164px) */
+
+/*—— Print styles ————————————————————————————————————————————————————————————*/
+@media print {
+  body {
+    font-size: 12pt;
+  }
+
+  .section--primary {
+    border-bottom: 1px solid #ddd;
+  }
+  .section--everythingElse {
+    page-break-before: always;
+  }
+  .section--everythingElse .card:last-child {
+    border-bottom: 0;
+  }
+
+  .card--keyMessages {
+    font-size: 1em;
+  }
+  .card--keyFigures {
+    border-right: 1px solid #ddd;
+    border-bottom: 0 !important; /* override shared print/screen Grid styles */
+    margin-bottom: 0;
+  }
+  .card--keyFinancials {
+    border-right: 1px solid #ddd;
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .card--contacts {
+    border: 0;
+    margin-bottom: 0;
+  }
+}
 </style>
 

@@ -1,6 +1,6 @@
 version: '2.1'
 
-services: 
+services:
 
   app:
     # image: unocha/reports-site:dev
@@ -9,4 +9,7 @@ services:
     - 3000:3000
     environment:
       CTF_SPACE_ID:
+      CTF_ENVIRONMENT:
       CTF_CDA_ACCESS_TOKEN:
+      BASE_URL:
+      BASIC_AUTH:
