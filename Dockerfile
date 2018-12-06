@@ -1,6 +1,6 @@
 FROM unocha/nodejs:8.11.3
 
-ENV AUTOBUILD=yes \
+ENV AUTOBUILD=no \
     CFG_FILE=.contentful.json \
     CTF_SPACE_ID=0123456789ab \
     CTF_ENVIRONMENT=master \
