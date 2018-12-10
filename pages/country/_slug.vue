@@ -9,6 +9,8 @@
       :snap="true" />
 
     <main class="container report">
+      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in entry.fields.flashUpdate" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
@@ -34,6 +36,7 @@
   import Article from '~/components/Article';
   import Cluster from '~/components/Cluster';
   import Contacts from '~/components/Contacts';
+  import FlashUpdate from '~/components/FlashUpdate';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
@@ -53,6 +56,7 @@
       Article,
       Cluster,
       Contacts,
+      FlashUpdate,
       KeyFigures,
       KeyFinancials,
       KeyMessages,
