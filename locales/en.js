@@ -9,6 +9,8 @@ export default {
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
   'No data available.': 'No data available.',
+  'Read more': 'Read more',
+  'Read less': 'Read less',
 
   // Homepage
   'About this site': 'About this site',
@@ -43,11 +45,19 @@ export default {
   'Gaps': 'Gaps',
 
   // Articles
+  'Access': 'Access',
   'Analysis': 'Analysis',
   'Background': 'Background',
+  'Coordination': 'Coordination',
+  'Emergency Response': 'Emergency Response',
+  'Feature': 'Feature',
   'Forecast': 'Forecast',
-  'Read more': 'Read more',
-  'Read less': 'Read less',
+  'Media': 'Media',
+  'Trends': 'Trends',
+  'Visuals and Data': 'Visuals And Data',
+
+  // Flash Updates
+  'Flash Update': 'Flash Update',
 
   // Sharing
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
