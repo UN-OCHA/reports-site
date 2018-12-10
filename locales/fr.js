@@ -9,6 +9,8 @@ export default {
   'Situation Report': 'Rapport de situation',
   'Situation Reports': 'Rapports de situation',
   'No data available.': 'No data available.',
+  'Read more': 'Lire davantage',
+  'Read less': 'Lire moins',
 
   // Homepage
   'About this site': 'A propos de ce site',
@@ -43,11 +45,19 @@ export default {
   'Gaps': 'Besoins non couverts',
 
   // Articles
+  'Access': 'Acces Humanitaire',
   'Analysis': 'Analyse',
   'Background': 'Contexte',
+  'Coordination': 'Coordination',
+  'Emergency Response': 'Reponse d\'urgence',
+  'Feature': 'Reportage',
   'Forecast': 'Prévisions',
-  'Read more': 'Lire davantage',
-  'Read less': 'Lire moins',
+  'Media': 'Medias',
+  'Trends': 'Tendances',
+  'Visuals and Data': 'Visuels et donnees',
+
+  // Flash Updates
+  'Flash Update': 'Flash Info',
 
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
