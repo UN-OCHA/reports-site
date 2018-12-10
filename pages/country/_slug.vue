@@ -178,7 +178,6 @@
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1rem;
       margin-bottom: 1rem;
-      page-break-after: always;
     }
 
     .section--primary .card {
@@ -286,8 +285,14 @@
   .section--primary {
     border-bottom: 1px solid #ddd;
   }
+
   .section--everythingElse {
-    page-break-before: always;
+    /**
+     * DSR-101: we want content to flow immediately after Key sections instead
+     * of breaking to the second page. Uncomment to restore page-break and have
+     * Article content begin on page 2.
+     */
+    /*page-break-before: always;*/
   }
   .section--everythingElse .card:last-child {
     border-bottom: 0;

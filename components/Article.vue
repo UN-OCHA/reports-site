@@ -246,7 +246,10 @@
   //
   // Print layout
   //
-  // Many styles from Snap are duplicated here in case someone uses native print.
+  // While capturing PNG or PDF we need non-interactive elements:
+  //
+  // * Ensure text content is totally visible
+  // * Don't render read-more buttons.
   //
   @media print {
     .article__image {
@@ -279,7 +282,6 @@
   //
   // * Ensure text content is totally visible
   // * Don't render read-more buttons.
-  //
   //
   .snap--png,
   .snap--pdf {
