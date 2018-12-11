@@ -55,7 +55,7 @@
   export default {
     mixins: [
       Global,
-      clickaway
+      clickaway,
     ],
 
     components: {

@@ -1,6 +1,6 @@
 <template>
   <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
-    <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu">
+    <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu" v-on-clickaway="closeMenu">
       <span class="element-invisible">{{ $t('Toggle menu', locale) }}</span>
     </button>
     <div class="app-bar__content">
@@ -38,16 +38,19 @@
 <script>
   import Global from '~/components/_Global';
 
+  import { mixin as clickaway } from 'vue-clickaway';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      clickaway,
+    ],
 
     data() {
       return {
-        entries: [],
         isExpanded: false,
       }
     },
@@ -55,6 +58,14 @@
     methods: {
       toggleMenu() {
         return this.isExpanded = !this.isExpanded;
+      },
+
+      openMenu() {
+        return this.isExpanded = true;
+      },
+
+      closeMenu() {
+        return this.isExpanded = false;
       },
     },
 
