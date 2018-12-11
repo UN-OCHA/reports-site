@@ -12,9 +12,12 @@ export default {
   'Read more': 'Read more',
   'Read less': 'Read less',
 
-  // Homepage
-  'About this site': 'About this site',
-  'Recently updated': 'Recently updated',
+  // AppBar
+  'Toggle menu': 'Toggle menu',
+  'Home': 'Home',
+  'Latest updates': 'Latest updates',
+  'About': 'About',
+  'OCHA Services': 'OCHA Services',
 
   // AppHeader
   'Last updated': 'Last updated',
@@ -22,6 +25,10 @@ export default {
   'Share': 'Share',
   'Email': 'Email',
   'Download': 'Download',
+
+  // Homepage
+  'About this site': 'About this site',
+  'Recently updated': 'Recently updated',
 
   // Key Messages
   'Key Messages': 'Key Messages',
