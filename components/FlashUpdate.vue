@@ -59,8 +59,7 @@
 
 <style lang="scss" scoped>
   .card {
-    background-color: #F8D8D3;
-    border: 1px solid rgba(#000, .1);
+    background-color: #FEE7DC;
   }
 
   .card__title {
