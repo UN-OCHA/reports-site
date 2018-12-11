@@ -88,7 +88,7 @@
     padding: .5rem 1rem;
     background: #4c8cca;
     transition: height .1666s ease-in-out;
-    overflow: hidden;
+    overflow-y: hidden;
 
     &.is--expanded {
       height: 100vh;
@@ -109,7 +109,7 @@
     cursor: pointer;
 
     &:focus {
-      animation: btn--toggle 1s ease-in-out 1;
+      // animation: btn--toggle 1s ease-in-out 1;
       outline: 0;
     }
   }
@@ -204,9 +204,33 @@
       width: 4rem;
       height: auto;
       padding: 2rem 1rem;
+      overflow: hidden;
+      transition-property: width;
+
+      &.is--expanded {
+        width: 23rem;
+        overflow: auto;
+      }
     }
+
     .btn--toggle {
-      width: 100%;
+      top: 2rem;
+    }
+
+    .app-bar__content {
+      width: 22rem;
+      opacity: 0;
+      transition: opacity .1666s ease-in-out;
+    }
+
+    .app-bar.is--expanded {
+      .app-bar__content {
+        opacity: 1;
+      }
+    }
+
+    .ocha-heading {
+      margin-right: .5rem;
     }
   }
 
