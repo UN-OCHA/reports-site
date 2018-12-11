@@ -66,9 +66,12 @@
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-        //
-        // TODO: transform data to be ordered by the last-updated field
-        //
+
+        // Sort entries by the dateUpdated field, newest first.
+        entries.items.sort(function(a,b){
+          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+        });
+
         this.entries = entries.items;
       }).catch(console.error)
     }
