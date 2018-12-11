@@ -153,7 +153,13 @@
 
     background-repeat: no-repeat;
     background-position: 0% 50%;
-    background-size: contain;
+    background-size: 1.25rem 1.25rem;
+
+    // IE11 needs units so we put the settings for modern browsers in a custom
+    // prop that IE11 can't read. The others will gleefully override with this
+    // setting and leave IE11 to rot for eternity.
+    --bgsize: contain;
+    background-size: var(--bgsize);
 
     a {
       color: inherit;
@@ -168,20 +174,12 @@
     padding-left: 4rem;
     background-image: url('/icons/icon--location.svg');
     background-position: 2.25rem 50%;
-    background-size: contain;
-  }
-
-  .ocha-heading {
-    margin: 2rem -.5rem 0;
-    border-top: 1px solid rgba(255, 255, 255, .5);
-    padding: 1rem .5rem .5rem;
-    color: rgba(255, 255, 255, .5);
-    font-size: .9em;
-    text-transform: uppercase;
   }
 
   .ocha-services .link {
-    background-size: 1.25rem;
+    // Since OCHA services graphics are many sizes, we again use CSS Custom props
+    // to override for new browsers.
+    --bgsize: 1.25rem 1.25rem;
   }
 
   .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
@@ -193,6 +191,15 @@
   .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
   .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
   .link--all  { background-image: url('/icons--ocha/all.svg'); }
+
+  .ocha-heading {
+    margin: 2rem -.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, .5);
+    padding: 1rem .5rem .5rem;
+    color: rgba(255, 255, 255, .5);
+    font-size: .9em;
+    text-transform: uppercase;
+  }
 
   //
   // Tablet+ layout
