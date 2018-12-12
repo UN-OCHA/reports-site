@@ -70,6 +70,12 @@ export default {
 
   // Flash Updates
   'Flash Update': 'Flash Update',
+  'minute ago': 'minute ago',
+  'minutes ago': 'minutes ago',
+  'hour ago': 'hour ago',
+  'hours ago': 'hours ago',
+  'day ago': 'day ago',
+  'days ago': 'days ago',
 
   // Sharing
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',

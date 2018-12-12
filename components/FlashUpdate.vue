@@ -34,7 +34,9 @@
 
   export default {
     extends: Card,
-    mixins: [Global],
+    mixins: [
+      Global,
+    ],
 
     props: {
       'content': Object,
@@ -65,7 +67,7 @@
           units = (duration === 1) ? 'hour' : 'hours';
         }
 
-        return `${duration} ${units} ago`;
+        return duration + ' ' + this.$t(`${units} ago`, this.locale);
       }
     },
 
