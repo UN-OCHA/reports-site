@@ -4,13 +4,12 @@
     <AppHeader />
 
     <main class="container">
-      <section class="card card--intro rich-text">
-        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <p>The Digital Situation Report aims to simplify OCHA's current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users' time by automating distribution and design.</p>
-        <p>As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.</p>
-      </section>
-      <section class="card card--sitreps">
-        <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
+      <section class="card card--404 rich-text">
+        <img class="card__image" src="/locust-404.svg" alt="404 Error">
+        <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
+        <p class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
+        <p class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
+        <br>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
             <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
@@ -81,49 +80,57 @@
 </script>
 
 <style lang="scss" scoped>
+  .card__image {
+    display: block;
+    max-width: 80%;
+    margin: 2rem auto;
+
+    @media (min-width: 800px) {
+      max-width: 420px;
+    }
+  }
+  .card__title {
+    font-size: 1.6em;
+    text-align: center;
+  }
+
+  .error-text {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-align: center;
+
+    @media (min-width: 460px) {
+      font-size: 1.1em;
+    }
+  }
+
   .sitrep-list {
-    margin: 1rem 0;
+    display: inline-block;
+    margin: 1rem auto;
     padding: 0;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
   }
   .sitrep {
     list-style-type: none;
     margin: 0 0 .5rem 0;
     padding: 0;
+
+    @media (min-width: 460px) {
+      text-align: right;
+    }
   }
   .last-updated {
+    display: block;
     color: #666;
     font-style: italic;
-  }
 
-  @media (min-width: 760px) {
-    .card--intro {
-      float: right;
-      width: calc(33.333% - 1rem);
-      margin-left: 1rem;
-    }
-    .card--sitreps {
-      width: calc(66.666%);
-    }
-
-    @supports (display: grid) {
-      main {
-        display: grid;
-        grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 3fr;
-        grid-gap: 1rem;
-      }
-
-      .card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .card--intro {
-        grid-area: intro;
-      }
-      .card--sitreps {
-        grid-area: sitreps;
-      }
+    @media (min-width: 460px) {
+      display: inline;
     }
   }
 </style>
