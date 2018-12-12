@@ -51,6 +51,7 @@
 
     data() {
       return {
+        entries: [],
         isExpanded: false,
       }
     },
