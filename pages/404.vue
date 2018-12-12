@@ -7,8 +7,8 @@
       <section class="card card--404 rich-text">
         <img class="card__image" src="/locust-404.svg" alt="404 Error">
         <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
-        <p class="error-text">We want to help you find the information you are looking for.</p>
-        <p class="error-text">Here are some of OCHA's latest Situation Reports to help you get back on track:</p>
+        <p class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
+        <p class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
         <br>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
@@ -102,7 +102,7 @@
     padding-right: 2rem;
     text-align: center;
 
-    @media (min-width: 432px) {
+    @media (min-width: 460px) {
       font-size: 1.1em;
     }
   }
