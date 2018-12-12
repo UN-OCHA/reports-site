@@ -8,11 +8,11 @@ export default {
   'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
-  'No data available.': 'No data available.',
   'Read more': 'Read more',
   'Read less': 'Read less',
 
   // Errors
+  'No data available.': 'No data available.',
   'Page not found': 'Page not found',
   'We want to help you find the information you are looking for.': 'We want to help you find the information you are looking for.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Here are some of OCHA\'s latest Situation Reports to help you get back on track:',
