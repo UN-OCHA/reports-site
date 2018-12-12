@@ -1,7 +1,10 @@
 <template>
   <article class="card card--flashUpdate flash-update clearfix" :id="this.cssId">
     <CardHeader />
-    <span class="card__title">{{ $t('Flash Update', locale) }}</span>
+    <span class="card__title">
+      {{ $t('Flash Update', locale) }}
+      <span class="card__time-ago">{{ timeAgo }}</span>
+    </span>
     <div class="flash-update__content" :class="{ 'flash-update__content--has-image': content.fields.image }">
       <div class="flash-update__image" v-if="content.fields.image">
         <figure>
@@ -40,6 +43,7 @@
     data() {
       return {
         richBody: '',
+        updatedAt: this.content.sys.updatedAt,
       };
     },
 
@@ -47,6 +51,22 @@
       cssId() {
         return 'cf-' + this.content.sys.id;
       },
+
+      timeAgo() {
+        let duration = this.$moment(this.updatedAt).diff(this.$moment(), 'minutes') / -1;
+        let units = (duration === 1) ? 'minute' : 'minutes';
+
+        if (duration > 1440) {
+          duration = Math.floor(duration / 1440);
+          units = (duration === 1) ? 'day' : 'days';
+        }
+        else if (duration > 60) {
+          duration = Math.floor(duration / 60);
+          units = (duration === 1) ? 'hour' : 'hours';
+        }
+
+        return `${duration} ${units} ago`;
+      }
     },
 
     created() {
@@ -65,6 +85,14 @@
   .card__title {
     display: block;
     margin-bottom: 1rem;
+  }
+
+  .card__time-ago {
+    display: inline-block;
+    margin-left: .5em;
+    opacity: .8;
+    font-weight: 400;
+    text-transform: none;
   }
 
   .flash-update__title {

@@ -124,7 +124,7 @@
   }
 
   // In order to fetch data both during asyncData() and at other times of our
-  // own choosing, we have our own custom function which is defined out side
+  // own choosing, we have our own custom function which is defined outside
   // our export.
   function fetchAsyncData({env, slug, store}) {
     return Promise.all([
