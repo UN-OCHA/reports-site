@@ -10,22 +10,22 @@
   "display": "browser",
   "icons": [
     {
-      "src": "/icons/OCHADigSitrep-App-Icon_512.png",
+      "src": "/icons/app-icon_512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "/icons/OCHADigSitrep-App-Icon_192.png",
+      "src": "/icons/app-icon_192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/OCHADigSitrep-App-Icon_144.png",
+      "src": "/icons/app-icon_144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/OCHADigSitrep-App-Icon.svg",
+      "src": "/icons/app-icon.svg",
       "type": "image/svg+xml"
     }
   ]
