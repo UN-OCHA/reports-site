@@ -61,6 +61,11 @@
           dateUpdated: '',
         });
 
+        // Sort entries by the dateUpdated field, newest first.
+        entries.items.sort(function(a,b){
+          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+        });
+
         return {
           entries: entries.items,
         }

@@ -9,10 +9,15 @@ export default {
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
   'No data available.': 'No data available.',
+  'Read more': 'Read more',
+  'Read less': 'Read less',
 
-  // Homepage
-  'About this site': 'About this site',
-  'Recently updated': 'Recently updated',
+  // AppBar
+  'Toggle menu': 'Toggle menu',
+  'Home': 'Home',
+  'Latest updates': 'Latest updates',
+  'About': 'About',
+  'OCHA Services': 'OCHA Services',
 
   // AppHeader
   'Last updated': 'Last updated',
@@ -20,6 +25,10 @@ export default {
   'Share': 'Share',
   'Email': 'Email',
   'Download': 'Download',
+
+  // Homepage
+  'About this site': 'About this site',
+  'Recently updated': 'Recently updated',
 
   // Key Messages
   'Key Messages': 'Key Messages',
@@ -43,11 +52,19 @@ export default {
   'Gaps': 'Gaps',
 
   // Articles
+  'Access': 'Access',
   'Analysis': 'Analysis',
   'Background': 'Background',
+  'Coordination': 'Coordination',
+  'Emergency Response': 'Emergency Response',
+  'Feature': 'Feature',
   'Forecast': 'Forecast',
-  'Read more': 'Read more',
-  'Read less': 'Read less',
+  'Media': 'Media',
+  'Trends': 'Trends',
+  'Visuals and Data': 'Visuals And Data',
+
+  // Flash Updates
+  'Flash Update': 'Flash Update',
 
   // Sharing
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
