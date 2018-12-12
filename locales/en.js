@@ -12,9 +12,17 @@ export default {
   'Read more': 'Read more',
   'Read less': 'Read less',
 
-  // Homepage
-  'About this site': 'About this site',
-  'Recently updated': 'Recently updated',
+  // Errors
+  'Page not found': 'Page not found',
+  'We want to help you find the information you are looking for.': 'We want to help you find the information you are looking for.',
+  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Here are some of OCHA\'s latest Situation Reports to help you get back on track:',
+
+  // AppBar
+  'Toggle menu': 'Toggle menu',
+  'Home': 'Home',
+  'Latest updates': 'Latest updates',
+  'About': 'About',
+  'OCHA Services': 'OCHA Services',
 
   // AppHeader
   'Last updated': 'Last updated',
@@ -22,6 +30,10 @@ export default {
   'Share': 'Share',
   'Email': 'Email',
   'Download': 'Download',
+
+  // Homepage
+  'About this site': 'About this site',
+  'Recently updated': 'Recently updated',
 
   // Key Messages
   'Key Messages': 'Key Messages',
