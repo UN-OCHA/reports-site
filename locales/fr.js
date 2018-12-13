@@ -12,6 +12,11 @@ export default {
   'Read more': 'Lire davantage',
   'Read less': 'Lire moins',
 
+  // Errors
+  'Page not found': 'Page non trouvée',
+  'We want to help you find the information you are looking for.': 'Nous souhaitons vous aider à trouver la page que vous recherchez.',
+  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Voici quelques-uns des derniers rapports de situation:',
+
   // AppBar
   'Toggle menu': 'Toggle menu',
   'Home': 'Home',
