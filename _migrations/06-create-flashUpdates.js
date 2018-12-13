@@ -35,8 +35,8 @@ module.exports = function(migration) {
 
   //
   // Unfortunately, as of contentful-migration@7.0.5 it's not yet possible to
-  // create Rich Text fields using migration scripts. We'll delete the old fields
-  // and manually create the replacements.
+  // create Rich Text fields using migration scripts. We'll manually create the
+  // field using CTF UI.
   //
   // machine-name: body
   //
