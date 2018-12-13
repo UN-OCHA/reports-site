@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFinancials" :id="this.cssId">
+  <section class="card card--keyFinancials" :id="cssId">
     <CardHeader />
     <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
     <div class="figures clearfix">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>

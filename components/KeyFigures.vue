@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFigures" :id="this.cssId">
+  <section class="card card--keyFigures" :id="cssId">
     <CardHeader />
     <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>
     <div class="figures clearfix">
@@ -10,7 +10,7 @@
       </figure>
       <p v-if="!content">{{ $t('No data available.', locale) }}</p>
     </div>
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>
@@ -28,7 +28,7 @@
     },
 
     computed: {
-      cssId: function () {
+      cssId() {
         if (typeof this.content === 'Array' && this.content.length > 0) {
           return 'cf-' + this.content.map((item) => item.sys.id).join('_');
         }

@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--keyMessages key-messages" :id="this.cssId">
+  <article class="card card--keyMessages key-messages" :id="cssId">
     <CardHeader />
     <h2 class="card__title">{{ $t('Key Messages', locale) }}</h2>
     <div class="key-messages__area">
@@ -15,7 +15,7 @@
         </figure>
       </div>
     </div>
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
