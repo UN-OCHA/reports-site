@@ -1,7 +1,7 @@
 <template>
   <footer class="card__snap-footer">
     <p class="url"><span class="label">URL:</span> {{ thisUrl }}</p>
-    <p class="date"><span class="label">{{ $t('Date:', locale) }}</span> <time :datetime="this.today">{{ this.today }}</time></p>
+    <p class="date"><span class="label">{{ $t('Date', locale) }}:</span> <time :datetime="this.today">{{ this.today }}</time></p>
   </footer>
 </template>
 
