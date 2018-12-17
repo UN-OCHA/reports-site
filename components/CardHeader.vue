@@ -3,13 +3,17 @@
     <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
     <div class="meta">
       <h1 class="title">{{ title }}</h1>
-      <span class="subtitle">Situation Report</span>
+      <span class="subtitle">{{ $t('Situation Report', locale) }}</span>
     </div>
   </header>
 </template>
 
 <script>
+  import Global from '~/components/_Global';
+
   export default {
+    mixins: [Global],
+
     data() {
       return {}
     },
