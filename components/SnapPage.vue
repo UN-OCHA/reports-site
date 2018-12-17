@@ -30,7 +30,14 @@
 
     computed: {
       snapRequest() {
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&user=ocha&pass=dev`;
+        // In order to localize the CardHeader and CardFooter, pass our current
+        // cookies which include the active locale setting. To see how this is
+        // picked up and handled by SitRep during a Snap:
+        //
+        // @see middleware/i18n.js
+        const cookies = document.cookie;
+
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&user=ocha&pass=dev&cookies=${encodeURIComponent(cookies)}`;
       },
 
       filename() {
