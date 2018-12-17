@@ -80,8 +80,6 @@ export default {
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
   'Date of Creation': 'Date de création',
-
-  // PNG card
   'URL': 'URL',
   'Date': 'Date',
 }
