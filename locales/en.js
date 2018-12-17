@@ -80,6 +80,5 @@ export default {
   // Sharing
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
   'Date of Creation': 'Date de création',
-  'URL': 'URL',
   'Date': 'Date',
 }
