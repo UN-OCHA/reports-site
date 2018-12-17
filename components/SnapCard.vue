@@ -33,7 +33,16 @@
         // biggest layout caused by 1164px-wide window. So use 1163 as a minimum
         // and when the actual width is smaller, we'll use current window.
         const windowWidth = Math.min(1163, window.innerWidth);
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=png&width=${windowWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.selector)}&user=ocha&pass=dev`;
+
+        // In order to localize the CardHeader and CardFooter, pass our current
+        // cookies which include the active locale setting. To see how this is
+        // picked up and handled by SitRep during a Snap:
+        //
+        // @see middleware/i18n.js
+        const cookies = document.cookie;
+
+        // Final query that we're passing to Snap Service.
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=png&width=${windowWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.selector)}&user=ocha&pass=dev&cookies=${encodeURIComponent(cookies)}`;
       },
 
       filename() {
