@@ -3,12 +3,13 @@
     <CardHeader />
     <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
     <div class="figures clearfix">
-      <figure v-if="ftsData" v-for="figure in ftsData" :key="figure.sys.id">
+      <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
-      <div v-else class="figures-none">
+      <div v-if="!ftsData.length" class="figures-none">
         {{ $t('Financial data could not be found.', locale) }}
+        <br><br>
       </div>
     </div>
     <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
@@ -45,7 +46,13 @@
       },
 
       ftsData() {
-        const plan = this.content.filter(plan => plan.id === this.ftsPlanId)[0];
+        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+
+        // If we failed to fetch FTS Data along the way, return nothing and our
+        // template will display a prepared error message.
+        if (!plan) {
+          return [];
+        }
 
         // The structure mimics Contentful JSON API so that our template above
         // doesn't have to be duplicated based on input data.
