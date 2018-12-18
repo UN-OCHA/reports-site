@@ -144,13 +144,15 @@
               username: process.env.tmpBasicAuthUser,
               password: process.env.tmpBasicAuthPass,
             }
-          }).then(response => response.data)
+          })
+          .then(response => response.data)
+          .catch(console.error)
         : axios({
             url: '/v2/fts/flow/plan/overview/progress/2018',
             method: 'GET',
           })
           .then(response => response.data)
-          .catch(console.error)
+          .catch(console.warn)
     ]).then(([entries, ftsData]) => {
 
       // For client-side, update our store with the fresh data.
@@ -162,8 +164,8 @@
 
       return {
         entry: entries.items[0],
-        ftsData: ftsData.data.plans,
-      }
+        ftsData: ftsData && ftsData.data && ftsData.data.plans || [],
+      };
     }).catch(console.error)
   }
 </script>
