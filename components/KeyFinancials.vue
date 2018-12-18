@@ -49,7 +49,7 @@
         const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
         // If we failed to fetch FTS Data along the way, return nothing and our
-        // template will display an error.
+        // template will display a prepared error message.
         if (!plan) {
           return [];
         }
