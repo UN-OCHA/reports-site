@@ -3,11 +3,11 @@
     <CardHeader />
     <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
     <div class="figures clearfix">
-      <figure v-if="ftsData.length > 0" v-for="figure in ftsData" :key="figure.sys.id">
+      <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
-      <div v-if="ftsData.length === 0" class="figures-none">
+      <div v-if="!ftsData.length" class="figures-none">
         {{ $t('Financial data could not be found.', locale) }}
         <br><br>
       </div>
