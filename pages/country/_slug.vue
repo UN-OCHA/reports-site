@@ -118,7 +118,8 @@
       fetchAsyncData({env, slug, store}).then((response) => {
         // Update the client-side model with fresh API responses.
         this.entry = response.entry;
-        this.ftsData = response.ftsData;
+        // Only update FTS when the server-side data wasn't loaded.
+        this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
     },
   }
