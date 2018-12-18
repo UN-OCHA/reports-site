@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--article article clearfix" :id="this.cssId">
+  <article class="card card--article article clearfix" :id="cssId">
     <CardHeader />
     <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
@@ -15,25 +15,25 @@
         </figure>
       </div>
       <div ref="article" class="article__text" :class="{
-        'is--expandable': this.isExpandable,
-        'is--expanded': this.isExpanded,
+        'is--expandable': isExpandable,
+        'is--expanded': isExpanded,
       }" :style="{
-        'height': this.getArticleHeight,
+        'height': getArticleHeight,
       }">
         <h3 class="article__title">{{ content.fields.title }}</h3>
-        <div class="rich-text" v-html="this.richBody"></div>
+        <div class="rich-text" v-html="richBody"></div>
       </div>
     </div>
 
     <button
-      v-if="this.isExpandable"
+      v-if="isExpandable"
       class="btn--toggle-text"
-      :class="{ 'is--expanded': this.isExpanded }"
+      :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
