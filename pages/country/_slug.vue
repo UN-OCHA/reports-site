@@ -72,6 +72,18 @@
       return {}
     },
 
+    methods: {
+      // Modifications to original SO include better variable names, plus guard
+      // against lack of `document` since this code also gets invoked during our
+      // static generation (it's only for client-side JS).
+      //
+      // @see https://stackoverflow.com/a/25490531
+      getCookieValue(name) {
+        var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
+        return val ? val.pop() : '';
+      },
+    },
+
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
@@ -106,6 +118,17 @@
     asyncData({env, params, store}) {
       const slug = params.slug;
       return fetchAsyncData({env, slug, store});
+    },
+
+    // Before we assemble this page, check the cookies for a stored locale. If
+    // we find one, we'd prefer to render this page in that language and should
+    // notify the other components by modifying the client-side Vuex store.
+    created() {
+      const cookieVal = this.getCookieValue('locale');
+
+      if (cookieVal) {
+        this.$store.commit('SET_LANG', cookieVal);
+      }
     },
 
     // In cases where HTML response contained stale content, our second call to
