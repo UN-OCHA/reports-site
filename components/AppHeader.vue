@@ -30,16 +30,16 @@
           v-if="snap"
           output="pdf"
           :title="title"
-          :subtitle="this.$t('Situation Report', locale)"
-          :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
-        <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
+          :subtitle="$t('Situation Report', locale)"
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('ll')" />
+        <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
             <span class="element-invisible">{{ $t('Share', locale) }}</span>
           </button>
           <div class="share__options card">
-            <a class="share__option share--twitter" v-if="this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
-            <a class="share__option share--facebook" v-if="this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-            <a class="share__option share--email" v-if="this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+            <a class="share__option share--twitter" v-if="shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+            <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+            <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
           </div>
         </div>
       </div>
