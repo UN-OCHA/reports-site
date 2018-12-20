@@ -37,7 +37,7 @@
         // @see middleware/i18n.js
         const cookies = document.cookie;
 
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&user=ocha&pass=dev&cookies=${encodeURIComponent(cookies)}&locale=${this.locale}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&footerText=${encodeURIComponent(this.sitRepUrl)}&user=ocha&pass=dev&cookies=${encodeURIComponent(cookies)}&locale=${this.locale}`;
       },
 
       filename() {
