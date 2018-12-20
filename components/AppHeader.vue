@@ -9,7 +9,7 @@
         <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
-        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('ll') }}</time></span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
           output="pdf"
           :title="title"
           :subtitle="$t('Situation Report', locale)"
-          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('ll')" />
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')" />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
             <span class="element-invisible">{{ $t('Share', locale) }}</span>
@@ -108,7 +108,7 @@
 
     computed: {
       today() {
-        return this.$moment(Date.now()).locale(this.locale).format('ll');
+        return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
       },
 
       shareBaseUrl() {
