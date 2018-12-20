@@ -35,7 +35,7 @@
       },
 
       snapRequest() {
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=${this.output}&user=ocha&pass=dev`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=${this.output}`;
       },
 
       // We provide a very generic filename to be overridden in each specific
