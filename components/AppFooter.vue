@@ -11,15 +11,23 @@
     <div v-else>
       <p class="text"><abbr title="United Nations Office for the Coordination of Humanitarian Affairs">OCHA</abbr> coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.</p>
     </div>
+    <ul class="footer-menu">
+      <li><a :href="$t('href-privacy', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
+      <li><a :href="$t('href-copyright', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
+    </ul>
   </footer>
 </template>
 
 <script>
+  import Global from '~/components/_Global';
+
   export default {
-    props: {
-      'footer': Object,
-    },
-  }
+    mixins: [Global],
+
+      props: {
+        'footer': Object,
+      },
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -64,4 +72,38 @@
       text-decoration: none;
     }
   }
+
+  .footer-menu {
+    list-style: none;
+    margin: 2em 0 0;
+    padding-left: 0;
+  }
+
+  .footer-menu li {
+    display: inline-block;
+    margin: 0 2em 1em 0;
+  }
+
+  .footer-menu a {
+    border-bottom: 1px solid transparent;
+    color: #666;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    @media print {
+      text-transform: unset;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+
+    @media print {
+      &:after {
+        content:" <" attr(href) "> ";
+      }
+    }
+  }
+
 </style>
