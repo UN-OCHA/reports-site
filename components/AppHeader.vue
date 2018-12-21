@@ -9,7 +9,7 @@
         <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
-        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('ll') }}</time></span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
       </div>
     </div>
 
@@ -30,16 +30,16 @@
           v-if="snap"
           output="pdf"
           :title="title"
-          :subtitle="this.$t('Situation Report', locale)"
-          :description="'Last updated: ' + this.$moment(updated).locale(locale).format('ll')" />
-        <div v-if="share" class="share" :class="{ 'share--is-open': this.shareIsOpen }">
+          :subtitle="$t('Situation Report', locale)"
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')" />
+        <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
             <span class="element-invisible">{{ $t('Share', locale) }}</span>
           </button>
           <div class="share__options card">
-            <a class="share__option share--twitter" v-if="this.shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
-            <a class="share__option share--facebook" v-if="this.shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-            <a class="share__option share--email" v-if="this.shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+            <a class="share__option share--twitter" v-if="shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+            <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+            <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@
 
     computed: {
       today() {
-        return this.$moment(Date.now()).locale(this.locale).format('ll');
+        return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
       },
 
       shareBaseUrl() {

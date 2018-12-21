@@ -1,5 +1,5 @@
 <template>
-  <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="this.cssId">
+  <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="cssId">
     <CardHeader />
     <span class="card__title">
       {{ $t('Flash Update', locale) }}
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>

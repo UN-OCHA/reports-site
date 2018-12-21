@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--cluster cluster" :id="this.cssId">
+  <section class="card card--cluster cluster" :id="cssId">
     <CardHeader />
     <h2 class="card__title">{{ $t('Cluster Status', locale) }}</h2>
     <div class="cluster__meta clearfix">
@@ -16,18 +16,18 @@
     <div class="cluster__content clearfix">
       <div class="cluster__bucket">
         <h3 class="cluster__bucket-title">{{ $t('Needs', locale) }}</h3>
-        <div class="rich-text" v-html="this.richNeeds"></div>
+        <div class="rich-text" v-html="richNeeds"></div>
       </div>
       <div class="cluster__bucket">
         <h3 class="cluster__bucket-title">{{ $t('Response', locale) }}</h3>
-        <div class="rich-text" v-html="this.richResponse"></div>
+        <div class="rich-text" v-html="richResponse"></div>
       </div>
       <div class="cluster__bucket">
         <h3 class="cluster__bucket-title">{{ $t('Gaps', locale) }}</h3>
-        <div class="rich-text" v-html="this.richGaps"></div>
+        <div class="rich-text" v-html="richGaps"></div>
       </div>
     </div>
-    <CardActions :frag="'#' + this.cssId" />
+    <CardActions :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>

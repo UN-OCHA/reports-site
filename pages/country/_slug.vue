@@ -72,6 +72,18 @@
       return {}
     },
 
+    methods: {
+      // Modifications to original SO include better variable names, plus guard
+      // against lack of `document` since this code also gets invoked during our
+      // static generation (it's only for client-side JS).
+      //
+      // @see https://stackoverflow.com/a/25490531
+      getCookieValue(name) {
+        var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
+        return val ? val.pop() : '';
+      },
+    },
+
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
@@ -108,6 +120,17 @@
       return fetchAsyncData({env, slug, store});
     },
 
+    // Before we assemble this page, check the cookies for a stored locale. If
+    // we find one, we'd prefer to render this page in that language and should
+    // notify the other components by modifying the client-side Vuex store.
+    created() {
+      const cookieVal = this.getCookieValue('locale');
+
+      if (cookieVal) {
+        this.$store.commit('SET_LANG', cookieVal);
+      }
+    },
+
     // In cases where HTML response contained stale content, our second call to
     // Contentful/FTS will ensure that everything is up to date.
     mounted() {
@@ -118,7 +141,8 @@
       fetchAsyncData({env, slug, store}).then((response) => {
         // Update the client-side model with fresh API responses.
         this.entry = response.entry;
-        this.ftsData = response.ftsData;
+        // Only update FTS when the server-side data wasn't loaded.
+        this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
     },
   }
@@ -144,13 +168,15 @@
               username: process.env.tmpBasicAuthUser,
               password: process.env.tmpBasicAuthPass,
             }
-          }).then(response => response.data)
+          })
+          .then(response => response.data)
+          .catch(console.error)
         : axios({
             url: '/v2/fts/flow/plan/overview/progress/2018',
             method: 'GET',
           })
           .then(response => response.data)
-          .catch(console.error)
+          .catch(console.warn)
     ]).then(([entries, ftsData]) => {
 
       // For client-side, update our store with the fresh data.
@@ -162,8 +188,8 @@
 
       return {
         entry: entries.items[0],
-        ftsData: ftsData.data.plans,
-      }
+        ftsData: ftsData && ftsData.data && ftsData.data.plans || [],
+      };
     }).catch(console.error)
   }
 </script>
