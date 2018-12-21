@@ -42,7 +42,7 @@
         const cookies = document.cookie;
 
         // Final query that we're passing to Snap Service.
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=png&width=${windowWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.selector)}&cookies=${encodeURIComponent(cookies)}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=png&width=${windowWidth}&height=${window.innerHeight}&selector=${encodeURIComponent(this.selector)}&cookies=${encodeURIComponent(cookies)}`;
       },
 
       filename() {

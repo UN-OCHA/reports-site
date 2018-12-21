@@ -34,8 +34,14 @@
         return window.location.origin + '/snap';
       },
 
+      // Requesting Service is a term in Snap ELK logs to identify which UNOCHA
+      // property is taking Snaps.
+      requestingService() {
+        return 'dsreports';
+      },
+
       snapRequest() {
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&output=${this.output}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=${this.output}`;
       },
 
       // We provide a very generic filename to be overridden in each specific
