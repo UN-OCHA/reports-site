@@ -33,9 +33,9 @@ export default {
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
-  'Privacy policy URL': 'http://www.un.org/en/sections/about-website/privacy-notice',
+  'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
   'Copyright notice': 'Copyright notice',
-  'Copyright notice URL': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
 
   // Homepage
   'About this site': 'About this site',

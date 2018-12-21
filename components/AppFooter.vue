@@ -12,8 +12,8 @@
       <p class="text"><abbr title="United Nations Office for the Coordination of Humanitarian Affairs">OCHA</abbr> coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.</p>
     </div>
     <ul class="footer-menu">
-      <li><a :href="$t('Privacy policy URL', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
-      <li><a :href="$t('Copyright notice URL', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
+      <li><a :href="$t('href-privacy', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
+      <li><a :href="$t('href-copyright', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
     </ul>
   </footer>
 </template>
