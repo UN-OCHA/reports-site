@@ -162,7 +162,7 @@ html.wf-loaded {
 /*—— Site Container ——————————————————————————————————————————————————————————*/
 
 .container {
-  max-width: 1200px;
+  max-width: 1080px;
   margin: 2rem 1rem;
   padding: 0;
   background-color: transparent;
