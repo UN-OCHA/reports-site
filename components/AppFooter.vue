@@ -7,10 +7,15 @@
         <li class="link" v-if="footer.fields.relatedLink2"><a :href="footer.fields.relatedLink2" target="_blank" rel="noopener">{{ footer.fields.relatedLink2 }}</a></li>
         <li class="link" v-if="footer.fields.relatedLink3"><a :href="footer.fields.relatedLink3" target="_blank" rel="noopener">{{ footer.fields.relatedLink3 }}</a></li>
       </ul>
+      <ul class="social-menu" v-if="footer.fields.socialFacebook || footer.fields.socialTwitter">
+        <li v-if="footer.fields.socialFacebook" class="social-link social-link--facebook"><a :href="footer.fields.socialFacebook" target="_blank" rel="noopener"><span class="element-invisible">Facebook</span></a></li>
+        <li v-if="footer.fields.socialTwitter" class="social-link social-link--twitter"><a :href="footer.fields.socialTwitter" target="_blank" rel="noopener"><span class="element-invisible">Twitter</span></a></li>
+      </ul>
     </div>
     <div v-else>
       <p class="text"><abbr title="United Nations Office for the Coordination of Humanitarian Affairs">OCHA</abbr> coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.</p>
     </div>
+
     <ul class="footer-menu">
       <li><a :href="$t('href-privacy', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
       <li><a :href="$t('href-copyright', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
@@ -104,6 +109,37 @@
         content:" <" attr(href) "> ";
       }
     }
+  }
+
+  .social-menu {
+    float: right;
+  }
+
+  .social-link {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 1.333em 0 0 .666em;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .social-link a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .social-link--facebook {
+    background-image: url('/icons/icon--share-fb-gray.svg');
+    background-size: 85%; // FB SVG is slightly taller
+  }
+  .social-link--twitter {
+    background-image: url('/icons/icon--share-tw-gray.svg');
   }
 
 </style>
