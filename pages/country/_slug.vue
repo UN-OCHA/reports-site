@@ -231,6 +231,7 @@
 
 /*—— Report Large layout —————————————————————————————————————————————————————*/
 
+/*
 @media screen and (min-width: 1164px) {
   /**
    * No CSS Grid support
@@ -238,7 +239,7 @@
    * Given the landscape and browser trends, there is only one definition for
    * large screens lacking CSS Grid. We're defining a float layout with some
    * height units to ensure uniformity.
-   */
+   * /
   .card--keyMessages {
     float: left;
     width: 73%;
@@ -254,7 +255,7 @@
     width: calc(25%);
     margin-bottom: 1rem;
 
-    /* This group of three cards must resolve to height of keyMessages */
+    /* This group of three cards must resolve to height of keyMessages * /
     height: calc(30vh - .666rem);
   }
 
@@ -262,7 +263,7 @@
    * CSS Grid
    *
    * We can do whatever we want here because CSS Grid is the best!
-   */
+   * /
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -274,7 +275,7 @@
       margin-bottom: 1rem;
     }
 
-    /* Cards are set with CSS Grid and don't need any special treatment */
+    /* Cards are set with CSS Grid and don't need any special treatment * /
     .section--primary .card {
       float: none;
       width: auto;
@@ -283,7 +284,7 @@
       margin-bottom: 0;
     }
 
-    /* Drop selected cards into their homes */
+    /* Drop selected cards into their homes * /
     .card--keyMessages {
       grid-area: keyMessages;
     }
@@ -297,13 +298,13 @@
       grid-area: contacts;
     }
 
-    /* All other cards will appear in EverythingElse section */
+    /* All other cards will appear in EverythingElse section * /
     .section--everythingElse {
     }
     .section--everythingElse .card {
       margin-bottom: 1rem;
     }
-  } /* @supports (display: grid) */
+  } /* @supports (display: grid) * /
 } /* @media screen and (min-width: 1164px) */
 
 /*—— Print styles ————————————————————————————————————————————————————————————*/
