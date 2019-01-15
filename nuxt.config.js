@@ -52,7 +52,6 @@ module.exports = {
   //
   modules: [
     ['@nuxtjs/moment', ['fr']],
-    ['@nuxtjs/google-tag-manager', { id: 'GTM-W4PXQBG' }],
   ],
   //
   // Router
