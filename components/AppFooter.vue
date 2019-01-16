@@ -119,7 +119,7 @@
     display: inline-block;
     width: 2em;
     height: 2em;
-    margin: 1.333em 0 0 .666em;
+    margin: 1.5em 0 0 .666em;
     padding: 0;
     border: 0;
     background-color: transparent;
