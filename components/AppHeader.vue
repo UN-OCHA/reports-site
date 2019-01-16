@@ -20,7 +20,8 @@
           <option v-for="lang in locales"
             :key="lang.code"
             :value="lang.code"
-            :selected="lang.code === locale">
+            :selected="lang.code === locale"
+            :class="'lang-switcher__language--' + lang.code">
             {{ lang.name }}
           </option>
         </select>
