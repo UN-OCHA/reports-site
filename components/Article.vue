@@ -80,28 +80,6 @@
           return this.isExpanded ? this.articleHeight + 'px' : this.articleMinHeight + 'px';
         }
       },
-
-      // How many minutes since the Flash Update was published?
-      timeAgoInMinutes() {
-        return this.$moment(this.updatedAt).diff(this.$moment(), 'minutes') / -1;
-      },
-
-      // Format the duration since Flash Update was published.
-      formatTimeAgo() {
-        let duration = this.timeAgoInMinutes;
-        let units = (duration === 1) ? 'minute' : 'minutes';
-
-        if (duration > 1440) {
-          duration = Math.floor(duration / 1440);
-          units = (duration === 1) ? 'day' : 'days';
-        }
-        else if (duration > 60) {
-          duration = Math.floor(duration / 60);
-          units = (duration === 1) ? 'hour' : 'hours';
-        }
-
-        return duration + ' ' + this.$t(`${units} ago`, this.locale);
-      },
     },
 
     methods: {
@@ -143,14 +121,6 @@
   .card__title {
     display: block;
     margin-bottom: 1rem;
-  }
-
-  .card__time-ago {
-    display: inline-block;
-    margin-left: .5em;
-    opacity: .8;
-    font-weight: 400;
-    text-transform: none;
   }
 
   .article__title {
