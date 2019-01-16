@@ -31,6 +31,12 @@ export default {
   'Email': 'Email',
   'Download': 'Télécharger',
 
+  // AppFooter
+  'Privacy policy': 'Privacy policy',
+  'href-privacy': 'https://www.un.org/fr/sections/about-website/privacy-notice/',
+  'Copyright notice': 'Copyright notice',
+  'href-copyright': 'https://www.un.org/fr/sections/about-website/copyright/index.html',
+
   // Homepage
   'About this site': 'A propos de ce site',
   'Recently updated': 'Récemment mis à jour',
