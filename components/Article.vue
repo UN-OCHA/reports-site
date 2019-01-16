@@ -1,7 +1,10 @@
 <template>
   <article class="card card--article article clearfix" :id="cssId">
     <CardHeader />
-    <span class="card__title">{{ $t(content.fields.sectionHeading, locale) }}</span>
+    <span class="card__title">
+      {{ $t(content.fields.sectionHeading, locale) }}
+      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+    </span>
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure>
@@ -59,6 +62,7 @@
         isExpandable: false,
         isExpanded: false,
         richBody: '',
+        updatedAt: this.content.sys.updatedAt,
       };
     },
 
@@ -75,7 +79,7 @@
         } else {
           return this.isExpanded ? this.articleHeight + 'px' : this.articleMinHeight + 'px';
         }
-      }
+      },
     },
 
     methods: {

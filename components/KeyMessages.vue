@@ -1,7 +1,10 @@
 <template>
   <article class="card card--keyMessages key-messages" :id="cssId">
     <CardHeader />
-    <h2 class="card__title">{{ $t('Key Messages', locale) }}</h2>
+    <h2 class="card__title">
+      {{ $t('Key Messages', locale) }}
+      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+    </h2>
     <div class="key-messages__area">
       <ul class="message-list">
         <li :key="message.sys.id" v-for="message in messages" class="message">
@@ -31,6 +34,17 @@
     props: {
       'messages': Array,
       'image': Object,
+    },
+
+    data() {
+      return {
+        // updatedAt is the first index of the sorted array of timestamps.
+        updatedAt: this.messages.map((msg) => {
+          return msg.sys.updatedAt
+        }).sort((b, a) => {
+          return a < b ? -1 : (a > b ? 1 : 0);
+        })[0],
+      }
     },
 
     computed: {
