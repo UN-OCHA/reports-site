@@ -3,7 +3,7 @@
     <CardHeader />
     <span class="card__title">
       {{ $t('Flash Update', locale) }}
-      <span class="card__time-ago">{{ formatTimeAgo }}</span>
+      <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
     <div class="flash-update__content" :class="{ 'flash-update__content--has-image': content.fields.image }">
       <div class="flash-update__image" v-if="content.fields.image">
@@ -52,28 +52,6 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
-      },
-
-      // How many minutes since the Flash Update was published?
-      timeAgoInMinutes() {
-        return this.$moment(this.updatedAt).diff(this.$moment(), 'minutes') / -1;
-      },
-
-      // Format the duration since Flash Update was published.
-      formatTimeAgo() {
-        let duration = this.timeAgoInMinutes;
-        let units = (duration === 1) ? 'minute' : 'minutes';
-
-        if (duration > 1440) {
-          duration = Math.floor(duration / 1440);
-          units = (duration === 1) ? 'day' : 'days';
-        }
-        else if (duration > 60) {
-          duration = Math.floor(duration / 60);
-          units = (duration === 1) ? 'hour' : 'hours';
-        }
-
-        return duration + ' ' + this.$t(`${units} ago`, this.locale);
       },
 
       // Determine if we should show the Flash Update at all based on the number
