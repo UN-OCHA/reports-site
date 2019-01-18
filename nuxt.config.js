@@ -4,9 +4,10 @@ const api = require('./.contentful.json');
 // These allow us to query Contentful and get all of our valid URLs.
 const contentful = require('contentful');
 const client = contentful.createClient({
+  host: api.CTF_HOST,
   space: api.CTF_SPACE_ID,
   environment: api.CTF_ENVIRONMENT,
-  accessToken: api.CTF_CDA_ACCESS_TOKEN,
+  accessToken: api.CTF_CDA_PREVIEW_TOKEN || api.CTF_CDA_ACCESS_TOKEN,
 });
 
 module.exports = {
@@ -14,9 +15,11 @@ module.exports = {
   // Environment variables
   //
   env: {
+    CTF_HOST: api.CTF_HOST || 'cdn.contentful.com',
     CTF_SPACE_ID: api.CTF_SPACE_ID,
     CTF_ENVIRONMENT: api.CTF_ENVIRONMENT || 'master',
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
+    CTF_CDA_PREVIEW_TOKEN: api.CTF_CDA_PREVIEW_TOKEN,
     baseUrl: api.BASE_URL || 'https://reports.unocha.org',
     tmpBasicAuthUser: api.BASIC_AUTH_USER || '',
     tmpBasicAuthPass: api.BASIC_AUTH_PASS || '',
