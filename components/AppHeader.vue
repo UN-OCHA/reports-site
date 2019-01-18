@@ -10,6 +10,7 @@
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">(See past reports)</a></span>
       </div>
     </div>
 
@@ -67,6 +68,7 @@
       'title': String,
       'updated': String,
       'mailchimp': String,
+      'countrycode': String,
       'share': Boolean,
       'snap': Boolean,
     },
@@ -110,6 +112,10 @@
     computed: {
       today() {
         return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
+      },
+
+      pastReports() {
+        return 'https://reliefweb.int/updates?search=(primary_country.iso3%3A%22' + this.countrycode +'%22)+AND+(ocha_product%3A%22Humanitarian+Bulletin%22+OR+ocha_product%3A%22Situation+Report%22+OR+ocha_product%3A%22Flash+Update%22+)+AND+source%3A%22UN+Office+for+the+Coordination+of+Humanitarian+Affairs%22#content';
       },
 
       shareBaseUrl() {
@@ -228,48 +234,58 @@
 
   .title-area__headings {
     flex: 1 0 80%;
+    font-family: sans-serif;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
   }
 
   .title {
     display: block;
     color: #4c8cca;
-    font-family: sans-serif;
-    font-weight: 700;
     font-size: 1.8em;
+    font-weight: 700;
     text-transform: uppercase;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
   }
 
   .subtitle {
     display: block;
-    font-family: sans-serif;
-    font-weight: 400;
-    font-size: 1.2em;
     color: #4c8cca;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
+    font-size: 1.2em;
+    font-weight: 400;
   }
 
   .last-updated {
-    display: block;
-    font-family: sans-serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 1em;
+    display: inline-block;
     color: #4c8cca;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 400;
   }
 
   .last-updated::first-letter {
     text-transform: capitalize;
+  }
+
+  .past-sitreps a {
+    display: inline-block;
+    color: #4c8cca;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 400;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-left: .25em;
+      background-color: transparent;
+      background-image: url('/icons/icon--outofsite-blue.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
   }
 
   .cta {

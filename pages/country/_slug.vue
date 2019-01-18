@@ -5,6 +5,7 @@
       :title="entry.fields.title"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
+      :countrycode="entry.fields.countryCode"
       :share="true"
       :snap="true" />
 
