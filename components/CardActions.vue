@@ -1,6 +1,9 @@
 <template>
   <div class="actions">
-    <SnapCard output="png" :selector="this.frag" />
+    <SnapCard
+      output="png"
+      :label="label"
+      :selector="this.frag" />
   </div>
 </template>
 
@@ -13,6 +16,7 @@
     },
 
     props: {
+      'label': String,
       'frag': String,
     },
   }

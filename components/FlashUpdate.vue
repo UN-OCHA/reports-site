@@ -1,6 +1,7 @@
 <template>
   <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="cssId">
     <CardHeader />
+
     <span class="card__title">
       {{ $t('Flash Update', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
@@ -22,7 +23,7 @@
       </div>
     </div>
 
-    <CardActions :frag="'#' + cssId" />
+    <CardActions label="Flash Update" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
