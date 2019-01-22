@@ -30,7 +30,12 @@
           units = (duration === 1) ? 'hour' : 'hours';
         }
 
-        return duration + ' ' + this.$t(`${units} ago`, this.locale);
+        // This is done in two steps. Our translations are supplied with the
+        // literal string `#` in them, so we first translate then replace
+        // with the dynamic value of #. That substitution could also be
+        // localized if we want to maintain a list.
+        const value = /\#/gi;
+        return this.$t(`# ${units} ago`, this.locale).replace(value, duration);
       },
     },
 
