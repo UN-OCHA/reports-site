@@ -1,6 +1,7 @@
 <template>
   <section class="card card--keyFigures" :id="cssId">
     <CardHeader />
+
     <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>
     <div class="figures clearfix">
       <figure v-for="figure in content" :key="figure.sys.id">
@@ -10,7 +11,8 @@
       </figure>
       <p v-if="!content">{{ $t('No data available.', locale) }}</p>
     </div>
-    <CardActions :frag="'#' + cssId" />
+
+    <CardActions label="Key Figures" :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>
