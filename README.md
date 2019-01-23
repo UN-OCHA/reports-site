@@ -30,6 +30,10 @@ CTF_CDA_ACCESS_TOKEN=0123456789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklm
 
 They will be copied to `.contentful.json` during the docker build step (see below).
 
+## Contentful Preview environments
+
+When the `CTF_HOST` AND `CTF_CDA_PREVIEW_TOKEN` environment variables are present, the app will configure itself to display all edits and new entries immediately, regardless of whether they have been published.
+
 ## Docker setup/development
 
 ```bash

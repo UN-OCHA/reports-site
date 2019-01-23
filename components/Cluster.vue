@@ -1,6 +1,7 @@
 <template>
   <section class="card card--cluster cluster" :id="cssId">
     <CardHeader />
+
     <h2 class="card__title">{{ $t('Cluster Status', locale) }}</h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
@@ -27,7 +28,8 @@
         <div class="rich-text" v-html="richGaps"></div>
       </div>
     </div>
-    <CardActions :frag="'#' + cssId" />
+
+    <CardActions label="Cluster" :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>

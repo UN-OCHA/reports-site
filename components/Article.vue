@@ -1,6 +1,7 @@
 <template>
   <article class="card card--article article clearfix" :id="cssId">
     <CardHeader />
+
     <span class="card__title">
       {{ $t(content.fields.sectionHeading, locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
@@ -27,7 +28,6 @@
         <div class="rich-text" v-html="richBody"></div>
       </div>
     </div>
-
     <button
       v-if="isExpandable"
       class="btn--toggle-text"
@@ -36,7 +36,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :frag="'#' + cssId" />
+    <CardActions label="Article" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>

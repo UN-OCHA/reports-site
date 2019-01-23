@@ -5,7 +5,7 @@
     :disabled="snapInProgress"
     @click="requestSnap">
     <span class="element-invisible">
-      Save as PNG
+      Save {{ label }} as PNG
     </span>
   </button>
 </template>
@@ -17,6 +17,7 @@
     extends: Snap,
 
     props: {
+      'label': String,
       'selector': String,
     },
 

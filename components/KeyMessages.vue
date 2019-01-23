@@ -1,6 +1,7 @@
 <template>
   <article class="card card--keyMessages key-messages" :id="cssId">
     <CardHeader />
+
     <h2 class="card__title">
       {{ $t('Key Messages', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
@@ -18,7 +19,8 @@
         </figure>
       </div>
     </div>
-    <CardActions :frag="'#' + cssId" />
+
+    <CardActions label="Key Messages" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
