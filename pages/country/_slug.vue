@@ -40,6 +40,7 @@
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
+  import Video from '~/components/Video';
 
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
@@ -60,6 +61,7 @@
       KeyFigures,
       KeyFinancials,
       KeyMessages,
+      Video,
     },
 
     // Validate the country slug using this function.

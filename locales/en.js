@@ -85,6 +85,9 @@ export default {
   'day ago': 'day ago',
   'days ago': 'days ago',
 
+  // Videos
+  'Video': 'Video',
+
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
   'Date of Creation': 'Date of Creation',
