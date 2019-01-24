@@ -75,11 +75,6 @@
     background-color: #FEE7DC;
   }
 
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
   .card__time-ago {
     display: inline-block;
     margin-left: .5em;

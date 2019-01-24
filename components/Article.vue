@@ -118,11 +118,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
   .article__title {
     font-family: sans-serif;
     font-weight: 700;
