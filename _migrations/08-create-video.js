@@ -19,7 +19,10 @@ module.exports = function(migration) {
     .type('Symbol')
     .required(true)
     .validations([
-      { "regexp": {"pattern": "^https:\\/\\/(www\\.)?(youtube\\.com\\/watch\\?v=)[a-zA-Z0-9\\-\\_+]"} }
+      {
+        "regexp": {"pattern": "^https:\\/\\/(www\\.)?(youtube\\.com\\/watch\\?v=)[a-zA-Z0-9\\-\\_+]"},
+        "message": "MUST be in the format: https://www.youtube.com/watch?v=######"
+      }
     ])
 
   video
