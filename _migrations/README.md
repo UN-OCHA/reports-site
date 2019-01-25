@@ -33,3 +33,8 @@ contentful space migration --environment-id 'sandbox' _migrations/01-create-keyF
 Some data types are not obvious (e.g. a short text field is a `Symbol`). Please refer to the official docs to help formulate API calls:
 
 Data model: https://www.contentful.com/developers/docs/concepts/data-model/
+
+
+## Changes of note
+
+- Updated to `0.16.6` in order to start migrations of `RichText` fields
