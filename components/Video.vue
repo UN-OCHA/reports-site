@@ -9,25 +9,26 @@
     <div class="video__content">
       <div class="video__embed" v-if="content.fields.videoUrl">
         <!--
-          On first load, the embed is just a link to youtube. when clicked, it
+          On first load, the embed is just a link to youtube. Once clicked, it
           will swap out the link for the iframe embed.
         -->
-        <a
-          v-if="videoUnprocessed"
-          :data-video-slug="videoSlug"
-          :href="videoEmbedLink"
-          target="_blank"
-          rel="noopener"
-          class="video__container"
-          @click="processVideo">
-          <img class="video__img" :src="videoEmbedPreview">
-          <button class="video__play"></button>
-        </a>
-        <iframe v-else
+        <iframe
+          v-if="videoProcessed"
           class="video__iframe"
           :src="videoEmbedSrc"
           frameborder="0"
           allowfullscreen="allowfullscreen"></iframe>
+        <a
+          v-else
+          @click="processVideo"
+          :data-video-slug="videoSlug"
+          :href="videoEmbedLink"
+          target="_blank"
+          rel="noopener"
+          class="video__container">
+          <img class="video__img" :src="videoEmbedPreview">
+          <button class="video__play"></button>
+        </a>
       </div>
       <div class="video__text">
         <h3 class="video__title">{{ content.fields.title }}</h3>
@@ -55,7 +56,7 @@
 
     data() {
       return {
-        videoUnprocessed: true,
+        videoProcessed: false,
         updatedAt: this.content.sys.updatedAt,
       };
     },
@@ -83,7 +84,7 @@
         ev.stopPropagation();
         ev.preventDefault();
 
-        this.videoUnprocessed = false;
+        this.videoProcessed = true;
       },
     },
 
