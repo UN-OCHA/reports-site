@@ -3,15 +3,31 @@
     <!-- <CardHeader /> -->
 
     <span class="card__title">
-      {{ $t('Video', locale) }}
+      {{ $t('Media', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
     <div class="video__content">
       <div class="video__embed" v-if="content.fields.videoUrl">
-        <a :data-video-slug="videoSlug" :href="'https://www.youtube.com/watch?v=' + videoSlug" target="_blank" rel="noopener">
-          <img class="video__img" :src="'https://i.ytimg.com/vi/'+ videoSlug +'/hqdefault.jpg'">
+        <!--
+          On first load, the embed is just a link to youtube. when clicked, it
+          will swap out the link for the iframe embed.
+        -->
+        <a
+          v-if="videoUnprocessed"
+          :data-video-slug="videoSlug"
+          :href="videoEmbedLink"
+          target="_blank"
+          rel="noopener"
+          class="video__container"
+          @click="processVideo">
+          <img class="video__img" :src="videoEmbedPreview">
           <button class="video__play"></button>
         </a>
+        <iframe v-else
+          class="video__iframe"
+          :src="videoEmbedSrc"
+          frameborder="0"
+          allowfullscreen="allowfullscreen"></iframe>
       </div>
       <div class="video__text">
         <h3 class="video__title">{{ content.fields.title }}</h3>
@@ -39,6 +55,7 @@
 
     data() {
       return {
+        videoUnprocessed: true,
         updatedAt: this.content.sys.updatedAt,
       };
     },
@@ -50,10 +67,27 @@
       videoSlug() {
         return this.content.fields.videoUrl.split('=')[1];
       },
+      videoEmbedLink() {
+        return 'https://www.youtube.com/watch?v=' + this.videoSlug;
+      },
+      videoEmbedPreview() {
+        return 'https://i.ytimg.com/vi/'+ this.videoSlug +'/hqdefault.jpg';
+      },
+      videoEmbedSrc() {
+        return 'https://www.youtube.com/embed/' + this.videoSlug + '?autoplay=1&rel=0&controls=0&showinfo=0';
+      },
+    },
+
+    methods: {
+      processVideo(ev) {
+        ev.stopPropagation();
+        ev.preventDefault();
+
+        this.videoUnprocessed = false;
+      },
     },
 
     created() {
-      // Any custom render-methods would go here.
       const richOptions = {};
       this.richBody = documentToHtmlString(this.content.fields.description, richOptions);
     },
@@ -61,17 +95,16 @@
 </script>
 
 <style lang="scss" scoped>
+  // Note: if we ever want full-bleed videos, change .video__embed to be .video
+  // so that the card itself becomes the container for the iframe.
   .video__embed {
-    margin-bottom: 1rem;
-  }
-
-  .video {
     display: block;
     position: relative;
     max-width: 100%;
     width: 100%;
     height: 0;
     padding-bottom: 56.25%; // 16:9 default
+    margin-bottom: 1rem;
     background: #000;
     overflow: hidden;
   }
