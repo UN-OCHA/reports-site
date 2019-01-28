@@ -1,5 +1,12 @@
 <script>
   export default {
+    data() {
+      return {
+        // Options or custom methods for rendering Contentful RichText fields.
+        renderOptions: {},
+      }
+    },
+
     computed: {
       // Get list of locales
       locales() {

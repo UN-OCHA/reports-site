@@ -2,7 +2,10 @@
   <section class="card card--cluster cluster" :id="cssId">
     <CardHeader />
 
-    <h2 class="card__title">{{ $t('Cluster Status', locale) }}</h2>
+    <h2 class="card__title">
+      {{ $t('Cluster Status', locale) }}
+      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+    </h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
       <div class="figures clearfix" v-if="content.fields.clusterFigures">
@@ -48,27 +51,25 @@
       'content': Object,
     },
 
+    data() {
+      return {
+        richNeeds: '',
+        richResponse: '',
+        richGaps: '',
+        updatedAt: this.content.sys.updatedAt,
+      };
+    },
+
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
       }
     },
 
-    data() {
-      return {
-        richNeeds: '',
-        richResponse: '',
-        richGaps: '',
-      };
-    },
-
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-
-      this.richNeeds = documentToHtmlString(this.content.fields.clusterNeeds, richOptions);
-      this.richResponse = documentToHtmlString(this.content.fields.clusterResponse, richOptions);
-      this.richGaps = documentToHtmlString(this.content.fields.clusterGaps, richOptions);
+      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions) : '';
+      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions) : '';
+      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions) : '';
     }
   }
 </script>
