@@ -246,10 +246,6 @@ main code {
 
 //—— Captioned Images ——————————————————————————————————————————————————————————
 
-figure {
-  position: relative;
-}
-
 figure img {
   width: 100%;
   height: auto;
@@ -258,27 +254,17 @@ figure img {
   border-radius: 5px;
 }
 
-@media screen {
-  figure img ~ figcaption {
-    position: absolute;
-    right: 0;
-    bottom: 4px;
-    max-width: 80%;
-    padding: .666em 1.333em;
-    background: rgba(0,0,0,0.666);
-    color: white;
-    border-radius: 5px 0 5px 0;
-  }
+figure img ~ figcaption {
+  margin: .25cm;
+  color: #444;
+  background: none;
+  font-size: .9em;
+  font-style: italic;
 }
+
 @media print {
   figure {
     page-break-inside: avoid;
-  }
-  figure img ~ figcaption {
-    margin: .25cm;
-    color: black;
-    background: none;
-    font-style: italic;
   }
 }
 

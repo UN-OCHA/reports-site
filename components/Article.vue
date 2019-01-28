@@ -15,7 +15,9 @@
             :alt="content.fields.image.fields.title"
             :width="content.fields.image.fields.file.details.image.width"
             :height="content.fields.image.fields.file.details.image.height">
-          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
+          <figcaption v-if="content.fields.image.fields.description">
+            {{ content.fields.image.fields.description }}
+          </figcaption>
         </figure>
       </div>
       <div ref="article" class="article__text" :class="{
