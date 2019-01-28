@@ -75,7 +75,7 @@
         return 'https://i.ytimg.com/vi/'+ this.videoSlug +'/hqdefault.jpg';
       },
       videoEmbedSrc() {
-        return 'https://www.youtube.com/embed/' + this.videoSlug + '?autoplay=1&rel=0&controls=0&showinfo=0';
+        return 'https://www.youtube-nocookie.com/embed/' + this.videoSlug + '?autoplay=1&rel=0&controls=0&showinfo=0';
       },
     },
 
