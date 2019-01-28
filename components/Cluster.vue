@@ -2,7 +2,10 @@
   <section class="card card--cluster cluster" :id="cssId">
     <CardHeader />
 
-    <h2 class="card__title">{{ $t('Cluster Status', locale) }}</h2>
+    <h2 class="card__title">
+      {{ $t('Cluster Status', locale) }}
+      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+    </h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
       <div class="figures clearfix" v-if="content.fields.clusterFigures">
@@ -48,18 +51,19 @@
       'content': Object,
     },
 
-    computed: {
-      cssId() {
-        return 'cf-' + this.content.sys.id;
-      }
-    },
-
     data() {
       return {
         richNeeds: '',
         richResponse: '',
         richGaps: '',
+        updatedAt: this.content.sys.updatedAt,
       };
+    },
+
+    computed: {
+      cssId() {
+        return 'cf-' + this.content.sys.id;
+      }
     },
 
     created() {
