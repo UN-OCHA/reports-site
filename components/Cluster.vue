@@ -66,9 +66,9 @@
       // Any custom render-methods would go here.
       const richOptions = {};
 
-      this.richNeeds = documentToHtmlString(this.content.fields.clusterNeeds, richOptions);
-      this.richResponse = documentToHtmlString(this.content.fields.clusterResponse, richOptions);
-      this.richGaps = documentToHtmlString(this.content.fields.clusterGaps, richOptions);
+      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, richOptions) : '';
+      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, richOptions) : '';
+      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, richOptions) : '';
     }
   }
 </script>

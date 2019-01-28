@@ -106,7 +106,7 @@
     created() {
       // Any custom render-methods would go here.
       const richOptions = {};
-      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, richOptions) : '';
     },
 
     mounted() {
