@@ -1,6 +1,6 @@
 module.exports = function(migration) {
   //
-  // Field: mailchimpSignup
+  // Field: countryCode
   //
   const sitrep = migration.editContentType('sitrep')
 
@@ -8,7 +8,8 @@ module.exports = function(migration) {
     .createField('countryCode')
       .name('Country Code')
       .type('Symbol')
-      .required(true)
+      .required(false)
+      .disabled(true)
       .validations([
         {
           "regexp": {"pattern": "^[a-zA-Z]{3}$"},
