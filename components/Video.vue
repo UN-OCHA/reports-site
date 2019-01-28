@@ -89,8 +89,7 @@
     },
 
     created() {
-      const richOptions = {};
-      this.richBody = this.content.fields.description ? documentToHtmlString(this.content.fields.description, richOptions) : '';
+      this.richBody = this.content.fields.description ? documentToHtmlString(this.content.fields.description, this.renderOptions) : '';
     },
   }
 </script>

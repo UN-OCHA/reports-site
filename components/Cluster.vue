@@ -67,12 +67,9 @@
     },
 
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-
-      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, richOptions) : '';
-      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, richOptions) : '';
-      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, richOptions) : '';
+      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions) : '';
+      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions) : '';
+      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions) : '';
     }
   }
 </script>
