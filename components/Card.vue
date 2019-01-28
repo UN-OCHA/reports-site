@@ -20,7 +20,7 @@
 
 <style lang="scss">
   //
-  // Generic Card styles are in app.html — inlined as critical CSS.
+  // Generic Card styles are in default.vue — inlined as critical CSS.
   //
 
   //

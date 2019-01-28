@@ -2,5 +2,412 @@
   <nuxt/>
 </template>
 
-<style>
+<style lang="scss">
+//
+// Global, site-wide CSS.
+//
+// Styles specific to a components should be included inside each .vue file.
+//
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+
+  &.wf-loaded {
+    font-family: Roboto; // no fallback because `html` has system fonts as fallback.
+  }
+}
+
+@media screen {
+  body {
+    background: hsl(0, 0%, 97%);
+    color: #333;
+    padding-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+//
+// Drupal 7 — Hide elements from all users.
+//
+// Used for elements which should not be immediately displayed to any user. An
+// example would be a collapsible fieldset that will be expanded with a click
+// from a user. The effect of this class can be toggled with the jQuery show()
+// and hide() functions.
+//
+.element-hidden {
+  display: none;
+}
+
+//
+// Drupal 7 — Hide elements visually, but keep them available for screen-readers.
+//
+// Used for information required for screen-reader users to understand and use
+// the site where visual display is undesirable. Information provided in this
+// manner should be kept concise, to avoid unnecessary burden on the user.
+// "!important" is used to prevent unintentional overrides.
+//
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); // IE6, IE7
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+//
+// Drupal 7 — keyboard-focusable hidden elements
+//
+// The .element-focusable class extends the .element-invisible class to allow
+// the element to be focusable when navigated to via the keyboard.
+//
+.element-invisible.element-focusable:active,
+.element-invisible.element-focusable:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+}
+
+//
+// Drupal 7 — automatically clear floats.
+//
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+//—— Web Fonts —————————————————————————————————————————————————————————————————
+
+// DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto?subsets=latin
+// roboto-regular - latin
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-regular.woff') format('woff');
+}
+// roboto-italic - latin
+/*@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Italic'), local('Roboto-Italic'),
+       url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-italic.woff') format('woff');
+}*/
+// roboto-700 - latin
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+       url('/fonts/roboto-v18-latin-700.woff2') format('woff2'),
+       url('/fonts/roboto-v18-latin-700.woff') format('woff');
+}
+
+// DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto-condensed?subsets=latin
+// roboto-condensed-regular - latin
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Condensed'), local('RobotoCondensed-Regular'),
+       url('/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
+}
+// roboto-condensed-italic - latin
+/*@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Condensed Italic'), local('RobotoCondensed-Italic'),
+       url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
+}*/
+// roboto-condensed-700 - latin
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'),
+       url('/fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'),
+       url('/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
+}
+
+//—— Site Container ————————————————————————————————————————————————————————————
+
+.container {
+  max-width: 1080px;
+  margin: 2rem 1rem;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    margin: 2rem;
+    margin-left: 6rem;
+  }
+}
+
+[class*="viz--"] {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .viz--480 {
+    display: initial;
+  }
+}
+
+//—— General content ———————————————————————————————————————————————————————————
+
+main {
+  display: block; // IE11 fix
+}
+main img {
+  max-width: 100%;
+}
+main ul {
+  margin: 0;
+  padding: 1em 0 0 2em;
+}
+main li {
+}
+main a {
+  color: #4c8cca;
+}
+main code {
+  display: inline-block;
+  padding: 0 .25em;
+  background-color: #eee;
+  color: black;
+  border-radius: 3px;
+}
+
+//—— Rich Text —————————————————————————————————————————————————————————————————
+
+.rich-text {}
+.rich-text * {
+  margin-bottom: 1em;
+}
+.rich-text *:last-child {
+  margin-bottom: 0;
+}
+.rich-text p {
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+.rich-text p img {
+  display: block;
+  margin: 1em 0;
+}
+.rich-text ul,
+.rich-text ol {
+  margin: 0 1em 1em 1.2em;
+  padding: 0;
+}
+.rich-text li {
+  margin-bottom: .5em;
+}
+.rich-text li:last-child {
+  margin-bottom: 0;
+}
+
+//—— Captioned Images ——————————————————————————————————————————————————————————
+
+figure {
+  position: relative;
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+}
+
+@media screen {
+  figure img ~ figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    max-width: 80%;
+    padding: .666em 1.333em;
+    background: rgba(0,0,0,0.666);
+    color: white;
+    border-radius: 5px 0 5px 0;
+  }
+}
+@media print {
+  figure {
+    page-break-inside: avoid;
+  }
+  figure img ~ figcaption {
+    margin: .25cm;
+    color: black;
+    background: none;
+    font-style: italic;
+  }
+}
+
+//—— Buttons ———————————————————————————————————————————————————————————————————
+
+.btn {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  margin: 0;
+  opacity: 1;
+  cursor: pointer;
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transform: scale(1); /* baseline for animations */
+  transition: .3333s ease-out;
+  transition-property: opacity, transform;
+}
+
+.btn:hover {
+  opacity: .8;
+  transition: opacity .1666s ease-out;
+}
+
+.btn--is-active {
+  animation: is-active 1s ease-in-out infinite;
+  cursor: wait;
+}
+
+@keyframes is-active {
+  50% {
+    transform: scale(1.3333);
+  }
+}
+
+//—— Print —————————————————————————————————————————————————————————————————————
+
+@media print {
+  body {
+    //
+    // Correct the colors on the printouts using Snap Service (Puppeteer).
+    //
+    -webkit-print-color-adjust: exact;
+
+    background-color: white;
+    font-size: 10pt !important;
+    padding: 0 10mm;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  main p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .rich-text a[href] {
+    text-decoration: none;
+
+    &::after {
+      content: " <" attr(href) "> ";
+    }
+  }
+
+  //
+  // If the [href] starts with a hash, the printout cannot contain a meaningful
+  // destination. Hide it.
+  //
+  .rich-text a[href^="#"] {
+    display: none;
+
+    &::after {
+      content: none;
+    }
+  }
+}
+
+//—— Card ——————————————————————————————————————————————————————————————————————
+
+.card {
+  margin: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+
+  @media print {
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ddd;
+    padding: 0 0 1rem 0;
+  }
+}
+
+
+.card__title {
+  display: block;
+  margin-bottom: 1rem;
+  color: #444;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: uppercase;
+
+  .wf-loaded & {
+    font-family: "Roboto Condensed", sans-serif;
+  }
+}
+
+.card__time-ago {
+  display: inline-block;
+  margin-left: .5em;
+  opacity: .8;
+  font-weight: 400;
+  text-transform: none;
+}
+
+//—— DevTools ——————————————————————————————————————————————————————————————————
+
+pre {
+  clear: both;
+  background: repeating-linear-gradient(to right, #eee 0, #eee 15px, #ddd 15px, #ddd 30px);
+}
+
 </style>
