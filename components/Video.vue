@@ -106,6 +106,7 @@
     height: 0;
     padding-bottom: 56.25%; // 16:9 default
     margin-bottom: 1rem;
+    border-radius: 5px;
     background: #000;
     overflow: hidden;
   }
