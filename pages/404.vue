@@ -89,6 +89,7 @@
       max-width: 420px;
     }
   }
+
   .card__title {
     font-size: 1.6em;
     text-align: center;

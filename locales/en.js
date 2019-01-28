@@ -85,8 +85,19 @@ export default {
   'day ago': 'day ago',
   'days ago': 'days ago',
 
-  // Sharing
+  // Videos
+  'Video': 'Video',
+
+  // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
   'Date of Creation': 'Date of Creation',
   'Date': 'Date',
+
+  // Timestamps
+  '# minute ago': '# minute ago',
+  '# minutes ago': '# minutes ago',
+  '# hour ago': '# hour ago',
+  '# hours ago': '# hours ago',
+  '# day ago': '# day ago',
+  '# days ago': '# days ago',
 }

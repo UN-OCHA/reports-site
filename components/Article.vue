@@ -1,6 +1,7 @@
 <template>
   <article class="card card--article article clearfix" :id="cssId">
     <CardHeader />
+
     <span class="card__title">
       {{ $t(content.fields.sectionHeading, locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
@@ -14,7 +15,9 @@
             :alt="content.fields.image.fields.title"
             :width="content.fields.image.fields.file.details.image.width"
             :height="content.fields.image.fields.file.details.image.height">
-          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
+          <figcaption v-if="content.fields.image.fields.description">
+            {{ content.fields.image.fields.description }}
+          </figcaption>
         </figure>
       </div>
       <div ref="article" class="article__text" :class="{
@@ -27,7 +30,6 @@
         <div class="rich-text" v-html="richBody"></div>
       </div>
     </div>
-
     <button
       v-if="isExpandable"
       class="btn--toggle-text"
@@ -36,7 +38,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :frag="'#' + cssId" />
+    <CardActions label="Article" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
@@ -104,9 +106,7 @@
     },
 
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
     },
 
     mounted() {
@@ -118,11 +118,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
   .article__title {
     font-family: sans-serif;
     font-weight: 700;

@@ -1,6 +1,7 @@
 <template>
   <section class="card card--keyFinancials" :id="cssId">
     <CardHeader />
+
     <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
     <div class="figures clearfix">
       <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id">
@@ -13,7 +14,8 @@
       </div>
     </div>
     <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
-    <CardActions :frag="'#' + cssId" />
+
+    <CardActions label="Funding" :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>

@@ -1,5 +1,12 @@
 <script>
   export default {
+    data() {
+      return {
+        // Options or custom methods for rendering Contentful RichText fields.
+        renderOptions: {},
+      }
+    },
+
     computed: {
       // Get list of locales
       locales() {
@@ -30,7 +37,35 @@
           units = (duration === 1) ? 'hour' : 'hours';
         }
 
-        return duration + ' ' + this.$t(`${units} ago`, this.locale);
+        // This is done in two steps. Our translations are supplied with the
+        // literal string `#` in them, so we first translate then replace
+        // with the dynamic value of #. That substitution could also be
+        // localized if we want to maintain a list.
+        const value = /\#/gi;
+        return this.$t(`# ${units} ago`, this.locale).replace(value, duration);
+      },
+
+      //
+      // Component mappings
+      //
+      // Some Vue components are rendered dynamically in an unpredictable order,
+      // so this function allows us to dynamically map Contentful Entry types to
+      // the respective Vue component. Since some of them are named differently
+      // or have different casing, this master list lets us keep track of them
+      // in a central location.
+      //
+      // If you need to map another component, feel free to add it. The list
+      // does not need to be limited to specific components, but we only add
+      // them as needed. Format using the convention. Both are case sensitive!
+      //
+      // 'contentfulMachineKey': 'VueComponentFilename',
+      //
+      componentMap() {
+        return {
+          'article': 'Article',
+          'clusterInformation': 'Cluster',
+          'video': 'Video',
+        };
       },
     },
 

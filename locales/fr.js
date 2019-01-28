@@ -85,8 +85,19 @@ export default {
   'day ago': 'day ago',
   'days ago': 'days ago',
 
+  // Videos
+  'Video': 'Video',
+
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
   'Date of Creation': 'Date de création',
   'Date': 'Date',
+
+  // Timestamps
+  '# minute ago': 'Il y a # minute',
+  '# minutes ago': 'Il y a # minutes',
+  '# hour ago': 'Il y a # heure',
+  '# hours ago': 'Il y a # heures',
+  '# day ago': 'Il y a # jour',
+  '# days ago': 'Il y a # jours',
 }

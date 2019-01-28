@@ -1,6 +1,7 @@
 <template>
   <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="cssId">
     <CardHeader />
+
     <span class="card__title">
       {{ $t('Flash Update', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
@@ -22,7 +23,7 @@
       </div>
     </div>
 
-    <CardActions :frag="'#' + cssId" />
+    <CardActions label="Flash Update" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
@@ -62,9 +63,7 @@
     },
 
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
     },
   }
 </script>
@@ -72,11 +71,6 @@
 <style lang="scss" scoped>
   .card {
     background-color: #FEE7DC;
-  }
-
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
   }
 
   .card__time-ago {
