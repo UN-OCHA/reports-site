@@ -246,10 +246,6 @@ main code {
 
 //—— Captioned Images ——————————————————————————————————————————————————————————
 
-figure {
-  position: relative;
-}
-
 figure img {
   width: 100%;
   height: auto;
