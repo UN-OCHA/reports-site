@@ -10,7 +10,7 @@
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
-        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">(See past reports)</a></span>
+        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">(See archive)</a></span>
       </div>
     </div>
 
@@ -150,6 +150,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~/assets/Global.scss';
+
   .header {
     border-bottom: 3px solid #4c8cca;
     padding-bottom: 1rem;
@@ -216,11 +218,16 @@
   }
 
   .logo-link {
+    display: none; // mobile logo is in AppBar.vue
     flex: 0 0 53px;
     padding-right: 10px;
     margin-top: 7px;
     margin-right: 10px;
     border-right: 2px solid #4c8cca;
+
+    @media(min-width: $bkpt-app-bar) {
+      display: block;
+    }
 
     @media print {
       margin-top: 0;
@@ -262,6 +269,7 @@
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
+    margin-right: .5em; // for archive link if it _doesn't_ wrap
   }
 
   .last-updated::first-letter {
