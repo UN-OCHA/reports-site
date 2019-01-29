@@ -30,7 +30,7 @@ export default {
   'Share': 'Partager',
   'Email': 'Email',
   'Download': 'Télécharger',
-  'See archive': 'See archive',
+  'Archive': 'Archive',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',

@@ -10,7 +10,7 @@
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
-        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">({{ $t('See archive', locale) }})</a></span>
+        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
 
