@@ -37,6 +37,7 @@ export default {
   'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
   'Copyright notice': 'Copyright notice',
   'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.',
 
   // Homepage
   'About this site': 'About this site',
