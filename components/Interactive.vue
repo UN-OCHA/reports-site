@@ -28,7 +28,7 @@
           target="_blank"
           rel="noopener"
           class="interactive__link">
-          View interactive graphic at {{ content.fields.interactiveUrl }}
+          View interactive graphic
         </a>
       </div>
     </div>
