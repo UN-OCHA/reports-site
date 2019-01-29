@@ -3,6 +3,9 @@
     <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu" v-on-clickaway="closeMenu">
       <span class="element-invisible">{{ $t('Toggle menu', locale) }}</span>
     </button>
+    <nuxt-link to="/" class="logo-link">
+      <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
+    </nuxt-link>
     <div class="app-bar__content">
       <ul class="main-nav">
         <li class="link link--home">
@@ -92,6 +95,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~/assets/Global.scss';
+
   .app-bar {
     position: fixed;
     top: 0;
@@ -142,6 +147,21 @@
     24% {
       transform: rotate(0deg) scale(1);
     }
+  }
+
+  .logo-link {
+    position: absolute;
+    top: .7rem;
+    left: 4rem;
+
+    @media(min-width: $bkpt-app-bar) {
+      display: none;
+    }
+  }
+
+  .logo {
+    width: 100px;
+    height: 25px;
   }
 
   // Expanded Menu contents
@@ -219,7 +239,7 @@
   //
   // Tablet+ layout
   //
-  @media (min-width: 600px) {
+  @media (min-width: $bkpt-app-bar) {
     .app-bar {
       right: auto;
       bottom: 0;

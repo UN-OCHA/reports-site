@@ -13,7 +13,7 @@
       </ul>
     </div>
     <div v-else>
-      <p class="text"><abbr title="United Nations Office for the Coordination of Humanitarian Affairs">OCHA</abbr> coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.</p>
+      <p class="text">{{ $t('OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.', locale) }}</p>
     </div>
 
     <ul class="footer-menu">
