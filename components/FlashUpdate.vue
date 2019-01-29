@@ -63,9 +63,7 @@
     },
 
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
     },
   }
 </script>
@@ -73,11 +71,6 @@
 <style lang="scss" scoped>
   .card {
     background-color: #FEE7DC;
-  }
-
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
   }
 
   .card__time-ago {

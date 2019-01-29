@@ -5,6 +5,7 @@
       :title="entry.fields.title"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
+      :countrycode="entry.fields.countryCode"
       :share="true"
       :snap="true" />
 
@@ -20,7 +21,7 @@
 
       <section class="section--everythingElse">
         <Cluster :content="cluster" v-for="cluster in entry.fields.clusters" :key="cluster.sys.id" v-if="typeof cluster !== 'undefined' && typeof cluster.fields !== 'undefined'" />
-        <Article :content="article" v-for="article in entry.fields.article" :key="article.sys.id" v-if="typeof article !== 'undefined' && typeof article.fields !== 'undefined'" />
+        <component :is="componentMap[card.sys.contentType.sys.id]" :content="card" v-for="card in entry.fields.article" :key="card.sys.id" v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'" />
       </section>
     </main>
 
@@ -40,6 +41,7 @@
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
+  import Video from '~/components/Video';
 
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
@@ -60,6 +62,7 @@
       KeyFigures,
       KeyFinancials,
       KeyMessages,
+      Video,
     },
 
     // Validate the country slug using this function.

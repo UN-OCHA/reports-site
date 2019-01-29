@@ -30,12 +30,14 @@ export default {
   'Share': 'Share',
   'Email': 'Email',
   'Download': 'Download',
+  'Archive': 'Archive',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
   'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
   'Copyright notice': 'Copyright notice',
   'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.',
 
   // Homepage
   'About this site': 'About this site',
@@ -84,6 +86,9 @@ export default {
   'hours ago': 'hours ago',
   'day ago': 'day ago',
   'days ago': 'days ago',
+
+  // Videos
+  'Video': 'Video',
 
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',

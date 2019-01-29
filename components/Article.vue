@@ -15,7 +15,9 @@
             :alt="content.fields.image.fields.title"
             :width="content.fields.image.fields.file.details.image.width"
             :height="content.fields.image.fields.file.details.image.height">
-          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
+          <figcaption v-if="content.fields.image.fields.description">
+            {{ content.fields.image.fields.description }}
+          </figcaption>
         </figure>
       </div>
       <div ref="article" class="article__text" :class="{
@@ -104,9 +106,7 @@
     },
 
     created() {
-      // Any custom render-methods would go here.
-      const richOptions = {};
-      this.richBody = documentToHtmlString(this.content.fields.body, richOptions);
+      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
     },
 
     mounted() {
@@ -118,11 +118,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
   .article__title {
     font-family: sans-serif;
     font-weight: 700;

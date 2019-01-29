@@ -24,12 +24,18 @@ XX-ACTION-IDENTIFIER.js
 It's a good idea to test the migration by cloning the `master` environment into a sandbox and doing a dry run. Suppose you have a `sandbox` environment, the command would be the following:
 
 ```bash
-contentful space migration --environment-id 'sandbox' _migrations/01-create-keyFinancials.js
+npm run migration -- --space-id 0123456789 --environment-id 'sandbox' _migrations/01-create-keyFinancials.js
 ```
 
+Note: we are using `npm run migration` because that ensures we all migrate using the same version, as opposed to a globally-installed tool that may or may not support all the features we need.
 
 ## Data types
 
 Some data types are not obvious (e.g. a short text field is a `Symbol`). Please refer to the official docs to help formulate API calls:
 
 Data model: https://www.contentful.com/developers/docs/concepts/data-model/
+
+
+## Changes of note
+
+- Updated to `0.16.6` in order to start migrations of `RichText` fields

@@ -11,7 +11,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "migration": "contentful-migration"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^9.0.0",
@@ -19,7 +20,7 @@
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",
-    "contentful": "^7.0.4",
+    "contentful": "^7.1.0",
     "file-saver": "^2.0.0",
     "fontfaceobserver": "^2.0.13",
     "moment": "^2.22.2",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
-    "contentful-migration": "^0.7.0",
+    "contentful-migration": "^0.16.6",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",

@@ -30,12 +30,14 @@ export default {
   'Share': 'Partager',
   'Email': 'Email',
   'Download': 'Télécharger',
+  'Archive': 'Archive',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
   'href-privacy': 'https://www.un.org/fr/sections/about-website/privacy-notice/',
   'Copyright notice': 'Copyright notice',
   'href-copyright': 'https://www.un.org/fr/sections/about-website/copyright/index.html',
+  'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'OCHA coordonne la réponse humanitaire sur le plan mondial afin de sauver des vies et protéger les personnes dans des situations de crise humanitaire. Nous plaidons en faveur de la mise en œuvre, par tous et pour tous, d\'une action humanitaire efficace et fondée sur des principes.',
 
   // Homepage
   'About this site': 'A propos de ce site',
@@ -84,6 +86,9 @@ export default {
   'hours ago': 'hours ago',
   'day ago': 'day ago',
   'days ago': 'days ago',
+
+  // Videos
+  'Video': 'Video',
 
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
