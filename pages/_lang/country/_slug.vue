@@ -69,7 +69,7 @@
 
     // Validate the country slug using this function.
     validate({params}) {
-      return typeof params.slug === 'string';
+      return typeof params.slug === 'string' && typeof params.lang === 'string';
     },
 
     // Set up empty objects that will be populated by asyncData.
@@ -122,7 +122,8 @@
     // both SSR and client-side navigations.
     asyncData({env, params, store}) {
       const slug = params.slug;
-      return fetchAsyncData({env, slug, store});
+      const lang = params.lang;
+      return fetchAsyncData({env, lang, slug, store});
     },
 
     // Before we assemble this page, check the cookies for a stored locale. If
@@ -141,9 +142,10 @@
     mounted() {
       const env = {};
       const slug = this.$route.params.slug;
+      const lang = this.$route.params.lang;
       const store = this.$store;
 
-      fetchAsyncData({env, slug, store}).then((response) => {
+      fetchAsyncData({env, lang, slug, store}).then((response) => {
         // Update the client-side model with fresh API responses.
         this.entry = response.entry;
         // Only update FTS when the server-side data wasn't loaded.
@@ -155,13 +157,14 @@
   // In order to fetch data both during asyncData() and at other times of our
   // own choosing, we have our own custom function which is defined outside
   // our export.
-  function fetchAsyncData({env, slug, store}) {
+  function fetchAsyncData({env, lang, slug, store}) {
     return Promise.all([
       // Contentful: fetch single Entry by slug
       client.getEntries({
         'include': 4,
         'content_type': active_content_type,
         'fields.slug': slug,
+        'fields.language': lang,
       }),
 
       // FTS: fetch all v2 plans.
@@ -353,4 +356,3 @@
   }
 }
 </style>
-
