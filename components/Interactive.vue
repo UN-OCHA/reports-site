@@ -18,7 +18,36 @@
           target="_blank"
           rel="noopener"
           class="interactive__link">
-          <img class="interactive__img" :src="content.fields.image.fields.file.url">
+          <picture>
+            <source type="image/webp"
+              :srcset="'\
+                '+ content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
+                '+ content.fields.image.fields.file.url + '?w=640&h=' + getImageHeight(640) + '&fm=webp 640w,\
+                '+ content.fields.image.fields.file.url + '?w=960&h=' + getImageHeight(960) + '&fm=webp 960w,\
+                '+ content.fields.image.fields.file.url + '?w=1280&h=' + getImageHeight(1280) + '&fm=webp 1280w,\
+                '+ content.fields.image.fields.file.url + '?w=1920&h=' + getImageHeight(1920) + '&fm=webp 1920w'"
+              sizes="\
+                calc(100vw - 4rem),\
+                (min-width: 600px) calc(100vw - 6rem - 2rem),\
+                (min-width: 1220px) calc(1080px - 2rem)" />
+
+            <source type="image/jpeg"
+              :srcset="'\
+                '+ content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
+                '+ content.fields.image.fields.file.url + '?w=640&h=' + getImageHeight(640) + '&fm=jpg 640w,\
+                '+ content.fields.image.fields.file.url + '?w=960&h=' + getImageHeight(960) + '&fm=jpg 960w,\
+                '+ content.fields.image.fields.file.url + '?w=1280&h=' + getImageHeight(1280) + '&fm=jpg 1280w,\
+                '+ content.fields.image.fields.file.url + '?w=1920&h=' + getImageHeight(1920) + '&fm=jpg 1920w'"
+              sizes="\
+                calc(100vw - 4rem),\
+                (min-width: 600px) calc(100vw - 6rem - 2rem),\
+                (min-width: 1220px) calc(1080px - 2rem)" />
+
+            <img
+              class="interactive__img"
+              :src="content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=jpg'"
+              :alt="content.fields.image.fields.title">
+          </picture>
         </a>
       </div>
       <div v-else>
@@ -60,6 +89,20 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+    },
+
+    methods: {
+      // Input any width value to get the height as defined by the proportions.
+      // of the image stored in Contentful for this Entry.
+      //
+      // We round to the nearest pixel for you, just plop it in your template.
+      getImageHeight(requestedWidth) {
+        const width = this.content.fields.image.fields.file.details.image.width;
+        const height = this.content.fields.image.fields.file.details.image.height;
+        const ratio = height / width;
+
+        return Math.round(requestedWidth * ratio);
       },
     },
 
