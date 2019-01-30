@@ -64,6 +64,7 @@
         return {
           'article': 'Article',
           'clusterInformation': 'Cluster',
+          'interactive': 'Interactive',
           'video': 'Video',
         };
       },
