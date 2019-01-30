@@ -45,7 +45,7 @@
 
             <img
               class="interactive__img"
-              :src="content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=jpg'"
+              :src="content.fields.image.fields.file.url + '?w=1048&h=' + getImageHeight(1048) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
         </a>
@@ -127,4 +127,8 @@
     }
   }
 
+  .interactive__image {
+    width: 100%;
+    height: auto;
+  }
 </style>
