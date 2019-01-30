@@ -21,11 +21,11 @@
           <picture>
             <source type="image/webp"
               :srcset="'\
-                '+ content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
-                '+ content.fields.image.fields.file.url + '?w=640&h=' + getImageHeight(640) + '&fm=webp 640w,\
-                '+ content.fields.image.fields.file.url + '?w=960&h=' + getImageHeight(960) + '&fm=webp 960w,\
-                '+ content.fields.image.fields.file.url + '?w=1280&h=' + getImageHeight(1280) + '&fm=webp 1280w,\
-                '+ content.fields.image.fields.file.url + '?w=1920&h=' + getImageHeight(1920) + '&fm=webp 1920w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=webp 640w,\
+                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960) + '&fm=webp 960w,\
+                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280) + '&fm=webp 1280w,\
+                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=webp 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 6rem - 2rem),\
@@ -33,11 +33,11 @@
 
             <source type="image/jpeg"
               :srcset="'\
-                '+ content.fields.image.fields.file.url + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
-                '+ content.fields.image.fields.file.url + '?w=640&h=' + getImageHeight(640) + '&fm=jpg 640w,\
-                '+ content.fields.image.fields.file.url + '?w=960&h=' + getImageHeight(960) + '&fm=jpg 960w,\
-                '+ content.fields.image.fields.file.url + '?w=1280&h=' + getImageHeight(1280) + '&fm=jpg 1280w,\
-                '+ content.fields.image.fields.file.url + '?w=1920&h=' + getImageHeight(1920) + '&fm=jpg 1920w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=jpg 640w,\
+                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960) + '&fm=jpg 960w,\
+                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280) + '&fm=jpg 1280w,\
+                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=jpg 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 6rem - 2rem),\
@@ -45,7 +45,7 @@
 
             <img
               class="interactive__img"
-              :src="content.fields.image.fields.file.url + '?w=1048&h=' + getImageHeight(1048) + '&fm=jpg'"
+              :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
         </a>
@@ -89,6 +89,9 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+      secureImageUrl() {
+        return 'https:' + this.content.fields.image.fields.file.url;
       },
     },
 
