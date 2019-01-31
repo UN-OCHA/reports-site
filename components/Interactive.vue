@@ -28,7 +28,7 @@
                 '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=webp 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 6rem - 2rem),\
+                (min-width: 600px) calc(100vw - 8rem - 2rem),\
                 (min-width: 1220px) calc(1080px - 2rem)" />
 
             <source type="image/jpeg"
@@ -40,7 +40,7 @@
                 '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=jpg 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 6rem - 2rem),\
+                (min-width: 600px) calc(100vw - 8rem - 2rem),\
                 (min-width: 1220px) calc(1080px - 2rem)" />
 
             <img
