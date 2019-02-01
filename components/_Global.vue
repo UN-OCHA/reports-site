@@ -77,7 +77,19 @@
       // the whole page. It's stupid.
       //
       // @see https://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
-      noop() {}
+      noop() {},
+
+      // Input any width value to get the height as defined by the proportions.
+      // of the image stored in Contentful for this Entry.
+      //
+      // We round to the nearest pixel for you, just plop it in your template.
+      getImageHeight(requestedWidth, referenceImage) {
+        const width = referenceImage.fields.file.details.image.width;
+        const height = referenceImage.fields.file.details.image.height;
+        const ratio = height / width;
+
+        return Math.round(requestedWidth * ratio);
+      },
     }
   }
 </script>

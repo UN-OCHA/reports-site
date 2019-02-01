@@ -21,11 +21,11 @@
           <picture>
             <source type="image/webp"
               :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=webp 640w,\
-                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960) + '&fm=webp 960w,\
-                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280) + '&fm=webp 1280w,\
-                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=webp 1920w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=webp 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + '&fm=webp 640w,\
+                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + '&fm=webp 960w,\
+                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + '&fm=webp 1280w,\
+                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + '&fm=webp 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
@@ -33,11 +33,11 @@
 
             <source type="image/jpeg"
               :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=jpg 640w,\
-                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960) + '&fm=jpg 960w,\
-                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280) + '&fm=jpg 1280w,\
-                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920) + '&fm=jpg 1920w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=jpg 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + '&fm=jpg 640w,\
+                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + '&fm=jpg 960w,\
+                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + '&fm=jpg 1280w,\
+                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + '&fm=jpg 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
@@ -45,7 +45,7 @@
 
             <img
               class="interactive__img"
-              :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048) + '&fm=jpg'"
+              :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
         </a>
@@ -92,20 +92,6 @@
       },
       secureImageUrl() {
         return 'https:' + this.content.fields.image.fields.file.url;
-      },
-    },
-
-    methods: {
-      // Input any width value to get the height as defined by the proportions.
-      // of the image stored in Contentful for this Entry.
-      //
-      // We round to the nearest pixel for you, just plop it in your template.
-      getImageHeight(requestedWidth) {
-        const width = this.content.fields.image.fields.file.details.image.width;
-        const height = this.content.fields.image.fields.file.details.image.height;
-        const ratio = height / width;
-
-        return Math.round(requestedWidth * ratio);
       },
     },
 

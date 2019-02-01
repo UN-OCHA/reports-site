@@ -17,10 +17,10 @@
           <picture class="image">
             <source type="image/webp"
               :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=webp 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800) + '&fm=webp 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032) + '&fm=webp 1032w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=webp 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=webp 640w,\
+                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=webp 800w,\
+                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=webp 1032w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
@@ -29,17 +29,17 @@
 
             <source type="image/jpeg"
               :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640) + '&fm=jpg 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800) + '&fm=jpg 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032) + '&fm=jpg 1032w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=jpg 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=jpg 640w,\
+                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=jpg 800w,\
+                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg 1032w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
                 (min-width: 800px) calc((100vw - 10rem) / 2)\
                 (min-width: 1220px) 515px" />
 
-            <img :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032) + '&fm=jpg'" :alt="image.fields.title">
+            <img :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'" :alt="image.fields.title">
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
         </figure>
@@ -81,20 +81,6 @@
       },
       secureImageUrl() {
         return 'https:' + this.image.fields.file.url;
-      },
-    },
-
-    methods: {
-      // Input any width value to get the height as defined by the proportions.
-      // of the image stored in Contentful for this Entry.
-      //
-      // We round to the nearest pixel for you, just plop it in your template.
-      getImageHeight(requestedWidth) {
-        const width = this.image.fields.file.details.image.width;
-        const height = this.image.fields.file.details.image.height;
-        const ratio = height / width;
-
-        return Math.round(requestedWidth * ratio);
       },
     },
   }
