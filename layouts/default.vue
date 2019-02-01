@@ -254,7 +254,8 @@ figure img {
   border-radius: 5px;
 }
 
-figure img ~ figcaption {
+figure img ~ figcaption,
+figure picture ~ figcaption {
   margin: .25cm;
   color: #444;
   background: none;
