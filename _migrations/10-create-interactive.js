@@ -17,7 +17,7 @@ module.exports = function(migration) {
     .createField('title')
     .name('Title')
     .type('Symbol')
-    .required(true)
+    .required(false)
 
   // Set `title` as the Title field in Contentful UI
   interactive
