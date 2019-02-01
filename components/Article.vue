@@ -9,12 +9,37 @@
     <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
       <div class="article__image" v-if="content.fields.image">
         <figure>
-          <img
-            ref="articleImg"
-            :src="content.fields.image.fields.file.url"
-            :alt="content.fields.image.fields.title"
-            :width="content.fields.image.fields.file.details.image.width"
-            :height="content.fields.image.fields.file.details.image.height">
+          <picture>
+            <source type="image/webp"
+              :srcset="'\
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=webp 320w,\
+                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413) + '&fm=webp 413w,\
+                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826) + '&fm=webp 826w,\
+                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239) + '&fm=webp 1239w'"
+              sizes="\
+                calc(100vw - 4rem),\
+                (min-width: 600px) calc(100vw - 8rem - 2rem),\
+                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 1220px) 413px" />
+
+            <source type="image/jpeg"
+              :srcset="'\
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320) + '&fm=jpg 320w,\
+                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413) + '&fm=jpg 413w,\
+                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826) + '&fm=jpg 826w,\
+                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239) + '&fm=jpg 1239w'"
+              sizes="\
+                calc(100vw - 4rem),\
+                (min-width: 600px) calc(100vw - 8rem - 2rem),\
+                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 1220px) 413px" />
+
+            <img
+              ref="articleImg"
+              class="interactive__img"
+              :src="secureImageUrl + '?w=413&h=' + getImageHeight(413) + '&fm=jpg'"
+              :alt="content.fields.image.fields.title">
+          </picture>
           <figcaption v-if="content.fields.image.fields.description">
             {{ content.fields.image.fields.description }}
           </figcaption>
@@ -73,6 +98,10 @@
         return 'cf-' + this.content.sys.id;
       },
 
+      secureImageUrl() {
+        return 'https:' + this.content.fields.image.fields.file.url;
+      },
+
       // Allows us to smoothly transition between unknown min-max heights.
       // Returns 'auto' when no transition is necessary.
       getArticleHeight() {
@@ -102,7 +131,19 @@
           this.articleHeight = article.clientHeight;
           this.isExpandable = true;
         }
-      }
+      },
+
+      // Input any width value to get the height as defined by the proportions.
+      // of the image stored in Contentful for this Entry.
+      //
+      // We round to the nearest pixel for you, just plop it in your template.
+      getImageHeight(requestedWidth) {
+        const width = this.content.fields.image.fields.file.details.image.width;
+        const height = this.content.fields.image.fields.file.details.image.height;
+        const ratio = height / width;
+
+        return Math.round(requestedWidth * ratio);
+      },
     },
 
     created() {
