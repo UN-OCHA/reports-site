@@ -254,6 +254,31 @@
 
 @media print and (min-width: 10cm),
        screen and (min-width: 760px) {
+  /**
+   * No CSS Grid support
+   *
+   * Given the landscape and browser trends, there is only one definition for
+   * large screens lacking CSS Grid. We're defining a float layout with some
+   * height units to ensure uniformity.
+   */
+  .card--keyMessages {
+    float: none;
+    width: 100%;
+  }
+
+  .card--keyFigures,
+  .card--keyFinancials,
+  .card--contacts {
+    float: left;
+    width: calc(100% / 3 - (2rem / 3));
+    min-height: 240px;
+    margin-right: 1rem;
+  }
+
+  .card--contacts {
+    margin-right: 0;
+  }
+
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -265,7 +290,8 @@
     }
 
     .section--primary .card {
-      margin-bottom: 0;
+      width: auto;
+      margin: 0;
     }
 
     .card--keyMessages {
@@ -287,32 +313,6 @@
 
 /*
 @media screen and (min-width: 1164px) {
-  /**
-   * No CSS Grid support
-   *
-   * Given the landscape and browser trends, there is only one definition for
-   * large screens lacking CSS Grid. We're defining a float layout with some
-   * height units to ensure uniformity.
-   * /
-  .card--keyMessages {
-    float: left;
-    width: 73%;
-    width: calc(75% - 1rem);
-    height: 90vh;
-    margin-right: 1rem;
-  }
-
-  .card--keyFigures,
-  .card--keyFinancials,
-  .card--contacts {
-    float: left;
-    width: calc(25%);
-    margin-bottom: 1rem;
-
-    /* This group of three cards must resolve to height of keyMessages * /
-    height: calc(30vh - .666rem);
-  }
-
   /**
    * CSS Grid
    *
