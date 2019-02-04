@@ -87,6 +87,16 @@
         var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
         return val ? val.pop() : '';
       },
+
+      // Determine whether one of our supported languages is RTL or LTR.
+      languageDirection(language) {
+        const rtl = [
+          'ar',
+          'he',
+        ];
+
+        return (rtl.includes(language)) ? 'rtl' : 'ltr';
+      },
     },
 
     // We use the object populated by asyncData here. It might be empty at first
@@ -100,6 +110,12 @@
       return {
         // %s is the default site title. In our case the name of the website.
         titleTemplate: `${pageTitle} | %s`,
+
+        // Language settings determined by a field within each SitRep.
+        htmlAttrs: {
+          lang: this.entry.fields.language,
+          dir: this.languageDirection(this.entry.fields.language),
+        },
 
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
