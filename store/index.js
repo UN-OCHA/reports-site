@@ -8,7 +8,11 @@ export const state = () => ({
     {
       code: 'fr',
       name: 'Français'
-    }
+    },
+    {
+      code: 'uk',
+      name: 'Українська'
+    },
   ],
   reportMeta: {
     title: '',

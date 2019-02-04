@@ -55,7 +55,7 @@ export default {
   'Funding': 'Financement',
   'Requirements': 'Conditions requises',
   'Progress': 'Progrès',
-  'Financial data could not be found.': 'Les données sur le financement n\'ont pu être téléchargées.',
+  'Funding data could not be found.': 'Les données sur le financement n\'ont pu être téléchargées.',
 
   // Contacts
   'Contacts': 'Contacts',
@@ -80,12 +80,6 @@ export default {
 
   // Flash Updates
   'Flash Update': 'Flash Info',
-  'minute ago': 'minute ago',
-  'minutes ago': 'minutes ago',
-  'hour ago': 'hour ago',
-  'hours ago': 'hours ago',
-  'day ago': 'day ago',
-  'days ago': 'days ago',
 
   // Videos
   'Video': 'Video',
