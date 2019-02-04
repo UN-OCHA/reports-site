@@ -64,19 +64,39 @@
         return {
           'article': 'Article',
           'clusterInformation': 'Cluster',
+          'interactive': 'Interactive',
           'video': 'Video',
         };
       },
     },
 
     methods: {
+      //
       // This handler intentionally left blank in order to facilitate click
       // handling outside the AppHeader > Share component. It uses vue-clickaway
       // but iPhone does not delegate clicks so we set up a blank handler on
       // the whole page. It's stupid.
       //
       // @see https://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
-      noop() {}
+      //
+      noop() {},
+
+      //
+      // Input any width value to get the height as defined by the proportions.
+      // of the image stored in Contentful for this Entry.
+      //
+      // referenceImage must be the full Contentful JSON response for the asset
+      // field you want to use as a ratio calculation
+      //
+      // We round the return value to to the nearest pixel.
+      //
+      getImageHeight(requestedWidth, referenceImage) {
+        const width = referenceImage.fields.file.details.image.width;
+        const height = referenceImage.fields.file.details.image.height;
+        const ratio = height / width;
+
+        return Math.round(requestedWidth * ratio);
+      },
     }
   }
 </script>

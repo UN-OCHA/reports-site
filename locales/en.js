@@ -90,6 +90,9 @@ export default {
   // Videos
   'Video': 'Video',
 
+  // Interactives
+  'Interactive': 'Interactive',
+
   // Snap strings
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
   'Date of Creation': 'Date of Creation',

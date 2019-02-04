@@ -38,6 +38,7 @@
   import Cluster from '~/components/Cluster';
   import Contacts from '~/components/Contacts';
   import FlashUpdate from '~/components/FlashUpdate';
+  import Interactive from '~/components/Interactive';
   import KeyFigures from '~/components/KeyFigures';
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
@@ -59,6 +60,7 @@
       Cluster,
       Contacts,
       FlashUpdate,
+      Interactive,
       KeyFigures,
       KeyFinancials,
       KeyMessages,
