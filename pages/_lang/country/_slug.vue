@@ -153,9 +153,14 @@
       }
     },
 
-    // In cases where HTML response contained stale content, our second call to
-    // Contentful/FTS will ensure that everything is up to date.
+    //
+    // Update the page on client-side after initial page load.
+    //
     mounted() {
+      //
+      // In cases where HTML response contained stale content, our second call to
+      // Contentful/FTS will ensure that everything is up to date.
+      //
       const env = {};
       const slug = this.$route.params.slug;
       const lang = this.$route.params.lang;
@@ -167,6 +172,15 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
+
+      //
+      // In the absence of existing user preference, we want to localize the UI
+      // to the language of the current SitRep
+      //
+      this.$store.commit('SET_LANG', lang);
+
+      // Set a cookie for any full refresh that might occur.
+      document.cookie = `locale=${lang}`;
     },
   }
 
