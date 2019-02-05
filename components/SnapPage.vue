@@ -37,12 +37,51 @@
         // @see middleware/i18n.js
         const cookies = document.cookie;
 
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&footerText=${encodeURIComponent(this.sitRepUrl)}&cookies=${encodeURIComponent(cookies)}&locale=${this.locale}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&headerTitle=${encodeURIComponent(this.title.toUpperCase())}&headerSubtitle=${encodeURIComponent(this.subtitle)}&headerDescription=${encodeURIComponent(this.description)}&footerText=${encodeURIComponent(this.sitRepUrl)}&cookies=${encodeURIComponent(cookies)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
       },
 
       filename() {
         const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.locale).format('DD MMM YYYY');
         return `${this.$t('Situation Report', this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
+      },
+
+      pdfFooter() {
+        return `
+          <footer class="pdf-footer">
+            <div class="pdf-footer__left">
+              ${this.$t('Page # of #').replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
+            </div>
+            <div class="pdf-footer__right">
+              <span class="url"></span><br>
+              ${this.$t('Downloaded')}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
+            </div>
+          </footer>
+          <style type="text/css">
+            *,
+            *:before,
+            *:after {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact;
+            }
+
+            .pdf-footer {
+              width: 100%;
+              margin: 0 7.5mm;
+              white-space: nowrap;
+
+              font-family: "Roboto Condensed", Roboto, serif;
+              font-weight: 400;
+              font-size: 12px;
+              color: #4c8cca;
+            }
+            .pdf-footer__left {
+              position: relative;
+              top: 28px;
+            }
+            .pdf-footer__right {
+              text-align: right;
+            }
+          </style>`;
       },
     },
   }
