@@ -87,10 +87,14 @@ export default {
   // Interactives
   'Interactive': 'Interactive',
 
-  // Snap strings
+  // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
+
+  // Snap strings
   'Date of Creation': 'Date of Creation',
   'Date': 'Date',
+  'Downloaded': 'Downloaded',
+  'Page # of #': 'Page # of #',
 
   // Timestamps
   '# minute ago': '# minute ago',
