@@ -23,4 +23,20 @@ module.exports = function(migration) {
 
   sitrep
     .changeEditorInterface('language', 'singleLine')
+
+  //
+  // REMOVE the unique validation for the `slug` field. Our custom implementation
+  // of multilingual Entries requires us to provide unique languages amongst
+  // entries with duplicated slugs.
+  //
+  // Ex:
+  // LANG ↴     SLUG ↴
+  //   - /en/country/ukraine/
+  //   - /ru/country/ukraine/
+  //
+  sitrep
+    .editField('slug')
+    .validations([
+      { "unique": false },
+    ])
 };
