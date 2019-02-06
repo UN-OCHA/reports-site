@@ -279,6 +279,9 @@
     margin-right: 0;
   }
 
+  /**
+   * CSS Grid support
+   */
   @supports (display: grid) {
     .section--primary {
       display: grid;
