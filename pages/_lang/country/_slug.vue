@@ -87,16 +87,6 @@
         var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
         return val ? val.pop() : '';
       },
-
-      // Determine whether one of our supported languages is RTL or LTR.
-      languageDirection(language) {
-        const rtl = [
-          'ar',
-          'he',
-        ];
-
-        return (rtl.includes(language)) ? 'rtl' : 'ltr';
-      },
     },
 
     // We use the object populated by asyncData here. It might be empty at first

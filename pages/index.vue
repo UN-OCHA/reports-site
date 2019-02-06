@@ -52,6 +52,16 @@
       }
     },
 
+    head() {
+      return {
+        // Language settings determined by user language preference.
+        htmlAttrs: {
+          lang: this.locale,
+          dir: this.languageDirection(this.locale),
+        },
+      };
+    },
+
     // `env` is available in the context object
     asyncData({env, params, store}) {
       return Promise.all([
