@@ -95,7 +95,7 @@
     font-style: italic;
   }
 
-  @media (min-width: 760px) {
+  @media (min-width: 960px) {
     .card--intro {
       float: right;
       width: calc(33.333% - 1rem);
@@ -109,7 +109,7 @@
       main {
         display: grid;
         grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 3fr;
+        grid-template-columns: 2fr 2fr;
         grid-gap: 1rem;
       }
 
@@ -124,6 +124,12 @@
       .card--sitreps {
         grid-area: sitreps;
       }
+    }
+  }
+
+  @media (min-width: 1080px) {
+    main {
+      grid-template-columns: 2fr 3fr;
     }
   }
 </style>
