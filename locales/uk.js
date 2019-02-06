@@ -8,8 +8,6 @@ export default {
   'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Оперативне зведення',
   'Situation Reports': 'Оперативні зведення',
-  'Read more': 'Читати далі',
-  'Read less': 'Згорнути',
 
   // Errors
   'No data available.': 'Дані відсутні',
@@ -33,10 +31,10 @@ export default {
   'Archive': 'Archive',
 
   // AppFooter
-  'Privacy policy': 'Privacy policy',
-  'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
-  'Copyright notice': 'Copyright notice',
-  'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'Privacy policy': 'Політика конфіденційності ',
+  'href-privacy': 'https://www.un.org/ru/sections/about-website/privacy-notice/',
+  'Copyright notice': 'Повідомлення про авторські права',
+  'href-copyright': 'https://www.un.org/ru/sections/about-website/copyright/index.html',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'УКГС координує заходи реагування в надзвичайних ситуаціях по всьому світу заради спасіння життя та захисту людей в умовах гуманітарних криз. Ми підтримуємо ефективне виконання гуманітарної роботи всіма учасниками згідно з узгодженими принципами на користь усіх сторін.',
 
   // Homepage
@@ -77,6 +75,8 @@ export default {
   'Media': 'Media',
   'Trends': 'Trends',
   'Visuals and Data': 'Visuals And Data',
+  'Read more': 'Читати далі',
+  'Read less': 'Згорнути',
 
   // Flash Updates
   'Flash Update': 'Flash Update',
@@ -87,10 +87,14 @@ export default {
   // Interactives
   'Interactive': 'Interactive',
 
-  // Snap strings
+  // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',
-  'Date of Creation': 'Date of Creation',
-  'Date': 'Date',
+
+  // Snap strings
+  'Date of Creation': 'Дата створення',
+  'Date': 'Дата',
+  'Downloaded': 'Завантажено',
+  'Page # of #': 'С. # з #',
 
   // Timestamps
   '# minute ago': '# хвилина тому',

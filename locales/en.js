@@ -8,8 +8,6 @@ export default {
   'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
-  'Read more': 'Read more',
-  'Read less': 'Read less',
 
   // Errors
   'No data available.': 'No data available.',
@@ -77,6 +75,8 @@ export default {
   'Media': 'Media',
   'Trends': 'Trends',
   'Visuals and Data': 'Visuals And Data',
+  'Read more': 'Read more',
+  'Read less': 'Read less',
 
   // Flash Updates
   'Flash Update': 'Flash Update',

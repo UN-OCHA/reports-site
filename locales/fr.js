@@ -8,8 +8,6 @@ export default {
   'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Rapport de situation',
   'Situation Reports': 'Rapports de situation',
-  'Read more': 'Lire davantage',
-  'Read less': 'Lire moins',
 
   // Errors
   'No data available.': 'Aucune donnée disponible.',
@@ -71,12 +69,14 @@ export default {
   'Analysis': 'Analyse',
   'Background': 'Contexte',
   'Coordination': 'Coordination',
-  'Emergency Response': 'Reponse d\'urgence',
+  'Emergency Response': 'Réponse d\'urgence',
   'Feature': 'Reportage',
   'Forecast': 'Prévisions',
-  'Media': 'Medias',
+  'Media': 'Médias',
   'Trends': 'Tendances',
-  'Visuals and Data': 'Visuels et donnees',
+  'Visuals and Data': 'Visuels et données',
+  'Read more': 'Lire davantage',
+  'Read less': 'Lire moins',
 
   // Flash Updates
   'Flash Update': 'Flash Info',
@@ -85,7 +85,7 @@ export default {
   'Video': 'Video',
 
   // Interactives
-  'Interactive': 'Interactive',
+  'Interactive': 'Interactif',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',

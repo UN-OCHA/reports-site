@@ -10,6 +10,10 @@ export const state = () => ({
       name: 'Français'
     },
     {
+      code: 'ru',
+      name: 'Русский'
+    },
+    {
       code: 'uk',
       name: 'Українська'
     },

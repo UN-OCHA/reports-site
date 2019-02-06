@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import en from '~/locales/en.js';
 import fr from '~/locales/fr.js';
+import ru from '~/locales/ru.js';
 import uk from '~/locales/uk.js';
 
 Vue.use(VueI18n);
@@ -15,6 +16,7 @@ export default ({ app, store }) => {
     messages: {
       'en': en,
       'fr': fr,
+      'ru': ru,
       'uk': uk,
     }
   });
