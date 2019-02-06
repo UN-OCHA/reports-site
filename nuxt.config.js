@@ -21,8 +21,6 @@ module.exports = {
     CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
     CTF_CDA_PREVIEW_TOKEN: api.CTF_CDA_PREVIEW_TOKEN,
     baseUrl: api.BASE_URL || 'https://reports.unocha.org',
-    tmpBasicAuthUser: api.BASIC_AUTH_USER || '',
-    tmpBasicAuthPass: api.BASIC_AUTH_PASS || '',
   },
   //
   // Global <head> metadata

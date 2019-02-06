@@ -167,15 +167,11 @@
       // FTS: fetch all v2 plans.
       (process.server)
         ? axios({
-            url: `${process.env.baseUrl}/v2/fts/flow/plan/overview/progress/2018`,
+            url: `https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018`,
             method: 'GET',
-            auth: {
-              username: process.env.tmpBasicAuthUser,
-              password: process.env.tmpBasicAuthPass,
-            }
           })
           .then(response => response.data)
-          .catch(console.error)
+          .catch(console.warn)
         : axios({
             url: '/v2/fts/flow/plan/overview/progress/2018',
             method: 'GET',
