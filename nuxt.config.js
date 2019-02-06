@@ -96,7 +96,7 @@ module.exports = {
         })
         .then((res) => {
           return res.items.map((page) => {
-            return route = '/country/' + page.fields.slug;
+            return route = '/' + page.fields.language + '/country/' + page.fields.slug;
           });
         });
     }
