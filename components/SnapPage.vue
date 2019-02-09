@@ -47,110 +47,106 @@
 
       pdfHeader() {
         return `
-          <header class="pdf-header">
-            <div class="pdf-header__meta">
-              <div class="pdf-header__title">${this.title}</div>
-              <div class="pdf-header__subtitle">${this.subtitle}</div>
-              <div class="pdf-header__description">${this.description}</div>
-            </div>
-            <div class="pdf-header__logo-wrapper">
-              <img src="__LOGO_SRC__" alt="logo" class="pdf-header__logo">
-            </div>
-          </header>
-          <style type="text/css">
-            *,
-            *:before,
-            *:after {
-              box-sizing: border-box;
-              -webkit-print-color-adjust: exact;
-            }
+<header class="pdf-header">
+  <div class="pdf-header__meta">
+    <div class="pdf-header__title">${this.title}</div>
+    <div class="pdf-header__subtitle">${this.subtitle}</div>
+    <div class="pdf-header__description">${this.description}</div>
+  </div>
+  <div class="pdf-header__logo-wrapper">
+    <img src="__LOGO_SRC__" alt="logo" class="pdf-header__logo">
+  </div>
+</header>
+<style type="text/css">
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+}
+.pdf-header {
+  width: 100%;
+  margin: 2.5mm 7.5mm 7.5mm;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #4c8cca;
 
-            .pdf-header {
-              width: 100%;
-              margin: 2.5mm 7.5mm 7.5mm;
-              padding-bottom: 10px;
-              border-bottom: 2px solid #4c8cca;
+  font-family: "Roboto Condensed", Roboto, serif;
+  font-weight: 400;
+  font-size: 12px;
+  white-space: nowrap;
 
-              font-family: "Roboto Condensed", Roboto, serif;
-              font-weight: 400;
-              font-size: 12px;
-              white-space: nowrap;
-
-              display: grid;
-              grid-template-areas: "logo meta";
-              grid-template-columns: __LOGO_WIDTH__px 2fr;
-            }
-
-            .pdf-header__meta {
-              grid-area: meta;
-              font-size: inherit;
-              padding-left: 10px;
-              margin-left: 10px;
-              border-left: 1px solid #4c8cca;
-              color: #4c8cca;
-            }
-            .pdf-header__title {
-              line-height: .9;
-              font-size: 22px;
-              font-weight: 700;
-              text-transform: uppercase;
-            }
-            .pdf-header__subtitle {
-              font-size: 15px;
-            }
-            .pdf-header__description {
-              font-style: italic;
-            }
-
-            .pdf-header__logo-wrapper {
-              grid-area: logo;
-            }
-            .pdf-header__logo {
-              width: __LOGO_WIDTH__px;
-              height: __LOGO_HEIGHT__px;
-              position: relative;
-              top: 2px;
-            }
-          </style>`;
+  display: grid;
+  grid-template-areas: "logo meta";
+  grid-template-columns: __LOGO_WIDTH__px 2fr;
+}
+.pdf-header__meta {
+  grid-area: meta;
+  font-size: inherit;
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px solid #4c8cca;
+  color: #4c8cca;
+}
+.pdf-header__title {
+  line-height: .9;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pdf-header__subtitle {
+  font-size: 15px;
+}
+.pdf-header__description {
+  font-style: italic;
+}
+.pdf-header__logo-wrapper {
+  grid-area: logo;
+}
+.pdf-header__logo {
+  width: __LOGO_WIDTH__px;
+  height: __LOGO_HEIGHT__px;
+  position: relative;
+  top: 2px;
+}
+</style>`.replace(/  /g, ' ');
       },
 
       pdfFooter() {
         return `
-          <footer class="pdf-footer">
-            <div class="pdf-footer__left">
-              ${this.$t('Page # of #').replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
-            </div>
-            <div class="pdf-footer__right">
-              <span class="url"></span><br>
-              ${this.$t('Downloaded')}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
-            </div>
-          </footer>
-          <style type="text/css">
-            *,
-            *:before,
-            *:after {
-              box-sizing: border-box;
-              -webkit-print-color-adjust: exact;
-            }
+<footer class="pdf-footer">
+  <div class="pdf-footer__left">
+    ${this.$t('Page # of #').replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
+  </div>
+  <div class="pdf-footer__right">
+    <span class="url"></span><br>
+    ${this.$t('Downloaded')}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
+  </div>
+</footer>
+<style type="text/css">
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+}
+.pdf-footer {
+  width: 100%;
+  margin: 0 7.5mm;
+  white-space: nowrap;
 
-            .pdf-footer {
-              width: 100%;
-              margin: 0 7.5mm;
-              white-space: nowrap;
-
-              font-family: "Roboto Condensed", Roboto, serif;
-              font-weight: 400;
-              font-size: 12px;
-              color: #4c8cca;
-            }
-            .pdf-footer__left {
-              position: relative;
-              top: 28px;
-            }
-            .pdf-footer__right {
-              text-align: right;
-            }
-          </style>`;
+  font-family: "Roboto Condensed", Roboto, serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #4c8cca;
+}
+.pdf-footer__left {
+  position: relative;
+  top: 28px;
+}
+.pdf-footer__right {
+  text-align: right;
+}
+</style>`.replace(/  /g, ' ');
       },
     },
   }
