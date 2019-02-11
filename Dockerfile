@@ -15,7 +15,8 @@ COPY . .
 
 RUN apk add -U \
         ncurses \
-        gettext && \
+        gettext \
+        rsync && \
     envsubst < ${CFG_FILE}.tmpl > ${CFG_FILE} && \
     yarn install && \
     yarn run build && \
