@@ -15,7 +15,7 @@
           {{ $t('Latest updates', locale) }}
         </li>
         <li class="link link--sitrep" :key="entry.id" v-for="entry in entries">
-          <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
+          <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
         </li>
         <li v-if="false" class="link link--about">
           <nuxt-link :to="'/about/'">{{ $t('About', locale) }}</nuxt-link>
