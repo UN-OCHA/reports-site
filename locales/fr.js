@@ -5,7 +5,7 @@ export default {
 
   // Global
   'UN OCHA': 'UN OCHA',
-  'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
+  'UN Office for the Coordination of Humanitarian Affairs': 'Bureau de la coordination des affaires humanitaires des Nations Unies',
   'Situation Report': 'Rapport de situation',
   'Situation Reports': 'Rapports de situation',
 
@@ -70,7 +70,7 @@ export default {
   'Background': 'Contexte',
   'Coordination': 'Coordination',
   'Emergency Response': 'Réponse d\'urgence',
-  'Feature': 'Reportage',
+  'Feature': 'Article principal',
   'Forecast': 'Prévisions',
   'Media': 'Médias',
   'Trends': 'Tendances',
@@ -79,10 +79,10 @@ export default {
   'Read less': 'Lire moins',
 
   // Flash Updates
-  'Flash Update': 'Flash Info',
+  'Flash Update': 'Mise à jour éclair',
 
   // Videos
-  'Video': 'Video',
+  'Video': 'Vidéo',
 
   // Interactives
   'Interactive': 'Interactif',
