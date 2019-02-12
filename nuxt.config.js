@@ -53,7 +53,7 @@ module.exports = {
   // Additional modules for our site
   //
   modules: [
-    ['@nuxtjs/moment', ['fr', 'ru', 'uk']],
+    ['@nuxtjs/moment', ['es', 'fr', 'ru', 'uk']],
   ],
   //
   // Router
