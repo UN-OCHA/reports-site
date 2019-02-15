@@ -1,5 +1,5 @@
 <template>
-  <div class="page--front" @click="noop">
+  <div class="page--error-404" @click="noop">
     <AppBar />
     <AppHeader />
 

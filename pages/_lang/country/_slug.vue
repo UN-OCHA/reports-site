@@ -132,14 +132,14 @@
       return fetchAsyncData({env, lang, slug, store});
     },
 
-    // Before we assemble this page, check the cookies for a stored locale. If
-    // we find one, we'd prefer to render this page in that language and should
+    // Before we assemble this page, check the URL for locale parameter. If we
+    // find one, we'd prefer to render this page in that language and should
     // notify the other components by modifying the client-side Vuex store.
     created() {
-      const cookieVal = this.getCookieValue('locale');
+      const lang = this.$route.params.lang;
 
-      if (cookieVal) {
-        this.$store.commit('SET_LANG', cookieVal);
+      if (lang) {
+        this.$store.commit('SET_LANG', lang);
       }
     },
 

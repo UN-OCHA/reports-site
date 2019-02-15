@@ -88,17 +88,29 @@ module.exports = {
   //
   generate: {
     routes: function () {
-      const active_content_type = 'sitrep';
+      // Define a language list.
+      const languages = ['en', 'es', 'fr', 'ru', 'uk'];
 
-      return client.getEntries({
-          'include': 2,
-          'content_type': active_content_type,
-        })
-        .then((res) => {
-          return res.items.map((page) => {
-            return route = '/' + page.fields.language + '/country/' + page.fields.slug;
-          });
+      // Define a homepage per language.
+      const homepages = languages.map((lang) => {
+        return `/${lang}`;
+      });
+
+      // Query Contentful for all SitReps
+      const sitreps = client.getEntries({
+        'include': 2,
+        'content_type': 'sitrep',
+      })
+      .then((res) => {
+        return res.items.map((page) => {
+          return route = '/' + page.fields.language + '/country/' + page.fields.slug;
         });
+      });
+
+      return Promise.all([sitreps, homepages]).then(arrays => {
+        // Combine the two arrays of URLs and return.
+        return arrays.join().split(',');
+      });
     }
   }
 }

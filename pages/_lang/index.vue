@@ -52,6 +52,17 @@
       }
     },
 
+    // Before we assemble this page, check the URL for locale parameter. If we
+    // find one, we'd prefer to render this page in that language and should
+    // notify the other components by modifying the client-side Vuex store.
+    created() {
+      const lang = this.$route.params.lang;
+
+      if (lang) {
+        this.$store.commit('SET_LANG', lang);
+      }
+    },
+
     head() {
       return {
         // Language settings determined by user language preference.
@@ -143,4 +154,3 @@
     }
   }
 </style>
-

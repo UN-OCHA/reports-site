@@ -3,13 +3,13 @@
     <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu" v-on-clickaway="closeMenu">
       <span class="element-invisible">{{ $t('Toggle menu', locale) }}</span>
     </button>
-    <nuxt-link to="/" class="logo-link">
+    <nuxt-link :to="$i18n.path('')" class="logo-link">
       <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
     </nuxt-link>
     <div class="app-bar__content">
       <ul class="main-nav">
         <li class="link link--home">
-          <nuxt-link :to="'/'">{{ $t('Home', locale) }}</nuxt-link>
+          <nuxt-link :to="$i18n.path('')">{{ $t('Home', locale) }}</nuxt-link>
         </li>
         <li class="link link--latest">
           {{ $t('Latest updates', locale) }}
@@ -18,7 +18,7 @@
           <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
         </li>
         <li v-if="false" class="link link--about">
-          <nuxt-link :to="'/about/'">{{ $t('About', locale) }}</nuxt-link>
+          <nuxt-link :to="$i18n.path('about/')">{{ $t('About', locale) }}</nuxt-link>
         </li>
       </ul>
 
