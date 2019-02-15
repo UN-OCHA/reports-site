@@ -23,12 +23,14 @@ export default ({ app, store }) => {
     }
   });
 
-  // CR: we aren't implementing langcodes in the URL so this is commented out.
-  //
-  // app.i18n.path = (link) => {
-  //   if (app.i18n.locale === app.i18n.fallbackLocale) {
-  //     return `/${link}`;
-  //   }
-  //   return `/${app.i18n.locale}/${link}`;
-  // }
+  app.i18n.path = (link) => {
+    // We are explicitly printing language in all cases. If we wanted to have a
+    // definitive "default" then we could avoid printing the language code like
+    // this:
+    //
+    // if (app.i18n.locale === app.i18n.fallbackLocale) {
+    //   return `/${link}`;
+    // }
+    return `/${store.state.locale}/${link}`;
+  }
 }

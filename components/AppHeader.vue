@@ -1,7 +1,7 @@
 <template>
   <header class="container header clearfix" role="banner">
     <div class="title-area">
-      <nuxt-link to="/" class="logo-link">
+      <nuxt-link :to="$i18n.path('')" class="logo-link">
         <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
@@ -17,15 +17,17 @@
     <div class="meta-area">
       <div>
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
-        <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
-          <option v-for="lang in locales"
-            :key="lang.code"
-            :value="lang.code"
-            :selected="lang.code === locale"
-            :class="'lang-switcher__language--' + lang.code">
-            {{ lang.name }}
-          </option>
-        </select>
+        <no-ssr>
+          <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
+            <option v-for="lang in locales"
+              :key="lang.code"
+              :value="lang.code"
+              :selected="lang.code === locale"
+              :class="'lang-switcher__language--' + lang.code">
+              {{ lang.name }}
+            </option>
+          </select>
+        </no-ssr>
       </div>
       <div class="meta-area__actions">
         <SnapPage
@@ -104,8 +106,9 @@
         // Update the store
         this.$store.commit('SET_LANG', localeCode);
 
-        // Set a cookie for any full refresh that might occur.
-        document.cookie = `locale=${localeCode}`;
+        // TODO: Update URL in browser bar
+        // console.log(this.$route);
+        // this.$router.push({ path: `/${localeCode}/${this.$route.path.split('/')[1]}`});
       },
     },
 
