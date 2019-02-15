@@ -327,11 +327,16 @@ figure picture ~ figcaption {
     widows: 3;
   }
 
-  .rich-text a[href] {
-    text-decoration: none;
+  //
+  // Print URLs during Snaps
+  //
+  .snap--print-urls {
+    .rich-text a[href] {
+      text-decoration: none;
 
-    &::after {
-      content: " <" attr(href) "> ";
+      &::after {
+        content: " <" attr(href) "> ";
+      }
     }
   }
 

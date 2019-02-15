@@ -105,7 +105,7 @@
     }
 
     @media print {
-      &:after {
+      .snap--print-urls &:after {
         content:" <" attr(href) "> ";
       }
     }
