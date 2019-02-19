@@ -164,10 +164,10 @@
         'fields.slug': slug,
       }),
 
-      // FTS: fetch all v2 plans.
+      // FTS: fetch all v2 plans for 2018.
       (process.server)
         ? axios({
-            url: `https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018`,
+            url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018',
             method: 'GET',
           })
           .then(response => response.data)
@@ -177,8 +177,24 @@
             method: 'GET',
           })
           .then(response => response.data)
+          .catch(console.warn),
+
+      // FTS: fetch all v2 plans for 2019.
+      (process.server)
+        ? axios({
+            url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2019',
+            method: 'GET',
+          })
+          .then(response => response.data)
           .catch(console.warn)
-    ]).then(([entries, ftsData]) => {
+        : axios({
+            url: '/v2/fts/flow/plan/overview/progress/2019',
+            method: 'GET',
+          })
+          .then(response => response.data)
+          .catch(console.warn)
+
+    ]).then(([entries, ftsData2018, ftsData2019]) => {
 
       // For client-side, update our store with the fresh data.
       store.commit('SET_META', {
@@ -187,9 +203,13 @@
         dateUpdated: entries.items[0].fields.dateUpdated,
       });
 
+      let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
+      let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
+      let ftsData = fts2018.concat(fts2019);
+
       return {
         entry: entries.items[0],
-        ftsData: ftsData && ftsData.data && ftsData.data.plans || [],
+        ftsData: ftsData,
       };
     }).catch(console.error)
   }
