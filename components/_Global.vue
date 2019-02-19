@@ -97,18 +97,6 @@
 
         return Math.round(requestedWidth * ratio);
       },
-
-      //
-      // Determine whether one of our supported languages is RTL or LTR.
-      //
-      languageDirection(language) {
-        const rtl = [
-          'ar',
-          'he',
-        ];
-
-        return (rtl.includes(language)) ? 'rtl' : 'ltr';
-      },
     }
   }
 </script>

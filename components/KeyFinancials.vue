@@ -9,7 +9,7 @@
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-if="!ftsData.length" class="figures-none">
-        {{ $t('Funding data could not be found.', locale) }}
+        {{ $t('Financial data could not be found.', locale) }}
         <br><br>
       </div>
     </div>

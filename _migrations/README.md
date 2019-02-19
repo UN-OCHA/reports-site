@@ -8,12 +8,6 @@ If necessary, please familiarize yourself with the [Contentful domain model](htt
 - Tutorial: https://www.contentful.com/blog/2017/09/18/using-the-contentful-migration-cli/
 - Official examples: https://github.com/contentful/contentful-migration/tree/master/examples
 
-## Setup
-
-In order to execute migrations on a Space, you need to have a [personal access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens/personal-access-token). This is separate from the API keys that power our read-only JS app.
-
-The personal access token allows you to execute the migrations. Migrations can read, write, perform modifications to Content Types, and transfer content between Spaces. We are mostly focused on modifications to Content Types when discussing our migrations.
-
 
 ## Executing Migrations
 
@@ -34,7 +28,6 @@ npm run migration -- --space-id 0123456789 --environment-id 'sandbox' _migration
 ```
 
 Note: we are using `npm run migration` because that ensures we all migrate using the same version, as opposed to a globally-installed tool that may or may not support all the features we need.
-
 
 ## Data types
 

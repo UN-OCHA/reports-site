@@ -199,7 +199,7 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 2fr 270px;
+        grid-template-columns: 2fr 218px;
         grid-gap: 1rem;
       }
 

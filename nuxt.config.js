@@ -53,7 +53,7 @@ module.exports = {
   // Additional modules for our site
   //
   modules: [
-    ['@nuxtjs/moment', ['es', 'fr', 'ru', 'uk']],
+    ['@nuxtjs/moment', ['fr']],
   ],
   //
   // Router
@@ -96,7 +96,7 @@ module.exports = {
         })
         .then((res) => {
           return res.items.map((page) => {
-            return route = '/' + page.fields.language + '/country/' + page.fields.slug;
+            return route = '/country/' + page.fields.slug;
           });
         });
     }

@@ -6,21 +6,9 @@ export const state = () => ({
       name: 'English'
     },
     {
-      code: 'es',
-      name: 'Español'
-    },
-    {
       code: 'fr',
       name: 'Français'
-    },
-    {
-      code: 'ru',
-      name: 'Русский'
-    },
-    {
-      code: 'uk',
-      name: 'Українська'
-    },
+    }
   ],
   reportMeta: {
     title: '',

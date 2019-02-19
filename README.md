@@ -1,6 +1,6 @@
 # reports.unocha.org
 
-Digital Situation Reports for UN OCHA. Vue+Nuxt produces a [SSR+Hydration architecture](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration), ensuring that we serve full HTML responses while taking advantage of modern JS tools for client-side interactivity. We use Contentful as our CMS, offloading all data entry responsibilities to a paid service.
+Digital Situation Reports for UN OCHA.
 
 ## Nuxt setup/development
 
