@@ -69,7 +69,7 @@
 
     // Validate the country slug using this function.
     validate({params}) {
-      return typeof params.slug === 'string' && typeof params.lang === 'string';
+      return typeof params.slug === 'string';
     },
 
     // Set up empty objects that will be populated by asyncData.
@@ -101,12 +101,6 @@
         // %s is the default site title. In our case the name of the website.
         titleTemplate: `${pageTitle} | %s`,
 
-        // Language settings determined by a field within each SitRep.
-        htmlAttrs: {
-          lang: this.entry.fields.language,
-          dir: this.languageDirection(this.entry.fields.language),
-        },
-
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
           { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
@@ -128,8 +122,7 @@
     // both SSR and client-side navigations.
     asyncData({env, params, store}) {
       const slug = params.slug;
-      const lang = params.lang;
-      return fetchAsyncData({env, lang, slug, store});
+      return fetchAsyncData({env, slug, store});
     },
 
     // Before we assemble this page, check the cookies for a stored locale. If
@@ -143,48 +136,32 @@
       }
     },
 
-    //
-    // Update the page on client-side after initial page load.
-    //
+    // In cases where HTML response contained stale content, our second call to
+    // Contentful/FTS will ensure that everything is up to date.
     mounted() {
-      //
-      // In cases where HTML response contained stale content, our second call to
-      // Contentful/FTS will ensure that everything is up to date.
-      //
       const env = {};
       const slug = this.$route.params.slug;
-      const lang = this.$route.params.lang;
       const store = this.$store;
 
-      fetchAsyncData({env, lang, slug, store}).then((response) => {
+      fetchAsyncData({env, slug, store}).then((response) => {
         // Update the client-side model with fresh API responses.
         this.entry = response.entry;
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
-
-      //
-      // In the absence of existing user preference, we want to localize the UI
-      // to the language of the current SitRep
-      //
-      this.$store.commit('SET_LANG', lang);
-
-      // Set a cookie for any full refresh that might occur.
-      document.cookie = `locale=${lang}`;
     },
   }
 
   // In order to fetch data both during asyncData() and at other times of our
   // own choosing, we have our own custom function which is defined outside
   // our export.
-  function fetchAsyncData({env, lang, slug, store}) {
+  function fetchAsyncData({env, slug, store}) {
     return Promise.all([
       // Contentful: fetch single Entry by slug
       client.getEntries({
         'include': 4,
         'content_type': active_content_type,
         'fields.slug': slug,
-        'fields.language': lang,
       }),
 
       // FTS: fetch all v2 plans for 2018.
@@ -244,34 +221,6 @@
 
 @media print and (min-width: 10cm),
        screen and (min-width: 760px) {
-  /**
-   * No CSS Grid support
-   *
-   * Given the landscape and browser trends, there is only one definition for
-   * large screens lacking CSS Grid. We're defining a float layout with some
-   * height units to ensure uniformity.
-   */
-  .card--keyMessages {
-    float: none;
-    width: 100%;
-  }
-
-  .card--keyFigures,
-  .card--keyFinancials,
-  .card--contacts {
-    float: left;
-    width: calc(100% / 3 - (2rem / 3));
-    min-height: 240px;
-    margin-right: 1rem;
-  }
-
-  .card--contacts {
-    margin-right: 0;
-  }
-
-  /**
-   * CSS Grid support
-   */
   @supports (display: grid) {
     .section--primary {
       display: grid;
@@ -283,8 +232,7 @@
     }
 
     .section--primary .card {
-      width: auto;
-      margin: 0;
+      margin-bottom: 0;
     }
 
     .card--keyMessages {
@@ -306,6 +254,32 @@
 
 /*
 @media screen and (min-width: 1164px) {
+  /**
+   * No CSS Grid support
+   *
+   * Given the landscape and browser trends, there is only one definition for
+   * large screens lacking CSS Grid. We're defining a float layout with some
+   * height units to ensure uniformity.
+   * /
+  .card--keyMessages {
+    float: left;
+    width: 73%;
+    width: calc(75% - 1rem);
+    height: 90vh;
+    margin-right: 1rem;
+  }
+
+  .card--keyFigures,
+  .card--keyFinancials,
+  .card--contacts {
+    float: left;
+    width: calc(25%);
+    margin-bottom: 1rem;
+
+    /* This group of three cards must resolve to height of keyMessages * /
+    height: calc(30vh - .666rem);
+  }
+
   /**
    * CSS Grid
    *
@@ -395,3 +369,4 @@
   }
 }
 </style>
+

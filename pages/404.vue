@@ -12,7 +12,7 @@
         <br>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
-            <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
+            <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
             <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
           </li>
         </ul>
@@ -49,16 +49,6 @@
       return {
         entries: [],
       }
-    },
-
-    head() {
-      return {
-        // Language settings determined by user language preference.
-        htmlAttrs: {
-          lang: this.locale,
-          dir: this.languageDirection(this.locale),
-        },
-      };
     },
 
     // `env` is available in the context object

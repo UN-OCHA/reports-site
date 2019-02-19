@@ -13,7 +13,7 @@
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <ul class="sitrep-list">
           <li class="sitrep" :key="entry.id" v-for="entry in entries">
-            <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
+            <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
             <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
           </li>
         </ul>
@@ -50,16 +50,6 @@
       return {
         entries: [],
       }
-    },
-
-    head() {
-      return {
-        // Language settings determined by user language preference.
-        htmlAttrs: {
-          lang: this.locale,
-          dir: this.languageDirection(this.locale),
-        },
-      };
     },
 
     // `env` is available in the context object
@@ -105,7 +95,7 @@
     font-style: italic;
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: 760px) {
     .card--intro {
       float: right;
       width: calc(33.333% - 1rem);
@@ -119,7 +109,7 @@
       main {
         display: grid;
         grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 2fr;
+        grid-template-columns: 2fr 3fr;
         grid-gap: 1rem;
       }
 
@@ -134,12 +124,6 @@
       .card--sitreps {
         grid-area: sitreps;
       }
-    }
-  }
-
-  @media (min-width: 1080px) {
-    main {
-      grid-template-columns: 2fr 3fr;
     }
   }
 </style>
