@@ -106,9 +106,12 @@
         // Update the store
         this.$store.commit('SET_LANG', localeCode);
 
-        // TODO: Update URL in browser bar
-        // console.log(this.$route);
-        // this.$router.push({ path: `/${localeCode}/${this.$route.path.split('/')[1]}`});
+        // Update URL in browser bar
+        let pathParts = this.$route.path.split('/');
+        pathParts.shift();
+        pathParts.shift();
+        let newPath = pathParts.join('/');
+        this.$router.push({ path: `/${localeCode}/${newPath}`});
       },
     },
 
