@@ -47,6 +47,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Key Messages',
+  'Highlights': 'Highlights',
 
   // Key Figures
   'Key Figures': 'Key Figures',

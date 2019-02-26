@@ -59,11 +59,6 @@
             url: this.snapRequest,
             method: 'POST',
             responseType: 'arraybuffer',
-            headers: {
-              // We send all params as querystring so the length of our body is
-              // known to be zero.
-              'Content-Length': 0,
-            },
           })
           .then((response) => {
             this.handleSnap(response);
