@@ -3,7 +3,7 @@
     <CardHeader />
 
     <h2 class="card__title">
-      {{ $t('Key Messages', locale) }}
+      {{ $t('Highlights', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </h2>
     <div class="key-messages__area">
