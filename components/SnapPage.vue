@@ -115,11 +115,11 @@
         return `
 <footer class="pdf-footer">
   <div class="pdf-footer__left">
-    ${this.$t('Page # of #').replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
+    ${this.$t('Page # of #', this.locale).replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
   </div>
   <div class="pdf-footer__right">
     <span class="url"></span><br>
-    ${this.$t('Downloaded')}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
+    ${this.$t('Downloaded', this.locale)}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
   </div>
 </footer>
 <style type="text/css">
