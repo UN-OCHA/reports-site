@@ -168,9 +168,6 @@
       // to the language of the current SitRep
       //
       this.$store.commit('SET_LANG', lang);
-
-      // Set a cookie for any full refresh that might occur.
-      document.cookie = `locale=${lang}`;
     },
   }
 
