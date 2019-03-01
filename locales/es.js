@@ -29,6 +29,7 @@ export default {
   'Email': 'Correo electrónico',
   'Download': 'Descargar',
   'Archive': 'Archivo',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Política de confidencialidad',
@@ -45,6 +46,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Mensajes clave',
+  'Highlights': 'Destacados',
 
   // Key Figures
   'Key Figures': 'Cifras clave',

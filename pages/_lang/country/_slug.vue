@@ -6,6 +6,7 @@
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
       :countrycode="entry.fields.countryCode"
+      :translations="translations"
       :share="true"
       :snap="true" />
 
@@ -176,12 +177,20 @@
   // our export.
   function fetchAsyncData({env, lang, slug, store}) {
     return Promise.all([
-      // Contentful: fetch single Entry by slug
+
+      // Contentful: fetch the requested SitRep by slug+language
       client.getEntries({
         'include': 4,
         'content_type': active_content_type,
         'fields.slug': slug,
         'fields.language': lang,
+      }),
+
+      // Contentful: fetch related SitRep translations with same slug
+      client.getEntries({
+        'include': 1,
+        'content_type': active_content_type,
+        'fields.slug': slug,
       }),
 
       // FTS: fetch all v2 plans for 2018.
@@ -214,22 +223,33 @@
           .then(response => response.data)
           .catch(console.warn)
 
-    ]).then(([entries, ftsData2018, ftsData2019]) => {
+    ]).then(([entries, translationEntries, ftsData2018, ftsData2019]) => {
 
       // For client-side, update our store with the fresh data.
       store.commit('SET_META', {
         slug: slug,
         title: entries.items[0].fields.title,
         dateUpdated: entries.items[0].fields.dateUpdated,
+        language: lang,
       });
 
+      // Combine both years of FTS responses into one array.
       let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
       let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
       let ftsData = fts2018.concat(fts2019);
 
+      // Reformat CTF translations response so follows format of locales Store.
+      let translations = translationEntries.items.map((entries) => {
+        return {
+          'code': entries.fields.language,
+        }
+      });
+
+      // This is the data that the template will use to render page.
       return {
-        entry: entries.items[0],
-        ftsData: ftsData,
+        'translations': translations,
+        'entry': entries.items[0],
+        'ftsData': ftsData,
       };
     }).catch(console.error)
   }

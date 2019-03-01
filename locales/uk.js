@@ -29,6 +29,7 @@ export default {
   'Email': 'Електронна пошта',
   'Download': 'Завантажити',
   'Archive': 'Archive',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Політика конфіденційності ',
@@ -45,6 +46,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Ключові положення',
+  'Highlights': 'Highlights',
 
   // Key Figures
   'Key Figures': 'Ключові показники',

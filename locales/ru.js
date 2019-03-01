@@ -29,6 +29,7 @@ export default {
   'Email': 'Электронная почта',
   'Download': 'Загрузить',
   'Archive': 'Архив',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Политика конфиденциальности',
@@ -45,6 +46,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Ключевые положения',
+  'Highlights': 'Highlights',
 
   // Key Figures
   'Key Figures': 'Ключевые показатели',

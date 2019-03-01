@@ -29,6 +29,7 @@ export default {
   'Email': 'Email',
   'Download': 'Télécharger',
   'Archive': 'Archive',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
