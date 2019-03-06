@@ -6,8 +6,8 @@
       {{ $t(content.fields.sectionHeading, locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
-    <div class="article__content" :class="{ 'article__content--has-image': content.fields.image }">
-      <div class="article__image" v-if="content.fields.image">
+    <div class="article__content" :class="{ 'article__content--has-image': articleHasImage }">
+      <div class="article__image" v-if="articleHasImage">
         <figure>
           <picture>
             <source type="image/webp"
@@ -96,6 +96,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      articleHasImage() {
+        return this.content.fields.image && this.content.fields.image.fields;
       },
 
       secureImageUrl() {
