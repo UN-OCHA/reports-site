@@ -1,0 +1,74 @@
+<template>
+  <ul class="sitrep-list">
+    <li class="sitrep-group" :key="data[0].sys.id" v-for="(data, group) in sitreps">
+      <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
+      <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
+        <nuxt-link :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'">{{ localeName(sitrep.fields.language) }}</nuxt-link>
+        <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+      </p>
+    </li>
+  </ul>
+</template>
+
+<script>
+  import Global from '~/components/_Global';
+
+  export default {
+    mixins: [Global],
+
+    //
+    // This component requires a very specific structure in order to render the
+    // list with both country names and language options. The basic structure is
+    // an object with slugs as top-level properties, each containing an array of
+    // SitRep translations:
+    //
+    // sitreps (Object)
+    // └ slug (Array)
+    //   └ sitrep (Object)
+    //
+    // Suppose we have two SitReps for Ukraine (en, uk) and one for Burundi (fr)
+    //
+    // sitreps = {
+    //   'burundi': [
+    //     0: {/* SitRep object from Contentful */},
+    //   ],
+    //   'ukraine': [
+    //     0: {/* SitRep object from Contentful */},
+    //     1: {/* SitRep object from Contentful */},
+    //   ],
+    // };
+    //
+    props: {
+      'sitreps': Object,
+    },
+  }
+</script>
+
+<style lang="scss" scoped>
+  .sitrep-list {
+    margin: 1rem 0;
+    padding: 0;
+  }
+  .sitrep-group {
+    list-style-type: none;
+    margin: 0 0 .5rem 0;
+    padding: 0;
+  }
+  .sitrep-group__heading {
+    margin-top: 1rem;
+    font-size: 1.1em;
+    color: #666;
+    text-transform: uppercase;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
+  }
+  .sitrep {
+    margin: .25rem 0;
+  }
+  .sitrep__last-updated {
+    color: #666;
+    font-style: italic;
+  }
+</style>

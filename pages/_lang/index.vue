@@ -11,15 +11,7 @@
       </section>
       <section class="card card--sitreps">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
-        <ul class="sitrep-list">
-          <li class="sitrep-group" :key="data[0].sys.id" v-for="(data, group) in sorted">
-            <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
-            <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
-              <nuxt-link :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'">{{ localeName(sitrep.fields.language) }}</nuxt-link>
-              <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
-            </p>
-          </li>
-        </ul>
+        <SitrepList :sitreps="sitreps" />
       </section>
     </main>
 
@@ -33,6 +25,7 @@
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
+  import SitrepList from '~/components/SitrepList';
 
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
@@ -47,11 +40,12 @@
       AppHeader,
       AppFooter,
       Card,
+      SitrepList,
     },
 
     data() {
       return {
-        entries: [],
+        'sitreps': {},
       }
     },
 
@@ -78,21 +72,14 @@
       };
     },
 
-    // `env` is available in the context object
     asyncData({env, params, store}) {
       return Promise.all([
-        // fetch all content ordered by creation date
+        // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
           'include': 0,
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-        // Flush our store if we came from a specific SitRep.
-        store.commit('SET_META', {
-          title: '',
-          dateUpdated: '',
-        });
-
         // Group entries by Country, sort by dateUpdated, newest first.
         entries.items.sort((a, b) => {
           if (a.fields.slug === b.fields.slug) {
@@ -104,54 +91,27 @@
 
         // We'll provide the template with a multidimensional array instead of
         // the flat one we get form Contentful.
-        let sorted = {};
+        let sitreps = {};
 
         // For each Sitrep in our sorted list...
-        entries.items.forEach((key) => {
+        entries.items.forEach((sitrep) => {
           // If the group already exists...
-          (sorted[key.fields.slug])
+          (sitreps[sitrep.fields.slug])
             // Add the current SitRep to the group.
-            ? sorted[key.fields.slug].push(key)
+            ? sitreps[sitrep.fields.slug].push(sitrep)
             // Otherwise begin a new group with the current SitRep.
-            : sorted[key.fields.slug] = [key];
+            : sitreps[sitrep.fields.slug] = [sitrep];
         });
 
         return {
-          'sorted': sorted,
+          'sitreps': sitreps,
         }
       }).catch(console.error)
-    }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
-  .sitrep-list {
-    margin: 1rem 0;
-    padding: 0;
-  }
-  .sitrep-group {
-    list-style-type: none;
-    margin: 0 0 .5rem 0;
-    padding: 0;
-  }
-  .sitrep-group__heading {
-    margin-top: 1rem;
-    font-size: 1.1em;
-    color: #666;
-    text-transform: uppercase;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
-  }
-  .sitrep {
-    margin: .25rem 0;
-  }
-  .sitrep__last-updated {
-    color: #666;
-    font-style: italic;
-  }
-
   @media (min-width: 960px) {
     .card--intro {
       float: right;
