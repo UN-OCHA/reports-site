@@ -12,9 +12,12 @@
       <section class="card card--sitreps">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <ul class="sitrep-list">
-          <li class="sitrep" :key="entry.id" v-for="entry in entries">
-            <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
-            <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+          <li class="sitrep-group" :key="data[0].sys.id" v-for="(data, group) in sorted">
+            <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
+            <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
+              <nuxt-link :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'">{{ localeName(sitrep.fields.language) }}</nuxt-link>
+              <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+            </p>
           </li>
         </ul>
       </section>
@@ -80,23 +83,41 @@
       return Promise.all([
         // fetch all content ordered by creation date
         client.getEntries({
-          'include': 2,
+          'include': 0,
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-        // For client-side, update our store with the fresh data.
+        // Flush our store if we came from a specific SitRep.
         store.commit('SET_META', {
           title: '',
           dateUpdated: '',
         });
 
-        // Sort entries by the dateUpdated field, newest first.
-        entries.items.sort(function(a,b){
-          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+        // Group entries by Country, sort by dateUpdated, newest first.
+        entries.items.sort((a, b) => {
+          if (a.fields.slug === b.fields.slug) {
+             // Price is only important when cities are the same
+             return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+          }
+          return a.fields.slug > b.fields.slug ? 1 : -1;
+        });
+
+        // We'll provide the template with a multidimensional array instead of
+        // the flat one we get form Contentful.
+        let sorted = {};
+
+        // For each Sitrep in our sorted list...
+        entries.items.forEach((key) => {
+          // If the group already exists...
+          (sorted[key.fields.slug])
+            // Add the current SitRep to the group.
+            ? sorted[key.fields.slug].push(key)
+            // Otherwise begin a new group with the current SitRep.
+            : sorted[key.fields.slug] = [key];
         });
 
         return {
-          entries: entries.items,
+          'sorted': sorted,
         }
       }).catch(console.error)
     }
@@ -108,12 +129,25 @@
     margin: 1rem 0;
     padding: 0;
   }
-  .sitrep {
+  .sitrep-group {
     list-style-type: none;
     margin: 0 0 .5rem 0;
     padding: 0;
   }
-  .last-updated {
+  .sitrep-group__heading {
+    margin-top: 1rem;
+    font-size: 1.1em;
+    color: #666;
+    text-transform: uppercase;
+
+    .wf-loaded & {
+      font-family: "Roboto Condensed", sans-serif;
+    }
+  }
+  .sitrep {
+    margin: .25rem 0;
+  }
+  .sitrep__last-updated {
     color: #666;
     font-style: italic;
   }

@@ -99,6 +99,14 @@
       },
 
       //
+      // Quickly retieve localize name of a language code.
+      //
+      localeName(langCode) {
+        const targetLocale = this.locales.find((locale) => locale.code === langCode);
+        return targetLocale.name;
+      },
+
+      //
       // Determine whether one of our supported languages is RTL or LTR.
       //
       languageDirection(language) {
