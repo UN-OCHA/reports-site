@@ -70,6 +70,9 @@ html {
   clip: rect(1px, 1px, 1px, 1px);
   overflow: hidden;
   height: 1px;
+
+  // extra style added to avoid horizontal overflows
+  transform: scale(.1);
 }
 
 //
