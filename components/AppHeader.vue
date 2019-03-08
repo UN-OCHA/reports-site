@@ -1,7 +1,7 @@
 <template>
   <header class="container header clearfix" role="banner">
     <div class="title-area">
-      <nuxt-link to="/" class="logo-link">
+      <nuxt-link :to="$i18n.path('')" class="logo-link">
         <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
@@ -17,17 +17,21 @@
     <div class="meta-area">
       <div>
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
-        <select class="lang-switcher" @change="switchLanguage($refs['lang-switcher'].value)" ref="lang-switcher">
-          <option v-for="lang in locales"
-            :key="lang.code"
-            :value="lang.code"
-            :selected="lang.code === locale"
-            :class="'lang-switcher__language--' + lang.code">
-            {{ lang.name }}
-          </option>
-        </select>
       </div>
       <div class="meta-area__actions">
+        <span class="element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
+        <div class="lang-switcher">
+          <nuxt-link v-for="translation in availableTranslations"
+            :key="translation.code"
+            :to="'/' + translation.code + '/' + urlContext"
+            :class="[
+              'lang-switcher__language',
+              'lang-switcher__language--' + translation.code,
+              {'lang-switcher__language--active': translation.code === locale},
+            ]"
+            :aria-label="localeName(translation.code)"
+          >{{ translation.code }}</nuxt-link>
+        </div>
         <SnapPage
           v-if="snap"
           output="pdf"
@@ -69,6 +73,7 @@
       'updated': String,
       'mailchimp': String,
       'countrycode': String,
+      'translations': Array,
       'share': Boolean,
       'snap': Boolean,
     },
@@ -99,27 +104,39 @@
       closeShare() {
         this.shareIsOpen = false;
       },
-
-      switchLanguage (localeCode) {
-        // Update the store
-        this.$store.commit('SET_LANG', localeCode);
-
-        // Set a cookie for any full refresh that might occur.
-        document.cookie = `locale=${localeCode}`;
-      },
     },
 
     computed: {
+      availableTranslations() {
+        // If an array of other languages was supplied, we use them, otherwise
+        // we use the global list of languages.
+        //
+        // NOTE: We do the JSON stringify/parse on this.locales to avoid passing
+        //       by reference which would lead to a fatal Vuex mutation error
+        //       when we run the sort() method.
+        let available = this.translations || JSON.parse(JSON.stringify(this.locales));
+
+        return available.sort();
+      },
+
+      urlContext() {
+        let pathParts = this.$route.path.split('/');
+        pathParts.shift();
+        pathParts.shift();
+
+        return pathParts.join('/');
+      },
+
       today() {
         return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
       },
 
       pastReports() {
-        return 'https://reliefweb.int/updates?search=(primary_country.iso3%3A%22' + this.countrycode +'%22)+AND+(ocha_product%3A%22Humanitarian+Bulletin%22+OR+ocha_product%3A%22Situation+Report%22+OR+ocha_product%3A%22Flash+Update%22+)+AND+source%3A%22UN+Office+for+the+Coordination+of+Humanitarian+Affairs%22#content';
+        return `https://reliefweb.int/updates?search=(primary_country.iso3%3A%22${this.countrycode}%22)+AND+(ocha_product%3A%22Humanitarian+Bulletin%22+OR+ocha_product%3A%22Situation+Report%22+OR+ocha_product%3A%22Flash+Update%22+)+AND+source%3A%22UN+Office+for+the+Coordination+of+Humanitarian+Affairs%22#content`;
       },
 
       shareBaseUrl() {
-        return typeof window !== "undefined" ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+        return typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
       },
 
       shareMessage() {
@@ -199,7 +216,7 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 2fr 218px;
+        grid-template-columns: 1fr 220px;
         grid-gap: 1rem;
       }
 
@@ -225,6 +242,7 @@
     margin-right: 10px;
     border-right: 2px solid #4c8cca;
 
+    // Display logo once we exceed mobile width.
     @media(min-width: $bkpt-app-bar) {
       display: block;
     }
@@ -320,9 +338,33 @@
   }
 
   .lang-switcher {
-    @extend .cta;
-    appearance: none;
-    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-transform: uppercase;
+
+    .page--sitrep & {
+      top: -8.5px;
+    }
+  }
+
+  .lang-switcher__language {
+    width: auto;
+    height: 1rem;
+    padding: 0 .25rem;
+    color: #4c8cca;
+    text-align: center;
+    text-decoration: none;
+
+    &:focus {
+      outline: none;
+      border-radius: 7px;
+      background-color: #fff;
+      box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .lang-switcher__language--active {
+    font-weight: 700;
   }
 
   .meta-area__actions {
