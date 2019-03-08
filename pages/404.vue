@@ -1,21 +1,21 @@
 <template>
   <div class="page--error-404" @click="noop">
     <AppBar />
-    <AppHeader />
+    <AppHeader
+      :translations="[]"
+    />
 
-    <main class="container">
+    <main class="container container--404-grid">
       <section class="card card--404 rich-text">
         <img class="card__image" src="/locust-404.svg" alt="404 Error">
         <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
         <p class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
         <p class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
-        <br>
-        <ul class="sitrep-list">
-          <li class="sitrep" :key="entry.id" v-for="entry in entries">
-            <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
-            <span class="last-updated">{{ $t('Last updated', locale) }}: <time :datetime="entry.fields.dateUpdated">{{ $moment(entry.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
-          </li>
-        </ul>
+
+        <SitrepList
+          format="full"
+          :sitreps="sitreps"
+        />
       </section>
     </main>
 
@@ -29,6 +29,7 @@
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
+  import SitrepList from '~/components/SitrepList';
 
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
@@ -43,11 +44,12 @@
       AppHeader,
       AppFooter,
       Card,
+      SitrepList,
     },
 
     data() {
       return {
-        entries: [],
+        'sitreps': {},
       }
     },
 
@@ -61,42 +63,38 @@
       };
     },
 
-    // `env` is available in the context object
     asyncData({env, params, store}) {
       return Promise.all([
-        // fetch all content ordered by creation date
+        // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
-          'include': 2,
+          'include': 0,
           'content_type': active_content_type,
         })
-      ]).then(([entries]) => {
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_META', {
-          title: '',
-          dateUpdated: '',
-        });
-
-        // Sort entries by the dateUpdated field, newest first.
-        entries.items.sort(function(a,b){
-          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-        });
-
+      ]).then(([sitreps]) => {
         return {
-          entries: entries.items,
+          'sitreps': sitreps.items,
         }
       }).catch(console.error)
-    }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
+  // .container--404-grid {
+  //   display: grid;
+  //   grid-template-rows: 1fr;
+  //   grid-template-columns: 1fr 1fr;
+  //   grid-gap: 1rem;
+  // }
+
+
   .card__image {
     display: block;
     max-width: 80%;
     margin: 2rem auto;
 
     @media (min-width: 800px) {
-      max-width: 420px;
+      max-width: 360px;
     }
   }
 
@@ -120,29 +118,14 @@
 
   .sitrep-list {
     display: inline-block;
-    margin: 1rem auto;
+    margin: 0 auto 2rem;
     padding: 0;
     position: relative;
     left: 50%;
     transform: translate(-50%);
   }
-  .sitrep {
-    list-style-type: none;
-    margin: 0 0 .5rem 0;
-    padding: 0;
-
-    @media (min-width: 460px) {
-      text-align: right;
-    }
-  }
-  .last-updated {
-    display: block;
-    color: #666;
-    font-style: italic;
-
-    @media (min-width: 460px) {
-      display: inline;
-    }
+  /deep/ .sitrep-group__heading {
+    margin-bottom: 0;
   }
 </style>
 
