@@ -1,5 +1,5 @@
 <template>
-  <ul class="sitrep-list">
+  <ul class="sitrep-list" :class="'format--' + format">
     <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="(data, group) in sorted">
       <span class="sitrep-group__heading">{{ data[0].fields.title }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
@@ -106,9 +106,6 @@
     padding: 0;
   }
   .sitrep-group__heading {
-    margin-top: 1rem;
-    font-size: 1.1em;
-    color: #666;
     text-transform: uppercase;
 
     .wf-loaded & {
@@ -122,4 +119,44 @@
     color: #666;
     font-style: italic;
   }
+
+  //
+  // Format: Full
+  //
+  .format--full {
+    .sitrep-group__heading {
+      margin-top: 1rem;
+      font-size: 1.1em;
+      color: #666;
+    }
+  }
+
+  //
+  // Format: Compact
+  //
+  .format--compact {
+    &.sitrep-list {
+      margin-left: 2.25rem;
+    }
+
+    .sitrep-group__heading {
+      display: inline-block;
+      margin: .25rem 0;
+      padding-left: 1.25rem;
+      font-size: 1em;
+      background-image: url('/icons/icon--location.svg');
+      background-position: 0 50%;
+    }
+
+    .sitrep {
+      display: inline-block;
+      margin: 0 .25rem;
+      text-transform: uppercase;
+
+      a {
+        color: white;
+      }
+    }
+  }
+
 </style>

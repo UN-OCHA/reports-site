@@ -206,28 +206,10 @@
   .link--latest { background-image: url('/icons/icon--location.svg'); }
   .link--about { background-image: url('/icons/icon--about.svg'); }
 
-  /deep/ .sitrep-list {
-    margin-left: 2rem;
-  }
-
+  // Most styles are in the component itself, but we need to copy the .link
+  // styles from this component and @extending here is the least messy way.
   /deep/ .sitrep-group__heading {
     @extend .link;
-    display: inline-block;
-    margin: .25rem 0;
-    padding-left: 1.25rem;
-    font-size: 1em;
-    background-image: url('/icons/icon--location.svg');
-    background-position: 0 50%;
-  }
-
-  /deep/ .sitrep {
-    display: inline-block;
-    margin: 0 .25rem;
-    text-transform: uppercase;
-
-    a {
-      color: white;
-    }
   }
 
   .ocha-services .link {
