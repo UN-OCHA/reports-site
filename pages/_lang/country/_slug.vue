@@ -178,7 +178,8 @@
   function fetchAsyncData({env, lang, slug, store}) {
     return Promise.all([
 
-      // Contentful: fetch the requested SitRep by slug+language
+      // Contentful: fetch the requested SitRep by slug+language plus all linked
+      // data that is required to display a full Sitrep.
       client.getEntries({
         'include': 4,
         'content_type': active_content_type,
@@ -186,9 +187,10 @@
         'fields.language': lang,
       }),
 
-      // Contentful: fetch related SitRep translations with same slug
+      // Contentful: fetch related SitRep translations with same slug without
+      // any linked data.
       client.getEntries({
-        'include': 1,
+        'include': 0,
         'content_type': active_content_type,
         'fields.slug': slug,
       }),

@@ -11,7 +11,10 @@
       </section>
       <section class="card card--sitreps">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
-        <SitrepList :sitreps="sitreps" />
+        <SitrepList
+          format="full"
+          :sitreps="sitreps"
+        />
       </section>
     </main>
 
