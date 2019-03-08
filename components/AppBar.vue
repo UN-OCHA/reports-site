@@ -14,9 +14,7 @@
         <li class="link link--latest">
           {{ $t('Latest updates', locale) }}
         </li>
-        <li class="link link--sitrep" :key="entry.id" v-for="entry in entries">
-          <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
-        </li>
+        <SitrepList :sitreps="sitreps" format="compact" />
         <li v-if="false" class="link link--about">
           <nuxt-link :to="$i18n.path('about/')">{{ $t('About', locale) }}</nuxt-link>
         </li>
@@ -40,6 +38,7 @@
 
 <script>
   import Global from '~/components/_Global';
+  import SitrepList from '~/components/SitrepList';
 
   import { mixin as clickaway } from 'vue-clickaway';
   import {createClient} from '~/plugins/contentful.js';
@@ -52,10 +51,14 @@
       clickaway,
     ],
 
+    components: {
+      SitrepList,
+    },
+
     data() {
       return {
-        entries: [],
-        isExpanded: false,
+        'sitreps': [],
+        'isExpanded': false,
       }
     },
 
@@ -75,22 +78,15 @@
 
     beforeCreate() {
       return Promise.all([
-        // Fetch all SitReps
+        // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
-          'include': 2,
+          'include': 0,
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-
-        // Sort entries by the dateUpdated field, newest first.
-        entries.items.sort(function(a,b){
-          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-        });
-
-        this.entries = entries.items;
+        this.sitreps = entries.items;
       }).catch(console.error)
-    }
-
+    },
   }
 </script>
 
@@ -205,10 +201,29 @@
   .link--home { background-image: url('/icons/icon--home.svg'); }
   .link--latest { background-image: url('/icons/icon--location.svg'); }
   .link--about { background-image: url('/icons/icon--about.svg'); }
-  .link--sitrep {
-    padding-left: 4rem;
+
+  /deep/ .sitrep-list {
+    margin-left: 2rem;
+  }
+
+  /deep/ .sitrep-group__heading {
+    @extend .link;
+    display: inline-block;
+    margin: .25rem 0;
+    padding-left: 1.25rem;
+    font-size: 1em;
     background-image: url('/icons/icon--location.svg');
-    background-position: 2.25rem 50%;
+    background-position: 0 50%;
+  }
+
+  /deep/ .sitrep {
+    display: inline-block;
+    margin: 0 .25rem;
+    text-transform: uppercase;
+
+    a {
+      color: white;
+    }
   }
 
   .ocha-services .link {

@@ -79,32 +79,9 @@
           'include': 0,
           'content_type': active_content_type,
         })
-      ]).then(([entries]) => {
-        // Group entries by Country, sort by dateUpdated, newest first.
-        entries.items.sort((a, b) => {
-          if (a.fields.slug === b.fields.slug) {
-             // Price is only important when cities are the same
-             return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-          }
-          return a.fields.slug > b.fields.slug ? 1 : -1;
-        });
-
-        // We'll provide the template with a multidimensional array instead of
-        // the flat one we get form Contentful.
-        let sitreps = {};
-
-        // For each Sitrep in our sorted list...
-        entries.items.forEach((sitrep) => {
-          // If the group already exists...
-          (sitreps[sitrep.fields.slug])
-            // Add the current SitRep to the group.
-            ? sitreps[sitrep.fields.slug].push(sitrep)
-            // Otherwise begin a new group with the current SitRep.
-            : sitreps[sitrep.fields.slug] = [sitrep];
-        });
-
+      ]).then(([sitreps]) => {
         return {
-          'sitreps': sitreps,
+          'sitreps': sitreps.items,
         }
       }).catch(console.error)
     },

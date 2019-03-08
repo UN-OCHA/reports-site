@@ -29,6 +29,7 @@
               'lang-switcher__language--' + translation.code,
               {'lang-switcher__language--active': translation.code === locale},
             ]"
+            :aria-label="localeName(translation.code)"
           >{{ translation.code }}</nuxt-link>
         </div>
         <SnapPage
@@ -215,7 +216,7 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 2fr 270px;
+        grid-template-columns: 1fr 220px;
         grid-gap: 1rem;
       }
 
@@ -337,13 +338,13 @@
   }
 
   .lang-switcher {
-    // @extend .cta;
-    // appearance: none;
-    // cursor: pointer;
     display: inline-block;
     position: relative;
-    top: -8.5px;
     text-transform: uppercase;
+
+    .page--sitrep & {
+      top: -8.5px;
+    }
   }
 
   .lang-switcher__language {
