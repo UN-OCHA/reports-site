@@ -398,6 +398,19 @@ figure picture ~ figcaption {
   text-transform: none;
 }
 
+
+//—— Animations—————————————————————————————————————————————————————————————————
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
 //—— DevTools ——————————————————————————————————————————————————————————————————
 
 pre {
