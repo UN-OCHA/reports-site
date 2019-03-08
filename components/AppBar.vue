@@ -1,6 +1,6 @@
 <template>
-  <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
-    <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu" v-on-clickaway="closeMenu">
+  <nav class="app-bar" :class="{ 'is--expanded': isExpanded }" v-on-clickaway="closeMenu">
+    <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu">
       <span class="element-invisible">{{ $t('Toggle menu', locale) }}</span>
     </button>
     <nuxt-link :to="$i18n.path('')" class="logo-link">
@@ -9,28 +9,32 @@
     <div class="app-bar__content">
       <ul class="main-nav">
         <li class="link link--home">
-          <nuxt-link :to="$i18n.path('')">{{ $t('Home', locale) }}</nuxt-link>
+          <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
         </li>
         <li class="link link--latest">
           {{ $t('Latest updates', locale) }}
         </li>
-        <SitrepList :sitreps="sitreps" format="compact" />
+        <SitrepList
+          format="compact"
+          :sitreps="sitreps"
+          v-on:close-menu="closeMenu"
+        />
         <li v-if="false" class="link link--about">
-          <nuxt-link :to="$i18n.path('about/')">{{ $t('About', locale) }}</nuxt-link>
+          <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
         </li>
       </ul>
 
       <p class="ocha-heading">{{ $t('OCHA Services', locale) }}</p>
       <ul class="main-nav ocha-services">
-        <li class="link link--fts"><a href="https://fts.unocha.org/" target="_blank" rel="noopener">Financial Tracking Service</a></li>
-        <li class="link link--hdx"><a href="https://data.humdata.org/" target="_blank" rel="noopener">Humanitarian Data Exchange</a></li>
-        <li class="link link--hid"><a href="https://humanitarian.id/" target="_blank" rel="noopener">Humanitarian ID</a></li>
-        <li class="link link--hri"><a href="https://humanitarianresponse.info/" target="_blank" rel="noopener">Humanitarian Response</a></li>
-        <li class="link link--iasc"><a href="https://interagencystandingcommittee.org/" target="_blank" rel="noopener">Inter-Agency Standing Committee</a></li>
-        <li class="link link--ocha"><a href="https://unocha.org/" target="_blank" rel="noopener">OCHA website</a></li>
-        <li class="link link--rw"><a href="https://reliefweb.int/" target="_blank" rel="noopener">ReliefWeb</a></li>
-        <li class="link link--vosocc"><a href="https://vosocc.unocha.org/" target="_blank" rel="noopener">Virtual OSOCC</a></li>
-        <li class="link link--all"><a href="https://www.unocha.org/ocha-digital-services" target="_blank" rel="noopener">See all OCHA services</a></li>
+        <li class="link link--fts"><a href="https://fts.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Financial Tracking Service</a></li>
+        <li class="link link--hdx"><a href="https://data.humdata.org/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Data Exchange</a></li>
+        <li class="link link--hid"><a href="https://humanitarian.id/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian ID</a></li>
+        <li class="link link--hri"><a href="https://humanitarianresponse.info/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Response</a></li>
+        <li class="link link--iasc"><a href="https://interagencystandingcommittee.org/" target="_blank" rel="noopener" @click="closeMenu">Inter-Agency Standing Committee</a></li>
+        <li class="link link--ocha"><a href="https://unocha.org/" target="_blank" rel="noopener" @click="closeMenu">OCHA website</a></li>
+        <li class="link link--rw"><a href="https://reliefweb.int/" target="_blank" rel="noopener" @click="closeMenu">ReliefWeb</a></li>
+        <li class="link link--vosocc"><a href="https://vosocc.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Virtual OSOCC</a></li>
+        <li class="link link--all"><a href="https://www.unocha.org/ocha-digital-services" target="_blank" rel="noopener" @click="closeMenu">See all OCHA services</a></li>
       </ul>
     </div>
   </nav>

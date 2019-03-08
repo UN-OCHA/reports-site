@@ -3,13 +3,19 @@
     <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="(data, group) in sorted">
       <span class="sitrep-group__heading">{{ data[0].fields.title }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
-        <nuxt-link :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'" :aria-label="localeName(sitrep.fields.language)">{{ sitrep.fields.language }}</nuxt-link>
+        <nuxt-link
+          :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+          :aria-label="localeName(sitrep.fields.language)"
+          v-on:click.native="closeParentMenu"
+        >{{ sitrep.fields.language }}</nuxt-link>
       </span>
     </li>
     <li class="sitrep-group" v-if="format === 'full'" :key="data[0].sys.id" v-for="(data, group) in sorted">
       <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
       <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
-        <nuxt-link :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'">{{ localeName(sitrep.fields.language) }}</nuxt-link>
+        <nuxt-link
+          :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+        >{{ localeName(sitrep.fields.language) }}</nuxt-link>
         <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
       </p>
     </li>
@@ -79,7 +85,13 @@
 
         return sorted;
       },
-    }
+    },
+
+    methods: {
+      closeParentMenu() {
+        this.$emit('close-menu');
+      },
+    },
   }
 </script>
 
