@@ -309,6 +309,7 @@
   .snap--pdf,
   .snap--png {
     // Suppress AppBar completely
+    .btn--toggle,
     .app-bar {
       display: none;
     }
