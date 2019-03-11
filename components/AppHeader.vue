@@ -346,7 +346,8 @@
     vertical-align: top;
 
     .page--sitrep & {
-      top: 6px;
+      height: 32px; // match height of other buttons
+      top: 6px; // nudge for nice vertical alignment
     }
   }
 
@@ -379,7 +380,6 @@
   .share {
     display: inline-block;
     animation: fade-in .3333s ease-out;
-
 
     &__toggle {
       display: inline-block;

@@ -60,7 +60,13 @@
   .btn {
     animation: fade-in .3333s ease-out;
   }
+
   .btn--download {
     background-image: url('/icons/icon--download.svg');
+  }
+
+  .btn--is-active {
+    animation: is-active 1s ease-in-out infinite;
+    cursor: wait;
   }
 </style>
