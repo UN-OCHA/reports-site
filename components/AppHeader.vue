@@ -346,7 +346,8 @@
     vertical-align: top;
 
     .page--sitrep & {
-      top: 6px;
+      height: 32px; // match height of other buttons
+      top: 6px; // nudge for nice vertical alignment
     }
   }
 
