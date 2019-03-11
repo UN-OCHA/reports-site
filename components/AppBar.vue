@@ -297,6 +297,7 @@
   // Print layout
   //
   @media print {
+    .btn--toggle,
     .app-bar {
       display: none;
     }
