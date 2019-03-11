@@ -381,7 +381,6 @@
     display: inline-block;
     animation: fade-in .3333s ease-out;
 
-
     &__toggle {
       display: inline-block;
       background-color: transparent;

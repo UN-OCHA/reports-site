@@ -182,5 +182,6 @@
 
   .btn--is-active {
     cursor: wait;
+    animation: is-active 1s ease-in-out infinite;
   }
 </style>
