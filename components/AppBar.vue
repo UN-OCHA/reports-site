@@ -132,14 +132,15 @@
 
   .btn--toggle {
     position: fixed;
-    top: .5rem;
+    top: 0;
     left: 1rem;
     z-index: 1001;
     width: 2rem;
-    height: 2rem;
+    height: 3rem;
+    padding: .5rem 0;
     border: 0;
     color: white;
-    background: transparent url('/icons/icon--hamburger.svg') center no-repeat;
+    background: #4c8cca url('/icons/icon--hamburger.svg') center no-repeat;
     background-size: contain;
     cursor: pointer;
     transition: transform .25s ease-in-out;
@@ -265,12 +266,12 @@
       input#app-bar__toggle:checked ~ &,
       &.is--expanded {
         width: 23rem;
-        overflow: auto;
+        overflow: hidden;
       }
     }
 
     .btn--toggle {
-      top: 2rem;
+      top: 1.5rem;
     }
 
     .app-bar__content {
