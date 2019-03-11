@@ -1,13 +1,15 @@
 <template>
-  <button
-    class="btn btn--pdf"
-    :class="{ 'btn--is-active': snapInProgress }"
-    :disabled="snapInProgress"
-    @click="requestSnap">
-    <span class="element-invisible">
-      Save as PDF
-    </span>
-  </button>
+  <no-ssr>
+    <button
+      class="btn btn--pdf"
+      :class="{ 'btn--is-active': snapInProgress }"
+      :disabled="snapInProgress"
+      @click="requestSnap">
+      <span class="element-invisible">
+        Save as PDF
+      </span>
+    </button>
+  </no-ssr>
 </template>
 
 <script>
@@ -153,6 +155,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .btn {
+    animation: fade-in .3333s ease-out;
+  }
   .btn--pdf {
     display: inline-block;
     background-color: transparent;

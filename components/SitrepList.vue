@@ -141,11 +141,16 @@
 
     .sitrep-group__heading {
       display: inline-block;
-      margin: .25rem 0;
-      padding-left: 1.25rem;
+      margin: 0 0 .5rem 0;
+      padding-left: 1.75rem;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;
+      text-transform: none;
+
+      .wf-loaded & {
+        font-family: "Roboto", sans-serif;
+      }
     }
 
     .sitrep {

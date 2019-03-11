@@ -39,14 +39,16 @@
           :subtitle="$t('Situation Report', locale)"
           :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')" />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
-          <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
-            <span class="element-invisible">{{ $t('Share', locale) }}</span>
-          </button>
-          <div class="share__options card">
-            <a class="share__option share--twitter" v-if="shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
-            <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
-            <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
-          </div>
+          <no-ssr>
+            <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
+              <span class="element-invisible">{{ $t('Share', locale) }}</span>
+            </button>
+            <div class="share__options card">
+              <a class="share__option share--twitter" v-if="shareUrlTwitter" :href="shareUrlTwitter" target="_blank" rel="noopener">Twitter</a>
+              <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
+              <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
+            </div>
+          </no-ssr>
         </div>
       </div>
     </div>
@@ -341,9 +343,10 @@
     display: inline-block;
     position: relative;
     text-transform: uppercase;
+    vertical-align: top;
 
     .page--sitrep & {
-      top: -8.5px;
+      top: 6px;
     }
   }
 
@@ -375,6 +378,8 @@
 
   .share {
     display: inline-block;
+    animation: fade-in .3333s ease-out;
+
 
     &__toggle {
       display: inline-block;
