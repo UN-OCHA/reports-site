@@ -343,9 +343,10 @@
     display: inline-block;
     position: relative;
     text-transform: uppercase;
+    vertical-align: top;
 
     .page--sitrep & {
-      top: -8.5px;
+      top: 6px;
     }
   }
 
