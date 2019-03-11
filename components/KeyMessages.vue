@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <CardActions label="Key Messages" :frag="'#' + cssId" />
+    <CardActions label="Highlights" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>

@@ -1,13 +1,15 @@
 <template>
-  <button
-    class="btn btn--download"
-    :class="{ 'btn--is-active': snapInProgress }"
-    :disabled="snapInProgress"
-    @click="requestSnap">
-    <span class="element-invisible">
-      Save {{ label }} as PNG
-    </span>
-  </button>
+  <no-ssr>
+    <button
+      class="btn btn--download"
+      :class="{ 'btn--is-active': snapInProgress }"
+      :disabled="snapInProgress"
+      @click="requestSnap">
+      <span class="element-invisible">
+        Save {{ label }} as PNG
+      </span>
+    </button>
+  </no-ssr>
 </template>
 
 <script>
@@ -55,7 +57,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .btn {
+    animation: fade-in .3333s ease-out;
+  }
+
   .btn--download {
     background-image: url('/icons/icon--download.svg');
+  }
+
+  .btn--is-active {
+    animation: is-active 1s ease-in-out infinite;
+    cursor: wait;
   }
 </style>

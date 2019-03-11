@@ -70,6 +70,9 @@ html {
   clip: rect(1px, 1px, 1px, 1px);
   overflow: hidden;
   height: 1px;
+
+  // extra style added to avoid horizontal overflows
+  transform: scale(.1);
 }
 
 //
@@ -394,6 +397,19 @@ figure picture ~ figcaption {
   font-weight: 400;
   text-transform: none;
 }
+
+
+//—— Animations—————————————————————————————————————————————————————————————————
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 
 //—— DevTools ——————————————————————————————————————————————————————————————————
 

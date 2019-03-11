@@ -5,11 +5,9 @@ export default {
 
   // Global
   'UN OCHA': 'UN OCHA',
-  'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
+  'UN Office for the Coordination of Humanitarian Affairs': 'Bureau de la coordination des affaires humanitaires des Nations Unies',
   'Situation Report': 'Rapport de situation',
   'Situation Reports': 'Rapports de situation',
-  'Read more': 'Lire davantage',
-  'Read less': 'Lire moins',
 
   // Errors
   'No data available.': 'Aucune donnée disponible.',
@@ -31,6 +29,7 @@ export default {
   'Email': 'Email',
   'Download': 'Télécharger',
   'Archive': 'Archive',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
@@ -56,7 +55,7 @@ export default {
   'Funding': 'Financement',
   'Requirements': 'Conditions requises',
   'Progress': 'Progrès',
-  'Financial data could not be found.': 'Les données sur le financement n\'ont pu être téléchargées.',
+  'Funding data could not be found.': 'Les données sur le financement n\'ont pu être téléchargées.',
 
   // Contacts
   'Contacts': 'Contacts',
@@ -72,27 +71,23 @@ export default {
   'Analysis': 'Analyse',
   'Background': 'Contexte',
   'Coordination': 'Coordination',
-  'Emergency Response': 'Reponse d\'urgence',
-  'Feature': 'Reportage',
+  'Emergency Response': 'Réponse d\'urgence',
+  'Feature': 'Article principal',
   'Forecast': 'Prévisions',
-  'Media': 'Medias',
+  'Media': 'Médias',
   'Trends': 'Tendances',
-  'Visuals and Data': 'Visuels et donnees',
+  'Visuals and Data': 'Visuels et données',
+  'Read more': 'Lire davantage',
+  'Read less': 'Lire moins',
 
   // Flash Updates
-  'Flash Update': 'Flash Info',
-  'minute ago': 'minute ago',
-  'minutes ago': 'minutes ago',
-  'hour ago': 'hour ago',
-  'hours ago': 'hours ago',
-  'day ago': 'day ago',
-  'days ago': 'days ago',
+  'Flash Update': 'Mise à jour éclair',
 
   // Videos
-  'Video': 'Video',
+  'Video': 'Vidéo',
 
   // Interactives
-  'Interactive': 'Interactive',
+  'Interactive': 'Interactif',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',

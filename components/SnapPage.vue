@@ -1,13 +1,15 @@
 <template>
-  <button
-    class="btn btn--pdf"
-    :class="{ 'btn--is-active': snapInProgress }"
-    :disabled="snapInProgress"
-    @click="requestSnap">
-    <span class="element-invisible">
-      Save as PDF
-    </span>
-  </button>
+  <no-ssr>
+    <button
+      class="btn btn--pdf"
+      :class="{ 'btn--is-active': snapInProgress }"
+      :disabled="snapInProgress"
+      @click="requestSnap">
+      <span class="element-invisible">
+        Save as PDF
+      </span>
+    </button>
+  </no-ssr>
 </template>
 
 <script>
@@ -115,11 +117,11 @@
         return `
 <footer class="pdf-footer">
   <div class="pdf-footer__left">
-    ${this.$t('Page # of #').replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
+    ${this.$t('Page # of #', this.locale).replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
   </div>
   <div class="pdf-footer__right">
     <span class="url"></span><br>
-    ${this.$t('Downloaded')}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
+    ${this.$t('Downloaded', this.locale)}: <span> ${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
   </div>
 </footer>
 <style type="text/css">
@@ -153,6 +155,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .btn {
+    animation: fade-in .3333s ease-out;
+  }
   .btn--pdf {
     display: inline-block;
     background-color: transparent;
@@ -177,5 +182,6 @@
 
   .btn--is-active {
     cursor: wait;
+    animation: is-active 1s ease-in-out infinite;
   }
 </style>

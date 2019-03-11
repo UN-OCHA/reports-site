@@ -1,45 +1,52 @@
 <template>
-  <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
-    <button class="btn btn--toggle" title="Toggle menu" @click="toggleMenu" v-on-clickaway="closeMenu">
-      <span class="element-invisible">{{ $t('Toggle menu', locale) }}</span>
-    </button>
-    <nuxt-link to="/" class="logo-link">
-      <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
-    </nuxt-link>
-    <div class="app-bar__content">
-      <ul class="main-nav">
-        <li class="link link--home">
-          <nuxt-link :to="'/'">{{ $t('Home', locale) }}</nuxt-link>
-        </li>
-        <li class="link link--latest">
-          {{ $t('Latest updates', locale) }}
-        </li>
-        <li class="link link--sitrep" :key="entry.id" v-for="entry in entries">
-          <nuxt-link :to="'/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link>
-        </li>
-        <li v-if="false" class="link link--about">
-          <nuxt-link :to="'/about/'">{{ $t('About', locale) }}</nuxt-link>
-        </li>
-      </ul>
+  <div v-on-clickaway="closeMenu">
+    <input id="app-bar__toggle" type="checkbox" v-model="isExpanded" class="element-invisible">
+    <label for="app-bar__toggle" class="btn btn--toggle" :aria-label="$t('Toggle menu', locale)"></label>
 
-      <p class="ocha-heading">{{ $t('OCHA Services', locale) }}</p>
-      <ul class="main-nav ocha-services">
-        <li class="link link--fts"><a href="https://fts.unocha.org/" target="_blank" rel="noopener">Financial Tracking Service</a></li>
-        <li class="link link--hdx"><a href="https://data.humdata.org/" target="_blank" rel="noopener">Humanitarian Data Exchange</a></li>
-        <li class="link link--hid"><a href="https://humanitarian.id/" target="_blank" rel="noopener">Humanitarian ID</a></li>
-        <li class="link link--hri"><a href="https://humanitarianresponse.info/" target="_blank" rel="noopener">Humanitarian Response</a></li>
-        <li class="link link--iasc"><a href="https://interagencystandingcommittee.org/" target="_blank" rel="noopener">Inter-Agency Standing Committee</a></li>
-        <li class="link link--ocha"><a href="https://unocha.org/" target="_blank" rel="noopener">OCHA website</a></li>
-        <li class="link link--rw"><a href="https://reliefweb.int/" target="_blank" rel="noopener">ReliefWeb</a></li>
-        <li class="link link--vosocc"><a href="https://vosocc.unocha.org/" target="_blank" rel="noopener">Virtual OSOCC</a></li>
-        <li class="link link--all"><a href="https://www.unocha.org/ocha-digital-services" target="_blank" rel="noopener">See all OCHA services</a></li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
+      <nuxt-link :to="$i18n.path('')" class="logo-link">
+        <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
+      </nuxt-link>
+      <div class="app-bar__content">
+        <ul class="main-nav">
+          <li class="link link--home">
+            <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
+          </li>
+          <no-ssr>
+            <li class="link link--latest">
+              {{ $t('Latest updates', locale) }}
+            </li>
+            <SitrepList
+              format="compact"
+              :sitreps="sitreps"
+              v-on:close-menu="closeMenu"
+            />
+          </no-ssr>
+          <li v-if="false" class="link link--about">
+            <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
+          </li>
+        </ul>
+
+        <p class="ocha-heading">{{ $t('OCHA Services', locale) }}</p>
+        <ul class="main-nav ocha-services">
+          <li class="link link--fts"><a href="https://fts.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Financial Tracking Service</a></li>
+          <li class="link link--hdx"><a href="https://data.humdata.org/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Data Exchange</a></li>
+          <li class="link link--hid"><a href="https://humanitarian.id/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian ID</a></li>
+          <li class="link link--hri"><a href="https://humanitarianresponse.info/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Response</a></li>
+          <li class="link link--iasc"><a href="https://interagencystandingcommittee.org/" target="_blank" rel="noopener" @click="closeMenu">Inter-Agency Standing Committee</a></li>
+          <li class="link link--ocha"><a href="https://unocha.org/" target="_blank" rel="noopener" @click="closeMenu">OCHA website</a></li>
+          <li class="link link--rw"><a href="https://reliefweb.int/" target="_blank" rel="noopener" @click="closeMenu">ReliefWeb</a></li>
+          <li class="link link--vosocc"><a href="https://vosocc.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Virtual OSOCC</a></li>
+          <li class="link link--all"><a href="https://www.unocha.org/ocha-digital-services" target="_blank" rel="noopener" @click="closeMenu">See all OCHA services</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
   import Global from '~/components/_Global';
+  import SitrepList from '~/components/SitrepList';
 
   import { mixin as clickaway } from 'vue-clickaway';
   import {createClient} from '~/plugins/contentful.js';
@@ -52,10 +59,14 @@
       clickaway,
     ],
 
+    components: {
+      SitrepList,
+    },
+
     data() {
       return {
-        entries: [],
-        isExpanded: false,
+        'sitreps': [],
+        'isExpanded': false,
       }
     },
 
@@ -75,27 +86,29 @@
 
     beforeCreate() {
       return Promise.all([
-        // Fetch all SitReps
+        // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
-          'include': 2,
+          'include': 0,
           'content_type': active_content_type,
         })
       ]).then(([entries]) => {
-
-        // Sort entries by the dateUpdated field, newest first.
-        entries.items.sort(function(a,b){
-          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-        });
-
-        this.entries = entries.items;
+        this.sitreps = entries.items;
       }).catch(console.error)
-    }
-
+    },
   }
 </script>
 
 <style lang="scss" scoped>
   @import '~/assets/Global.scss';
+
+  // To see/debug this checkbox, remove .element-invisible class within template.
+  input#app-bar__toggle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+  }
 
   .app-bar {
     position: fixed;
@@ -107,9 +120,10 @@
     height: 3rem;
     padding: .5rem 1rem;
     background: #4c8cca;
-    transition: height .1666s ease-in-out;
+    transition: height .25s ease-in-out;
     overflow-y: hidden;
 
+    input#app-bar__toggle:checked ~ &,
     &.is--expanded {
       height: 100vh;
       overflow: scroll;
@@ -118,35 +132,34 @@
 
   .btn--toggle {
     position: fixed;
-    top: .5rem;
+    top: 0;
     left: 1rem;
+    z-index: 1001;
     width: 2rem;
-    height: 2rem;
+    height: 3rem;
+    padding: .5rem 0;
     border: 0;
     color: white;
-    background: transparent url('/icons/icon--hamburger.svg') center no-repeat;
+    background: #4c8cca url('/icons/icon--hamburger.svg') center no-repeat;
     background-size: contain;
     cursor: pointer;
+    transition: transform .25s ease-in-out;
 
     &:focus {
       // animation: btn--toggle 1s ease-in-out 1;
       outline: 0;
     }
-  }
 
-  //
-  // Animation: hamburger toggle
-  //
-  @keyframes btn--toggle {
-    0% {
-      transform: rotate(0deg) scale(1);
-    }
-    6% {
-      transform: rotate(0deg) scale(1.5);
-    }
-    24% {
-      transform: rotate(0deg) scale(1);
-    }
+    //
+    // Nav toggle state
+    //
+    // If we wanted to apply an effect to the button, use this compound selector
+    // to target both no-JS and JS.
+    //
+    // input#app-bar__toggle:checked ~ &,
+    // .is--expanded ~ & {
+    //   transform: rotate(90deg);
+    // }
   }
 
   .logo-link {
@@ -205,10 +218,11 @@
   .link--home { background-image: url('/icons/icon--home.svg'); }
   .link--latest { background-image: url('/icons/icon--location.svg'); }
   .link--about { background-image: url('/icons/icon--about.svg'); }
-  .link--sitrep {
-    padding-left: 4rem;
-    background-image: url('/icons/icon--location.svg');
-    background-position: 2.25rem 50%;
+
+  // Most styles are in the component itself, but we need to copy the .link
+  // styles from this component and @extending here is the least messy way.
+  /deep/ .sitrep-group__heading {
+    @extend .link;
   }
 
   .ocha-services .link {
@@ -249,14 +263,15 @@
       overflow: hidden;
       transition-property: width;
 
+      input#app-bar__toggle:checked ~ &,
       &.is--expanded {
         width: 23rem;
-        overflow: auto;
+        overflow: hidden;
       }
     }
 
     .btn--toggle {
-      top: 2rem;
+      top: 1.5rem;
     }
 
     .app-bar__content {
@@ -265,8 +280,10 @@
       transition: opacity .1666s ease-in-out;
     }
 
+    input#app-bar__toggle:checked,
     .app-bar.is--expanded {
-      .app-bar__content {
+      & ~ .app-bar .app-bar__content,
+      & .app-bar__content {
         opacity: 1;
       }
     }
@@ -280,6 +297,7 @@
   // Print layout
   //
   @media print {
+    .btn--toggle,
     .app-bar {
       display: none;
     }
@@ -291,6 +309,7 @@
   .snap--pdf,
   .snap--png {
     // Suppress AppBar completely
+    .btn--toggle,
     .app-bar {
       display: none;
     }

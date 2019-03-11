@@ -8,8 +8,6 @@ export default {
   'UN Office for the Coordination of Humanitarian Affairs': 'UN Office for the Coordination of Humanitarian Affairs',
   'Situation Report': 'Situation Report',
   'Situation Reports': 'Situation Reports',
-  'Read more': 'Read more',
-  'Read less': 'Read less',
 
   // Errors
   'No data available.': 'No data available.',
@@ -31,6 +29,7 @@ export default {
   'Email': 'Email',
   'Download': 'Download',
   'Archive': 'Archive',
+  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
@@ -56,7 +55,7 @@ export default {
   'Funding': 'Funding',
   'Requirements': 'Requirements',
   'Progress': 'Progress',
-  'Financial data could not be found.': 'Financial data could not be found.',
+  'Funding data could not be found.': 'Funding data could not be found.',
 
   // Contacts
   'Contacts': 'Contacts',
@@ -78,15 +77,11 @@ export default {
   'Media': 'Media',
   'Trends': 'Trends',
   'Visuals and Data': 'Visuals And Data',
+  'Read more': 'Read more',
+  'Read less': 'Read less',
 
   // Flash Updates
   'Flash Update': 'Flash Update',
-  'minute ago': 'minute ago',
-  'minutes ago': 'minutes ago',
-  'hour ago': 'hour ago',
-  'hours ago': 'hours ago',
-  'day ago': 'day ago',
-  'days ago': 'days ago',
 
   // Videos
   'Video': 'Video',
