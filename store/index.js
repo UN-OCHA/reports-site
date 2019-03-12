@@ -2,6 +2,10 @@ export const state = () => ({
   locale: 'en',
   locales: [
     {
+      code: 'ar',
+      name: 'عربي'
+    },
+    {
       code: 'en',
       name: 'English'
     },
