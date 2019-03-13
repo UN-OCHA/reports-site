@@ -88,12 +88,15 @@ module.exports = {
   //
   generate: {
     routes: function () {
-      // Define a language list.
-      const languages = ['en', 'es', 'fr', 'ru', 'uk'];
+      // Read languages our of our official Store.
+      //
+      // This is maybe a hack but it gets the canonical list without having to
+      // manually keep it updated.
+      const languages = require('./store/index.js');
 
       // Define a homepage per language.
-      const homepages = languages.map((lang) => {
-        return `/${lang}`;
+      const homepages = languages.state().locales.map((lang) => {
+        return `/${lang.code}`;
       });
 
       // Query Contentful for all SitReps
