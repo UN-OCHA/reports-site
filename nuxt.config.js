@@ -101,7 +101,7 @@ module.exports = {
 
       // Query Contentful for all SitReps
       const sitreps = client.getEntries({
-        'include': 2,
+        'include': 0,
         'content_type': 'sitrep',
       })
       .then((res) => {
