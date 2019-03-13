@@ -106,6 +106,10 @@
   .message-list {
     width: 50%;
     float: left;
+
+    [dir="rtl"] & {
+      float: right;
+    }
   }
   .message {
     margin-right: 1rem;
@@ -118,6 +122,10 @@
   .image-area {
     width: 50%;
     float: right;
+
+    [dir="rtl"] & {
+      float: left;
+    }
   }
   .key-messages__area::after {
     content: '';
