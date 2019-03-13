@@ -35,5 +35,10 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 1rem;
+    }
   }
 </style>
