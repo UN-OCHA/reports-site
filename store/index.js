@@ -2,10 +2,6 @@ export const state = () => ({
   locale: 'en',
   locales: [
     {
-      code: 'ar',
-      name: 'عربي'
-    },
-    {
       code: 'en',
       name: 'English'
     },
@@ -24,6 +20,10 @@ export const state = () => ({
     {
       code: 'uk',
       name: 'Українська'
+    },
+    {
+      code: 'ar',
+      name: 'عربي'
     },
   ],
   reportMeta: {
