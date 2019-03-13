@@ -136,13 +136,18 @@
   //
   .format--compact {
     &.sitrep-list {
-      margin-left: 2.25rem;
+      margin-left: 2rem;
+
+      [dir="rtl"] & {
+        margin-left: auto;
+        margin-right: 2rem;
+      }
     }
 
     .sitrep-group__heading {
       display: inline-block;
       margin: 0 0 .5rem 0;
-      padding-left: 1.75rem;
+      padding-left: 1.5rem;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;
@@ -150,6 +155,12 @@
 
       .wf-loaded & {
         font-family: "Roboto", sans-serif;
+      }
+
+      [dir="rtl"] & {
+        padding-left: 0;
+        padding-right: 1.5rem;
+        background-position: 100% 50%;
       }
     }
 

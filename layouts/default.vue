@@ -180,6 +180,11 @@ html {
   .container {
     margin: 2rem;
     margin-left: 6rem;
+
+    [dir="rtl"] & {
+      margin-left: 1rem;
+      margin-right: 6rem;
+    }
   }
 }
 
