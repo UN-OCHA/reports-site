@@ -204,6 +204,11 @@ main img {
 main ul {
   margin: 0;
   padding: 1em 0 0 2em;
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 1em;
+  }
 }
 main li {
 }
