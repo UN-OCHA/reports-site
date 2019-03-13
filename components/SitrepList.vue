@@ -16,7 +16,10 @@
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
         >{{ localeName(sitrep.fields.language) }}</nuxt-link>
-        <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="sitrep__last-updated">
+          <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
+          <time :datetime="sitrep.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
+        </span>
       </p>
     </li>
   </ul>
