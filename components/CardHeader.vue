@@ -68,6 +68,16 @@
     padding-left: .5rem;
     margin-left: 4px;
     border-left: 1px solid currentColor;
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: 0;
+
+      padding-right: .5rem;
+      margin-right: 4px;
+      border-right: 1px solid currentColor;
+    }
   }
 
   .title {
