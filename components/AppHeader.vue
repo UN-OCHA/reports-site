@@ -15,7 +15,7 @@
     </div>
 
     <div class="meta-area">
-      <div>
+      <div class="cta-area">
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
       </div>
       <div class="meta-area__actions">
@@ -191,7 +191,6 @@
   .title-area {
     display: flex;
     flex-flow: row nowrap;
-    margin-right: 2rem;
   }
 
   .meta-area {
@@ -200,7 +199,6 @@
     // for .meta-area__actions
     position: relative;
   }
-
 
   @media screen and (min-width: 680px) {
     .title-area {
@@ -213,6 +211,10 @@
       text-align: right;
       margin: 0;
       min-height: 70px;
+
+      [dir="rtl"] & {
+        text-align: left;
+      }
     }
 
     @supports (display: grid) {
@@ -239,10 +241,20 @@
   .logo-link {
     display: none; // mobile logo is in AppBar.vue
     flex: 0 0 53px;
-    padding-right: 10px;
     margin-top: 7px;
     margin-right: 10px;
+    padding-right: 10px;
     border-right: 2px solid #4c8cca;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      margin-right: 0;
+      padding-right: 0;
+
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 2px solid #4c8cca;
+    }
 
     // Display logo once we exceed mobile width.
     @media(min-width: $bkpt-app-bar) {
@@ -313,7 +325,15 @@
       background-image: url('/icons/icon--outofsite-blue.svg');
       background-repeat: no-repeat;
       background-size: contain;
+
+      [dir="rtl"] & {
+        transform: scale(-1, 1); // flip horizontally
+      }
     }
+  }
+
+  .cta-area {
+    min-height: 1.5rem;
   }
 
   .cta {
@@ -375,11 +395,18 @@
     position: absolute;
     bottom: 0;
     right: 0;
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 0;
+    }
   }
 
   .share {
     display: inline-block;
     animation: fade-in .3333s ease-out;
+
+    $share-width: 80px;
 
     &__toggle {
       display: inline-block;
@@ -389,21 +416,23 @@
       background-repeat: no-repeat;
       background-size: 20px 16px;
       cursor: pointer;
+      transition: .1666s ease-out;
+      transition-property: opacity, border-radius;
 
       border: 0;
+      border-radius: 7px; // set by default to avoid transition
       width: 32px;
       height: 32px;
       text-align: center;
 
       &:hover {
         opacity: .8;
-        transition: opacity .1666s ease-out;
       }
 
       &:focus,
       .share--is-open & {
+        opacity: 1;
         outline: none;
-        border-radius: 7px;
         background-color: #fff;
         box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
       }
@@ -418,15 +447,23 @@
       top: 32px;
       right: 0;
       z-index: 10;
+      width: calc(#{$share-width} + 2rem); // 2rem comes from .card padding
 
       border-radius: 7px 0 7px 7px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
       opacity: 0;
       transform: scale(0);
       transform-origin: 100% 0%;
       transition: .1666s ease-in-out;
       transition-property: opacity, transform;
       overflow: hidden;
+
+      [dir="rtl"] & {
+        right: auto;
+        left: 0;
+        border-radius: 0 7px 7px 7px;
+        transform-origin: 0% 0%;
+      }
 
       .share--is-open & {
         transform: scale(1);
@@ -440,7 +477,7 @@
       background-repeat: no-repeat;
       background-size: 36px;
       background-position: 50% 0%;
-      width: 60px;
+      width: $share-width;
       height: 48px;
       padding-top: 38px;
       margin-bottom: 1rem;
