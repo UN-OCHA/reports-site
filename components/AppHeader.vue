@@ -204,6 +204,10 @@
     .title-area {
       float: left;
       width: calc(66% - 2rem);
+
+      [dir="rtl"] & {
+        float: right;
+      }
     }
     .meta-area {
       float: right;
@@ -213,6 +217,7 @@
       min-height: 70px;
 
       [dir="rtl"] & {
+        float: left;
         text-align: left;
       }
     }
@@ -327,6 +332,8 @@
       background-size: contain;
 
       [dir="rtl"] & {
+        margin-left: 0;
+        margin-right: .25em;
         transform: scale(-1, 1); // flip horizontally
       }
     }
