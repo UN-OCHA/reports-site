@@ -2,7 +2,7 @@
   <footer class="card__snap-footer">
     <p class="url">
       <span class="label">URL:</span>
-      <span :dir="languageDirection(locale)">{{ thisUrl }}</span>
+      <span dir="ltr">{{ thisUrl }}</span>
     </p>
     <p class="date">
       <span class="label">{{ $t('Date', locale) }}:</span>
