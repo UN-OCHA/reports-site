@@ -106,8 +106,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
     z-index: 1001;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0;
+    }
   }
 
   .app-bar {
@@ -145,6 +149,11 @@
     cursor: pointer;
     transition: transform .25s ease-in-out;
 
+    [dir="rtl"] & {
+      left: auto;
+      right: 1rem;
+    }
+
     &:focus {
       // animation: btn--toggle 1s ease-in-out 1;
       outline: 0;
@@ -163,11 +172,17 @@
   }
 
   .logo-link {
-    position: absolute;
+    position: fixed;
     top: .7rem;
     left: 4rem;
+    z-index: 1001;
 
-    @media(min-width: $bkpt-app-bar) {
+    [dir="rtl"] & {
+      left: auto;
+      right: 4rem;
+    }
+
+    @media (min-width: $bkpt-app-bar) {
       display: none;
     }
   }
@@ -181,6 +196,31 @@
   .app-bar__content {
     margin-top: 4rem;
     padding: 0 .5rem;
+    opacity: 0;
+    transition: opacity .1666s ease-in-out;
+
+    // MAX width. this is for mobile only.
+    @media (max-width: $bkpt-app-bar) {
+      &::before {
+        content: ' ';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4rem;
+        background: linear-gradient(to bottom, #4c8cca 80%, rgba(#4c8cca, 0));
+      }
+    }
+  }
+
+  // Contents of AppBar should fade in when expanded.
+  input#app-bar__toggle:checked,
+  .app-bar.is--expanded {
+    & ~ .app-bar .app-bar__content,
+    & .app-bar__content {
+      opacity: 1;
+    }
   }
 
   //
@@ -195,7 +235,7 @@
     display: block;
     margin: 1rem 0;
     padding: 0;
-    padding-left: 2rem;
+    padding-left: 1.75rem;
     color: white;
     text-decoration: none;
 
@@ -208,6 +248,12 @@
     // setting and leave IE11 to rot for eternity.
     --bgsize: contain;
     background-size: var(--bgsize);
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 1.75rem;
+      background-position: 100% 50%;
+    }
 
     a {
       color: inherit;
@@ -248,6 +294,10 @@
     color: rgba(255, 255, 255, .5);
     font-size: .9em;
     text-transform: uppercase;
+
+    [dir="rtl"] & {
+      font-size: 1.2em;
+    }
   }
 
   //
@@ -263,6 +313,12 @@
       overflow: hidden;
       transition-property: width;
 
+      [dir="rtl"] & {
+        right: 0;
+        left: auto;
+      }
+
+
       input#app-bar__toggle:checked ~ &,
       &.is--expanded {
         width: 23rem;
@@ -276,20 +332,15 @@
 
     .app-bar__content {
       width: 22rem;
-      opacity: 0;
-      transition: opacity .1666s ease-in-out;
-    }
-
-    input#app-bar__toggle:checked,
-    .app-bar.is--expanded {
-      & ~ .app-bar .app-bar__content,
-      & .app-bar__content {
-        opacity: 1;
-      }
     }
 
     .ocha-heading {
       margin-right: .5rem;
+
+      [dir="rtl"] & {
+        margin-right: 0;
+        margin-left: .5rem;
+      }
     }
   }
 

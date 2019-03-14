@@ -16,7 +16,10 @@
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
         >{{ localeName(sitrep.fields.language) }}</nuxt-link>
-        <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="sitrep__last-updated">
+          <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
+          <time :datetime="sitrep.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
+        </span>
       </p>
     </li>
   </ul>
@@ -136,13 +139,18 @@
   //
   .format--compact {
     &.sitrep-list {
-      margin-left: 2.25rem;
+      margin-left: 2rem;
+
+      [dir="rtl"] & {
+        margin-left: auto;
+        margin-right: 2rem;
+      }
     }
 
     .sitrep-group__heading {
       display: inline-block;
       margin: 0 0 .5rem 0;
-      padding-left: 1.75rem;
+      padding-left: 1.5rem;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;
@@ -150,6 +158,12 @@
 
       .wf-loaded & {
         font-family: "Roboto", sans-serif;
+      }
+
+      [dir="rtl"] & {
+        padding-left: 0;
+        padding-right: 1.5rem;
+        background-position: 100% 50%;
       }
     }
 

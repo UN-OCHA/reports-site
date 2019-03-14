@@ -21,6 +21,10 @@ export const state = () => ({
       code: 'uk',
       name: 'Українська'
     },
+    {
+      code: 'ar',
+      name: 'عربي'
+    },
   ],
   reportMeta: {
     title: '',

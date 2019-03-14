@@ -257,7 +257,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
 /*—— Report Medium/Print layout ——————————————————————————————————————————————*/
 
@@ -281,11 +281,21 @@
     float: left;
     width: calc(100% / 3 - (2rem / 3));
     min-height: 240px;
-    margin-right: 1rem;
+    margin-right: .99rem;
+
+    [dir="rtl"] & {
+      float: right;
+      margin-right: 0;
+      margin-left: .99rem;
+    }
   }
 
   .card--contacts {
     margin-right: 0;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+    }
   }
 
   /**

@@ -86,7 +86,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .image-area {
   width: 100%;
@@ -98,19 +98,34 @@
   line-height: 1.5;
 }
 
-@media print and (min-width: 6in), screen and (min-width: 800px) {
+@media print and (min-width: 6in),
+       screen and (min-width: 800px) {
+
   .key-messages__area {
   }
   .message-list {
     width: 50%;
     float: left;
+
+    [dir="rtl"] & {
+      float: right;
+    }
   }
   .message {
     margin-right: 1rem;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 1rem;
+    }
   }
   .image-area {
     width: 50%;
     float: right;
+
+    [dir="rtl"] & {
+      float: left;
+    }
   }
   .key-messages__area::after {
     content: '';

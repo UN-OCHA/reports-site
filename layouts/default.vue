@@ -180,6 +180,11 @@ html {
   .container {
     margin: 2rem;
     margin-left: 6rem;
+
+    [dir="rtl"] & {
+      margin-left: 1rem;
+      margin-right: 6rem;
+    }
   }
 }
 
@@ -204,6 +209,11 @@ main img {
 main ul {
   margin: 0;
   padding: 1em 0 0 2em;
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 1em;
+  }
 }
 main li {
 }

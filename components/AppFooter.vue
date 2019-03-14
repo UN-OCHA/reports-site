@@ -68,6 +68,11 @@
       display: block;
       margin-bottom: .5em;
     }
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 2em;
+    }
   }
 
   .link a {
@@ -81,12 +86,20 @@
   .footer-menu {
     list-style: none;
     margin: 2em 0 0;
-    padding-left: 0;
+    padding: 0;
   }
 
   .footer-menu li {
     display: inline-block;
-    margin: 0 2em 1em 0;
+    margin-top: 0;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 2em;
+
+    [dir="rtl"] & {
+      margin-left: 2em;
+      margin-right: 0;
+    }
   }
 
   .footer-menu a {
@@ -113,6 +126,10 @@
 
   .social-menu {
     float: right;
+
+    [dir="rtl"] & {
+      float: left;
+    }
   }
 
   .social-link {
@@ -126,6 +143,10 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
+
+    [dir="rtl"] & {
+      margin: 1.5em .666em 0 0;
+    }
   }
 
   .social-link a {
