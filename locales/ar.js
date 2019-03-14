@@ -90,7 +90,7 @@ export default {
   'Interactive': 'تفاعلي',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
+  'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقارير الوضع عن COUNTRY',
 
   // Snap strings
   'Date of Creation': 'تاريخ الإنشاء',
