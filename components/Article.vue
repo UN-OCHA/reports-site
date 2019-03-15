@@ -63,7 +63,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions label="Article" :frag="'#' + cssId" />
+    <CardActions :label="content.fields.sectionHeading" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>

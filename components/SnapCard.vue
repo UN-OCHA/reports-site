@@ -6,7 +6,7 @@
       :disabled="snapInProgress"
       @click="requestSnap">
       <span class="element-invisible">
-        Save {{ label }} as PNG
+        {{ buttonLabel }}
       </span>
     </button>
   </no-ssr>
@@ -30,6 +30,12 @@
     },
 
     computed: {
+      buttonLabel() {
+        // Two-step translation. Our translations have the literal string THING
+        // in them, so we swap that word out in a second step.
+        return this.$t('Save THING as PNG', this.locale).replace('THING', this.$t(this.label, this.locale));
+      },
+
       snapRequest() {
         // To deal with some layout issues on some cards, particularly Key Messages
         // we want to render the website at a large size, but not trigger the
