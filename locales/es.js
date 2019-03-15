@@ -92,6 +92,10 @@ export default {
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Leer la última actualización del informe de situación de COUNTRY',
 
+  // Card Actions
+  'Save Situation Report as PDF': 'Save Situation Report as PDF',
+  'Save THING as PNG': 'Save THING as PNG',
+
   // Snap strings
   'Date of Creation': 'Fecha de creación',
   'Date': 'Fecha',
