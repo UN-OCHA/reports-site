@@ -173,6 +173,10 @@
       .article__image {
         float: right;
         width: 33.333%;
+
+        [dir="rtl"] & {
+          float: left;
+        }
       }
 
       .article__text {
@@ -180,6 +184,11 @@
         clear: left;
         width: calc(66.666% - 1rem);
         margin-right: 1rem;
+
+        [dir="rtl"] & {
+          float: right;
+          clear: right;
+        }
       }
     }
 
@@ -288,6 +297,12 @@
       float: right;
       max-width: 40%;
       margin-left: 2em;
+
+      [dir="rtl"] & {
+        float: left;
+        margin-left: 0;
+        margin-right: 2em;
+      }
     }
 
     .is--expandable {

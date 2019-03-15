@@ -55,7 +55,7 @@
       },
 
       filename() {
-        const rightNow = this.$moment(Date.now()).locale(this.locale).format('DD MMM YYYY');
+        const rightNow = this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
         return `${this.$t('Situation Report', this.locale)} - ${this.$store.state.reportMeta.title} - ${rightNow}.${this.output}`;
       },
     },
