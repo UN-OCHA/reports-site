@@ -140,6 +140,11 @@
     bottom: 1rem;
     text-align: right;
     color: darken(#4a8cca, 10%);
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 1rem;
+    }
   }
 
   @media print {
@@ -160,9 +165,21 @@
       text-decoration: none;
       word-break: break-all;
 
+      [dir="rtl"] & {
+        padding-right: 0;
+        padding-left: 1em;
+        text-align: right;
+        direction: rtl;
+      }
+
       &::after {
         content: ': ' attr(href);
         margin-right: 1em;
+
+        [dir="rtl"] & {
+          margin-right: 0;
+          margin-left: 1em;
+        }
       }
     }
   }

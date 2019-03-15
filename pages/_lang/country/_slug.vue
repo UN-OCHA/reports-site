@@ -412,11 +412,21 @@
     border-right: 1px solid #ddd;
     border-bottom: 0 !important; /* override shared print/screen Grid styles */
     margin-bottom: 0;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      border-left: 1px solid #ddd;
+    }
   }
   .card--keyFinancials {
     border-right: 1px solid #ddd;
     border-bottom: 0;
     margin-bottom: 0;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      border-left: 1px solid #ddd;
+    }
   }
   .card--contacts {
     border: 0;
