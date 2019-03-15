@@ -2,7 +2,10 @@
   <section class="card card--keyFinancials" :id="cssId">
     <CardHeader />
 
-    <h2 class="card__title">{{ $t('Funding', locale) }}</h2>
+    <h2 class="card__title">
+      {{ $t('Funding', locale) }}
+      <span v-if="ftsDataYear" class="card__time-ago">({{ ftsDataYear }})</span>
+    </h2>
     <div class="figures clearfix">
       <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id">
         <span class="data">{{ figure.fields.financial }}</span>
@@ -87,6 +90,12 @@
             },
           },
         ];
+      },
+
+      ftsDataYear() {
+        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+
+        return plan && this.$moment(plan.startDate).locale(this.locale).format('YYYY');
       },
     },
 
