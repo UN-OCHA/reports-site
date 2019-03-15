@@ -6,7 +6,7 @@
       :disabled="snapInProgress"
       @click="requestSnap">
       <span class="element-invisible">
-        Save as PDF
+        {{ $t('Save Situation Report as PDF', locale) }}
       </span>
     </button>
   </no-ssr>

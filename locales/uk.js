@@ -28,8 +28,8 @@ export default {
   'Share': 'Поширити',
   'Email': 'Електронна пошта',
   'Download': 'Завантажити',
-  'Archive': 'Archive',
-  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
+  'Archive': 'Архів',
+  'Read this Situation Report in a different language:': 'Прочитайте це Оперативне зведення іншою мовою',
 
   // AppFooter
   'Privacy policy': 'Політика конфіденційності ',
@@ -46,7 +46,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Ключові положення',
-  'Highlights': 'Highlights',
+  'Highlights': 'Головне',
 
   // Key Figures
   'Key Figures': 'Ключові показники',
@@ -84,13 +84,17 @@ export default {
   'Flash Update': 'Flash Update',
 
   // Videos
-  'Video': 'Video',
+  'Video': 'Відео',
 
   // Interactives
   'Interactive': 'Interactive',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',
+
+  // Card Actions
+  'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
+  'Save THING as PNG': 'Зберегти THING у форматі PNG',
 
   // Snap strings
   'Date of Creation': 'Дата створення',
