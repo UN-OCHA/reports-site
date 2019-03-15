@@ -56,7 +56,7 @@
       //
       // If you need to map another component, feel free to add it. The list
       // does not need to be limited to specific components, but we only add
-      // them as needed. Format using the convention. Both are case sensitive!
+      // them as needed. Format using the case-sensitive convention shown here:
       //
       // 'contentfulMachineKey': 'VueComponentFilename',
       //
