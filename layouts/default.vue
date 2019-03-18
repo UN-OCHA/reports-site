@@ -188,16 +188,6 @@ html {
   }
 }
 
-[class*="viz--"] {
-  display: none;
-}
-
-@media (min-width: 480px) {
-  .viz--480 {
-    display: initial;
-  }
-}
-
 //—— General content ———————————————————————————————————————————————————————————
 
 main {
