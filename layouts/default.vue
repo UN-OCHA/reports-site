@@ -208,7 +208,7 @@ main img {
 }
 main ul {
   margin: 0;
-  padding: 1em 0 0 2em;
+  padding: 1em 0 0 1em;
 
   [dir="rtl"] & {
     padding-left: 0;
@@ -247,8 +247,13 @@ main code {
 }
 .rich-text ul,
 .rich-text ol {
-  margin: 0 1em 1em 1.2em;
+  margin: 0 1em 1em 2em;
   padding: 0;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 2em;
+  }
 }
 .rich-text li {
   margin-bottom: .5em;
