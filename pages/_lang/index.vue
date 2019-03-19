@@ -92,21 +92,21 @@
 </script>
 
 <style lang="scss" scoped>
-  @media (min-width: 960px) {
+  @media (min-width: 800px) {
     .card--intro {
       float: right;
-      width: calc(33.333% - 1rem);
+      width: calc(60% - 1rem);
       margin-left: 1rem;
     }
     .card--sitreps {
-      width: calc(66.666%);
+      width: calc(40%);
     }
 
     @supports (display: grid) {
       main {
         display: grid;
         grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 2fr;
+        grid-template-columns: 2fr 3fr;
         grid-gap: 1rem;
       }
 
@@ -121,12 +121,6 @@
       .card--sitreps {
         grid-area: sitreps;
       }
-    }
-  }
-
-  @media (min-width: 1080px) {
-    main {
-      grid-template-columns: 2fr 3fr;
     }
   }
 </style>
