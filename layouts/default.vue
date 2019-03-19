@@ -217,10 +217,12 @@ html {
   // to one side depending on reading direction in order to horizontally center
   // them perfectly within the gray space (NOT including AppBar width)
   @media screen and (min-width: $bkpt-grid-max) {
-    transform: translateX(2rem);
+    [dir="ltr"] & {
+      margin-left: 2rem
+    }
 
     [dir="rtl"] & {
-      transform: translateX(-2rem);
+      margin-right: 2rem;
     }
   }
 }
