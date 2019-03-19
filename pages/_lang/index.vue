@@ -4,12 +4,12 @@
     <AppHeader />
 
     <main class="container">
-      <section class="card card--intro rich-text">
+      <section class="card card--intro rich-text" ref="homeIntro">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
         <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
         <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
       </section>
-      <section class="card card--sitreps">
+      <section class="card card--sitreps" ref="homeList">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
           format="full"
@@ -62,6 +62,28 @@
 
       if (lang) {
         this.$store.commit('SET_LANG', lang);
+      }
+    },
+
+    mounted() {
+      if (
+        typeof window.CSS !== 'undefined' &&
+        typeof window.CSS.supports !== 'undefined' &&
+        window.CSS.supports('display', 'grid')
+      ) {
+        // Browsers supporting CSS Grid will render properly without assistance.
+      }
+      else {
+        // Calculate which column is tallest
+        let intro = this.$refs.homeIntro;
+        let list = this.$refs.homeList;
+        let introHeight = intro.getBoundingClientRect().height;
+        let listHeight = list.getBoundingClientRect().height;
+        let tallestHeight = (introHeight > listHeight) ? introHeight : listHeight;
+
+        // Both should be set to the height of the taller element;
+        intro.style.height = tallestHeight + 'px';
+        list.style.height = tallestHeight + 'px';
       }
     },
 
