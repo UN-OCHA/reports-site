@@ -327,7 +327,7 @@
     }
 
     .btn--toggle {
-      top: 1.5rem;
+      top: .5rem;
     }
 
     .app-bar__content {

@@ -173,6 +173,7 @@
 
   .header {
     border-bottom: 3px solid #4c8cca;
+    margin-bottom: 2rem;
     padding-bottom: 1rem;
 
     @media print {
@@ -200,7 +201,7 @@
     position: relative;
   }
 
-  @media screen and (min-width: 680px) {
+  @media screen and (min-width: 686px) {
     .title-area {
       float: left;
       width: calc(66% - 2rem);
@@ -225,7 +226,9 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 1fr 220px;
+
+        // 175 is enough for three languages on a SitRep, six on homepage
+        grid-template-columns: 1fr 175px;
         grid-gap: 1rem;
       }
 

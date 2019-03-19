@@ -209,6 +209,10 @@ html {
   background-color: transparent;
   box-shadow: none;
 
+  @media screen and (min-width: $bkpt-app-bar) {
+    margin: 1rem 0;
+  }
+
   // Since #__layout is doing the actual layout, we nudge the containers a bit
   // to one side depending on reading direction in order to horizontally center
   // them perfectly within the gray space (NOT including AppBar width)

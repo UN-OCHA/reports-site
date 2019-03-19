@@ -39,6 +39,7 @@
   .footer {
     clear: both;
     border-top: 3px solid #4c8cca;
+    margin: 2rem 0;
     padding-top: 1em;
     font-size: .85em;
     overflow-x: hidden; // long links shouldn't break layout
