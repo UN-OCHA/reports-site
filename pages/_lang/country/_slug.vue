@@ -389,6 +389,7 @@
 
   .section--primary {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
   }
 
   .section--everythingElse {
