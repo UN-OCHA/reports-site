@@ -403,7 +403,7 @@ figure picture ~ figcaption {
   padding: 1rem;
   background: white;
   border-radius: 7px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   position: relative;
 
   @media print {
