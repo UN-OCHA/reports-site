@@ -167,4 +167,13 @@
   .video--full {
     padding-bottom: 75%; // 4:3
   }
+
+  //
+  // Snap: PDF
+  //
+  .snap--pdf {
+    .video {
+      page-break-inside: avoid;
+    }
+  }
 </style>
