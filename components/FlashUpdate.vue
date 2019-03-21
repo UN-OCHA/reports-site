@@ -86,7 +86,7 @@
       },
 
       // Determine if we should show the Flash Update at all based on the number
-      // of minutes versus the duration field.
+      // of minutes since last-updated versus the duration field.
       displayFlashUpdate() {
         return (Math.floor(this.timeAgoInMinutes / 60) > this.content.fields.duration) ? false : true;
       },

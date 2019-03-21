@@ -11,7 +11,7 @@
       :snap="true" />
 
     <main class="container report">
-      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in entry.fields.flashUpdate" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in flashUpdates" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
 
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
@@ -75,6 +75,18 @@
     // Set up empty objects that will be populated by asyncData.
     data() {
       return {}
+    },
+
+    computed: {
+      flashUpdates() {
+        const flashUpdate = this.flashUpdates.filter((fu) => {
+          // console.log('🐛', fu.fields.relatedSitRep.sys.id);
+          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
+        });
+
+        // Array.filter returns an array. Return the result directly.
+        return flashUpdate[0];
+      }
     },
 
     methods: {
@@ -194,6 +206,13 @@
         'fields.slug': slug,
       }),
 
+      // Contentful: fetch any Flash Updates that are associated with this SitRep
+      client.getEntries({
+        'include': 4,
+        'content_type': 'flashUpdate',
+        // 'fields.relatedSitRep.sys.id': '',
+      }),
+
       // FTS: fetch all v2 plans for 2018.
       (process.server)
         ? axios({
@@ -224,7 +243,7 @@
           .then(response => response.data)
           .catch(console.warn)
 
-    ]).then(([entries, translationEntries, ftsData2018, ftsData2019]) => {
+    ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
 
       // For client-side, update our store with the fresh data.
       store.commit('SET_META', {
@@ -251,6 +270,7 @@
         'translations': translations,
         'entry': entries.items[0],
         'ftsData': ftsData,
+        'flashUpdates': flashUpdates.items,
       };
     }).catch(console.error)
   }
