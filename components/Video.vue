@@ -30,6 +30,9 @@
           <button class="video__play"></button>
         </a>
       </div>
+      <div class="video__pdf-link">
+        <p>View this video at: <a :href="videoEmbedLink">{{ videoEmbedLink }}</a></p>
+      </div>
       <div class="video__text">
         <h3 class="video__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="richBody"></div>
@@ -168,12 +171,32 @@
     padding-bottom: 75%; // 4:3
   }
 
+  // Hide PDF link by default. See Snap PDF below.
+  .video__pdf-link {
+    display: none;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-style: italic;
+  }
+
   //
   // Snap: PDF
   //
   .snap--pdf {
+    // Don't allow video thumbnail to be broken across two pages.
     .video {
       page-break-inside: avoid;
+    }
+
+    // Video can't be played in a PDF.
+    .video__play {
+      display: none;
+    }
+
+    // Since the image isn't clickable automatically, print an extra message
+    // containing a plaintext link.
+    .video__pdf-link {
+      display: block;
     }
   }
 </style>
