@@ -44,15 +44,12 @@
     border-bottom: 2px solid currentColor;
     padding-bottom: .5rem;
     margin-bottom: 1rem;
+    font-family: "Roboto Condensed", sans-serif;
 
     // display: grid;
     grid-template-areas: "logo meta";
     grid-template-columns: 48px 1fr;
     grid-gap: 0;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", serif;
-    }
   }
 
   .logo {

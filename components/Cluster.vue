@@ -78,10 +78,7 @@
   .cluster__title,
   .cluster__bucket-title {
     margin-bottom: 1rem;
-
-    .wf-loaded & {
-      font-family: 'Roboto Condensed';
-    }
+    font-family: 'Roboto Condensed';
   }
 
   .cluster__bucket {

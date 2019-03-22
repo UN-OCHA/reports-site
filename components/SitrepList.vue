@@ -110,10 +110,7 @@
   }
   .sitrep-group__heading {
     text-transform: uppercase;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
+    font-family: "Roboto Condensed", sans-serif;
   }
   .sitrep {
     margin: .25rem 0;
@@ -151,14 +148,11 @@
       display: inline-block;
       margin: 0 0 .5rem 0;
       padding-left: 1.5rem;
+      font-family: "Roboto", sans-serif;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;
       text-transform: none;
-
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
-      }
 
       [dir="rtl"] & {
         padding-left: 0;

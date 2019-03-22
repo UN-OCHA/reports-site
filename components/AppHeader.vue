@@ -278,11 +278,7 @@
 
   .title-area__headings {
     flex: 1 0 80%;
-    font-family: sans-serif;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
+    font-family: "Roboto Condensed", sans-serif;
   }
 
   .title {
@@ -351,6 +347,7 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
+    font-family: "Roboto Condensed", Roboto, sans-serif;
     font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;
@@ -359,10 +356,6 @@
       cursor: pointer;
       opacity: .8;
       transition: opacity .1666s ease-out;
-    }
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", Roboto, sans-serif;
     }
   }
 

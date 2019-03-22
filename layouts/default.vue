@@ -16,7 +16,7 @@
 }
 
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Roboto, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -24,10 +24,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-
-  &.wf-loaded {
-    font-family: Roboto; // no fallback because `html` has system fonts as fallback.
-  }
 }
 
 @media screen {
@@ -385,19 +381,14 @@ figure picture ~ figcaption {
   }
 }
 
-
 .card__title {
   display: block;
   margin-bottom: 1rem;
   color: #444;
-  font-family: sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
-
-  .wf-loaded & {
-    font-family: "Roboto Condensed", sans-serif;
-  }
 }
 
 .card__time-ago {

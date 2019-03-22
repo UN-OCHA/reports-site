@@ -112,13 +112,9 @@
   }
 
   .flash-update__title {
-    font-family: sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 700;
     margin-bottom: 1em;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
   }
 
   .flash-update__image {
@@ -206,14 +202,10 @@
       background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
       background-size: 12px auto;
       color: hsl(0, 0%, 50%);
-      font-family: sans-serif;
+      font-family: "Roboto", sans-serif;
       font-size: 1em;
       text-transform: uppercase;
       cursor: pointer;
-
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
-      }
 
       &:focus {
         outline: none;

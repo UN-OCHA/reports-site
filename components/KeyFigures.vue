@@ -60,16 +60,12 @@
     }
 
     .data {
-      font-family: sans-serif;
+      font-family: "Roboto Condensed", sans-serif;
       font-size: 2em;
       font-weight: 700;
       color: #4A8CCA;
       text-decoration: none;
       position: relative;
-
-      .wf-loaded & {
-        font-family: "Roboto Condensed", sans-serif;
-      }
     }
 
     a[href].data {

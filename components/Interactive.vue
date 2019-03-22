@@ -107,13 +107,9 @@
   }
 
   .interactive__title {
-    font-family: sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 700;
     margin-bottom: 1em;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
   }
 
   .interactive__image {

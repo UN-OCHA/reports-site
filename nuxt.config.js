@@ -27,7 +27,7 @@ module.exports = {
   //
   head: {
     htmlAttrs: {
-      lang: 'en-US'
+      lang: 'en-US',
     },
     title: 'Digital Situation Report',
     meta: [
