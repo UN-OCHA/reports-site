@@ -87,10 +87,24 @@
 </script>
 
 <style lang="scss" scoped>
+//
+// Import shared variables
+//
+@import '~/assets/Global.scss';
 
 .image-area {
   width: 100%;
   border-radius: 5px;
+}
+.message-list {
+  @media (min-width: $bkpt-app-bar) {
+    [dir="ltr"] & {
+      padding-left: 2rem;
+    }
+    [dir="rtl"] & {
+      padding-right: 2rem;
+    }
+  }
 }
 .message {
   font-size: 1.1em;

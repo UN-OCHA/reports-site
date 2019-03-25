@@ -260,6 +260,15 @@
       text-transform: uppercase;
       cursor: pointer;
 
+      [dir="ltr"] & {
+        float: left;
+        clear: left;
+      }
+      [dir="rtl"] & {
+        float: right;
+        clear: right;
+      }
+
       .wf-loaded & {
         font-family: "Roboto", sans-serif;
       }
