@@ -169,10 +169,21 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
   @import '~/assets/Global.scss';
+
+  //
+  // AppHeader variables
+  //
+  $header-padding: 7px;
+  $logo-width: 61px;
+
 
   .header {
     border-bottom: 3px solid #4c8cca;
+    margin-bottom: 2rem;
     padding-bottom: 1rem;
 
     @media print {
@@ -195,12 +206,10 @@
 
   .meta-area {
     margin-top: 1rem;
-
-    // for .meta-area__actions
-    position: relative;
+    position: relative; // for .meta-area__actions
   }
 
-  @media screen and (min-width: 680px) {
+  @media screen and (min-width: 690px) {
     .title-area {
       float: left;
       width: calc(66% - 2rem);
@@ -212,9 +221,10 @@
     .meta-area {
       float: right;
       width: 33%;
-      text-align: right;
-      margin: 0;
       min-height: 70px;
+      margin: 0;
+      padding-top: $header-padding;
+      text-align: right;
 
       [dir="rtl"] & {
         float: left;
@@ -225,7 +235,9 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 1fr 220px;
+
+        // 175 is enough for three languages on a SitRep, six on homepage
+        grid-template-columns: 1fr 175px;
         grid-gap: 1rem;
       }
 
@@ -245,19 +257,20 @@
 
   .logo-link {
     display: none; // mobile logo is in AppBar.vue
-    flex: 0 0 53px;
-    margin-top: 7px;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 2px solid #4c8cca;
+    flex: 0 0 $logo-width;
+    height: calc(#{$logo-width} * 15 / 13); // OCHA logo ratio: 15/13
+    margin-top: $header-padding;
+    margin-right: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #4c8cca;
 
     [dir="rtl"] & {
       border-right: 0;
       margin-right: 0;
       padding-right: 0;
 
-      margin-left: 10px;
-      padding-left: 10px;
+      margin-left: 1rem;
+      padding-left: 1rem;
       border-left: 2px solid #4c8cca;
     }
 
@@ -272,8 +285,8 @@
   }
 
   .logo {
-    width: 53px;
-    height: 61px;
+    width: $logo-width;
+    height: calc(#{$logo-width} * 15 / 13); // OCHA logo ratio: 15/13
   }
 
   .title-area__headings {
@@ -288,9 +301,11 @@
   .title {
     display: block;
     color: #4c8cca;
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: 700;
     text-transform: uppercase;
+    margin-top: 1px;
+    margin-bottom: -1px;
   }
 
   .subtitle {
@@ -298,6 +313,11 @@
     color: #4c8cca;
     font-size: 1.2em;
     font-weight: 400;
+
+    .page--front & {
+      max-width: 345px;
+      line-height: 1.1;
+    }
   }
 
   .last-updated {
@@ -306,20 +326,16 @@
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
-    margin-right: .5em; // for archive link if it _doesn't_ wrap
+    margin-right: .25em; // for archive link if it _doesn't_ wrap
 
     [dir="rtl"] & {
       margin-right: 0;
-      margin-left: .5em;
+      margin-left: .25em;
     }
 
     [lang="ar"] & {
       font-style: normal;
     }
-  }
-
-  .last-updated::first-letter {
-    text-transform: capitalize;
   }
 
   .past-sitreps a {
@@ -334,7 +350,7 @@
       display: inline-block;
       width: 1em;
       height: 1em;
-      margin-left: .25em;
+      margin-left: .2rem;
       background-color: transparent;
       background-image: url('/icons/icon--outofsite-blue.svg');
       background-repeat: no-repeat;
@@ -342,7 +358,7 @@
 
       [dir="rtl"] & {
         margin-left: 0;
-        margin-right: .25em;
+        margin-right: .2rem;
         transform: scale(-1, 1); // flip horizontally
       }
     }
@@ -387,7 +403,7 @@
   .lang-switcher__language {
     width: auto;
     height: 1rem;
-    padding: 0 .25rem;
+    padding: .333rem .25rem;
     color: #4c8cca;
     text-align: center;
     text-decoration: none;
@@ -412,6 +428,13 @@
     [dir="rtl"] & {
       right: auto;
       left: 0;
+    }
+
+    // Align with other meta on SitReps
+    @media(min-width: $bkpt-app-bar) {
+      .page--sitrep & {
+        bottom: $header-padding * -1;
+      }
     }
   }
 

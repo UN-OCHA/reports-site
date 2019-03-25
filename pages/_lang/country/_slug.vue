@@ -307,7 +307,6 @@
                            "keyFigures   keyFinancials  contacts";
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1rem;
-      margin-bottom: 1rem;
     }
 
     .section--primary .card {
@@ -390,6 +389,7 @@
 
   .section--primary {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
   }
 
   .section--everythingElse {
