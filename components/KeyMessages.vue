@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--keyMessages key-messages" :id="cssId">
+  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId">
     <CardHeader />
 
     <h2 class="card__title">
@@ -101,8 +101,6 @@
 @media print and (min-width: 6in),
        screen and (min-width: 800px) {
 
-  .key-messages__area {
-  }
   .message-list {
     width: 50%;
     float: left;

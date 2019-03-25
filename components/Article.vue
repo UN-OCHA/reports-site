@@ -3,7 +3,7 @@
     <CardHeader />
 
     <span class="card__title">
-      {{ $t(content.fields.sectionHeading, locale) }}
+      <span class="card__heading">{{ $t(content.fields.sectionHeading, locale) }}</span>
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
     <div class="article__content" :class="{ 'article__content--has-image': articleHasImage }">
@@ -57,7 +57,7 @@
     </div>
     <button
       v-if="isExpandable"
-      class="btn--toggle-text"
+      class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
@@ -155,6 +155,10 @@
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 700;
     margin-bottom: 1em;
+
+    [lang="ar"] & {
+      font-family: 'Kufi Bold', 'Roboto Condensed', sans-serif;
+    }
   }
 
   .article__image {
@@ -245,6 +249,7 @@
 
     .btn--toggle-text {
       display: block;
+      width: auto;
       border: none;
       padding: 0 1em 0 0;
       margin: 1rem 0 0 0;
@@ -253,8 +258,13 @@
       color: hsl(0, 0%, 50%);
       font-family: "Roboto", sans-serif;
       font-size: 1em;
+      line-height: 1;
       text-transform: uppercase;
       cursor: pointer;
+
+      [lang="ar"] & {
+        font-family: 'Kufi', Roboto, sans-serif;
+      }
 
       &:focus {
         outline: none;

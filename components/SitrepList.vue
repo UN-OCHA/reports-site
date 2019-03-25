@@ -15,6 +15,7 @@
       <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+          :lang="sitrep.fields.language"
         >{{ localeName(sitrep.fields.language) }}</nuxt-link>
         <span class="sitrep__last-updated">
           <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
@@ -114,6 +115,15 @@
   }
   .sitrep {
     margin: .25rem 0;
+
+    // Although it brings consistency to the various pages, this one rule adds
+    // a 60K font download to the homepage to render a single word. Unless it is
+    // deemed extremely important to retain branding across pages, we are not
+    // applying the Kufi font to the non-Arabic language homepage for now.
+    //
+    // a[lang="ar"] {
+    //   font-family: 'Kufi', Roboto, sans-serif;
+    // }
   }
   .sitrep__last-updated {
     color: #666;

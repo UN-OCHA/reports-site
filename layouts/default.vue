@@ -24,7 +24,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+
+  &[lang="ar"] {
+    font-family: 'Kufi', Roboto, sans-serif;
+  }
 }
+
+
 
 @media screen {
   body {
@@ -162,6 +168,28 @@ html {
        url('/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
 }
 
+// Noto Kufi Arabic
+// @see https://www.google.com/get/noto/#kufi-arab
+@font-face {
+  font-display: swap;
+  font-family: 'Kufi';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoKufiArabic Regular'), local('NotoKufiArabic-Regular'),
+       url('/fonts/NotoKufiArabic-Regular.ttf') format('woff');
+}
+// Noto Kufi Arabic Bold
+// @see https://www.google.com/get/noto/#kufi-arab
+@font-face {
+  font-display: swap;
+  font-family: 'Kufi Bold';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoKufiArabic Bold'), local('NotoKufiArabic-Bold'),
+       url('/fonts/NotoKufiArabic-Bold.ttf') format('woff');
+}
+
+
 //—— Site Container ————————————————————————————————————————————————————————————
 
 .container {
@@ -204,11 +232,11 @@ main img {
 }
 main ul {
   margin: 0;
-  padding: 1em 0 0 2em;
+  padding: 1em 0 0 1.5em;
 
   [dir="rtl"] & {
     padding-left: 0;
-    padding-right: 1em;
+    padding-right: 1.5em;
   }
 }
 main li {
@@ -389,6 +417,10 @@ figure picture ~ figcaption {
   font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
+
+  [lang="ar"] & {
+    font-family: 'Kufi', 'Roboto Condensed', serif;
+  }
 }
 
 .card__time-ago {

@@ -279,6 +279,10 @@
   .title-area__headings {
     flex: 1 0 80%;
     font-family: "Roboto Condensed", sans-serif;
+
+    [lang="ar"] & {
+      font-family: 'Kufi', 'Roboto Condensed', sans-serif;
+    }
   }
 
   .title {
@@ -303,6 +307,15 @@
     font-style: italic;
     font-weight: 400;
     margin-right: .5em; // for archive link if it _doesn't_ wrap
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: .5em;
+    }
+
+    [lang="ar"] & {
+      font-style: normal;
+    }
   }
 
   .last-updated::first-letter {
