@@ -306,7 +306,6 @@
 
     [lang="ar"] & {
       font-family: $kufi-bold;
-      line-height: 1.5;
     }
 
     .page--sitrep & {
@@ -436,17 +435,16 @@
     white-space: nowrap;
 
     position: absolute;
+    top: 7px;
     width: auto;
     height: $button-height;
 
     [dir="ltr"] & {
       right: 0;
-      top: 7px;
     }
 
     [dir="rtl"] & {
       left: 0;
-      top: 4px;
     }
 
     .page--sitrep & {
