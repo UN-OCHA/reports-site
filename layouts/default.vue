@@ -38,7 +38,7 @@ body {
     padding-top: 2rem;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: $bkpt-app-bar) {
     padding-top: 0;
   }
 }
