@@ -5,8 +5,8 @@
         <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
-        <h1 class="title" v-if="title">{{ title }}</h1>
-        <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
+        <h1 class="title title--sitrep" v-if="title">{{ title }}</h1>
+        <h1 class="title title--site" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
@@ -224,7 +224,6 @@
       width: 33%;
       min-height: 70px;
       margin: 0;
-      padding-top: $header-padding;
       text-align: right;
 
       [dir="rtl"] & {
@@ -294,24 +293,34 @@
     flex: 1 0 80%;
   }
 
+  // generic title styles
   .title {
     display: block;
     color: #4c8cca;
-    font-size: 2em;
     font-weight: 700;
-    line-height: 1;
     text-transform: uppercase;
-    margin-top: 1px;
-    margin-bottom: -1px;
+    margin-top: 0 - $header-padding;
+  }
+
+  // For now, SitRep titles are always EN.
+  .title--sitrep {
+    font-family: $roboto-condensed;
+    font-size: 2em;
+  }
+
+  // The homepage title can be in any language.
+  .title--site {
+    font-family: $roboto-condensed;
+    font-size: 2em;
 
     [lang="ar"] & {
+      margin-bottom: .333em;
       font-family: $kufi-bold;
-    }
-
-    .page--sitrep & {
-      font-family: $roboto-condensed;
+      font-size: 1.6em;
+      line-height: 1;
     }
   }
+
 
   .subtitle {
     display: block;
