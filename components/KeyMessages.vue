@@ -124,16 +124,20 @@
     }
   }
   .message {
-    margin-right: 1rem;
+    [dir="ltr"] & {
+      margin-right: 1rem;
+    }
 
     [dir="rtl"] & {
-      margin-right: 0;
       margin-left: 1rem;
     }
   }
   .image-area {
     width: 50%;
-    float: right;
+
+    [dir="ltr"] & {
+      float: right;
+    }
 
     [dir="rtl"] & {
       float: left;
@@ -172,7 +176,7 @@
       content: none;
     }
   }
-} /* print and (min-width: 6in), screen and (min-width: 800px) */
+} // print and (min-width: 6in), screen and (min-width: 800px)
 
 @media print {
   .card--keyMessages {

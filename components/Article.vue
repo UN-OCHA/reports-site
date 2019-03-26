@@ -151,18 +151,29 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .article__title {
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 700;
     margin-bottom: 1em;
 
     [lang="ar"] & {
-      font-family: 'Kufi Bold', 'Roboto Condensed', sans-serif;
+      font-family: $kufi-bold;
     }
   }
 
   .article__image {
     margin-bottom: 1rem;
+  }
+
+  .article__text {
+    [lang="ar"] & {
+      font-family: $kufi;
+    }
   }
 
   @media screen and (min-width: 900px) {

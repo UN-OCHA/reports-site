@@ -76,6 +76,7 @@
         content: '';
         width: .4em;
         height: .4em;
+
         position: absolute;
         bottom: .23em;
         right: -.5em;
@@ -94,6 +95,7 @@
     figcaption {
       font-size: .8em;
       color: #666;
+      line-height: 1.2;
     }
 
     @media print {

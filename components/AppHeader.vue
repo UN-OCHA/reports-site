@@ -177,8 +177,9 @@
   //
   // AppHeader variables
   //
-  $header-padding: 7px;
+  $header-padding: 3px;
   $logo-width: 61px;
+  $button-height: 32px;
 
 
   .header {
@@ -271,7 +272,7 @@
 
       margin-left: 1rem;
       padding-left: 1rem;
-      border-left: 2px solid #4c8cca;
+      border-left: 1px solid #4c8cca;
     }
 
     // Display logo once we exceed mobile width.
@@ -292,10 +293,6 @@
   .title-area__headings {
     flex: 1 0 80%;
     font-family: "Roboto Condensed", sans-serif;
-
-    [lang="ar"] & {
-      font-family: 'Kufi', 'Roboto Condensed', sans-serif;
-    }
   }
 
   .title {
@@ -303,6 +300,7 @@
     color: #4c8cca;
     font-size: 2em;
     font-weight: 700;
+    line-height: 1;
     text-transform: uppercase;
     margin-top: 1px;
     margin-bottom: -1px;
@@ -313,6 +311,11 @@
     color: #4c8cca;
     font-size: 1.2em;
     font-weight: 400;
+
+    [lang="ar"] & {
+      font-family: $kufi;
+      line-height: 1;
+    }
 
     .page--front & {
       max-width: 345px;
@@ -334,6 +337,7 @@
     }
 
     [lang="ar"] & {
+      font-family: $kufi;
       font-style: normal;
     }
   }
@@ -348,16 +352,17 @@
     &::after {
       content: '';
       display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-left: .2rem;
+      width: .8em;
+      height: .8em;
       background-color: transparent;
       background-image: url('/icons/icon--outofsite-blue.svg');
       background-repeat: no-repeat;
       background-size: contain;
 
+      [dir="ltr"] & {
+        margin-left: .2rem;
+      }
       [dir="rtl"] & {
-        margin-left: 0;
         margin-right: .2rem;
         transform: scale(-1, 1); // flip horizontally
       }
@@ -381,6 +386,11 @@
     text-decoration: none;
     text-transform: uppercase;
 
+    [lang="ar"] & {
+      font-family: $kufi;
+      line-height: 1;
+    }
+
     &:hover {
       cursor: pointer;
       opacity: .8;
@@ -388,22 +398,59 @@
     }
   }
 
+  .meta-area__actions {
+    position: absolute;
+    bottom: 0;
+    height: $button-height;
+
+    [dir="ltr"] & {
+      right: 0;
+    }
+
+    [dir="rtl"] & {
+      left: 0;
+    }
+  }
+
   .lang-switcher {
     display: inline-block;
-    position: relative;
     text-transform: uppercase;
     vertical-align: top;
+    white-space: nowrap;
+
+    position: absolute;
+    top: 0;
+    width: auto;
+    height: $button-height;
+
+    [dir="ltr"] & {
+      right: 0;
+
+      // line-heights of the AR font is taller so adjust the vertical position
+      // of our LTR stuff to be in line.
+      top: 6px;
+    }
+
+    [dir="rtl"] & {
+      left: 0;
+    }
 
     .page--sitrep & {
-      height: 32px; // match height of other buttons
-      top: 6px; // nudge for nice vertical alignment
+      [dir="ltr"] & {
+        right: 64px;
+      }
+
+      [dir="rtl"] & {
+        left: 64px;
+      }
     }
   }
 
   .lang-switcher__language {
-    width: auto;
-    height: 1rem;
-    padding: .333rem .25rem;
+    display: inline-block;
+    width: $button-height;
+    height: $button-height;
+    padding: 0 .25rem;
     color: #4c8cca;
     text-align: center;
     text-decoration: none;
@@ -420,46 +467,47 @@
     font-weight: 700;
   }
 
-  .meta-area__actions {
+  .btn--pdf {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    top: 0;
 
-    [dir="rtl"] & {
-      right: auto;
-      left: 0;
+    [dir="ltr"] & {
+      right: $button-height;
     }
 
-    // Align with other meta on SitReps
-    @media(min-width: $bkpt-app-bar) {
-      .page--sitrep & {
-        bottom: $header-padding * -1;
-      }
+    [dir="rtl"] & {
+      left: $button-height;
     }
   }
 
   .share {
     display: inline-block;
+    width: $button-height;
+    height: $button-height;
     animation: fade-in .3333s ease-out;
+    position: relative;
 
     $share-width: 80px;
 
     &__toggle {
       display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $button-height;
+      height: $button-height;
+
+      border: 0;
+      border-radius: 7px; // set by default to avoid transition
       background-color: transparent;
       background-image: url('/icons/icon--share.svg');
       background-position: 50% 50%;
       background-repeat: no-repeat;
       background-size: 20px 16px;
       cursor: pointer;
+      text-align: center;
       transition: .1666s ease-out;
       transition-property: opacity, border-radius;
-
-      border: 0;
-      border-radius: 7px; // set by default to avoid transition
-      width: 32px;
-      height: 32px;
-      text-align: center;
 
       &:hover {
         opacity: .8;
@@ -480,8 +528,7 @@
 
     &__options {
       position: absolute;
-      top: 32px;
-      right: 0;
+      top: $button-height;
       z-index: 10;
       width: calc(#{$share-width} + 2rem); // 2rem comes from .card padding
 
@@ -494,8 +541,11 @@
       transition-property: opacity, transform;
       overflow: hidden;
 
+      [dir="ltr"] & {
+        right: 0;
+      }
+
       [dir="rtl"] & {
-        right: auto;
         left: 0;
         border-radius: 0 7px 7px 7px;
         transform-origin: 0% 0%;

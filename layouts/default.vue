@@ -21,7 +21,7 @@
 }
 
 html {
-  font-family: Roboto, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: $font-system;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -29,27 +29,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-
-  &[lang="ar"] {
-    font-family: 'Kufi', Roboto, sans-serif;
-  }
 }
 
-
-
-@media screen {
-  body {
+body {
+  @media screen {
     background: hsl(0, 0%, 97%);
     color: #333;
     padding-top: 2rem;
   }
-}
 
-@media screen and (min-width: 600px) {
-  body {
+  @media screen and (min-width: 600px) {
     padding-top: 0;
   }
 }
+
 
 //
 // Drupal 7 — Hide elements from all users.
@@ -120,16 +113,18 @@ html {
        url('/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
        url('/fonts/roboto-v18-latin-regular.woff') format('woff');
 }
+
 // roboto-italic - latin
-/*@font-face {
-  font-display: swap;
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Roboto Italic'), local('Roboto-Italic'),
-       url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
-       url('/fonts/roboto-v18-latin-italic.woff') format('woff');
-}*/
+// @font-face {
+//   font-display: swap;
+//   font-family: 'Roboto';
+//   font-style: italic;
+//   font-weight: 400;
+//   src: local('Roboto Italic'), local('Roboto-Italic'),
+//        url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
+//        url('/fonts/roboto-v18-latin-italic.woff') format('woff');
+// }
+
 // roboto-700 - latin
 @font-face {
   font-display: swap;
@@ -152,16 +147,18 @@ html {
        url('/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
        url('/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
 }
+
 // roboto-condensed-italic - latin
-/*@font-face {
-  font-display: swap;
-  font-family: 'Roboto Condensed';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Roboto Condensed Italic'), local('RobotoCondensed-Italic'),
-       url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
-       url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
-}*/
+// @font-face {
+//   font-display: swap;
+//   font-family: 'Roboto Condensed';
+//   font-style: italic;
+//   font-weight: 400;
+//   src: local('Roboto Condensed Italic'), local('RobotoCondensed-Italic'),
+//        url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
+//        url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
+// }
+
 // roboto-condensed-700 - latin
 @font-face {
   font-display: swap;
@@ -183,6 +180,7 @@ html {
   src: local('NotoKufiArabic Regular'), local('NotoKufiArabic-Regular'),
        url('/fonts/NotoKufiArabic-Regular.ttf') format('woff');
 }
+
 // Noto Kufi Arabic Bold
 // @see https://www.google.com/get/noto/#kufi-arab
 @font-face {
@@ -201,6 +199,14 @@ html {
 #__layout {
   max-width: 1080px;
   margin: 0 1rem;
+
+  // If we do font-replacement on the HTML tag, it messes with `rem` units.
+  // We could refactor a lot of components to avoid use of a flexible unit that
+  // was previously assumed constant, but in the mean time the font can be
+  // declared here.
+  [lang="ar"] & {
+    font-family: 'Kufi', Roboto, sans-serif;
+  }
 
   @media screen and (min-width: $bkpt-app-bar) {
     margin-left: 5rem;
@@ -454,7 +460,8 @@ figure picture ~ figcaption {
   text-transform: uppercase;
 
   [lang="ar"] & {
-    font-family: 'Kufi', 'Roboto Condensed', serif;
+    font-family: $kufi-bold;
+    line-height: 1;
   }
 }
 
@@ -464,6 +471,11 @@ figure picture ~ figcaption {
   opacity: .8;
   font-weight: 400;
   text-transform: none;
+
+  [lang="ar"] & {
+    font-family: $kufi;
+    line-height: 1;
+  }
 }
 
 
