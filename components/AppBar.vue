@@ -9,11 +9,11 @@
       </nuxt-link>
       <div class="app-bar__content">
         <ul class="main-nav">
-          <li class="link link--home">
+          <li class="link link--home" :lang="locale">
             <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
           </li>
           <no-ssr>
-            <li class="link link--latest">
+            <li class="link link--latest" :lang="locale">
               {{ $t('Latest updates', locale) }}
             </li>
             <SitrepList
@@ -127,6 +127,9 @@
     transition: height .25s ease-in-out;
     overflow-y: hidden;
 
+    //
+    // Expand mobile menu
+    //
     input#app-bar__toggle:checked ~ &,
     &.is--expanded {
       height: 100vh;
@@ -237,6 +240,7 @@
     padding: 0;
     padding-left: 1.75rem;
     color: white;
+    font-family: $roboto; // titles are always english
     text-decoration: none;
 
     background-repeat: no-repeat;
@@ -255,8 +259,10 @@
       background-position: 100% 50%;
     }
 
-    [lang="ar"] & {
+    // looking for a lang attribute directly on this element, not on <html>
+    &[lang="ar"] {
       line-height: 1.2;
+      font-family: $kufi;
     }
 
     a {
@@ -276,20 +282,23 @@
   }
 
   .ocha-services .link {
-    // Since OCHA services graphics are many sizes, we again use CSS Custom props
+    // Since OCHA services icons are many sizes, we again use CSS Custom props
     // to override for new browsers.
-    --bgsize: 1.25rem 1.25rem;
+    --bgsize: 1.2rem 1.2rem;
   }
 
-  .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
-  .link--hdx  { background-image: url('/icons--ocha/hdx.svg'); }
-  .link--hid  { background-image: url('/icons--ocha/hid.svg'); }
-  .link--hri  { background-image: url('/icons--ocha/hr.svg'); }
-  .link--iasc { background-image: url('/icons--ocha/iasc.svg'); }
-  .link--ocha { background-image: url('/icons--ocha/ocha.svg'); }
-  .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
-  .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
-  .link--all  { background-image: url('/icons--ocha/all.svg'); }
+  // Specify individual icons
+  .ocha-services {
+    .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
+    .link--hdx  { background-image: url('/icons--ocha/hdx.svg'); }
+    .link--hid  { background-image: url('/icons--ocha/hid.svg'); }
+    .link--hri  { background-image: url('/icons--ocha/hr.svg'); }
+    .link--iasc { background-image: url('/icons--ocha/iasc.svg'); }
+    .link--ocha { background-image: url('/icons--ocha/ocha.svg'); }
+    .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
+    .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
+    .link--all { background-image: url('/icons--ocha/all.svg'); }
+  }
 
   .ocha-heading {
     margin: 2rem -.5rem 0;
@@ -301,6 +310,10 @@
 
     [dir="rtl"] & {
       font-size: 1.2em;
+    }
+
+    [lang="ar"] & {
+      font-family: $kufi;
     }
   }
 

@@ -5,6 +5,7 @@
       <span class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+          :lang="sitrep.fields.language"
           :aria-label="localeName(sitrep.fields.language)"
           v-on:click.native="closeParentMenu"
         >{{ sitrep.fields.language }}</nuxt-link>
