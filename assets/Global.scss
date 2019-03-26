@@ -14,10 +14,12 @@ $bkpt-grid-max: 1188px;
 //
 // Font stacks
 //
-$font-system: Roboto, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+$font-system: system-ui;
 
-// $roboto: Roboto, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-$roboto-bold: "Roboto Condensed", Roboto, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+$roboto: "Roboto", system-ui, sans-serif;
+$roboto-condensed: "Roboto Condensed", Roboto, system-ui, sans-serif;
 
 $kufi: "Kufi", sans-serif;
 $kufi-bold: "Kufi Bold", "Kufi", sans-serif;
+
+$dubai: "Dubai Regular", "Times New Roman", serif;
