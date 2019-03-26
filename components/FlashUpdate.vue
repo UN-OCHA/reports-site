@@ -99,6 +99,11 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .card {
     background-color: #FEE7DC;
   }
@@ -112,9 +117,13 @@
   }
 
   .flash-update__title {
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 700;
     margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
+
+    [lang="ar"] & {
+      font-family: $kufi-bold;
+    }
   }
 
   .flash-update__image {

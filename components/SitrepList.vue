@@ -118,7 +118,7 @@
   }
   .sitrep-group__heading {
     text-transform: uppercase;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: $roboto-condensed;
   }
   .sitrep {
     margin: .25rem 0;

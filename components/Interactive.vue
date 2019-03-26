@@ -102,15 +102,25 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .interactive__text {
     margin-bottom: 1rem;
   }
 
   .interactive__title {
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 700;
     margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
+
+    [lang="ar"] & {
+      font-family: $kufi-bold;
+    }
   }
+
 
   .interactive__image {
     width: 100%;

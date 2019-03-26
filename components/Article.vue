@@ -158,7 +158,7 @@
 
   .article__title {
     margin-bottom: 1em;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: $roboto-condensed;
     font-weight: 700;
 
     [lang="ar"] & {

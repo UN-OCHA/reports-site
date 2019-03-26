@@ -396,7 +396,7 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
-    font-family: "Roboto Condensed", Roboto, sans-serif;
+    font-family: $roboto-condensed;
     font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;

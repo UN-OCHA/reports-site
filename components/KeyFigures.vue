@@ -44,6 +44,11 @@
 
 <!-- NOT scoped so we can be inherited by other components which use Figures -->
 <style lang="scss">
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .figures {
     display: flex;
     flex-direction: row;
@@ -60,7 +65,7 @@
     }
 
     .data {
-      font-family: "Roboto Condensed", sans-serif;
+      font-family: $roboto-condensed;
       font-size: 2em;
       font-weight: 700;
       color: #4A8CCA;

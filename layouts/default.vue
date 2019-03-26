@@ -542,7 +542,7 @@ figure picture ~ figcaption {
   display: block;
   margin-bottom: 1rem;
   color: #444;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: $roboto-condensed;
   font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
