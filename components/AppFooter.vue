@@ -36,6 +36,12 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
   .footer {
     clear: both;
     border-top: 3px solid #4c8cca;
@@ -54,11 +60,16 @@
   .text {
     font-style: italic;
     margin-bottom: 1em;
+
+    [lang="ar"] & {
+      font-style: normal;
+    }
   }
 
   .links {
     margin: 0;
     padding: 0;
+    font-family: $roboto; // URLs are always english so set it in stone
   }
 
   .link {
@@ -160,8 +171,8 @@
     background-image: url('/icons/icon--share-fb-gray.svg');
     background-size: 85%; // FB SVG is slightly taller
   }
+
   .social-link--twitter {
     background-image: url('/icons/icon--share-tw-gray.svg');
   }
-
 </style>

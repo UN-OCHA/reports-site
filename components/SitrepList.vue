@@ -100,6 +100,12 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
   .sitrep-list {
     margin: 1rem 0;
     padding: 0;
@@ -116,18 +122,27 @@
   .sitrep {
     margin: .25rem 0;
 
+    //
     // Although it brings consistency to the various pages, this one rule adds
-    // a 60K font download to the homepage to render a single word. Unless it is
+    // a 82K font download to the homepage to render a single word. Unless it is
     // deemed extremely important to retain branding across pages, we are not
-    // applying the Kufi font to the non-Arabic language homepage for now.
+    // applying the Dubai font to the non-Arabic language homepage for now.
     //
     // a[lang="ar"] {
-    //   font-family: 'Kufi', Roboto, sans-serif;
+    //   font-family: $dubai;
     // }
   }
   .sitrep__last-updated {
     color: #666;
     font-style: italic;
+
+    [dir="ltr"] & {
+      font-size: .9em;
+    }
+
+    [lang="ar"] & {
+      font-style: normal;
+    }
   }
 
   //

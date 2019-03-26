@@ -255,6 +255,10 @@
       background-position: 100% 50%;
     }
 
+    [lang="ar"] & {
+      line-height: 1.2;
+    }
+
     a {
       color: inherit;
       text-decoration: inherit;

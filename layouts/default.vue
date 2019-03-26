@@ -385,11 +385,17 @@ main code {
 }
 .rich-text ul,
 .rich-text ol {
-  margin: 0 1em 1em 2em;
+  margin-top: 0;
+  margin-bottom: 1em;
   padding: 0;
 
+  [dir="ltr"] & {
+    margin-left: 2em;
+    margin-right: 1em;
+  }
+
   [dir="rtl"] & {
-    margin-left: 0;
+    margin-left: 1em;
     margin-right: 2em;
   }
 }

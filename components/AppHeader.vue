@@ -19,8 +19,8 @@
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
       </div>
       <div class="meta-area__actions">
-        <span class="element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
-        <div class="lang-switcher">
+        <div class="lang-switcher" dir="ltr">
+          <span class="lang-switcher__label element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
           <nuxt-link v-for="translation in availableTranslations"
             :key="translation.code"
             :to="'/' + translation.code + '/' + urlContext"
@@ -292,7 +292,6 @@
 
   .title-area__headings {
     flex: 1 0 80%;
-    font-family: "Roboto Condensed", sans-serif;
   }
 
   .title {
@@ -304,11 +303,21 @@
     text-transform: uppercase;
     margin-top: 1px;
     margin-bottom: -1px;
+
+    [lang="ar"] & {
+      font-family: $kufi-bold;
+      line-height: 1.5;
+    }
+
+    .page--sitrep & {
+      font-family: $roboto-condensed;
+    }
   }
 
   .subtitle {
     display: block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1.2em;
     font-weight: 400;
 
@@ -326,6 +335,7 @@
   .last-updated {
     display: inline-block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
@@ -345,9 +355,15 @@
   .past-sitreps a {
     display: inline-block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
+
+    [lang="ar"] & {
+      font-family: $kufi;
+      font-style: normal;
+    }
 
     &::after {
       content: '';
@@ -414,25 +430,23 @@
 
   .lang-switcher {
     display: inline-block;
+    font-family: $roboto; // codes are always latin
     text-transform: uppercase;
     vertical-align: top;
     white-space: nowrap;
 
     position: absolute;
-    top: 0;
     width: auto;
     height: $button-height;
 
     [dir="ltr"] & {
       right: 0;
-
-      // line-heights of the AR font is taller so adjust the vertical position
-      // of our LTR stuff to be in line.
-      top: 6px;
+      top: 7px;
     }
 
     [dir="rtl"] & {
       left: 0;
+      top: 4px;
     }
 
     .page--sitrep & {
