@@ -72,7 +72,7 @@ body {
   height: 1px;
 
   // extra style added to avoid horizontal overflows
-  transform: scale(.1);
+  transform: scale(0);
 }
 
 //
