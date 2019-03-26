@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -25,6 +25,7 @@
     "lodash": ">=4.17.11",
     "moment": "^2.22.2",
     "nuxt": "^2.3.1",
+    "system-font-css": "^2.0.2",
     "vue": "^2.0.0",
     "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
