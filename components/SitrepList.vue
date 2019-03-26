@@ -174,7 +174,7 @@
       display: inline-block;
       margin: 0 0 .5rem 0;
       padding-left: 1.5rem;
-      font-family: "Roboto", sans-serif;
+      font-family: $roboto;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;

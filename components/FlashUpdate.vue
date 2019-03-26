@@ -211,7 +211,7 @@
       background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
       background-size: 12px auto;
       color: hsl(0, 0%, 50%);
-      font-family: "Roboto", sans-serif;
+      font-family: $roboto;
       font-size: 1em;
       text-transform: uppercase;
       cursor: pointer;
