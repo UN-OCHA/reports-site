@@ -7,20 +7,18 @@
       <span v-if="ftsDataYear" class="card__time-ago">({{ ftsDataYear }})</span>
     </h2>
     <div class="figures clearfix">
-      <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id">
-        <span class="data">{{ figure.fields.financial }}</span>
-        <figcaption>{{ figure.fields.caption }}</figcaption>
-      </figure>
-      <figure v-if="!!ftsData[2]">
-        <span class="pie" role="presentation">
+      <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id" :class="{'figure--progress': figure.fields.type === 'progress'}">
+        <span v-if="figure.fields.type === 'progress'" class="pie" role="presentation">
           <span
             class="pie__segment"
-            :class="{'pie__segment--over50': (ftsData[2].fields.raw > 50 ? true : false)}"
+            :class="{'pie__segment--over50': (figure.fields.raw > 50 ? true : false)}"
             :style="'\
               --offset: 0;\
-              --percentage: ' + ftsData[2].fields.raw + ';\
-              --over50: ' + (ftsData[2].fields.raw > 50 ? 1 : 0) + ';'"></span>
+              --percentage: ' + figure.fields.raw + ';\
+              --over50: ' + (figure.fields.raw > 50 ? 1 : 0) + ';'"></span>
         </span>
+        <span class="data">{{ figure.fields.financial }}</span>
+        <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-if="!ftsData.length" class="figures-none">
         {{ $t('Funding data could not be found.', locale) }}
@@ -78,6 +76,7 @@
               id: `${this.ftsPlanId}-requirements.revisedRequirements`,
             },
             fields: {
+              type: 'requirements',
               raw: plan.requirements.revisedRequirements,
               financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
               caption: this.$t('Requirements', this.locale),
@@ -88,6 +87,7 @@
               id: `${this.ftsPlanId}-funding.totalFunding`,
             },
             fields: {
+              type: 'total',
               raw: plan.funding.totalFunding,
               financial: '$' + this.formatNumber(plan.funding.totalFunding),
               caption: this.$t('Funding', this.locale),
@@ -98,6 +98,7 @@
               id: `${this.ftsPlanId}-funding.progress`,
             },
             fields: {
+              type: 'progress',
               // Do not allow raw vals greater than 100. Pie chart will break.
               raw: (plan.funding.progress > 100) ? 100 : plan.funding.progress,
               financial: Math.round(plan.funding.progress) + '%',
@@ -154,6 +155,25 @@
   //
   @import '~/assets/Global.scss';
 
+  // The size of the pie chart is needed by a few definitions in this component.
+  // Defined in pixels.
+  $pie-size: 45;
+
+  .figure--progress {
+    flex-basis: 100%; // @see KeyFigures.vue
+    position: relative;
+
+    // Don't apply padding to IE11.
+    @supports (--css: variables) {
+      [dir="ltr"] & {
+        padding-left: calc(#{$pie-size}px + .666em);
+      }
+      [dir="rtl"] & {
+        padding-right: calc(#{$pie-size}px + .666em);
+      }
+    }
+  }
+
   .fts-url {
     position: absolute;
     right: 1rem;
@@ -178,19 +198,27 @@
     // display:none and use @supports on a custom prop to display.
     //
     display: none;
-    @supports (--show: true) {
-      display: block;
+    @supports (--css: variables) {
+      display: inline-block;
     }
 
-    position: relative;
     overflow: hidden;
-
-    --size: 60;
-    width: calc(var(--size, 60) * 1px);
-    height: calc(var(--size, 60) * 1px);
+    width: calc(#{$pie-size} * 1px);
+    height: calc(#{$pie-size} * 1px);
 
     background: #e4e4e4;
     border-radius: 100%;
+    box-shadow: inset 0 0 0 1px rgba(#000, .02);
+
+    position: absolute; // allow progress Figure to appear alongside
+    top: 6px;
+
+    [dir="ltr"] & {
+      left: 0;
+    }
+    [dir="rtl"] & {
+      right: 0;
+    }
   }
 
   .pie__segment {
