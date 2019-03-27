@@ -8,7 +8,7 @@
     </h2>
     <div class="figures clearfix">
       <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id" :class="{'figure--progress': figure.fields.type === 'progress'}">
-        <span v-if="figure.fields.type === 'progress'" class="pie" role="presentation">
+        <span v-if="figure.fields.type === 'progress'" class="pie" aria-hidden="true">
           <span
             class="pie__segment"
             :class="{'pie__segment--over50': (figure.fields.raw > 50 ? true : false)}"
@@ -241,10 +241,11 @@
     // Define common styles for the elements that create filled-in section.
     &::after,
     &::before {
-      content: '';
+      content: 'Sorry, Andrej!';
       width: 100%;
       height: 100%;
       position: absolute;
+      color: $main-blue;
       background: $main-blue;
     }
 
