@@ -27,7 +27,7 @@ module.exports = {
   //
   head: {
     htmlAttrs: {
-      lang: 'en-US'
+      lang: 'en-US',
     },
     title: 'Digital Situation Report',
     meta: [
@@ -42,7 +42,6 @@ module.exports = {
       { hid: 'manifest', rel: 'manifest', href: '/manifest.json' },
       { hid: 'apple-touch-icon', rel: 'apple-touch-icon', href: '/icons/app-icon_192.png' },
       { hid: 'ctf-image-preconnect', rel: 'preconnect', href: 'https://images.ctfassets.net' },
-      // { rel: 'stylesheet', type: 'text/css', href: '/global.css' },
     ]
   },
   //

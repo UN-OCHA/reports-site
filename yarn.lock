@@ -2160,6 +2160,15 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.0"
     parse-json "^4.0.0"
 
+cpr@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/cpr/-/cpr-2.2.0.tgz#2dc6c87dfb78012489cdd994227628c320e9a17b"
+  dependencies:
+    graceful-fs "^4.1.5"
+    minimist "^1.2.0"
+    mkdirp "~0.5.1"
+    rimraf "^2.5.4"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
@@ -3179,10 +3188,6 @@ follow-redirects@^1.2.5, follow-redirects@^1.3.0, follow-redirects@^1.4.1:
   dependencies:
     debug "^3.2.6"
 
-fontfaceobserver@^2.0.13:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/fontfaceobserver/-/fontfaceobserver-2.1.0.tgz#e2705d293e2c585a6531c2a722905657317a2991"
-
 for-in@^0.1.3:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
@@ -3358,7 +3363,7 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
+graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.5, graceful-fs@^4.1.6:
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
@@ -6689,6 +6694,12 @@ svgo@^1.0.0:
 symbol-observable@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
+
+system-font-css@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/system-font-css/-/system-font-css-2.0.2.tgz#88c4ae30eda94bc60705cba7d66c8c822f3c47db"
+  dependencies:
+    cpr "^2.2.0"
 
 table@4.0.2:
   version "4.0.2"

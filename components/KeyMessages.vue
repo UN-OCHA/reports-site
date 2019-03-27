@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--keyMessages key-messages" :id="cssId">
+  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId">
     <CardHeader />
 
     <h2 class="card__title">
@@ -107,16 +107,14 @@
   }
 }
 .message {
-  font-size: 1.1em;
   margin-bottom: 1rem;
+  font-size: 1.1em;
   line-height: 1.5;
 }
 
 @media print and (min-width: 6in),
        screen and (min-width: 800px) {
 
-  .key-messages__area {
-  }
   .message-list {
     width: 50%;
     float: left;
@@ -126,16 +124,20 @@
     }
   }
   .message {
-    margin-right: 1rem;
+    [dir="ltr"] & {
+      margin-right: 1rem;
+    }
 
     [dir="rtl"] & {
-      margin-right: 0;
       margin-left: 1rem;
     }
   }
   .image-area {
     width: 50%;
-    float: right;
+
+    [dir="ltr"] & {
+      float: right;
+    }
 
     [dir="rtl"] & {
       float: left;
@@ -174,7 +176,7 @@
       content: none;
     }
   }
-} /* print and (min-width: 6in), screen and (min-width: 800px) */
+} // print and (min-width: 6in), screen and (min-width: 800px)
 
 @media print {
   .card--keyMessages {

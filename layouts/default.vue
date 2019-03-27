@@ -21,7 +21,7 @@
 }
 
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: system-ui;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -29,25 +29,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-
-  &.wf-loaded {
-    font-family: Roboto; // no fallback because `html` has system fonts as fallback.
-  }
 }
 
-@media screen {
-  body {
+body {
+  @media screen {
     background: hsl(0, 0%, 97%);
     color: #333;
     padding-top: 2rem;
   }
-}
 
-@media screen and (min-width: 600px) {
-  body {
+  @media screen and (min-width: $bkpt-app-bar) {
     padding-top: 0;
   }
 }
+
 
 //
 // Drupal 7 — Hide elements from all users.
@@ -77,7 +72,7 @@ html {
   height: 1px;
 
   // extra style added to avoid horizontal overflows
-  transform: scale(.1);
+  transform: scale(0);
 }
 
 //
@@ -107,6 +102,64 @@ html {
 
 //—— Web Fonts —————————————————————————————————————————————————————————————————
 
+/*! system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Segoe UI Light"), local("Ubuntu Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 300;
+  src: local(".SFNSText-LightItalic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Light Italic"), local("Ubuntu Light Italic"), local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 400;
+  src: local(".SFNSText-Regular"), local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"), local("Segoe UI"), local("Ubuntu"), local("Roboto-Regular"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 400;
+  src: local(".SFNSText-Italic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Italic"), local("Ubuntu Italic"), local("Roboto-Italic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 500;
+  src: local(".SFNSText-Medium"), local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold"), local("Ubuntu Medium"), local("Roboto-Medium"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 500;
+  src: local(".SFNSText-MediumItalic"), local(".HelveticaNeueDeskInterface-MediumItalicP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold Italic"), local("Ubuntu Medium Italic"), local("Roboto-MediumItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 700;
+  src: local(".SFNSText-Bold"), local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"), local("Segoe UI Bold"), local("Ubuntu Bold"), local("Roboto-Bold"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 700;
+  src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
 // DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto?subsets=latin
 // roboto-regular - latin
 @font-face {
@@ -114,27 +167,32 @@ html {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'),
+  src: local('Roboto'),
+       local('Roboto-Regular'),
        url('/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
        url('/fonts/roboto-v18-latin-regular.woff') format('woff');
 }
+
 // roboto-italic - latin
-/*@font-face {
-  font-display: swap;
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Roboto Italic'), local('Roboto-Italic'),
-       url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
-       url('/fonts/roboto-v18-latin-italic.woff') format('woff');
-}*/
+// @font-face {
+//   font-display: swap;
+//   font-family: 'Roboto';
+//   font-style: italic;
+//   font-weight: 400;
+//   src: local('Roboto Italic'),
+//        local('Roboto-Italic'),
+//        url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
+//        url('/fonts/roboto-v18-latin-italic.woff') format('woff');
+// }
+
 // roboto-700 - latin
 @font-face {
   font-display: swap;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
-  src: local('Roboto Bold'), local('Roboto-Bold'),
+  src: local('Roboto Bold'),
+       local('Roboto-Bold'),
        url('/fonts/roboto-v18-latin-700.woff2') format('woff2'),
        url('/fonts/roboto-v18-latin-700.woff') format('woff');
 }
@@ -146,29 +204,70 @@ html {
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto Condensed'), local('RobotoCondensed-Regular'),
+  src: local('Roboto Condensed'),
+       local('RobotoCondensed-Regular'),
        url('/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
        url('/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
 }
+
 // roboto-condensed-italic - latin
-/*@font-face {
-  font-display: swap;
-  font-family: 'Roboto Condensed';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Roboto Condensed Italic'), local('RobotoCondensed-Italic'),
-       url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
-       url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
-}*/
+// @font-face {
+//   font-display: swap;
+//   font-family: 'Roboto Condensed';
+//   font-style: italic;
+//   font-weight: 400;
+//   src: local('Roboto Condensed Italic'),
+//        local('RobotoCondensed-Italic'),
+//        url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
+//        url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
+// }
+
 // roboto-condensed-700 - latin
 @font-face {
   font-display: swap;
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 700;
-  src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'),
+  src: local('Roboto Condensed Bold'),
+       local('RobotoCondensed-Bold'),
        url('/fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'),
        url('/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
+}
+
+// Noto Kufi Arabic
+// @see https://www.google.com/get/noto/#kufi-arab
+@font-face {
+  font-display: swap;
+  font-family: 'Kufi';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoKufiArabic Regular'),
+       local('NotoKufiArabic-Regular'),
+       url('/fonts/NotoKufiArabic-Regular.ttf') format('woff');
+}
+
+// Noto Kufi Arabic Bold
+// @see https://www.google.com/get/noto/#kufi-arab
+@font-face {
+  font-display: swap;
+  font-family: 'Kufi Bold';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoKufiArabic Bold'),
+       local('NotoKufiArabic-Bold'),
+       url('/fonts/NotoKufiArabic-Bold.ttf') format('woff');
+}
+
+// Dubai Medium
+@font-face {
+  font-display: swap;
+  font-family: 'Dubai Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('DubaiW23 Regular'),
+       local('DubaiW23-Regular'),
+       url('/fonts/DubaiW23-Regular.woff') format('woff'),
+       url('/fonts/DubaiW23-Regular.woff2') format('woff2');
 }
 
 //—— Site Container ————————————————————————————————————————————————————————————
@@ -177,6 +276,15 @@ html {
 #__layout {
   max-width: 1080px;
   margin: 0 1rem;
+  font-family: $roboto;
+
+  // If we do font-replacement on the HTML tag, it messes with `rem` units.
+  // We could refactor a lot of components to avoid use of a flexible unit that
+  // was previously assumed constant, but in the mean time the font can be
+  // declared here.
+  [lang="ar"] & {
+    font-family: $dubai;
+  }
 
   @media screen and (min-width: $bkpt-app-bar) {
     margin-left: 5rem;
@@ -235,14 +343,18 @@ main {
 }
 main img {
   max-width: 100%;
+
+  [dir="rtl"] & {
+    transform: scale(-1, 1); // flip horizontally
+  }
 }
 main ul {
   margin: 0;
-  padding: 1em 0 0 1em;
+  padding: 1em 0 0 1.5em;
 
   [dir="rtl"] & {
     padding-left: 0;
-    padding-right: 1em;
+    padding-right: 1.5em;
   }
 }
 main li {
@@ -277,11 +389,17 @@ main code {
 }
 .rich-text ul,
 .rich-text ol {
-  margin: 0 1em 1em 2em;
+  margin-top: 0;
+  margin-bottom: 1em;
   padding: 0;
 
+  [dir="ltr"] & {
+    margin-left: 2em;
+    margin-right: 1em;
+  }
+
   [dir="rtl"] & {
-    margin-left: 0;
+    margin-left: 1em;
     margin-right: 2em;
   }
 }
@@ -420,18 +538,18 @@ figure picture ~ figcaption {
   }
 }
 
-
 .card__title {
   display: block;
   margin-bottom: 1rem;
   color: #444;
-  font-family: sans-serif;
+  font-family: $roboto-condensed;
   font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
 
-  .wf-loaded & {
-    font-family: "Roboto Condensed", sans-serif;
+  [lang="ar"] & {
+    font-family: $kufi-bold;
+    line-height: 1;
   }
 }
 
@@ -441,6 +559,11 @@ figure picture ~ figcaption {
   opacity: .8;
   font-weight: 400;
   text-transform: none;
+
+  [lang="ar"] & {
+    font-family: $kufi;
+    line-height: 1;
+  }
 }
 
 
