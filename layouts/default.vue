@@ -255,7 +255,7 @@ body {
   font-weight: 400;
   src: local('NotoKufiArabic Bold'),
        local('NotoKufiArabic-Bold'),
-       url('/fonts/NotoKufiArabic-Bold.ttf') format('woff');
+       url('/fonts/notokufiarabic-bold.ttf') format('woff');
 }
 
 // Dubai Medium
@@ -266,8 +266,8 @@ body {
   font-weight: 400;
   src: local('DubaiW23 Regular'),
        local('DubaiW23-Regular'),
-       url('/fonts/DubaiW23-Regular.woff') format('woff'),
-       url('/fonts/DubaiW23-Regular.woff2') format('woff2');
+       url('/fonts/dubaiw23-regular.woff') format('woff'),
+       url('/fonts/dubaiw23-regular.woff2') format('woff2');
 }
 
 //—— Site Container ————————————————————————————————————————————————————————————
