@@ -86,7 +86,8 @@ module.exports = {
   // Static Generation config
   //
   generate: {
-    routes: function () {
+    fallback: '404.html',
+    routes: () => {
       // Read languages our of our official Store.
       //
       // This is maybe a hack but it gets the canonical list without having to
