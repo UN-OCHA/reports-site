@@ -56,7 +56,7 @@
       },
 
       ftsPlanId() {
-        return Number(this.ftsUrl.match(/\d+/)[0]);
+        return this.ftsUrl && Number(this.ftsUrl.match(/\d+/)[0]);
       },
 
       ftsData() {
