@@ -266,8 +266,8 @@ body {
   font-weight: 400;
   src: local('DubaiW23 Regular'),
        local('DubaiW23-Regular'),
-       url('/fonts/dubaiw23-regular.woff') format('woff'),
-       url('/fonts/dubaiw23-regular.woff2') format('woff2');
+       url('/fonts/dubaiw23-regular.woff2') format('woff2'),
+       url('/fonts/dubaiw23-regular.woff') format('woff');
 }
 
 //—— Site Container ————————————————————————————————————————————————————————————
