@@ -243,7 +243,7 @@ body {
   font-weight: 400;
   src: local('NotoKufiArabic Regular'),
        local('NotoKufiArabic-Regular'),
-       url('/fonts/NotoKufiArabic-Regular.ttf') format('woff');
+       url('/fonts/notokufiarabic-regular.ttf') format('woff');
 }
 
 // Noto Kufi Arabic Bold
