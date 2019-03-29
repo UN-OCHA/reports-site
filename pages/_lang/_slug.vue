@@ -1,5 +1,5 @@
 <template>
-  <div class="page--basic" :id="'cf-' + entry.sys.id" @click="noop">
+  <div class="page--basic" :class="'page--slug-' + entry.fields.slug" :id="'cf-' + entry.sys.id" @click="noop">
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
@@ -7,7 +7,7 @@
     />
 
     <main class="container basic-page">
-      <section class="card">
+      <section class="card card--content">
         <div class="rich-text" v-html="richBody"></div>
       </section>
     </main>
@@ -92,7 +92,10 @@
 
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
-    asyncData({env, lang, slug, store}) {
+    asyncData({env, params, store}) {
+      const slug = params.slug;
+      const lang = params.lang;
+
       return Promise.all([
 
         // Contentful: fetch the requested Page by slug+language plus all linked
