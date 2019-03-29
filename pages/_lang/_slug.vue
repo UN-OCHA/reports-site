@@ -46,7 +46,28 @@
 
     // Set up empty objects that will be populated by asyncData.
     data() {
-      return {}
+      return {
+        renderOptions: {
+          renderNode: {
+            [BLOCKS.EMBEDDED_ASSET]: (node) => {
+              const img = node.data.target.fields
+              const src = 'https:' + img.file.url;
+              return `<figure>
+                <img srcset="${src}?w=320 320w,
+                             ${src}?w=640 640w,
+                             ${src}?w=960 960w,
+                             ${src}?w=1280 1280w"
+                     sizes="(max-width: 600px) calc(100vw - 4rem),
+                            (max-width: 1188px) calc(100vw - 4rem - 4rem),
+                            calc(1080px - 2rem)"
+                     src="${src}?w=640"
+                     alt="${img.title}">
+                  <figcaption>${img.description}</figcaption>
+                </figure>`;
+            },
+          },
+        },
+      }
     },
 
     // We use the object populated by asyncData here. It might be empty at first
