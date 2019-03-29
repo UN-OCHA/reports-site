@@ -49,9 +49,6 @@ module.exports = function(migration) {
     .required(true)
     .validations([
       {
-        'unique': true
-      },
-      {
         "regexp": {
           "pattern": "\\b(?!country|flash\\b)\\w+",
           "flags": "i"
