@@ -62,7 +62,6 @@
                             calc(1080px - 2rem)"
                      src="${src}?w=640"
                      alt="${img.title}">
-                  <figcaption>${img.description}</figcaption>
                 </figure>`;
             },
           },
