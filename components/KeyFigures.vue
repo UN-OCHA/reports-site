@@ -44,6 +44,11 @@
 
 <!-- NOT scoped so we can be inherited by other components which use Figures -->
 <style lang="scss">
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .figures {
     display: flex;
     flex-direction: row;
@@ -60,16 +65,12 @@
     }
 
     .data {
-      font-family: sans-serif;
+      font-family: $roboto-condensed;
       font-size: 2em;
       font-weight: 700;
       color: #4A8CCA;
       text-decoration: none;
       position: relative;
-
-      .wf-loaded & {
-        font-family: "Roboto Condensed", sans-serif;
-      }
     }
 
     a[href].data {
@@ -80,6 +81,7 @@
         content: '';
         width: .4em;
         height: .4em;
+
         position: absolute;
         bottom: .23em;
         right: -.5em;
@@ -98,6 +100,7 @@
     figcaption {
       font-size: .8em;
       color: #666;
+      line-height: 1.2;
     }
 
     @media print {

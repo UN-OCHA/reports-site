@@ -5,8 +5,8 @@
         <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
-        <h1 class="title" v-if="title">{{ title }}</h1>
-        <h1 class="title" v-else>{{ $t('Situation Reports', locale) }}</h1>
+        <h1 class="title title--sitrep" v-if="title">{{ title }}</h1>
+        <h1 class="title title--site" v-else>{{ $t('Situation Reports', locale) }}</h1>
         <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
         <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
@@ -19,8 +19,8 @@
         <a class="cta cta--subscribe" v-if="mailchimp" :href="mailchimp" target="_blank" rel="noopener">{{ $t('Subscribe', locale) }}</a>
       </div>
       <div class="meta-area__actions">
-        <span class="element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
-        <div class="lang-switcher">
+        <div class="lang-switcher" dir="ltr">
+          <span class="lang-switcher__label element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
           <nuxt-link v-for="translation in availableTranslations"
             :key="translation.code"
             :to="'/' + translation.code + '/' + urlContext"
@@ -169,10 +169,22 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
   @import '~/assets/Global.scss';
+
+  //
+  // AppHeader variables
+  //
+  $header-padding: 3px;
+  $logo-width: 61px;
+  $button-height: 32px;
+
 
   .header {
     border-bottom: 3px solid #4c8cca;
+    margin-bottom: 2rem;
     padding-bottom: 1rem;
 
     @media print {
@@ -195,12 +207,10 @@
 
   .meta-area {
     margin-top: 1rem;
-
-    // for .meta-area__actions
-    position: relative;
+    position: relative; // for .meta-area__actions
   }
 
-  @media screen and (min-width: 680px) {
+  @media screen and (min-width: 690px) {
     .title-area {
       float: left;
       width: calc(66% - 2rem);
@@ -212,9 +222,9 @@
     .meta-area {
       float: right;
       width: 33%;
-      text-align: right;
-      margin: 0;
       min-height: 70px;
+      margin: 0;
+      text-align: right;
 
       [dir="rtl"] & {
         float: left;
@@ -225,7 +235,9 @@
     @supports (display: grid) {
       .header {
         display: grid;
-        grid-template-columns: 1fr 220px;
+
+        // 175 is enough for three languages on a SitRep, six on homepage
+        grid-template-columns: 1fr 175px;
         grid-gap: 1rem;
       }
 
@@ -245,20 +257,21 @@
 
   .logo-link {
     display: none; // mobile logo is in AppBar.vue
-    flex: 0 0 53px;
-    margin-top: 7px;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 2px solid #4c8cca;
+    flex: 0 0 $logo-width;
+    height: calc(#{$logo-width} * 15 / 13); // OCHA logo ratio: 15/13
+    margin-top: $header-padding;
+    margin-right: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #4c8cca;
 
     [dir="rtl"] & {
       border-right: 0;
       margin-right: 0;
       padding-right: 0;
 
-      margin-left: 10px;
-      padding-left: 10px;
-      border-left: 2px solid #4c8cca;
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid #4c8cca;
     }
 
     // Display logo once we exceed mobile width.
@@ -272,68 +285,109 @@
   }
 
   .logo {
-    width: 53px;
-    height: 61px;
+    width: $logo-width;
+    height: calc(#{$logo-width} * 15 / 13); // OCHA logo ratio: 15/13
   }
 
   .title-area__headings {
     flex: 1 0 80%;
-    font-family: sans-serif;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
   }
 
+  // generic title styles
   .title {
     display: block;
     color: #4c8cca;
-    font-size: 1.8em;
     font-weight: 700;
     text-transform: uppercase;
+    margin-top: 0 - $header-padding;
   }
+
+  // For now, SitRep titles are always EN.
+  .title--sitrep {
+    font-family: $roboto-condensed;
+    font-size: 2em;
+  }
+
+  // The homepage title can be in any language.
+  .title--site {
+    font-family: $roboto-condensed;
+    font-size: 2em;
+
+    [lang="ar"] & {
+      margin-bottom: .333em;
+      font-family: $kufi-bold;
+      font-size: 1.6em;
+      line-height: 1;
+    }
+  }
+
 
   .subtitle {
     display: block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1.2em;
     font-weight: 400;
+
+    [lang="ar"] & {
+      font-family: $kufi;
+      line-height: 1;
+    }
+
+    .page--front & {
+      max-width: 345px;
+      line-height: 1.1;
+    }
   }
 
   .last-updated {
     display: inline-block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
-    margin-right: .5em; // for archive link if it _doesn't_ wrap
-  }
+    margin-right: .25em; // for archive link if it _doesn't_ wrap
 
-  .last-updated::first-letter {
-    text-transform: capitalize;
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: .25em;
+    }
+
+    [lang="ar"] & {
+      font-family: $kufi;
+      font-style: normal;
+    }
   }
 
   .past-sitreps a {
     display: inline-block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
     font-size: 1em;
     font-style: italic;
     font-weight: 400;
 
+    [lang="ar"] & {
+      font-family: $kufi;
+      font-style: normal;
+    }
+
     &::after {
       content: '';
       display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-left: .25em;
+      width: .8em;
+      height: .8em;
       background-color: transparent;
       background-image: url('/icons/icon--outofsite-blue.svg');
       background-repeat: no-repeat;
       background-size: contain;
 
+      [dir="ltr"] & {
+        margin-left: .2rem;
+      }
       [dir="rtl"] & {
-        margin-left: 0;
-        margin-right: .25em;
+        margin-right: .2rem;
         transform: scale(-1, 1); // flip horizontally
       }
     }
@@ -351,36 +405,72 @@
     margin-bottom: .25em;
     background: #4c8cca;
     color: white;
+    font-family: $roboto-condensed;
     font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;
+
+    [lang="ar"] & {
+      font-family: $kufi;
+      line-height: 1;
+    }
 
     &:hover {
       cursor: pointer;
       opacity: .8;
       transition: opacity .1666s ease-out;
     }
+  }
 
-    .wf-loaded & {
-      font-family: "Roboto Condensed", Roboto, sans-serif;
+  .meta-area__actions {
+    position: absolute;
+    bottom: 0;
+    height: $button-height;
+
+    [dir="ltr"] & {
+      right: 0;
+    }
+
+    [dir="rtl"] & {
+      left: 0;
     }
   }
 
   .lang-switcher {
     display: inline-block;
-    position: relative;
+    font-family: $roboto; // codes are always latin
     text-transform: uppercase;
     vertical-align: top;
+    white-space: nowrap;
+
+    position: absolute;
+    top: 7px;
+    width: auto;
+    height: $button-height;
+
+    [dir="ltr"] & {
+      right: 0;
+    }
+
+    [dir="rtl"] & {
+      left: 0;
+    }
 
     .page--sitrep & {
-      height: 32px; // match height of other buttons
-      top: 6px; // nudge for nice vertical alignment
+      [dir="ltr"] & {
+        right: 64px;
+      }
+
+      [dir="rtl"] & {
+        left: 64px;
+      }
     }
   }
 
   .lang-switcher__language {
-    width: auto;
-    height: 1rem;
+    display: inline-block;
+    width: $button-height;
+    height: $button-height;
     padding: 0 .25rem;
     color: #4c8cca;
     text-align: center;
@@ -398,39 +488,47 @@
     font-weight: 700;
   }
 
-  .meta-area__actions {
+  .btn--pdf {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    top: 0;
+
+    [dir="ltr"] & {
+      right: $button-height;
+    }
 
     [dir="rtl"] & {
-      right: auto;
-      left: 0;
+      left: $button-height;
     }
   }
 
   .share {
     display: inline-block;
+    width: $button-height;
+    height: $button-height;
     animation: fade-in .3333s ease-out;
+    position: relative;
 
     $share-width: 80px;
 
     &__toggle {
       display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $button-height;
+      height: $button-height;
+
+      border: 0;
+      border-radius: 7px; // set by default to avoid transition
       background-color: transparent;
       background-image: url('/icons/icon--share.svg');
       background-position: 50% 50%;
       background-repeat: no-repeat;
       background-size: 20px 16px;
       cursor: pointer;
+      text-align: center;
       transition: .1666s ease-out;
       transition-property: opacity, border-radius;
-
-      border: 0;
-      border-radius: 7px; // set by default to avoid transition
-      width: 32px;
-      height: 32px;
-      text-align: center;
 
       &:hover {
         opacity: .8;
@@ -451,8 +549,7 @@
 
     &__options {
       position: absolute;
-      top: 32px;
-      right: 0;
+      top: $button-height;
       z-index: 10;
       width: calc(#{$share-width} + 2rem); // 2rem comes from .card padding
 
@@ -465,8 +562,11 @@
       transition-property: opacity, transform;
       overflow: hidden;
 
+      [dir="ltr"] & {
+        right: 0;
+      }
+
       [dir="rtl"] & {
-        right: auto;
         left: 0;
         border-radius: 0 7px 7px 7px;
         transform-origin: 0% 0%;

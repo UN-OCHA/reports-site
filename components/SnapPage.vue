@@ -190,7 +190,7 @@
     background-color: transparent;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: 14px 20px;
+    background-size: 15px 21px;
     background-image: url('/icons/icon--pdf.svg');
     cursor: pointer;
 

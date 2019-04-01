@@ -75,12 +75,19 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .cluster__title,
   .cluster__bucket-title {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
 
-    .wf-loaded & {
-      font-family: 'Roboto Condensed';
+    [lang="ar"] & {
+      font-family: $kufi-bold;
     }
   }
 

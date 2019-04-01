@@ -4,12 +4,12 @@
     <AppHeader />
 
     <main class="container">
-      <section class="card card--intro rich-text">
+      <section class="card card--intro rich-text" ref="column1">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
         <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
         <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
       </section>
-      <section class="card card--sitreps">
+      <section class="card card--sitreps" ref="column2">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
           format="full"
@@ -23,19 +23,27 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+  import Page from '~/components/_Page';
+
+  // components
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
   import SitrepList from '~/components/SitrepList';
 
+  // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      Page,
+    ],
 
     // Declare any components we're using here
     components: {
@@ -65,6 +73,11 @@
       }
     },
 
+    mounted() {
+      // align column heights on IE11.
+      this.alignColumnHeights();
+    },
+
     head() {
       return {
         // Language settings determined by user language preference.
@@ -92,21 +105,21 @@
 </script>
 
 <style lang="scss" scoped>
-  @media (min-width: 960px) {
+  @media (min-width: 800px) {
     .card--intro {
       float: right;
-      width: calc(33.333% - 1rem);
+      width: calc(60% - 1rem);
       margin-left: 1rem;
     }
     .card--sitreps {
-      width: calc(66.666%);
+      width: calc(40%);
     }
 
     @supports (display: grid) {
       main {
         display: grid;
         grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 2fr;
+        grid-template-columns: 2fr 3fr;
         grid-gap: 1rem;
       }
 
@@ -121,12 +134,6 @@
       .card--sitreps {
         grid-area: sitreps;
       }
-    }
-  }
-
-  @media (min-width: 1080px) {
-    main {
-      grid-template-columns: 2fr 3fr;
     }
   }
 </style>

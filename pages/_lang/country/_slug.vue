@@ -259,9 +259,9 @@
       let ftsData = fts2018.concat(fts2019);
 
       // Reformat CTF translations response so follows format of locales Store.
-      let translations = translationEntries.items.map((entries) => {
+      let translations = translationEntries.items.map((translation) => {
         return {
-          'code': entries.fields.language,
+          'code': translation.fields.language,
         }
       });
 
@@ -327,7 +327,6 @@
                            "keyFigures   keyFinancials  contacts";
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1rem;
-      margin-bottom: 1rem;
     }
 
     .section--primary .card {
@@ -410,6 +409,7 @@
 
   .section--primary {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
   }
 
   .section--everythingElse {
