@@ -6,14 +6,14 @@ export default {
   // Global
   'UN OCHA': 'أوتشا',
   'UN Office for the Coordination of Humanitarian Affairs': 'مكتب الأمم المتحدة لتنسيق الشؤون الإنسانية',
-  'Situation Report': 'تقرير الوضع',
-  'Situation Reports': 'تقارير الوضع',
+  'Situation Report': 'تقريرعن الوضع',
+  'Situation Reports': 'تقاريرعن الوضع',
 
   // Errors
   'No data available.': 'لا يوجد بيانات متوفرة',
   'Page not found': 'الصفحة غير موجودة',
-  'We want to help you find the information you are looking for.': 'نريد مساعدتك في العثور على المعلومات التي تريد.',
-  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'إليك أخر تقارير الحالة من أوتشا التي قد تساعدك',
+  'We want to help you find the information you are looking for.': 'نريد مساعدتك في العثور على المعلومات التي تحتاجها.',
+  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'إليك أخر التقاريرعن الوضع من أوتشا التي قد تساعدك على العودة إلى المسار الصحيح',
 
   // AppBar
   'Toggle menu': 'قائمة التبديل',
@@ -25,11 +25,11 @@ export default {
   // AppHeader
   'Last updated': 'أخر التحديثات',
   'Subscribe': 'إشتراك',
-  'Share': 'مشاركة',
+  'Share': 'شارك',
   'Email': 'بريد إلكتروني',
-  'Download': 'تنزيل',
+  'Download': 'تحميل',
   'Archive': 'أرشيف',
-  'Read this Situation Report in a different language:': 'إقراء تقرير الوضع بلغة أخرى',
+  'Read this Situation Report in a different language:': 'إقراء التقريرعن الوضع بلغة أخرى',
 
   // AppFooter
   'Privacy policy': 'اتفاقية الخصوصية',
@@ -72,11 +72,11 @@ export default {
   'Background': 'خلفية',
   'Coordination': 'تنسيق',
   'Emergency Response': 'الاستجابة للطوارئ',
-  'Feature': 'مقال',
+  'Feature': 'خاصية',
   'Forecast': 'التنبؤ',
-  'Media': 'وسائط',
+  'Media': 'وسائل الإعلام',
   'Trends': 'الاتجاهات',
-  'Visuals and Data': 'المواد البصرية والبيانات',
+  'Visuals and Data': 'صور وبيانات',
   'Read more': 'إقراء المزيد',
   'Read less': 'إقراء أقل',
 
@@ -90,10 +90,10 @@ export default {
   'Interactive': 'تفاعلي',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقارير الوضع عن COUNTRY',
+  'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن COUNTRY',
 
   // Card Actions
-  'Save Situation Report as PDF': 'احفظ تقرير الوضع ك PDF',
+  'Save Situation Report as PDF': 'احفظ تقريرعن الوضع ك PDF',
   'Save THING as PNG': 'احفظ THING كملف PNG',
 
   // Snap strings
