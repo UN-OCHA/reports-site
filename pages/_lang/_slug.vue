@@ -7,11 +7,17 @@
     />
 
     <main class="container basic-page">
-      <section class="card card--content">
+      <section class="card card--content" ref="column1">
         <h1 class="card__title">{{ entry.fields.title }}</h1>
         <div class="rich-text" v-html="richBody"></div>
       </section>
-      <section v-if="entry.fields.slug === 'about'" class="card card--sidebar rich-text" lang="en" dir="ltr">
+      <section
+        v-if="entry.fields.slug === 'about'"
+        class="card card--sidebar rich-text"
+        lang="en"
+        dir="ltr"
+        ref="column2"
+      >
         <h2 class="card__title">Technology on this website</h2>
         <p>We used the following technologies to produce the Digital Situation Reports:</p>
 
@@ -33,21 +39,30 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+  import Page from '~/components/_Page';
+
+  // Components
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
 
+  // Contentful
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'page';
 
+  // Rich Text
   import { BLOCKS } from '@contentful/rich-text-types';
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      Page,
+    ],
 
     components: {
       AppBar,
@@ -166,6 +181,11 @@
       // Render rich text
       this.richBody = this.entry.fields.body ? documentToHtmlString(this.entry.fields.body, this.renderOptions) : '';
     },
+
+    mounted() {
+      // align column heights on IE11.
+      this.alignColumnHeights();
+    },
   }
 </script>
 
@@ -180,15 +200,23 @@
     //
     // IE11 layout
     //
-    .card--content {
-      width: calc(40% - 1rem);
-      margin-left: 1rem;
-
+    .card {
       [dir="ltr"] & {
         float: left;
       }
       [dir="rtl"] & {
         float: right;
+      }
+    }
+
+    .card--content {
+      width: calc(40% - 1rem);
+
+      [dir="ltr"] & {
+        margin-right: 1rem;
+      }
+      [dir="rtl"] & {
+        margin-left: 1rem;
       }
     }
     .card--sidebar {
@@ -229,7 +257,7 @@
 
     li {
       display: inline-block;
-      flex: 0 0 25%;
+      flex: 0 1 25%;
       align-self: center;
       padding: 1rem;
     }
