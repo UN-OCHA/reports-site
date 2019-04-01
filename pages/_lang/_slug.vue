@@ -3,6 +3,8 @@
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
+      :title-is-multilingual="true"
+      :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
       :translations="translations"
     />
 
