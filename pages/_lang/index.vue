@@ -4,12 +4,12 @@
     <AppHeader />
 
     <main class="container">
-      <section class="card card--intro rich-text" ref="homeIntro">
+      <section class="card card--intro rich-text" ref="column1">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
         <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
         <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
       </section>
-      <section class="card card--sitreps" ref="homeList">
+      <section class="card card--sitreps" ref="column2">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
           format="full"
@@ -23,19 +23,27 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+  import Page from '~/components/_Page';
+
+  // components
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
   import SitrepList from '~/components/SitrepList';
 
+  // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      Page,
+    ],
 
     // Declare any components we're using here
     components: {
@@ -66,25 +74,8 @@
     },
 
     mounted() {
-      if (
-        typeof window.CSS !== 'undefined' &&
-        typeof window.CSS.supports !== 'undefined' &&
-        window.CSS.supports('display', 'grid')
-      ) {
-        // Browsers supporting CSS Grid will render properly without assistance.
-      }
-      else {
-        // Calculate which column is tallest
-        let intro = this.$refs.homeIntro;
-        let list = this.$refs.homeList;
-        let introHeight = intro.getBoundingClientRect().height;
-        let listHeight = list.getBoundingClientRect().height;
-        let tallestHeight = (introHeight > listHeight) ? introHeight : listHeight;
-
-        // Both should be set to the height of the taller element;
-        intro.style.height = tallestHeight + 'px';
-        list.style.height = tallestHeight + 'px';
-      }
+      // align column heights on IE11.
+      this.alignColumnHeights();
     },
 
     head() {
