@@ -3,6 +3,8 @@
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
+      :title-is-multilingual="false"
+      :subtitle="$t('Situation Report', locale)"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
       :countrycode="entry.fields.countryCode"

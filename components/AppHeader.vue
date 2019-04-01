@@ -5,10 +5,14 @@
         <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
-        <h1 class="title title--sitrep" v-if="title">{{ title }}</h1>
-        <h1 class="title title--site" v-else>{{ $t('Situation Reports', locale) }}</h1>
-        <span class="subtitle" v-if="title">{{ $t('Situation Report', locale) }}</span>
-        <span class="subtitle" v-else>{{ $t('UN Office for the Coordination of Humanitarian Affairs', locale) }}</span>
+        <h1
+          class="title title--sitrep"
+          :class="{'title--is-multilingual': titleIsMultilingual}"
+        >{{ title }}</h1>
+
+        <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
+        <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
+
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
         <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
@@ -71,7 +75,9 @@
     },
 
     props: {
+      'titleIsMultilingual': Boolean,
       'title': String,
+      'subtitle': String,
       'updated': String,
       'mailchimp': String,
       'countrycode': String,
@@ -297,19 +303,17 @@
   .title {
     display: block;
     color: #4c8cca;
+    font-family: $roboto-condensed;
+    font-size: 2em;
     font-weight: 700;
     text-transform: uppercase;
     margin-top: 0 - $header-padding;
   }
 
-  // For now, SitRep titles are always EN.
-  .title--sitrep {
-    font-family: $roboto-condensed;
-    font-size: 2em;
-  }
-
-  // The homepage title can be in any language.
-  .title--site {
+  // SitReps are EN only for now, but other page titles can be in any language.
+  // we set up a special prop that can be set when implementing the AppHeader on
+  // a page.
+  .title--is-multilingual {
     font-family: $roboto-condensed;
     font-size: 2em;
 
@@ -334,6 +338,7 @@
       line-height: 1;
     }
 
+    .page--slug-about &,
     .page--front & {
       max-width: 345px;
       line-height: 1.1;

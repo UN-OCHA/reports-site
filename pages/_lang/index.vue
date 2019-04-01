@@ -1,7 +1,11 @@
 <template>
   <div class="page--front" @click="noop">
     <AppBar />
-    <AppHeader />
+    <AppHeader
+      :title="$t('Situation Reports', locale)"
+      :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
+      :title-is-multilingual="true"
+    />
 
     <main class="container">
       <section class="card card--intro rich-text" ref="column1">
@@ -27,7 +31,7 @@
   import Global from '~/components/_Global';
   import Page from '~/components/_Page';
 
-  // components
+  // Components
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
