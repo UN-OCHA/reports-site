@@ -8,7 +8,23 @@
 
     <main class="container basic-page">
       <section class="card card--content">
+        <h1 class="card__title">{{ entry.fields.title }}</h1>
         <div class="rich-text" v-html="richBody"></div>
+      </section>
+      <section v-if="entry.fields.slug === 'about'" class="card card--sidebar rich-text" lang="en" dir="ltr">
+        <h2 class="card__title">Technology on this website</h2>
+        <p>We used the following technologies to produce the Digital Situation Reports:</p>
+
+        <p>We chose <strong>Contentful</strong> as our content infrastructure in order to focus development efforts on presentation and publishing across various channels, instead of spending effort building and maintaining a backend.</p>
+        <p>We used <strong>Vue.js</strong> and <strong>Nuxt</strong> to build the frontend. Vue enables us to build a robust, modern web application. Nuxt provides server-side integration to output static HTML that does not require JavaScript to display the site's content.</p>
+        <p>OCHA serves all of its websites using <strong>NGINX</strong>.</p>
+
+        <ul class="tech">
+          <li><a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank"><img src="/logo-contentful.png" alt="Contentful"></a></li>
+          <li><a rel="nofollow noopener" href="https://nuxtjs.org/" target="_blank"><img src="/logo-nuxt.png" alt="Nuxt.js"></a></li>
+          <li><a rel="nofollow noopener" href="https://vuejs.org/" target="_blank"><img src="/logo-vue.png" alt="Vue.js"></a></li>
+          <li><a rel="nofollow noopener" href="https://www.nginx.com/" target="_blank"><img src="/logo-nginx.png" alt="NGINX"></a></li>
+        </ul>
       </section>
     </main>
 
@@ -154,5 +170,81 @@
 </script>
 
 <style lang="scss" scoped>
-  // Nothing specific
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
+  @media (min-width: 800px) {
+    //
+    // IE11 layout
+    //
+    .card--content {
+      width: calc(40% - 1rem);
+      margin-left: 1rem;
+
+      [dir="ltr"] & {
+        float: left;
+      }
+      [dir="rtl"] & {
+        float: right;
+      }
+    }
+    .card--sidebar {
+      width: 60%;
+    }
+
+    //
+    // Normal layout
+    //
+    @supports (display: grid) {
+      main {
+        display: grid;
+        grid-template-areas: "content sidebar";
+        grid-template-columns: 2fr 3fr;
+        grid-gap: 1rem;
+      }
+
+      .card {
+        width: 100%;
+        margin: 0;
+      }
+
+      .card--content {
+        grid-area: content;
+      }
+      .card--sidebar {
+        grid-area: sidebar;
+      }
+    }
+  }
+
+  ul.tech {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: space-evenly;
+    margin: 0 1rem;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      flex: 0 0 25%;
+      align-self: center;
+      padding: 1rem;
+    }
+  }
+
+  main img {
+    transform: none; // avoid flipping on RTL
+  }
+
+  // Override the overrides for Arabic
+  [lang="en"] {
+    font-family: $roboto;
+
+    .card__title {
+      font-family: $roboto-condensed;
+    }
+  }
 </style>
