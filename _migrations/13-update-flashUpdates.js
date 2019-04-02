@@ -22,4 +22,21 @@ module.exports = function(migration) {
     .changeEditorInterface('relatedSitRep', 'entryCardEditor', {
       helpText: 'Do NOT create a new Situation Report. ONLY use the "Link an existing entry" option.',
     })
+
+  //
+  // ContentType: sitrep
+  //
+  const sitrep = migration.editContentType('sitrep');
+
+  //
+  // Field: flashUpdate
+  //
+  // We are disabling this field and omitting from the response to completely
+  // deprecate its use and remove at a later date.
+  //
+  sitrep
+    .editField('flashUpdate')
+    .disabled(true)
+    .omitted(true)
+
 };
