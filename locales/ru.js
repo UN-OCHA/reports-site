@@ -29,7 +29,7 @@ export default {
   'Email': 'Электронная почта',
   'Download': 'Загрузить',
   'Archive': 'Архив',
-  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
+  'Read this Situation Report in a different language:': 'Ознакомьтесь с Оперативной сводкой на другом языке',
 
   // AppFooter
   'Privacy policy': 'Политика конфиденциальности',
@@ -46,7 +46,7 @@ export default {
 
   // Key Messages
   'Key Messages': 'Ключевые положения',
-  'Highlights': 'Highlights',
+  'Highlights': 'Главное',
 
   // Key Figures
   'Key Figures': 'Ключевые показатели',
@@ -84,13 +84,17 @@ export default {
   'Flash Update': 'Экспресс-отчёт',
 
   // Videos
-  'Video': 'Video',
+  'Video': 'Видео',
 
   // Interactives
   'Interactive': 'Интерактивная версия',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о COUNTRY',
+
+  // Card Actions
+  'Save Situation Report as PDF': 'Сохранить Оперативную сводку в формате PDF',
+  'Save THING as PNG': 'Сохранить THING в формате PNG',
 
   // Snap strings
   'Date of Creation': 'Дата создания',

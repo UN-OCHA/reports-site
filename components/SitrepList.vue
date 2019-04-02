@@ -5,6 +5,7 @@
       <span class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+          :lang="sitrep.fields.language"
           :aria-label="localeName(sitrep.fields.language)"
           v-on:click.native="closeParentMenu"
         >{{ sitrep.fields.language }}</nuxt-link>
@@ -15,8 +16,12 @@
       <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
+          :lang="sitrep.fields.language"
         >{{ localeName(sitrep.fields.language) }}</nuxt-link>
-        <span class="sitrep__last-updated"><span class="element-invisible">{{ $t('Last updated', locale) }}:</span><time :datetime="sitrep.fields.dateUpdated">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="sitrep__last-updated">
+          <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
+          <time :datetime="sitrep.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
+        </span>
       </p>
     </li>
   </ul>
@@ -96,6 +101,12 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
   .sitrep-list {
     margin: 1rem 0;
     padding: 0;
@@ -107,17 +118,32 @@
   }
   .sitrep-group__heading {
     text-transform: uppercase;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
-    }
+    font-family: $roboto-condensed;
   }
   .sitrep {
     margin: .25rem 0;
+
+    //
+    // Although it brings consistency to the various pages, this one rule adds
+    // a 82K font download to the homepage to render a single word. Unless it is
+    // deemed extremely important to retain branding across pages, we are not
+    // applying the Dubai font to the non-Arabic language homepage for now.
+    //
+    // a[lang="ar"] {
+    //   font-family: $dubai;
+    // }
   }
   .sitrep__last-updated {
     color: #666;
     font-style: italic;
+
+    [dir="ltr"] & {
+      font-size: .9em;
+    }
+
+    [lang="ar"] & {
+      font-style: normal;
+    }
   }
 
   //
@@ -136,20 +162,28 @@
   //
   .format--compact {
     &.sitrep-list {
-      margin-left: 2.25rem;
+      margin-left: 2rem;
+
+      [dir="rtl"] & {
+        margin-left: auto;
+        margin-right: 2rem;
+      }
     }
 
     .sitrep-group__heading {
       display: inline-block;
       margin: 0 0 .5rem 0;
-      padding-left: 1.75rem;
+      padding-left: 1.5rem;
+      font-family: $roboto;
       font-size: 1em;
       background-image: url('/icons/icon--location.svg');
       background-position: 0 50%;
       text-transform: none;
 
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
+      [dir="rtl"] & {
+        padding-left: 0;
+        padding-right: 1.5rem;
+        background-position: 100% 50%;
       }
     }
 

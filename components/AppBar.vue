@@ -9,11 +9,11 @@
       </nuxt-link>
       <div class="app-bar__content">
         <ul class="main-nav">
-          <li class="link link--home">
+          <li class="link link--home" :lang="locale">
             <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
           </li>
           <no-ssr>
-            <li class="link link--latest">
+            <li class="link link--latest" :lang="locale">
               {{ $t('Latest updates', locale) }}
             </li>
             <SitrepList
@@ -22,8 +22,8 @@
               v-on:close-menu="closeMenu"
             />
           </no-ssr>
-          <li v-if="false" class="link link--about">
-            <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
+          <li class="link link--about">
+            <nuxt-link :to="'/en/about/'/*$i18n.path('about/')*/" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
           </li>
         </ul>
 
@@ -106,8 +106,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
     z-index: 1001;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0;
+    }
   }
 
   .app-bar {
@@ -123,6 +127,9 @@
     transition: height .25s ease-in-out;
     overflow-y: hidden;
 
+    //
+    // Expand mobile menu
+    //
     input#app-bar__toggle:checked ~ &,
     &.is--expanded {
       height: 100vh;
@@ -145,6 +152,11 @@
     cursor: pointer;
     transition: transform .25s ease-in-out;
 
+    [dir="rtl"] & {
+      left: auto;
+      right: 1rem;
+    }
+
     &:focus {
       // animation: btn--toggle 1s ease-in-out 1;
       outline: 0;
@@ -163,11 +175,17 @@
   }
 
   .logo-link {
-    position: absolute;
+    position: fixed;
     top: .7rem;
     left: 4rem;
+    z-index: 1001;
 
-    @media(min-width: $bkpt-app-bar) {
+    [dir="rtl"] & {
+      left: auto;
+      right: 4rem;
+    }
+
+    @media (min-width: $bkpt-app-bar) {
       display: none;
     }
   }
@@ -181,6 +199,31 @@
   .app-bar__content {
     margin-top: 4rem;
     padding: 0 .5rem;
+    opacity: 0;
+    transition: opacity .1666s ease-in-out;
+
+    // MAX width. this is for mobile only.
+    @media (max-width: $bkpt-app-bar) {
+      &::before {
+        content: ' ';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4rem;
+        background: linear-gradient(to bottom, #4c8cca 80%, rgba(#4c8cca, 0));
+      }
+    }
+  }
+
+  // Contents of AppBar should fade in when expanded.
+  input#app-bar__toggle:checked,
+  .app-bar.is--expanded {
+    & ~ .app-bar .app-bar__content,
+    & .app-bar__content {
+      opacity: 1;
+    }
   }
 
   //
@@ -195,8 +238,9 @@
     display: block;
     margin: 1rem 0;
     padding: 0;
-    padding-left: 2rem;
+    padding-left: 1.75rem;
     color: white;
+    font-family: $roboto; // titles are always english
     text-decoration: none;
 
     background-repeat: no-repeat;
@@ -208,6 +252,18 @@
     // setting and leave IE11 to rot for eternity.
     --bgsize: contain;
     background-size: var(--bgsize);
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      padding-right: 1.75rem;
+      background-position: 100% 50%;
+    }
+
+    // looking for a lang attribute directly on this element, not on <html>
+    &[lang="ar"] {
+      line-height: 1.2;
+      font-family: $kufi;
+    }
 
     a {
       color: inherit;
@@ -226,20 +282,23 @@
   }
 
   .ocha-services .link {
-    // Since OCHA services graphics are many sizes, we again use CSS Custom props
+    // Since OCHA services icons are many sizes, we again use CSS Custom props
     // to override for new browsers.
-    --bgsize: 1.25rem 1.25rem;
+    --bgsize: 1.2rem 1.2rem;
   }
 
-  .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
-  .link--hdx  { background-image: url('/icons--ocha/hdx.svg'); }
-  .link--hid  { background-image: url('/icons--ocha/hid.svg'); }
-  .link--hri  { background-image: url('/icons--ocha/hr.svg'); }
-  .link--iasc { background-image: url('/icons--ocha/iasc.svg'); }
-  .link--ocha { background-image: url('/icons--ocha/ocha.svg'); }
-  .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
-  .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
-  .link--all  { background-image: url('/icons--ocha/all.svg'); }
+  // Specify individual icons
+  .ocha-services {
+    .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
+    .link--hdx  { background-image: url('/icons--ocha/hdx.svg'); }
+    .link--hid  { background-image: url('/icons--ocha/hid.svg'); }
+    .link--hri  { background-image: url('/icons--ocha/hr.svg'); }
+    .link--iasc { background-image: url('/icons--ocha/iasc.svg'); }
+    .link--ocha { background-image: url('/icons--ocha/ocha.svg'); }
+    .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
+    .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
+    .link--all { background-image: url('/icons--ocha/all.svg'); }
+  }
 
   .ocha-heading {
     margin: 2rem -.5rem 0;
@@ -248,6 +307,14 @@
     color: rgba(255, 255, 255, .5);
     font-size: .9em;
     text-transform: uppercase;
+
+    [dir="rtl"] & {
+      font-size: 1.2em;
+    }
+
+    [lang="ar"] & {
+      font-family: $kufi;
+    }
   }
 
   //
@@ -263,6 +330,12 @@
       overflow: hidden;
       transition-property: width;
 
+      [dir="rtl"] & {
+        right: 0;
+        left: auto;
+      }
+
+
       input#app-bar__toggle:checked ~ &,
       &.is--expanded {
         width: 23rem;
@@ -271,25 +344,20 @@
     }
 
     .btn--toggle {
-      top: 1.5rem;
+      top: .5rem;
     }
 
     .app-bar__content {
       width: 22rem;
-      opacity: 0;
-      transition: opacity .1666s ease-in-out;
-    }
-
-    input#app-bar__toggle:checked,
-    .app-bar.is--expanded {
-      & ~ .app-bar .app-bar__content,
-      & .app-bar__content {
-        opacity: 1;
-      }
     }
 
     .ocha-heading {
       margin-right: .5rem;
+
+      [dir="rtl"] & {
+        margin-right: 0;
+        margin-left: .5rem;
+      }
     }
   }
 

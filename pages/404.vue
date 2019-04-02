@@ -7,7 +7,7 @@
 
     <main class="container container--404-grid">
       <section class="card card--404 rich-text">
-        <img class="card__image" src="/locust-404.svg" alt="404 Error">
+        <img class="card__image" src="/locust-404.svg" :alt="$t('Page not found', locale)">
         <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
         <p class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
         <p class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>

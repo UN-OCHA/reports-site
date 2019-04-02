@@ -17,6 +17,7 @@
     </div>
 
     <ul class="footer-menu">
+      <li><a href="/en/about/">{{ $t('About', locale) }}</a></li>
       <li><a :href="$t('href-privacy', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
       <li><a :href="$t('href-copyright', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
     </ul>
@@ -36,9 +37,16 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
   .footer {
     clear: both;
     border-top: 3px solid #4c8cca;
+    margin-top: 2rem; // don't set L/R because it's a container!
     padding-top: 1em;
     font-size: .85em;
     overflow-x: hidden; // long links shouldn't break layout
@@ -53,11 +61,16 @@
   .text {
     font-style: italic;
     margin-bottom: 1em;
+
+    [lang="ar"] & {
+      font-style: normal;
+    }
   }
 
   .links {
     margin: 0;
     padding: 0;
+    font-family: $roboto; // URLs are always english so set it in stone
   }
 
   .link {
@@ -67,6 +80,11 @@
     @media print {
       display: block;
       margin-bottom: .5em;
+    }
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 2em;
     }
   }
 
@@ -81,12 +99,20 @@
   .footer-menu {
     list-style: none;
     margin: 2em 0 0;
-    padding-left: 0;
+    padding: 0;
   }
 
   .footer-menu li {
     display: inline-block;
-    margin: 0 2em 1em 0;
+    margin-top: 0;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 2em;
+
+    [dir="rtl"] & {
+      margin-left: 2em;
+      margin-right: 0;
+    }
   }
 
   .footer-menu a {
@@ -113,6 +139,10 @@
 
   .social-menu {
     float: right;
+
+    [dir="rtl"] & {
+      float: left;
+    }
   }
 
   .social-link {
@@ -126,6 +156,10 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
+
+    [dir="rtl"] & {
+      margin: 1.5em .666em 0 0;
+    }
   }
 
   .social-link a {
@@ -138,8 +172,8 @@
     background-image: url('/icons/icon--share-fb-gray.svg');
     background-size: 85%; // FB SVG is slightly taller
   }
+
   .social-link--twitter {
     background-image: url('/icons/icon--share-tw-gray.svg');
   }
-
 </style>

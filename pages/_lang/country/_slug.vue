@@ -3,6 +3,8 @@
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
+      :title-is-multilingual="false"
+      :subtitle="$t('Situation Report', locale)"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
       :countrycode="entry.fields.countryCode"
@@ -21,7 +23,6 @@
       </section>
 
       <section class="section--everythingElse">
-        <Cluster :content="cluster" v-for="cluster in entry.fields.clusters" :key="cluster.sys.id" v-if="typeof cluster !== 'undefined' && typeof cluster.fields !== 'undefined'" />
         <component :is="componentMap[card.sys.contentType.sys.id]" :content="card" v-for="card in entry.fields.article" :key="card.sys.id" v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'" />
       </section>
     </main>
@@ -116,11 +117,11 @@
           { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
-          { hid: 'og-type', name: 'og:type', content: 'website' },
-          { hid: 'og-url', name: 'og:url', content: `https://reports.unocha.org/country/${this.entry.fields.slug}` },
-          { hid: 'og-title', name: 'og:title', content: this.entry.fields.title },
-          { hid: 'og-desc', name: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
-          { hid: 'og-image', name: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
+          { hid: 'og-type', property: 'og:type', content: 'website' },
+          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
+          { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
+          { hid: 'og-desc', property: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'og-image', property: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
         ],
       };
     },
@@ -241,9 +242,9 @@
       let ftsData = fts2018.concat(fts2019);
 
       // Reformat CTF translations response so follows format of locales Store.
-      let translations = translationEntries.items.map((entries) => {
+      let translations = translationEntries.items.map((translation) => {
         return {
-          'code': entries.fields.language,
+          'code': translation.fields.language,
         }
       });
 
@@ -257,7 +258,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
 /*—— Report Medium/Print layout ——————————————————————————————————————————————*/
 
@@ -281,11 +282,21 @@
     float: left;
     width: calc(100% / 3 - (2rem / 3));
     min-height: 240px;
-    margin-right: 1rem;
+    margin-right: .99rem;
+
+    [dir="rtl"] & {
+      float: right;
+      margin-right: 0;
+      margin-left: .99rem;
+    }
   }
 
   .card--contacts {
     margin-right: 0;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+    }
   }
 
   /**
@@ -298,7 +309,6 @@
                            "keyFigures   keyFinancials  contacts";
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 1rem;
-      margin-bottom: 1rem;
     }
 
     .section--primary .card {
@@ -381,6 +391,7 @@
 
   .section--primary {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
   }
 
   .section--everythingElse {
@@ -402,11 +413,21 @@
     border-right: 1px solid #ddd;
     border-bottom: 0 !important; /* override shared print/screen Grid styles */
     margin-bottom: 0;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      border-left: 1px solid #ddd;
+    }
   }
   .card--keyFinancials {
     border-right: 1px solid #ddd;
     border-bottom: 0;
     margin-bottom: 0;
+
+    [dir="rtl"] & {
+      border-right: 0;
+      border-left: 1px solid #ddd;
+    }
   }
   .card--contacts {
     border: 0;

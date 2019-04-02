@@ -3,7 +3,7 @@
     <CardHeader />
 
     <span class="card__title">
-      {{ $t(content.fields.sectionHeading, locale) }}
+      <span class="card__heading">{{ $t(content.fields.sectionHeading, locale) }}</span>
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
     <div class="article__content" :class="{ 'article__content--has-image': articleHasImage }">
@@ -57,13 +57,13 @@
     </div>
     <button
       v-if="isExpandable"
-      class="btn--toggle-text"
+      class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions label="Article" :frag="'#' + cssId" />
+    <CardActions :label="content.fields.sectionHeading" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
@@ -151,13 +151,18 @@
 </script>
 
 <style lang="scss" scoped>
-  .article__title {
-    font-family: sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
 
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
+  .article__title {
+    margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
+
+    [lang="ar"] & {
+      font-family: $kufi-bold;
     }
   }
 
@@ -173,6 +178,10 @@
       .article__image {
         float: right;
         width: 33.333%;
+
+        [dir="rtl"] & {
+          float: left;
+        }
       }
 
       .article__text {
@@ -180,6 +189,11 @@
         clear: left;
         width: calc(66.666% - 1rem);
         margin-right: 1rem;
+
+        [dir="rtl"] & {
+          float: right;
+          clear: right;
+        }
       }
     }
 
@@ -240,19 +254,30 @@
 
     .btn--toggle-text {
       display: block;
+      width: auto;
       border: none;
       padding: 0 1em 0 0;
       margin: 1rem 0 0 0;
       background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
       background-size: 12px auto;
       color: hsl(0, 0%, 50%);
-      font-family: sans-serif;
+      font-family: $roboto;
       font-size: 1em;
+      line-height: 1;
       text-transform: uppercase;
       cursor: pointer;
 
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
+      [dir="ltr"] & {
+        float: left;
+        clear: left;
+      }
+      [dir="rtl"] & {
+        float: right;
+        clear: right;
+      }
+
+      [lang="ar"] & {
+        font-family: $kufi;
       }
 
       &:focus {
@@ -288,6 +313,12 @@
       float: right;
       max-width: 40%;
       margin-left: 2em;
+
+      [dir="rtl"] & {
+        float: left;
+        margin-left: 0;
+        margin-right: 2em;
+      }
     }
 
     .is--expandable {

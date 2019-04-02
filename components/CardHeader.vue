@@ -27,6 +27,12 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
+
   .card__snap-header {
     // DEFAULT: invisible and ignored by screen-readers
     display: none;
@@ -44,15 +50,12 @@
     border-bottom: 2px solid currentColor;
     padding-bottom: .5rem;
     margin-bottom: 1rem;
+    font-family: $roboto-condensed;
 
     // display: grid;
     grid-template-areas: "logo meta";
     grid-template-columns: 48px 1fr;
     grid-gap: 0;
-
-    .wf-loaded & {
-      font-family: "Roboto Condensed", serif;
-    }
   }
 
   .logo {
@@ -68,6 +71,16 @@
     padding-left: .5rem;
     margin-left: 4px;
     border-left: 1px solid currentColor;
+
+    [dir="rtl"] & {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: 0;
+
+      padding-right: .5rem;
+      margin-right: 4px;
+      border-right: 1px solid currentColor;
+    }
   }
 
   .title {

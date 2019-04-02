@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <CardActions label="Cluster" :frag="'#' + cssId" />
+    <CardActions label="Cluster Status" :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>
@@ -75,12 +75,19 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .cluster__title,
   .cluster__bucket-title {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
 
-    .wf-loaded & {
-      font-family: 'Roboto Condensed';
+    [lang="ar"] & {
+      font-family: $kufi-bold;
     }
   }
 
@@ -100,14 +107,24 @@
     .cluster__title {
       float: left;
       width: 49%;
+
+      [dir="rtl"] & {
+        float: right;
+      }
     }
 
-    // Cluster Figures flow from the right, not left like KF.
+    // Cluster Figures flow from the end of our reading direction, unlike KF
+    // which flow from initial direction.
     .figures {
       float: right;
       width: 49%;
       text-align: right;
       flex-direction: row-reverse;
+
+      [dir="rtl"] & {
+        float: left;
+        text-align: left;
+      }
 
       * {
         flex-basis: 50%;
@@ -131,10 +148,26 @@
       padding-left: 1rem;
       border-left: 1px solid #ddd;
 
+      [dir="rtl"] & {
+        float: right;
+        margin-left: 0;
+        padding-left: 0;
+        border-left: 0;
+        margin-right: 1rem;
+        padding-right: 1rem;
+        border-right: 1px solid #ddd;
+      }
+
       &:first-child {
         margin-left: 0;
         border-left: 0;
         padding-left: 0;
+
+        [dir="rtl"] & {
+          margin-right: 0;
+          border-right: 0;
+          padding-right: 0;
+        }
       }
     }
 
@@ -164,10 +197,22 @@
           margin: 0;
 
           &:first-child {
-            padding-left: 0;
+            [dir="ltr"] & {
+              padding-left: 0;
+            }
+
+            [dir="rtl"] & {
+              padding-right: 0;
+            }
           }
           &:last-child {
-            padding-right: 0;
+            [dir="ltr"] & {
+              padding-right: 0;
+            }
+
+            [dir="rtl"] & {
+              padding-left: 0;
+            }
           }
         }
       }

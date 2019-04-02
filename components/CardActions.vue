@@ -34,6 +34,14 @@
   .actions {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    line-height: 1;
+
+    [dir="ltr"] & {
+      right: 1rem;
+    }
+
+    [dir="rtl"] & {
+      left: 1rem;
+    }
   }
 </style>

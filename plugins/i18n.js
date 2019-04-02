@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import ar from '~/locales/ar.js';
 import en from '~/locales/en.js';
 import es from '~/locales/es.js';
 import fr from '~/locales/fr.js';
@@ -15,6 +16,7 @@ export default ({ app, store }) => {
     locale: store.state.locale,
     fallbackLocale: 'en',
     messages: {
+      'ar': ar,
       'en': en,
       'es': es,
       'fr': fr,

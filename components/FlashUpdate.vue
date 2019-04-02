@@ -99,6 +99,11 @@
 </script>
 
 <style lang="scss" scoped>
+  //
+  // Import shared variables
+  //
+  @import '~/assets/Global.scss';
+
   .card {
     background-color: #FEE7DC;
   }
@@ -112,12 +117,12 @@
   }
 
   .flash-update__title {
-    font-family: sans-serif;
-    font-weight: 700;
     margin-bottom: 1em;
+    font-family: $roboto-condensed;
+    font-weight: 700;
 
-    .wf-loaded & {
-      font-family: "Roboto Condensed", sans-serif;
+    [lang="ar"] & {
+      font-family: $kufi-bold;
     }
   }
 
@@ -206,14 +211,10 @@
       background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
       background-size: 12px auto;
       color: hsl(0, 0%, 50%);
-      font-family: sans-serif;
+      font-family: $roboto;
       font-size: 1em;
       text-transform: uppercase;
       cursor: pointer;
-
-      .wf-loaded & {
-        font-family: "Roboto", sans-serif;
-      }
 
       &:focus {
         outline: none;

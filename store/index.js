@@ -3,23 +3,33 @@ export const state = () => ({
   locales: [
     {
       code: 'en',
-      name: 'English'
+      name: 'English',
+      dir: 'ltr',
     },
     {
       code: 'es',
-      name: 'Español'
+      name: 'Español',
+      dir: 'ltr',
     },
     {
       code: 'fr',
-      name: 'Français'
+      name: 'Français',
+      dir: 'ltr',
     },
     {
       code: 'ru',
-      name: 'Русский'
+      name: 'Русский',
+      dir: 'ltr',
     },
     {
       code: 'uk',
-      name: 'Українська'
+      name: 'Українська',
+      dir: 'ltr',
+    },
+    {
+      code: 'ar',
+      name: 'عربي',
+      dir: 'rtl',
     },
   ],
   reportMeta: {

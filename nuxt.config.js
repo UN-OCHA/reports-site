@@ -27,7 +27,7 @@ module.exports = {
   //
   head: {
     htmlAttrs: {
-      lang: 'en-US'
+      lang: 'en-US',
     },
     title: 'Digital Situation Report',
     meta: [
@@ -42,7 +42,6 @@ module.exports = {
       { hid: 'manifest', rel: 'manifest', href: '/manifest.json' },
       { hid: 'apple-touch-icon', rel: 'apple-touch-icon', href: '/icons/app-icon_192.png' },
       { hid: 'ctf-image-preconnect', rel: 'preconnect', href: 'https://images.ctfassets.net' },
-      // { rel: 'stylesheet', type: 'text/css', href: '/global.css' },
     ]
   },
   //
@@ -53,7 +52,7 @@ module.exports = {
   // Additional modules for our site
   //
   modules: [
-    ['@nuxtjs/moment', ['es', 'fr', 'ru', 'uk']],
+    ['@nuxtjs/moment', ['ar', 'es', 'fr', 'ru', 'uk']],
   ],
   //
   // Router
@@ -88,26 +87,40 @@ module.exports = {
   //
   generate: {
     routes: function () {
-      // Define a language list.
-      const languages = ['en', 'es', 'fr', 'ru', 'uk'];
+      // Read languages our of our official Store.
+      //
+      // This is maybe a hack but it gets the canonical list without having to
+      // manually keep it updated.
+      const languages = require('./store/index.js');
 
       // Define a homepage per language.
-      const homepages = languages.map((lang) => {
-        return `/${lang}`;
+      const homepages = languages.state().locales.map((lang) => {
+        return `/${lang.code}`;
       });
 
       // Query Contentful for all SitReps
       const sitreps = client.getEntries({
-        'include': 2,
+        'include': 0,
         'content_type': 'sitrep',
       })
       .then((res) => {
-        return res.items.map((page) => {
-          return route = '/' + page.fields.language + '/country/' + page.fields.slug;
+        return res.items.map((sitrep) => {
+          return route = '/' + sitrep.fields.language + '/country/' + sitrep.fields.slug;
         });
       });
 
-      return Promise.all([sitreps, homepages]).then(arrays => {
+      // Query Contentful for all Pages
+      const pages = client.getEntries({
+        'include': 0,
+        'content_type': 'page',
+      })
+      .then((res) => {
+        return res.items.map((page) => {
+          return route = '/' + page.fields.language + '/' + page.fields.slug;
+        });
+      });
+
+      return Promise.all([sitreps, homepages, pages]).then(arrays => {
         // Combine the two arrays of URLs and return.
         return arrays.join().split(',');
       });
