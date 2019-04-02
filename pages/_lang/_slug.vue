@@ -3,6 +3,8 @@
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
+      :title-is-multilingual="true"
+      :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
       :translations="translations"
     />
 
@@ -21,16 +23,18 @@
         <h2 class="card__title">Technology on this website</h2>
         <p>We used the following technologies to produce the Digital Situation Reports:</p>
 
-        <p>We chose <strong>Contentful</strong> as our content infrastructure in order to focus development efforts on presentation and publishing across various channels, instead of spending effort building and maintaining a backend.</p>
-        <p>We used <strong>Vue.js</strong> and <strong>Nuxt</strong> to build the frontend. Vue enables us to build a robust, modern web application. Nuxt provides server-side integration to output static HTML that does not require JavaScript to display the site's content.</p>
-        <p>OCHA serves all of its websites using <strong>NGINX</strong>.</p>
+        <p>We chose <a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank">Contentful</a> as our content infrastructure in order to focus development efforts on presentation and publishing across various channels, instead of spending effort building and maintaining a backend.</p>
+        <p>We used <a rel="nofollow noopener" href="https://vuejs.org/" target="_blank">Vue.js</a> and <a rel="nofollow noopener" href="https://nuxtjs.org/" target="_blank">Nuxt</a> to build the frontend. Vue enables us to build a robust, modern web application. Nuxt provides server-side integration to output static HTML that does not require JavaScript to display the site's content.</p>
+        <p>We serve the frontend using <a rel="nofollow noopener" href="https://www.nginx.com/" target="_blank">NGINX</a>.</p>
 
         <ul class="tech">
-          <li><a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank"><img src="/logo-contentful.png" alt="Contentful"></a></li>
+          <li><a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank"><img src="https://images.ctfassets.net/fo9twyrwpveg/44baP9Gtm8qE2Umm8CQwQk/c43325463d1cb5db2ef97fca0788ea55/PoweredByContentful_LightBackground.svg" alt="Contentful"></a></li>
           <li><a rel="nofollow noopener" href="https://nuxtjs.org/" target="_blank"><img src="/logo-nuxt.png" alt="Nuxt.js"></a></li>
           <li><a rel="nofollow noopener" href="https://vuejs.org/" target="_blank"><img src="/logo-vue.png" alt="Vue.js"></a></li>
           <li><a rel="nofollow noopener" href="https://www.nginx.com/" target="_blank"><img src="/logo-nginx.png" alt="NGINX"></a></li>
         </ul>
+
+        <p>The code is <a href="https://github.com/UN-OCHA/reports-site/" target="_blank" rel="noopener">open source on GitHub</a>.</p>
       </section>
     </main>
 
