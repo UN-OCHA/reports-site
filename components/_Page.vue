@@ -31,3 +31,73 @@
     },
   }
 </script>
+
+<style lang="scss">
+//
+// Shared layout for Basic Page
+//
+// Since these are shared across multiple page components, we scope our classes
+// manually instead of using the [scoped] attribute of the Vue component <style>
+// tag.
+//
+// If you want to implement this layout, provide the following HTML structure in
+// your Vue template inside the page:
+//
+// main.basic-page
+//   .card--content
+//   .card--sidebar
+//
+.basic-page {
+  @media (min-width: 800px) {
+    //
+    // IE11 layout
+    //
+    .card {
+      [dir="ltr"] & {
+        float: left;
+      }
+      [dir="rtl"] & {
+        float: right;
+      }
+    }
+
+    .card--content {
+      width: 40%;
+
+      [dir="ltr"] & {
+        margin-right: 1rem;
+      }
+      [dir="rtl"] & {
+        margin-left: 1rem;
+      }
+    }
+    .card--sidebar {
+      width: calc(60% - 1rem);
+    }
+
+    //
+    // CSS Grid layout
+    //
+    @supports (display: grid) {
+      & {
+        display: grid;
+        grid-template-areas: "content sidebar";
+        grid-template-columns: 2fr 3fr;
+        grid-gap: 1rem;
+      }
+
+      .card {
+        width: 100%;
+        margin: 0;
+      }
+
+      .card--content {
+        grid-area: content;
+      }
+      .card--sidebar {
+        grid-area: sidebar;
+      }
+    }
+  }
+}
+</style>

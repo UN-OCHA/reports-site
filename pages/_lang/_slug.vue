@@ -199,58 +199,9 @@
   //
   @import '~/assets/Global.scss';
 
-
-  @media (min-width: 800px) {
-    //
-    // IE11 layout
-    //
-    .card {
-      [dir="ltr"] & {
-        float: left;
-      }
-      [dir="rtl"] & {
-        float: right;
-      }
-    }
-
-    .card--content {
-      width: calc(40% - 1rem);
-
-      [dir="ltr"] & {
-        margin-right: 1rem;
-      }
-      [dir="rtl"] & {
-        margin-left: 1rem;
-      }
-    }
-    .card--sidebar {
-      width: 60%;
-    }
-
-    //
-    // Normal layout
-    //
-    @supports (display: grid) {
-      main {
-        display: grid;
-        grid-template-areas: "content sidebar";
-        grid-template-columns: 2fr 3fr;
-        grid-gap: 1rem;
-      }
-
-      .card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .card--content {
-        grid-area: content;
-      }
-      .card--sidebar {
-        grid-area: sidebar;
-      }
-    }
-  }
+  //
+  // The main page layout is inside _Page.vue
+  //
 
   ul.tech {
     display: flex;
