@@ -81,13 +81,10 @@
 
     computed: {
       flashUpdates() {
-        const flashUpdate = this.flashUpdates.filter((fu) => {
-          // console.log('🐛', fu.fields.relatedSitRep.sys.id);
+        return this.flashUpdatesAll.filter((fu) => {
+          // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
         });
-
-        // Array.filter returns an array. Return the result directly.
-        return flashUpdate[0];
       }
     },
 
@@ -272,7 +269,7 @@
         'translations': translations,
         'entry': entries.items[0],
         'ftsData': ftsData,
-        'flashUpdates': flashUpdates.items,
+        'flashUpdatesAll': flashUpdates.items,
       };
     }).catch(console.error)
   }
