@@ -33,9 +33,20 @@
 </script>
 
 <style lang="scss">
+//
+// Shared layout for Basic Page
+//
 // Since these are shared across multiple page components, we scope our classes
 // manually instead of using the [scoped] attribute of the Vue component <style>
 // tag.
+//
+// If you want to implement this layout, provide the following HTML structure in
+// your Vue template inside the page:
+//
+// main.basic-page
+//   .card--content
+//   .card--sidebar
+//
 .basic-page {
   @media (min-width: 800px) {
     //
