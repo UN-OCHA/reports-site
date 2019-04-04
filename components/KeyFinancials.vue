@@ -111,7 +111,10 @@
       ftsDataYear() {
         const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        return plan && this.$moment(plan.startDate).locale(this.locale).format('YYYY');
+        // Using moment caused timezone confusions and installing `tz()` just to
+        // run it one time seemed heavy-handed for what we want. Instead we're
+        // taking the year out of `startDate` and slicing it out of the string.
+        return plan && plan.startDate.substring(0, 4);
       },
     },
 
