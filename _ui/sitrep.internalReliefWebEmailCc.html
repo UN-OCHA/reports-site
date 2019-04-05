@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+  <link href="https://static.contentful.com/app/main-62e0abc7.css" media="all" rel="stylesheet" type="text/css">
+  <link href="https://static.contentful.com/app/vendor-976872d7.css" media="all" rel="stylesheet" type="text/css">
+  <link href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css" media="all" rel="stylesheet" type="text/css">
+  <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+  <style>
+    #feedback {
+      color: red;
+      transition: opacity .1666s ease-out;
+    }
+  </style>
+</head>
+
+<div class="cf-form-input">
+  <input id="internalReliefWebEmailCc" type="email" class="form-control" style="width: 98%; font-size: 14px">
+  <p id="feedback"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+<script>
+var ext = window.contentfulExtension;
+ext.init(function(api) {
+  if (api.location.is(ext.locations.LOCATION_ENTRY_SIDEBAR)) {
+    renderSidebarUI();
+  }
+
+  // Set up our HTML input and CTF field.
+  var input = document.querySelector('#internalReliefWebEmailCc');
+  var inputField = api.field;
+
+  // populate field with CTF data
+  input.value = api.field.getValue();
+
+  // Listen for input
+  input.addEventListener('input', function () {
+    handleInputChange(input.value)
+  })
+  input.addEventListener('change', function () {
+    handleInputChange(input.value)
+  })
+
+  // Listen for CTF validations
+  inputField.onSchemaErrorsChanged(function (err) {
+    if (err.length > 0) {
+      feedback.innerHTML = err[0].message;
+      feedback.style.opacity = '1';
+    } else {
+      feedback.style.opacity = '0';
+    }
+  })
+
+  /**
+   * Respond to user input on the HTML input.
+   */
+  function handleInputChange(val) {
+    inputField.setValue(val);
+  }
+});
+</script>
