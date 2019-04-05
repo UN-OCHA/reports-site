@@ -99,11 +99,11 @@
       },
 
       articleHasImage() {
-        return this.content.fields.image && this.content.fields.image.fields;
+        return this.content.fields.image && this.content.fields.image.fields && this.content.fields.image.fields.file && this.content.fields.image.fields.file.url;
       },
 
       secureImageUrl() {
-        return 'https:' + this.content.fields.image.fields.file.url;
+        return this.articleHasImage && 'https:' + this.content.fields.image.fields.file.url;
       },
 
       // Allows us to smoothly transition between unknown min-max heights.

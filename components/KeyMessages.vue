@@ -12,7 +12,7 @@
           {{ message.fields.keyMessage }}
         </li>
       </ul>
-      <div class="image-area" v-if="image && typeof image.fields !== 'undefined'">
+      <div class="image-area" v-if="keyMessagesHasImage">
         <figure>
           <picture class="image">
             <source type="image/webp"
@@ -79,6 +79,11 @@
       cssId() {
         return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
       },
+
+      keyMessagesHasImage() {
+        return this.image && this.image.fields && this.image.fields.file && this.image.fields.file.url;
+      },
+
       secureImageUrl() {
         return 'https:' + this.image.fields.file.url;
       },
