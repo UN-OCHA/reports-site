@@ -85,7 +85,11 @@
           // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
         });
-      }
+      },
+
+      keyMessagesHasImage() {
+        return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
+      },
     },
 
     methods: {
@@ -130,7 +134,7 @@
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
           { hid: 'og-desc', property: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
-          { hid: 'og-image', property: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
+          { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
         ],
       };
     },
