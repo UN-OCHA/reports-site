@@ -1,3 +1,5 @@
+const DEFAULT_TIMEOUT = 10000;
+
 describe('AppBar', () => {
   beforeAll(async () => {
     await page.goto('https://reports.unocha.org');
@@ -12,12 +14,23 @@ describe('AppBar', () => {
 
   it('should contain the same SitRep list as the homepage', async () => {
     const homeListLength = await page.$$eval('main .card--content .sitrep-group', el => el.length);
-
-    // Since the AppBar loads SitReps on client-side only, we have to wait for
-    // the selector to exist before evaluating.
-    await page.waitForSelector('.app-bar .sitrep-group', {timeout: 10000}).then(async () => {
+    await page.waitForSelector('.app-bar .sitrep-group', {timeout: DEFAULT_TIMEOUT}).then(async () => {
       const appBarListLength = await page.$$eval('.app-bar .sitrep-group', el => el.length);
       await expect(homeListLength).toBe(appBarListLength);
+    });
+  });
+
+  it('should allow navigation to a SitRep', async () => {
+    const expectedTitle = 'BURUNDI';
+
+    await Promise.all([
+      page.waitForNavigation(),
+      page.click('.app-bar .sitrep a[href="/fr/country/burundi/"]'),
+    ]).then(async (value) => {
+      await page.waitForSelector('.title--sitrep', {timeout: DEFAULT_TIMEOUT}).then(async () => {
+        const actualTitle = await page.$eval('.title--sitrep', el => el.innerText);
+        await expect(actualTitle).toBe(expectedTitle);
+      });
     });
   });
 });
