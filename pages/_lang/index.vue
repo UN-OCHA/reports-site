@@ -7,18 +7,18 @@
       :title-is-multilingual="true"
     />
 
-    <main class="container">
-      <section class="card card--intro rich-text" ref="column1">
-        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
-        <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
-      </section>
-      <section class="card card--sitreps" ref="column2">
+    <main class="container basic-page">
+      <section class="card card--content" ref="column1">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
           format="full"
           :sitreps="sitreps"
         />
+      </section>
+      <section class="card card--sidebar rich-text" ref="column2">
+        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
+        <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
+        <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
       </section>
     </main>
 
@@ -109,35 +109,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @media (min-width: 800px) {
-    .card--intro {
-      float: right;
-      width: calc(60% - 1rem);
-      margin-left: 1rem;
-    }
-    .card--sitreps {
-      width: calc(40%);
-    }
-
-    @supports (display: grid) {
-      main {
-        display: grid;
-        grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 3fr;
-        grid-gap: 1rem;
-      }
-
-      .card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .card--intro {
-        grid-area: intro;
-      }
-      .card--sitreps {
-        grid-area: sitreps;
-      }
-    }
-  }
+  // Nothing special
 </style>

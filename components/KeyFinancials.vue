@@ -111,7 +111,7 @@
       ftsDataYear() {
         const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        return plan && this.$moment(plan.startDate).locale(this.locale).format('YYYY');
+        return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
       },
     },
 
