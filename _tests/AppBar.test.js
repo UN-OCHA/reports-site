@@ -11,7 +11,7 @@ describe('AppBar', () => {
   });
 
   it('should contain the same SitRep list as the homepage', async () => {
-    const homeListLength = await page.$$eval('main .card--sitreps .sitrep-group', el => el.length);
+    const homeListLength = await page.$$eval('main .card--content .sitrep-group', el => el.length);
 
     // Since the AppBar loads SitReps on client-side only, we have to wait for
     // the selector to exist before evaluating.
