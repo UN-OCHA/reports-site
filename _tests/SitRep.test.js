@@ -1,3 +1,5 @@
+const fr = require('../locales/fr.js');
+
 describe('SitRep', () => {
   beforeEach(async () => {
     await page.goto('https://reports.unocha.org/country/burundi/');
@@ -79,7 +81,7 @@ describe('SitRep', () => {
       page.waitForNavigation(),
       page.click('header .logo-link'),
     ]).then(async () => {
-      const expectedTitle = 'RAPPORTS DE SITUATION';
+      const expectedTitle = fr['Situation Reports'].toUpperCase();
       const actualTitle = await page.$eval('.title--sitrep', el => el.innerText).catch(err => 'NO MATCHING ELEMENT FOUND');
       await expect(actualTitle).toBe(expectedTitle);
     });
