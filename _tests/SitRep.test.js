@@ -87,3 +87,23 @@ describe('SitRep', () => {
     });
   });
 });
+
+describe('SitRep', () => {
+  beforeEach(async () => {
+    await page.setJavaScriptEnabled(true);
+    await page.goto('https://reports.unocha.org/fr/country/burundi/');
+  });
+
+  it('should link to RW Archive', async () => {
+    const archiveUrl = await page.$eval('.past-sitreps a', el => el.href).catch(err => 'NO MATCHING ELEMENT FOUND');
+
+    await Promise.all([
+      page.waitForNavigation(),
+      page.goto(archiveUrl),
+    ]).then(async () => {
+      const expectedTitle = 'Updates | ReliefWeb';
+      const actualTitle = await page.title();
+      await expect(actualTitle).toBe(expectedTitle);
+    });
+  });
+});
