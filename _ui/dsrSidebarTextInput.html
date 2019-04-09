@@ -31,7 +31,7 @@ ext.init(function(api) {
   var inputField = api.field;
 
   // populate field with CTF data
-  input.value = api.field.getValue();
+  input.value = api.field.getValue() || '';
 
   // Listen for input
   input.addEventListener('input', function () {
