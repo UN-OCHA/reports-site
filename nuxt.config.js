@@ -122,7 +122,7 @@ module.exports = {
       });
 
       return Promise.all([sitreps, homepages, pages]).then(arrays => {
-        // Combine the two arrays of URLs and return.
+        // Combine the arrays of URLs and return.
         return arrays.join().split(',');
       });
     }
