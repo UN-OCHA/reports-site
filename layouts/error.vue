@@ -49,6 +49,8 @@
       SitrepList,
     },
 
+    props: ['error'],
+
     data() {
       return {
         'sitreps': {},
