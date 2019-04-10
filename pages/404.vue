@@ -2,6 +2,8 @@
   <div class="page--error-404" @click="noop">
     <AppBar />
     <AppHeader
+      :title="$t('Page not found', locale)"
+      :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
       :translations="[]"
     />
 
