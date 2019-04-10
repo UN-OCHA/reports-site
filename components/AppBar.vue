@@ -22,8 +22,8 @@
               v-on:close-menu="closeMenu"
             />
           </no-ssr>
-          <li v-if="false" class="link link--about">
-            <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
+          <li class="link link--about">
+            <nuxt-link :to="'/en/about/'/*$i18n.path('about/')*/" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
           </li>
         </ul>
 

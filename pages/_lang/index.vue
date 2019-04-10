@@ -1,20 +1,24 @@
 <template>
   <div class="page--front" @click="noop">
     <AppBar />
-    <AppHeader />
+    <AppHeader
+      :title="$t('Situation Reports', locale)"
+      :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
+      :title-is-multilingual="true"
+    />
 
-    <main class="container">
-      <section class="card card--intro rich-text" ref="homeIntro">
-        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
-        <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
-      </section>
-      <section class="card card--sitreps" ref="homeList">
+    <main class="container basic-page">
+      <section class="card card--content" ref="column1">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
           format="full"
           :sitreps="sitreps"
         />
+      </section>
+      <section class="card card--sidebar rich-text" ref="column2">
+        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
+        <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
+        <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
       </section>
     </main>
 
@@ -23,19 +27,27 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+  import Page from '~/components/_Page';
+
+  // Components
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
   import SitrepList from '~/components/SitrepList';
 
+  // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      Page,
+    ],
 
     // Declare any components we're using here
     components: {
@@ -66,25 +78,8 @@
     },
 
     mounted() {
-      if (
-        typeof window.CSS !== 'undefined' &&
-        typeof window.CSS.supports !== 'undefined' &&
-        window.CSS.supports('display', 'grid')
-      ) {
-        // Browsers supporting CSS Grid will render properly without assistance.
-      }
-      else {
-        // Calculate which column is tallest
-        let intro = this.$refs.homeIntro;
-        let list = this.$refs.homeList;
-        let introHeight = intro.getBoundingClientRect().height;
-        let listHeight = list.getBoundingClientRect().height;
-        let tallestHeight = (introHeight > listHeight) ? introHeight : listHeight;
-
-        // Both should be set to the height of the taller element;
-        intro.style.height = tallestHeight + 'px';
-        list.style.height = tallestHeight + 'px';
-      }
+      // align column heights on IE11.
+      this.alignColumnHeights();
     },
 
     head() {
@@ -114,35 +109,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @media (min-width: 800px) {
-    .card--intro {
-      float: right;
-      width: calc(60% - 1rem);
-      margin-left: 1rem;
-    }
-    .card--sitreps {
-      width: calc(40%);
-    }
-
-    @supports (display: grid) {
-      main {
-        display: grid;
-        grid-template-areas: "sitreps intro";
-        grid-template-columns: 2fr 3fr;
-        grid-gap: 1rem;
-      }
-
-      .card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .card--intro {
-        grid-area: intro;
-      }
-      .card--sitreps {
-        grid-area: sitreps;
-      }
-    }
-  }
+  // Nothing special
 </style>

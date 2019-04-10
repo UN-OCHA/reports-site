@@ -3,6 +3,8 @@
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
+      :title-is-multilingual="false"
+      :subtitle="$t('Situation Report', locale)"
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
       :countrycode="entry.fields.countryCode"
@@ -11,7 +13,7 @@
       :snap="true" />
 
     <main class="container report">
-      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in entry.fields.flashUpdate" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in flashUpdates" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
 
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
@@ -77,6 +79,19 @@
       return {}
     },
 
+    computed: {
+      flashUpdates() {
+        return this.flashUpdatesAll.filter((fu) => {
+          // Look at the sys.id of the corresponding sitrep and only return matches.
+          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
+        });
+      },
+
+      keyMessagesHasImage() {
+        return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
+      },
+    },
+
     methods: {
       // Modifications to original SO include better variable names, plus guard
       // against lack of `document` since this code also gets invoked during our
@@ -119,7 +134,7 @@
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
           { hid: 'og-desc', property: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
-          { hid: 'og-image', property: 'og:image', content: 'https:' + this.entry.fields.keyMessagesImage.fields.file.url },
+          { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
         ],
       };
     },
@@ -194,6 +209,13 @@
         'fields.slug': slug,
       }),
 
+      // Contentful: fetch any Flash Updates that are associated with this SitRep
+      client.getEntries({
+        'include': 4,
+        'content_type': 'flashUpdate',
+        // 'fields.relatedSitRep.sys.id': '',
+      }),
+
       // FTS: fetch all v2 plans for 2018.
       (process.server)
         ? axios({
@@ -224,7 +246,7 @@
           .then(response => response.data)
           .catch(console.warn)
 
-    ]).then(([entries, translationEntries, ftsData2018, ftsData2019]) => {
+    ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
 
       // For client-side, update our store with the fresh data.
       store.commit('SET_META', {
@@ -240,9 +262,9 @@
       let ftsData = fts2018.concat(fts2019);
 
       // Reformat CTF translations response so follows format of locales Store.
-      let translations = translationEntries.items.map((entries) => {
+      let translations = translationEntries.items.map((translation) => {
         return {
-          'code': entries.fields.language,
+          'code': translation.fields.language,
         }
       });
 
@@ -251,6 +273,7 @@
         'translations': translations,
         'entry': entries.items[0],
         'ftsData': ftsData,
+        'flashUpdatesAll': flashUpdates.items,
       };
     }).catch(console.error)
   }

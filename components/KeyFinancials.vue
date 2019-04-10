@@ -56,7 +56,7 @@
       },
 
       ftsPlanId() {
-        return Number(this.ftsUrl.match(/\d+/)[0]);
+        return this.ftsUrl && Number(this.ftsUrl.match(/\d+/)[0]);
       },
 
       ftsData() {
@@ -111,7 +111,7 @@
       ftsDataYear() {
         const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        return plan && this.$moment(plan.startDate).locale(this.locale).format('YYYY');
+        return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
       },
     },
 
