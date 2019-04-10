@@ -11,3 +11,6 @@ dist
 
 # the docker compose env file
 .env
+
+# temp files (Jest+Puppeteer artifacts)
+tmp
