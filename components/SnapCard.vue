@@ -43,11 +43,8 @@
         // and when the actual width is smaller, we'll use current window.
         const windowWidth = Math.min(1163, window.innerWidth);
 
-        // In order to localize the CardHeader and CardFooter, pass our current
-        // cookies which include the active locale setting. To see how this is
-        // picked up and handled by SitRep during a Snap:
-        //
-        // @see middleware/i18n.js
+        // In order to generate a Snap identical to the user's visit, send their
+        // cookies along to Snap Service.
         const cookies = document.cookie;
 
         // Final query that we're passing to Snap Service.
