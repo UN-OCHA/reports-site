@@ -157,7 +157,7 @@
     //
     // Update the page on client-side after initial page load.
     //
-    mounted({error}) {
+    mounted() {
       //
       // In cases where HTML response contained stale content, our second call to
       // Contentful/FTS will ensure that everything is up to date.
