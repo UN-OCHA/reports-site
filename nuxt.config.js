@@ -57,9 +57,7 @@ module.exports = {
   //
   // Router
   //
-  router: {
-    middleware: 'i18n'
-  },
+  router: {},
   //
   // Plugins
   //
@@ -86,7 +84,8 @@ module.exports = {
   // Static Generation config
   //
   generate: {
-    routes: function () {
+    fallback: '404.html',
+    routes: () => {
       // Read languages our of our official Store.
       //
       // This is maybe a hack but it gets the canonical list without having to
@@ -121,7 +120,7 @@ module.exports = {
       });
 
       return Promise.all([sitreps, homepages, pages]).then(arrays => {
-        // Combine the two arrays of URLs and return.
+        // Combine the arrays of URLs and return.
         return arrays.join().split(',');
       });
     }
