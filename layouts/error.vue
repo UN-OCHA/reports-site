@@ -51,12 +51,15 @@
 
     data() {
       return {
-        'sitreps': {},
+        sitreps: [],
       }
     },
 
     head() {
       return {
+        // Page title
+        title: this.$t('Page not found', this.locale),
+
         // Language settings determined by user language preference.
         htmlAttrs: {
           lang: this.locale,
@@ -94,6 +97,11 @@
     display: block;
     max-width: 80%;
     margin: 2rem auto;
+
+    // Override RTL mirroring effect for images
+    [dir="rtl"] & {
+      transform: none;
+    }
 
     @media (min-width: 800px) {
       max-width: 360px;
