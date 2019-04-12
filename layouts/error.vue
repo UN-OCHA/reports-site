@@ -98,6 +98,11 @@
     max-width: 80%;
     margin: 2rem auto;
 
+    // Override RTL mirroring effect for images
+    [dir="rtl"] & {
+      transform: none;
+    }
+
     @media (min-width: 800px) {
       max-width: 360px;
     }
