@@ -49,14 +49,6 @@
       SitrepList,
     },
 
-    props: ['error'],
-
-    data() {
-      return {
-        'sitreps': {},
-      }
-    },
-
     head() {
       return {
         // Page title

@@ -74,9 +74,12 @@
       AppHeader,
     },
 
-    // Validate the country slug using this function.
-    validate({params}) {
-      return typeof params.slug === 'string' && typeof params.lang === 'string';
+    // Validate the Page slug using this function.
+    validate({params, query, store}) {
+      const langIsValid = typeof params.lang === 'string' && !!store.state.locales.find((lang) => lang.code === params.lang);
+      const slugIsValid = typeof params.slug === 'string' && /^[a-z\-]+$/.test(params.slug);
+
+      return slugIsValid && langIsValid;
     },
 
     // Set up empty objects that will be populated by asyncData.

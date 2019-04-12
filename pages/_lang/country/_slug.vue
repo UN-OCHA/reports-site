@@ -69,14 +69,12 @@
       Video,
     },
 
-    // Validate the country slug using this function.
-    validate({params}) {
-      return typeof params.slug === 'string' && typeof params.lang === 'string';
-    },
+    // Validate URL params
+    validate({params, query, store}) {
+      const langIsValid = typeof params.lang === 'string' && !!store.state.locales.find((lang) => lang.code === params.lang);
+      const slugIsValid = typeof params.slug === 'string' && /^[a-z\-]+$/.test(params.slug);
 
-    // Set up empty objects that will be populated by asyncData.
-    data() {
-      return {}
+      return slugIsValid && langIsValid;
     },
 
     computed: {
@@ -176,7 +174,7 @@
         this.entry = response.entry;
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
-      });
+      }).catch(console.error);
 
       //
       // In the absence of existing user preference, we want to localize the UI
@@ -275,7 +273,7 @@
         'ftsData': ftsData,
         'flashUpdatesAll': flashUpdates.items,
       };
-    }).catch(console.error)
+    }).catch(console.error);
   }
 </script>
 

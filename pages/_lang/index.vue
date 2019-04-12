@@ -58,10 +58,14 @@
       SitrepList,
     },
 
-    data() {
-      return {
-        'sitreps': {},
-      }
+    // Validate URL params
+    validate({params, query, store}) {
+      // Default to English when no language is present. This is done primarily
+      // to ensure the root URL shows english content.
+      const thisLang = (params && typeof params.lang !== 'undefined') ? params.lang : 'en';
+      const langIsValid = !!store.state.locales.find((lang) => lang.code === thisLang);
+
+      return langIsValid;
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
