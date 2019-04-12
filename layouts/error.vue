@@ -49,6 +49,12 @@
       SitrepList,
     },
 
+    data() {
+      return {
+        sitreps: [],
+      }
+    },
+
     head() {
       return {
         // Page title

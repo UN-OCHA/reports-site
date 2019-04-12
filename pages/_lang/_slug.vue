@@ -76,8 +76,8 @@
 
     // Validate the Page slug using this function.
     validate({params, query, store}) {
-      const langIsValid = typeof params.lang === 'string' && !!store.state.locales.find((lang) => lang.code === params.lang);
-      const slugIsValid = typeof params.slug === 'string' && /^[a-z\-]+$/.test(params.slug);
+      const langIsValid = !!store.state.locales.find((lang) => lang.code === params.lang);
+      const slugIsValid = /^[a-z\-]+$/.test(params.slug);
 
       return slugIsValid && langIsValid;
     },
@@ -129,7 +129,7 @@
 
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
-    asyncData({env, params, store}) {
+    asyncData({env, params, store, error}) {
       const slug = params.slug;
       const lang = params.lang;
 
@@ -154,6 +154,10 @@
 
       ]).then(([entries, translationEntries]) => {
 
+        if (entries.items.length === 0) {
+          throw new Error('No entry in contentful with that slug');
+        }
+
         // For client-side, update our store with the fresh data.
         store.commit('SET_META', {
           slug: slug,
@@ -173,7 +177,9 @@
           'translations': translations,
           'entry': entries.items[0],
         };
-      }).catch(console.error)
+      }).catch((err) => {
+        error({ statusCode: 404, message: err.message });
+      });
     },
 
     created() {

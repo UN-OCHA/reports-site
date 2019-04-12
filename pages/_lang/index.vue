@@ -68,6 +68,12 @@
       return langIsValid;
     },
 
+    data() {
+      return {
+        sitreps: [],
+      }
+    },
+
     // Before we assemble this page, check the URL for locale parameter. If we
     // find one, we'd prefer to render this page in that language and should
     // notify the other components by modifying the client-side Vuex store.
@@ -96,7 +102,7 @@
       };
     },
 
-    asyncData({env, params, store}) {
+    asyncData({env, params, store, error}) {
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
@@ -107,7 +113,9 @@
         return {
           'sitreps': sitreps.items,
         }
-      }).catch(console.error)
+      }).catch((err) => {
+        error({ statusCode: 404, message: err.message });
+      });
     },
   }
 </script>
