@@ -68,6 +68,19 @@
       };
     },
 
+    // Before we assemble this page, check the URL for locale parameter. If we
+    // find one, we'd prefer to render this page in that language and should
+    // notify the other components by modifying the client-side Vuex store.
+    //
+    // Defaults to English to retain original functionality before new URLs.
+    created() {
+      const lang = this.$route.params.lang || 'en';
+
+      if (lang) {
+        this.$store.commit('SET_LANG', lang);
+      }
+    },
+
     asyncData({env, params, store}) {
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
