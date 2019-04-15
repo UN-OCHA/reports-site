@@ -162,7 +162,6 @@
       // In cases where HTML response contained stale content, our second call to
       // Contentful/FTS will ensure that everything is up to date.
       //
-      console.log(this);
       const env = {};
       const params = this.$route.params;
       const store = this.$store;

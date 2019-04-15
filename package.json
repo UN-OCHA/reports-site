@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -12,7 +12,8 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "migration": "contentful-migration"
+    "migration": "contentful-migration",
+    "test": "jest"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^9.0.0",
@@ -38,11 +39,17 @@
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.0.0",
+    "jest": "^24.7.1",
+    "jest-puppeteer": "^4.1.0",
     "node-sass": "^4.9.3",
+    "puppeteer": "^1.14.0",
     "sass-loader": "^7.1.0"
   },
   "engines": {
     "node": "8.11.3",
     "npm": "6.4.1"
+  },
+  "jest": {
+    "preset": "jest-puppeteer"
   }
 }
