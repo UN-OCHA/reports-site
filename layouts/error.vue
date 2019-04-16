@@ -11,12 +11,12 @@
       <section class="card card--404 rich-text">
         <img class="card__image" src="/locust-404.svg" :alt="$t('Page not found', locale)">
         <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
-        <p class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
-        <p class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
+        <p v-if="false" class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
+        <p v-if="false" class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
 
         <SitrepList
+          v-if="false"
           format="full"
-          :sitreps="sitreps"
         />
       </section>
     </main>
@@ -33,14 +33,9 @@
   import Card from '~/components/Card';
   import SitrepList from '~/components/SitrepList';
 
-  import {createClient} from '~/plugins/contentful.js';
-  const client = createClient();
-  const active_content_type = 'sitrep';
-
   export default {
     mixins: [Global],
 
-    // Declare any components we're using here
     components: {
       AppBar,
       AppHeader,
@@ -68,18 +63,17 @@
       };
     },
 
-    asyncData({env, params, store}) {
-      return Promise.all([
-        // Fetch all SitReps without populating any Links (references, images, etc).
-        client.getEntries({
-          'include': 0,
-          'content_type': active_content_type,
-        })
-      ]).then(([sitreps]) => {
-        return {
-          'sitreps': sitreps.items,
-        }
-      }).catch(console.error)
+    // Before we assemble this page, check the URL for locale parameter. If we
+    // find one, we'd prefer to render this page in that language and should
+    // notify the other components by modifying the client-side Vuex store.
+    //
+    // Defaults to English to retain original functionality before new URLs.
+    created() {
+      const lang = this.$route.params.lang || 'en';
+
+      if (lang) {
+        this.$store.commit('SET_LANG', lang);
+      }
     },
   }
 </script>
@@ -92,6 +86,9 @@
   //   grid-gap: 1rem;
   // }
 
+  .card--404 {
+    padding: 2em 0;
+  }
 
   .card__image {
     display: block;
