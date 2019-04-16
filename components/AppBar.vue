@@ -72,15 +72,15 @@
 
     methods: {
       toggleMenu() {
-        return this.isExpanded = !this.isExpanded;
+        this.isExpanded = !this.isExpanded;
       },
 
       openMenu() {
-        return this.isExpanded = true;
+        this.isExpanded = true;
       },
 
       closeMenu() {
-        return this.isExpanded = false;
+        this.isExpanded = false;
       },
     },
 
