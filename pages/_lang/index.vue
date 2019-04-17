@@ -58,9 +58,19 @@
       SitrepList,
     },
 
+    // Validate URL params
+    validate({params, query, store}) {
+      // Default to English when no language is present. This is done primarily
+      // to ensure the root URL shows english content.
+      const thisLang = (params && typeof params.lang !== 'undefined') ? params.lang : 'en';
+      const langIsValid = !!store.state.locales.find((lang) => lang.code === thisLang);
+
+      return langIsValid;
+    },
+
     data() {
       return {
-        'sitreps': {},
+        sitreps: [],
       }
     },
 
@@ -92,7 +102,7 @@
       };
     },
 
-    asyncData({env, params, store}) {
+    asyncData({env, params, store, error}) {
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
@@ -103,7 +113,9 @@
         return {
           'sitreps': sitreps.items,
         }
-      }).catch(console.error)
+      }).catch((err) => {
+        error({ statusCode: 404, message: err.message });
+      });
     },
   }
 </script>

@@ -32,11 +32,8 @@
 
     computed: {
       snapRequest() {
-        // In order to localize the CardHeader and CardFooter, pass our current
-        // cookies which include the active locale setting. To see how this is
-        // picked up and handled by SitRep during a Snap:
-        //
-        // @see middleware/i18n.js
+        // In order to generate a Snap identical to the user's visit, send their
+        // cookies along to Snap Service.
         const cookies = document.cookie;
 
         return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;

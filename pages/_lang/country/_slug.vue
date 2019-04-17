@@ -69,14 +69,12 @@
       Video,
     },
 
-    // Validate the country slug using this function.
-    validate({params}) {
-      return typeof params.slug === 'string' && typeof params.lang === 'string';
-    },
+    // Validate URL params
+    validate({params, query, store}) {
+      const langIsValid = !!store.state.locales.find((lang) => lang.code === params.lang);
+      const slugIsValid = /^[a-z\-]+$/.test(params.slug);
 
-    // Set up empty objects that will be populated by asyncData.
-    data() {
-      return {}
+      return slugIsValid && langIsValid;
     },
 
     computed: {
@@ -141,10 +139,8 @@
 
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
-    asyncData({env, params, store}) {
-      const slug = params.slug;
-      const lang = params.lang;
-      return fetchAsyncData({env, lang, slug, store});
+    asyncData({env, params, store, error}) {
+      return fetchAsyncData({env, params, store, error});
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
@@ -167,11 +163,10 @@
       // Contentful/FTS will ensure that everything is up to date.
       //
       const env = {};
-      const slug = this.$route.params.slug;
-      const lang = this.$route.params.lang;
+      const params = this.$route.params;
       const store = this.$store;
 
-      fetchAsyncData({env, lang, slug, store}).then((response) => {
+      fetchAsyncData({env, params, store}).then((response) => {
         // Update the client-side model with fresh API responses.
         this.entry = response.entry;
         // Only update FTS when the server-side data wasn't loaded.
@@ -189,7 +184,7 @@
   // In order to fetch data both during asyncData() and at other times of our
   // own choosing, we have our own custom function which is defined outside
   // our export.
-  function fetchAsyncData({env, lang, slug, store}) {
+  function fetchAsyncData({env, params, store, error}) {
     return Promise.all([
 
       // Contentful: fetch the requested SitRep by slug+language plus all linked
@@ -197,8 +192,8 @@
       client.getEntries({
         'include': 4,
         'content_type': active_content_type,
-        'fields.slug': slug,
-        'fields.language': lang,
+        'fields.slug': params.slug,
+        'fields.language': params.lang,
       }),
 
       // Contentful: fetch related SitRep translations with same slug without
@@ -206,7 +201,7 @@
       client.getEntries({
         'include': 0,
         'content_type': active_content_type,
-        'fields.slug': slug,
+        'fields.slug': params.slug,
       }),
 
       // Contentful: fetch any Flash Updates that are associated with this SitRep
@@ -248,12 +243,17 @@
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
 
+      // If contentful doesn't return an entry, display error
+      if (entries.items.length === 0) {
+        throw new Error('No entry in contentful with that slug');
+      }
+
       // For client-side, update our store with the fresh data.
       store.commit('SET_META', {
-        slug: slug,
+        slug: params.slug,
         title: entries.items[0].fields.title,
         dateUpdated: entries.items[0].fields.dateUpdated,
-        language: lang,
+        language: params.lang,
       });
 
       // Combine both years of FTS responses into one array.
@@ -275,7 +275,9 @@
         'ftsData': ftsData,
         'flashUpdatesAll': flashUpdates.items,
       };
-    }).catch(console.error)
+    }).catch((err) => {
+      error({ statusCode: 404, message: err.message });
+    });
   }
 </script>
 
