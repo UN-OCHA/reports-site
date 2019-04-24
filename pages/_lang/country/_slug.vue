@@ -172,12 +172,6 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
-
-      //
-      // In the absence of existing user preference, we want to localize the UI
-      // to the language of the current SitRep
-      //
-      this.$store.commit('SET_LANG', lang);
     },
   }
 
