@@ -1,13 +1,12 @@
 // Contentful + Environment variables
-const api = require('./.contentful.json');
 
 // These allow us to query Contentful and get all of our valid URLs.
 const contentful = require('contentful');
 const client = contentful.createClient({
-  host: api.CTF_HOST,
-  space: api.CTF_SPACE_ID,
-  environment: api.CTF_ENVIRONMENT,
-  accessToken: api.CTF_CDA_PREVIEW_TOKEN || api.CTF_CDA_ACCESS_TOKEN,
+  host: process.env.CTF_HOST,
+  space: process.env.CTF_SPACE_ID,
+  environment: process.env.CTF_ENVIRONMENT,
+  accessToken: process.env.CTF_CDA_PREVIEW_TOKEN || process.env.CTF_CDA_ACCESS_TOKEN,
 });
 
 module.exports = {
@@ -15,12 +14,12 @@ module.exports = {
   // Environment variables
   //
   env: {
-    CTF_HOST: api.CTF_HOST || 'cdn.contentful.com',
-    CTF_SPACE_ID: api.CTF_SPACE_ID,
-    CTF_ENVIRONMENT: api.CTF_ENVIRONMENT || 'master',
-    CTF_CDA_ACCESS_TOKEN: api.CTF_CDA_ACCESS_TOKEN,
-    CTF_CDA_PREVIEW_TOKEN: api.CTF_CDA_PREVIEW_TOKEN,
-    baseUrl: api.BASE_URL || 'https://reports.unocha.org',
+    CTF_HOST: process.env.CTF_HOST || 'cdn.contentful.com',
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT || 'master',
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
+    CTF_CDA_PREVIEW_TOKEN: process.env.CTF_CDA_PREVIEW_TOKEN,
+    baseUrl: process.env.BASE_URL || 'http://dev.dsr.local',
   },
   //
   // Global <head> metadata
@@ -82,6 +81,9 @@ module.exports = {
   },
   //
   // Static Generation config
+  //
+  // Note: in DSR-166 we switched to dynamic page generation, so this section is
+  //       no longer necessary. For now we'll keep it around just in case.
   //
   generate: {
     fallback: '404.html',
