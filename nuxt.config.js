@@ -82,6 +82,9 @@ module.exports = {
   //
   // Static Generation config
   //
+  // Note: in DSR-166 we switched to dynamic page generation, so this section is
+  //       no longer necessary. For now we'll keep it around just in case.
+  //
   generate: {
     fallback: '404.html',
     routes: () => {
