@@ -14,12 +14,12 @@ module.exports = {
   // Environment variables
   //
   env: {
-    CTF_HOST: process.env.CTF_HOST || 'cdn.contentful.com',
+    CTF_HOST: process.env.CTF_HOST,
     CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT || 'master',
+    CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT,
     CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
     CTF_CDA_PREVIEW_TOKEN: process.env.CTF_CDA_PREVIEW_TOKEN,
-    baseUrl: process.env.BASE_URL || 'https://reports.unocha.org',
+    baseUrl: process.env.BASE_URL,
   },
   //
   // Global <head> metadata
