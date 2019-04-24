@@ -8,11 +8,6 @@ WORKDIR /srv/www
 COPY . .
 
 RUN apk add -U \
-        ncurses \
-        gettext \
-        rsync && \
-    envsubst < ${CFG_FILE}.tmpl > ${CFG_FILE} && \
     yarn install && \
     yarn run build && \
-    rm -f ${CFG_FILE} && \
     mv run_node /etc/services.d/node/run
