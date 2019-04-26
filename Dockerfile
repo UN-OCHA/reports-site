@@ -13,5 +13,7 @@ WORKDIR /srv/www
 COPY . .
 
 RUN yarn install && \
-    yarn run build && \
     mv run_node /etc/services.d/node/run
+
+# make sure this will run on container creation
+#    yarn run build && \
