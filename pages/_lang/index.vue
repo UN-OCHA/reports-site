@@ -114,6 +114,7 @@
           'sitreps': sitreps.items,
         }
       }).catch((err) => {
+        console.error(err);
         error({ statusCode: 404, message: err.message });
       });
     },
