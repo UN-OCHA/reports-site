@@ -89,6 +89,9 @@ module.exports = {
   // Interactives
   'Interactive': 'Интерактивная версия',
 
+  // Visuals
+  'Visual': 'Visual',
+
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о COUNTRY',
 
