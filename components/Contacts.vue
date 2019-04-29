@@ -3,7 +3,7 @@
     <h3 class="card__title">{{ $t('Contacts', locale) }}</h3>
     <address :key="contact.sys.id" v-for="contact in content" class="card__contact contact">
       <h4 class="name">{{ contact.fields.name }}</h4>
-      <span class="job-title">{{ contact.fields.jobTitle }}</span><br>
+      <span v-if="contact.fields.jobTitle" class="job-title">{{ contact.fields.jobTitle }}</span>
       <a class="email" :href="'mailto:' + hideEmail ? 'no-bots@example.com' : contact.fields.email">{{ hideEmail ? 'no-bots@example.com' : contact.fields.email }}</a>
       <br><br>
     </address>
@@ -44,6 +44,7 @@
   .name {}
 
   .job-title {
+    display: block;
     color: #666;
   }
 
