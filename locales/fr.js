@@ -29,7 +29,7 @@ module.exports = {
   'Email': 'Email',
   'Download': 'Télécharger',
   'Archive': 'Archive',
-  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
+  'Read this Situation Report in a different language:': 'Lire ce rapport de situation dans une autre langue :',
 
   // AppFooter
   'Privacy policy': 'Privacy policy',
@@ -96,8 +96,8 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
 
   // Card Actions
-  'Save Situation Report as PDF': 'Save Situation Report as PDF',
-  'Save THING as PNG': 'Save THING as PNG',
+  'Save Situation Report as PDF': 'Sauvegarder le rapport de situation comme PDF',
+  'Save THING as PNG': 'Sauvegarder THING comme PNG',
 
   // Snap strings
   'Date of Creation': 'Date de création',
