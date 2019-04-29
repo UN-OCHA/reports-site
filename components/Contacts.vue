@@ -4,7 +4,7 @@
     <address :key="contact.sys.id" v-for="contact in content" class="card__contact contact">
       <h4 class="name">{{ contact.fields.name }}</h4>
       <span v-if="contact.fields.jobTitle" class="job-title">{{ contact.fields.jobTitle }}</span>
-      <a class="email" :href="'mailto:' + hideEmail ? 'no-bots@example.com' : contact.fields.email">{{ hideEmail ? 'no-bots@example.com' : contact.fields.email }}</a>
+      <a class="email" :href="'mailto:' + (hideEmail ? 'no-bots@example.com' : contact.fields.email)">{{ hideEmail ? 'no-bots@example.com' : contact.fields.email }}</a>
       <br><br>
     </address>
   </section>
@@ -29,7 +29,7 @@
       }
     },
 
-    beforeMount() {
+    mounted() {
       // CSR should reveal emails to browsers with JS.
       this.hideEmail = false;
     },
