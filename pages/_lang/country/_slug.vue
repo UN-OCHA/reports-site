@@ -45,6 +45,7 @@
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
   import Video from '~/components/Video';
+  import Visual from '~/components/Visual';
 
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
@@ -67,6 +68,7 @@
       KeyFinancials,
       KeyMessages,
       Video,
+      Visual,
     },
 
     // Validate URL params

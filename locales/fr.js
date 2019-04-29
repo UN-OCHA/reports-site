@@ -77,6 +77,7 @@ module.exports = {
   'Media': 'Médias',
   'Trends': 'Tendances',
   'Visuals and Data': 'Visuels et données',
+  'Visual': 'Visual',
   'Read more': 'Lire davantage',
   'Read less': 'Lire moins',
 

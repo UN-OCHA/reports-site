@@ -77,6 +77,7 @@ module.exports = {
   'Media': 'وسائل الإعلام',
   'Trends': 'الاتجاهات',
   'Visuals and Data': 'صور وبيانات',
+  'Visual': 'Visual',
   'Read more': 'إقراء المزيد',
   'Read less': 'إقراء أقل',
 

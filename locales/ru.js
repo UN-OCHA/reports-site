@@ -77,6 +77,7 @@ module.exports = {
   'Media': 'СМИ',
   'Trends': 'Тенденции',
   'Visuals and Data': 'Графические изображения и данные',
+  'Visual': 'Visual',
   'Read more': 'Читать далее',
   'Read less': 'Свернуть',
 

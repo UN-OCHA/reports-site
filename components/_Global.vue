@@ -66,6 +66,7 @@
           'clusterInformation': 'Cluster',
           'interactive': 'Interactive',
           'video': 'Video',
+          'visual': 'Visual',
         };
       },
     },
