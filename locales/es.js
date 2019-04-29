@@ -77,7 +77,6 @@ module.exports = {
   'Media': 'Medios',
   'Trends': 'Tendencias',
   'Visuals and Data': 'Visuales y datos',
-  'Visual': 'Visual',
   'Read more': 'Leer más',
   'Read less': 'Leer menos',
 
@@ -89,6 +88,9 @@ module.exports = {
 
   // Interactives
   'Interactive': 'Interactivo',
+
+  // Visuals
+  'Visual': 'Visual',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Leer la última actualización del informe de situación de COUNTRY',

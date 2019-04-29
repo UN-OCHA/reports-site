@@ -77,7 +77,6 @@ module.exports = {
   'Media': 'СМИ',
   'Trends': 'Тенденции',
   'Visuals and Data': 'Графические изображения и данные',
-  'Visual': 'Visual',
   'Read more': 'Читать далее',
   'Read less': 'Свернуть',
 
@@ -89,6 +88,9 @@ module.exports = {
 
   // Interactives
   'Interactive': 'Интерактивная версия',
+
+  // Visuals
+  'Visual': 'Visual',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о COUNTRY',
