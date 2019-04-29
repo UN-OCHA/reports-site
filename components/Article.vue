@@ -8,7 +8,7 @@
     </span>
     <div class="article__content" :class="{ 'article__content--has-image': articleHasImage }">
       <div class="article__image" v-if="articleHasImage">
-        <figure>
+        <figure ref="articleImg">
           <picture>
             <source type="image/webp"
               :srcset="'\
@@ -35,7 +35,6 @@
                 (min-width: 1220px) 413px" />
 
             <img
-              ref="articleImg"
               class="interactive__img"
               :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
@@ -126,7 +125,7 @@
         let articleImg = this.$refs['articleImg'];
 
         // Set the article's min-height to the height of the image
-        this.articleMinHeight = (!!articleImg) ? Math.max(articleImg.height, this.articleMinHeight) : this.articleMinHeight;
+        this.articleMinHeight = (!!this.articleHasImage) ? Math.max(articleImg.clientHeight, this.articleMinHeight) : this.articleMinHeight;
 
         // If the truncated article text will be sufficiently longer than the
         // accompanying image or the minimum defined in data(), then we apply
