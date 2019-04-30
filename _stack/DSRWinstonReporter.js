@@ -27,7 +27,7 @@ export default class DSRWinstonReporter {
   }
 
   log (logObj) {
-    const data = [].concat(logObj.args)[0];
+    const data = logObj.args[0];
 
     // Detect auth token
     const authToken = data &&
@@ -46,7 +46,7 @@ export default class DSRWinstonReporter {
       name: 'dsreports',
       level: levels[logObj.level] || 'info',
       label: logObj.tag,
-      msg: data.stack,
+      msg: data.message,
       args: data,
       timestamp: logObj.date,
     })
