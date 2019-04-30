@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <CardActions label="interactive" :frag="'#' + cssId" />
+    <CardActions label="Interactive" :frag="'#' + cssId" />
     <CardFooter />
   </article>
 </template>
