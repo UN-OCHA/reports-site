@@ -272,6 +272,10 @@
         'flashUpdatesAll': flashUpdates.items,
       };
     }).catch((err) => {
+      // Log to our stack
+      console.error(err);
+
+      // Display Nuxt error page
       error({ statusCode: 404, message: err.message });
     });
   }

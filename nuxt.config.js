@@ -1,6 +1,8 @@
 // Enable file-based logging
 import consola from 'consola';
-consola.setReporters(new consola.JSONReporter);
+import DSRWinstonReporter from './_stack/DSRWinstonReporter';
+
+consola.setReporters([new consola.FancyReporter, new DSRWinstonReporter]);
 consola.wrapConsole();
 
 // Contentful + Environment variables
