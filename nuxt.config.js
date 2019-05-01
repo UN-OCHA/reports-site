@@ -1,5 +1,11 @@
-// Contentful + Environment variables
+// Enable file-based logging
+import consola from 'consola';
+import DSRWinstonReporter from './_stack/DSRWinstonReporter';
 
+consola.setReporters([new consola.FancyReporter, new DSRWinstonReporter]);
+consola.wrapConsole();
+
+// Contentful + Environment variables
 // These allow us to query Contentful and get all of our valid URLs.
 const contentful = require('contentful');
 const client = contentful.createClient({
@@ -17,7 +23,7 @@ module.exports = {
     CTF_HOST: process.env.CTF_HOST,
     CTF_SPACE_ID: process.env.CTF_SPACE_ID,
     CTF_ENVIRONMENT: process.env.CTF_ENVIRONMENT,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN, 
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
     CTF_CDA_PREVIEW_TOKEN: process.env.CTF_CDA_PREVIEW_TOKEN,
     baseUrl: process.env.BASE_URL,
   },

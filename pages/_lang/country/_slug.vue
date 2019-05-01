@@ -239,9 +239,13 @@
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
 
-      // If contentful doesn't return an entry, display error
+      // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
-        throw new Error('No entry in contentful with that slug');
+        throw ({args:[{
+          message: 'No entry found in Contentful with requested language/slug',
+          lang: params.lang,
+          slug: params.slug,
+        }]});
       }
 
       // For client-side, update our store with the fresh data.
@@ -272,6 +276,10 @@
         'flashUpdatesAll': flashUpdates.items,
       };
     }).catch((err) => {
+      // Log to our stack
+      console.error(err);
+
+      // Display Nuxt error page
       error({ statusCode: 404, message: err.message });
     });
   }

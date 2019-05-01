@@ -21,6 +21,7 @@
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",
+    "consola": "^2.6.0",
     "contentful": "^7.1.0",
     "file-saver": "^2.0.0",
     "lodash": ">=4.17.11",
@@ -30,7 +31,8 @@
     "vue": "^2.0.0",
     "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
-    "webpack": "^4.20.2"
+    "webpack": "^4.20.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
