@@ -87,10 +87,10 @@ module.exports = {
   'Video': 'Відео',
 
   // Interactives
-  'Interactive': 'Interactive',
+  'Interactive': 'Інтерактивна версія',
 
   // Visuals
-  'Visual': 'Visual',
+  'Visual': 'Графічні зображення',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',

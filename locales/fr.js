@@ -90,7 +90,7 @@ module.exports = {
   'Interactive': 'Interactif',
 
   // Visuals
-  'Visual': 'Visual',
+  'Visual': 'Visuels',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',

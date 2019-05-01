@@ -90,7 +90,7 @@ module.exports = {
   'Interactive': 'تفاعلي',
 
   // Visuals
-  'Visual': 'Visual',
+  'Visual': 'صور',
 
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن COUNTRY',
