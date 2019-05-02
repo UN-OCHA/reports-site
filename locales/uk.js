@@ -32,7 +32,7 @@ module.exports = {
   'Read this Situation Report in a different language:': 'Прочитайте це Оперативне зведення іншою мовою',
 
   // AppFooter
-  'Privacy policy': 'Політика конфіденційності ',
+  'Privacy policy': 'Політика конфіденційності',
   'href-privacy': 'https://www.un.org/ru/sections/about-website/privacy-notice/',
   'Copyright notice': 'Повідомлення про авторські права',
   'href-copyright': 'https://www.un.org/ru/sections/about-website/copyright/index.html',
@@ -55,7 +55,7 @@ module.exports = {
   'Funding': 'Фінансування',
   'Requirements': 'Вимоги',
   'Progress': 'Виконання',
-  'Funding data could not be found.': 'Дані щодо фінансування не завантажуються',
+  'Funding data could not be found.': 'Дані щодо фінансування не знайдено',
 
   // Contacts
   'Contacts': 'Зворотний зв’язок',
@@ -67,21 +67,21 @@ module.exports = {
   'Gaps': 'Прогалини',
 
   // Articles
-  'Access': 'Access',
+  'Access': 'Доступ',
   'Analysis': 'Аналіз',
   'Background': 'Контекст',
-  'Coordination': 'Coordination',
-  'Emergency Response': 'Emergency Response',
-  'Feature': 'Feature',
+  'Coordination': 'Координація',
+  'Emergency Response': 'Реагування на надзвичайні ситуації',
+  'Feature': 'Тема випуску',
   'Forecast': 'Прогноз',
-  'Media': 'Media',
-  'Trends': 'Trends',
-  'Visuals and Data': 'Visuals And Data',
+  'Media': 'ЗМІ',
+  'Trends': 'Тенденції',
+  'Visuals and Data': 'Графічні зображення та дані',
   'Read more': 'Читати далі',
   'Read less': 'Згорнути',
 
   // Flash Updates
-  'Flash Update': 'Flash Update',
+  'Flash Update': 'Експрес-звіт',
 
   // Videos
   'Video': 'Відео',
