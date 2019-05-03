@@ -141,8 +141,8 @@
 
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
-    asyncData({env, params, store, error}) {
-      return fetchAsyncData({env, params, store, error});
+    asyncData({env, params, store, error, req, res}) {
+      return fetchAsyncData({env, params, store, error, req, res});
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
@@ -180,7 +180,7 @@
   // In order to fetch data both during asyncData() and at other times of our
   // own choosing, we have our own custom function which is defined outside
   // our export.
-  function fetchAsyncData({env, params, store, error}) {
+  function fetchAsyncData({env, params, store, error, req, res}) {
     return Promise.all([
 
       // Contentful: fetch the requested SitRep by slug+language plus all linked
@@ -238,13 +238,19 @@
           .catch(console.warn)
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
-
       // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
         throw ({args:[{
-          message: 'No entry found in Contentful with requested language/slug',
+          message: 'No Entry found in Contentful',
           lang: params.lang,
           slug: params.slug,
+          url: req && req.url,
+          ua: req && req.headers && req.headers['user-agent'],
+          headers: req && req.headers,
+          ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+          // Since no exception is being thrown, res.statusCode = 200 so we have
+          // to set 404 manually on account of the dataset being empty.
+          status: res && 404,
         }]});
       }
 

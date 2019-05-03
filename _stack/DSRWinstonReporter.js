@@ -43,7 +43,7 @@ export default class DSRWinstonReporter {
 
     // Send to logs
     this.logger.log({
-      name: 'dsreports',
+      name: 'dsr-nuxt',
       level: levels[logObj.level] || 'info',
       label: logObj.tag,
       msg: data.message,
