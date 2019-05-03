@@ -36,8 +36,10 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@babel/runtime-corejs2": "^7.4.4",
     "babel-eslint": "^8.2.1",
     "contentful-migration": "^0.16.6",
+    "core-js": "2",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
