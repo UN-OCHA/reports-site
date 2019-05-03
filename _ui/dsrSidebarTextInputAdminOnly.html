@@ -46,6 +46,7 @@ ext.init(function(api) {
   // populate field with CTF data
   input.value = api.field.getValue() || '';
 
+  // Read user permissions and enable field if user is an admin
   if (api.user.spaceMembership.admin) {
     console.log('✅ '+ api.user.email + ' can edit admin-only fields');
     input.readOnly = false;
@@ -53,6 +54,9 @@ ext.init(function(api) {
   } else {
     console.log('⛔️ '+ api.user.email + ' CANNOT edit admin-only fields');
   }
+
+  // Automatically adjust the height of this field within the sidebar
+  api.window.startAutoResizer();
 
   // Listen for input
   input.addEventListener('input', function () {

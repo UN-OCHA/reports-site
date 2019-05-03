@@ -38,6 +38,9 @@ ext.init(function(api) {
   // populate field with CTF data
   input.value = api.field.getValue() || '';
 
+  // Automatically adjust the height of this field within the sidebar
+  api.window.startAutoResizer();
+
   // Listen for input
   input.addEventListener('input', function () {
     handleInputChange(input.value)
