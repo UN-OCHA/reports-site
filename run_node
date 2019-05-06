@@ -8,4 +8,4 @@ cd $NODE_APP_DIR
 # the deps install and the build occured in the Dockerfile
 echo "==> Starting the server"
 export NUXT_HOST=0.0.0.0
-exec ./node_modules/pm2/bin/pm2 start npm --name "dsr-nuxt" --no-daemon -- start
+exec ./node_modules/pm2/bin/pm2 start --no-daemon
