@@ -6324,6 +6324,19 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+nuxt-start@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/nuxt-start/-/nuxt-start-2.6.3.tgz#36fd41563061657d44a429733f1368333096954e"
+  dependencies:
+    "@nuxt/cli" "2.6.3"
+    "@nuxt/core" "2.6.3"
+    node-fetch "^2.3.0"
+    vue "^2.6.10"
+    vue-meta "^1.6.0"
+    vue-no-ssr "^1.1.1"
+    vue-router "^3.0.6"
+    vuex "^3.1.0"
+
 nuxt@^2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.6.3.tgz#4d9c26bade778f93c559cec354491a05b13a18ec"
