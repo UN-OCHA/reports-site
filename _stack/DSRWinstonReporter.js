@@ -27,7 +27,16 @@ export default class DSRWinstonReporter {
   }
 
   log (logObj) {
-    const data = logObj.args[0];
+    let data = [].concat(logObj.args)[0];
+    let message = data.hasOwnProperty('message')
+      ? data.message
+      : data;
+
+    // To ensure consistency in the logs, transform strings back into an object
+    // with the string set as the `message` prop.
+    data = (typeof data === 'string')
+        ? {}
+        : data;
 
     // Detect auth token
     const authToken = data &&
@@ -46,9 +55,11 @@ export default class DSRWinstonReporter {
       name: 'dsr-nuxt',
       level: levels[logObj.level] || 'info',
       label: logObj.tag,
-      msg: data.message,
+      message: message,
       args: data,
-      timestamp: logObj.date,
+      timestamp: data.date,
+      response: data.status,
+      ip: data.ip,
     })
   }
 }

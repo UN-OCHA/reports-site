@@ -240,18 +240,20 @@
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
       // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
-        throw ({args:[{
-          message: 'No Entry found in Contentful',
-          lang: params.lang,
-          slug: params.slug,
-          url: req && req.url,
-          ua: req && req.headers && req.headers['user-agent'],
-          headers: req && req.headers,
-          ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
-          // Since no exception is being thrown, res.statusCode = 200 so we have
-          // to set 404 manually on account of the dataset being empty.
-          status: res && 404,
-        }]});
+        throw ({
+          args: {
+            message: 'No Entry found in Contentful',
+            lang: params.lang,
+            slug: params.slug,
+            url: req && req.url,
+            ua: req && req.headers && req.headers['user-agent'],
+            headers: req && req.headers,
+            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+            // Since no exception is being thrown, res.statusCode = 200 so we have
+            // to set 404 manually on account of the dataset being empty.
+            status: res && 404,
+          },
+        });
       }
 
       // For client-side, update our store with the fresh data.
