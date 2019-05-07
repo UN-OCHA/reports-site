@@ -241,7 +241,7 @@
       // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
         throw ({
-          args: {
+          args: [{
             message: 'No Entry found in Contentful',
             lang: params.lang,
             slug: params.slug,
@@ -251,8 +251,8 @@
             ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
             // Since no exception is being thrown, res.statusCode = 200 so we have
             // to set 404 manually on account of the dataset being empty.
-            status: res && 404,
-          },
+            response: res && 404,
+          }],
         });
       }
 

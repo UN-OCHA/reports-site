@@ -27,15 +27,13 @@ export default class DSRWinstonReporter {
   }
 
   log (logObj) {
+    // Receive logs in the default format expected from the consola package.
     let data = [].concat(logObj.args)[0];
-    let message = data.hasOwnProperty('message')
-      ? data.message
-      : data;
 
     // To ensure consistency in the logs, transform strings back into an object
     // with the string set as the `message` prop.
     data = (typeof data === 'string')
-        ? {}
+        ? {message: data}
         : data;
 
     // Detect auth token
@@ -55,11 +53,7 @@ export default class DSRWinstonReporter {
       name: 'dsr-nuxt',
       level: levels[logObj.level] || 'info',
       label: logObj.tag,
-      message: message,
-      args: data,
-      timestamp: data.date,
-      response: data.status,
-      ip: data.ip,
+      ...data,
     })
   }
 }
