@@ -246,7 +246,7 @@
             lang: params.lang,
             slug: params.slug,
             url: req && req.url,
-            ua: req && req.headers && req.headers['user-agent'],
+            'user-agent': req && req.headers && req.headers['user-agent'],
             headers: req && req.headers,
             ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
             // Since no exception is being thrown, res.statusCode = 200 so we have
