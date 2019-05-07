@@ -2,7 +2,7 @@
 import consola from 'consola';
 import DSRWinstonReporter from './_stack/DSRWinstonReporter';
 
-consola.setReporters([new consola.FancyReporter, new DSRWinstonReporter]);
+consola.setReporters([new DSRWinstonReporter]);
 consola.wrapConsole();
 
 // Contentful + Environment variables
