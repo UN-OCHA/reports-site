@@ -45,6 +45,7 @@
   import KeyFinancials from '~/components/KeyFinancials';
   import KeyMessages from '~/components/KeyMessages';
   import Video from '~/components/Video';
+  import Visual from '~/components/Visual';
 
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
@@ -67,6 +68,7 @@
       KeyFinancials,
       KeyMessages,
       Video,
+      Visual,
     },
 
     // Validate URL params
@@ -139,8 +141,8 @@
 
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
-    asyncData({env, params, store, error}) {
-      return fetchAsyncData({env, params, store, error});
+    asyncData({env, params, store, error, req, res}) {
+      return fetchAsyncData({env, params, store, error, req, res});
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
@@ -172,19 +174,13 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
-
-      //
-      // In the absence of existing user preference, we want to localize the UI
-      // to the language of the current SitRep
-      //
-      this.$store.commit('SET_LANG', lang);
     },
   }
 
   // In order to fetch data both during asyncData() and at other times of our
   // own choosing, we have our own custom function which is defined outside
   // our export.
-  function fetchAsyncData({env, params, store, error}) {
+  function fetchAsyncData({env, params, store, error, req, res}) {
     return Promise.all([
 
       // Contentful: fetch the requested SitRep by slug+language plus all linked
@@ -242,10 +238,22 @@
           .catch(console.warn)
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
-
-      // If contentful doesn't return an entry, display error
+      // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
-        throw new Error('No entry in contentful with that slug');
+        throw ({
+          args: [{
+            message: 'No Entry found in Contentful',
+            lang: params.lang,
+            slug: params.slug,
+            url: req && req.url,
+            'user-agent': req && req.headers && req.headers['user-agent'],
+            headers: req && req.headers,
+            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+            // Since no exception is being thrown, res.statusCode = 200 so we have
+            // to set 404 manually on account of the dataset being empty.
+            response: res && 404,
+          }],
+        });
       }
 
       // For client-side, update our store with the fresh data.
@@ -276,6 +284,10 @@
         'flashUpdatesAll': flashUpdates.items,
       };
     }).catch((err) => {
+      // Log to our stack
+      console.error(err);
+
+      // Display Nuxt error page
       error({ statusCode: 404, message: err.message });
     });
   }

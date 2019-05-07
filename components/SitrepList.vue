@@ -1,8 +1,8 @@
 <template>
   <ul class="sitrep-list" :class="'format--' + format">
-    <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="(data, group) in sorted">
+    <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="data in sorted">
       <span class="sitrep-group__heading">{{ data[0].fields.title }}</span>
-      <span class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
+      <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
           :lang="sitrep.fields.language"
@@ -11,9 +11,9 @@
         >{{ sitrep.fields.language }}</nuxt-link>
       </span>
     </li>
-    <li class="sitrep-group" v-if="format === 'full'" :key="data[0].sys.id" v-for="(data, group) in sorted">
+    <li class="sitrep-group" v-if="format === 'full'" :key="data[0].sys.id" v-for="data in sorted">
       <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
-      <p class="sitrep" :key="sitrep.sys.id" v-for="(sitrep, index) in data">
+      <p class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
           :lang="sitrep.fields.language"
@@ -66,10 +66,10 @@
       //
       sorted() {
         // Group entries by Country, sort by dateUpdated, newest first.
-        this.sitreps.sort((a, b) => {
+        let tmpList = this.sitreps.slice(0).sort((a, b) => {
           if (a.fields.slug === b.fields.slug) {
-             // Price is only important when cities are the same
-             return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+            // Date is only important when SitReps are the same
+            return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
           }
           return a.fields.slug > b.fields.slug ? 1 : -1;
         });
@@ -79,7 +79,7 @@
         let sorted = {};
 
         // For each Sitrep in our sorted list...
-        this.sitreps.forEach((sitrep) => {
+        tmpList.forEach((sitrep) => {
           // If the group already exists...
           (sorted[sitrep.fields.slug])
             // Add the current SitRep to the group.

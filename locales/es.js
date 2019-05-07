@@ -29,7 +29,7 @@ module.exports = {
   'Email': 'Correo electrónico',
   'Download': 'Descargar',
   'Archive': 'Archivo',
-  'Read this Situation Report in a different language:': 'Read this Situation Report in a different language:',
+  'Read this Situation Report in a different language:': 'Leer este informe de situación en otro idioma:',
 
   // AppFooter
   'Privacy policy': 'Política de confidencialidad',
@@ -89,12 +89,15 @@ module.exports = {
   // Interactives
   'Interactive': 'Interactivo',
 
+  // Visuals
+  'Visual': 'Visuales',
+
   // Social media
   'Read the latest from COUNTRY\'s Situation Report': 'Leer la última actualización del informe de situación de COUNTRY',
 
   // Card Actions
-  'Save Situation Report as PDF': 'Save Situation Report as PDF',
-  'Save THING as PNG': 'Save THING as PNG',
+  'Save Situation Report as PDF': 'Guardar el informe de situación como PDF',
+  'Save THING as PNG': 'Guardar THING como PNG',
 
   // Snap strings
   'Date of Creation': 'Fecha de creación',
