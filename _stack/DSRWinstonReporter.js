@@ -48,6 +48,18 @@ export default class DSRWinstonReporter {
       data.config.headers.Authorization = authToken;
     }
 
+    // Detect HTTP Basic auth
+    const httpBasicAuth = data &&
+      data.headers &&
+      data.headers.authorization &&
+      data.headers.authorization.indexOf('Basic') !== 1 &&
+      'Basic *****';
+
+    // If we found a header, scrub it before logging
+    if (httpBasicAuth) {
+      data.headers.authorization = httpBasicAuth;
+    }
+
     // Send to logs
     this.logger.log({
       name: 'dsr-nuxt',
