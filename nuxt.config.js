@@ -1,3 +1,6 @@
+// NewRelic for deployments
+require('newrelic');
+
 // Enable file-based logging
 import consola from 'consola';
 import DSRWinstonReporter from './_stack/DSRWinstonReporter';
