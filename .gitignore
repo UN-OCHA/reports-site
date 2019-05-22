@@ -12,5 +12,8 @@ dist
 # the docker compose env file
 .env
 
+# NewRelic logs
+newrelic_agent.log
+
 # temp files (Jest+Puppeteer artifacts)
 tmp
