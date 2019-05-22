@@ -6,8 +6,8 @@ module.exports = {
   // Global
   'UN OCHA': 'أوتشا',
   'UN Office for the Coordination of Humanitarian Affairs': 'مكتب الأمم المتحدة لتنسيق الشؤون الإنسانية',
-  'Situation Report': 'تقريرعن الوضع',
-  'Situation Reports': 'تقاريرعن الوضع',
+  'Situation Report': 'تقرير عن الوضع',
+  'Situation Reports': 'تقارير عن الوضع',
 
   // Errors
   'No data available.': 'لا يوجد بيانات متوفرة',
