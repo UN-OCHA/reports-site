@@ -7,7 +7,6 @@
       <div class="title-area__headings">
         <h1
           class="title title--sitrep"
-          :class="{'title--is-multilingual': titleIsMultilingual}"
         >{{ title }}</h1>
 
         <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
@@ -75,7 +74,6 @@
     },
 
     props: {
-      'titleIsMultilingual': Boolean,
       'title': String,
       'subtitle': String,
       'updated': String,
@@ -308,15 +306,8 @@
     font-weight: 700;
     text-transform: uppercase;
     margin-top: 0 - $header-padding;
-  }
 
-  // SitReps are EN only for now, but other page titles can be in any language.
-  // we set up a special prop that can be set when implementing the AppHeader on
-  // a page.
-  .title--is-multilingual {
-    font-family: $roboto-condensed;
-    font-size: 2em;
-
+    // Allow Arabic-language titles in the official font.
     [lang="ar"] & {
       margin-bottom: .333em;
       font-family: $kufi-bold;
