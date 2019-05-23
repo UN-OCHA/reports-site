@@ -372,7 +372,12 @@ main code {
 
 //—— Rich Text —————————————————————————————————————————————————————————————————
 
-.rich-text {}
+.rich-text {
+  // DSR-233: right edge of text was getting cut off in Chrome using Dubai font.
+  [lang="ar"] & {
+    padding-right: 2px;
+  }
+}
 .rich-text * {
   margin-bottom: 1em;
 }
