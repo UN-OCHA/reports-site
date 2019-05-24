@@ -8,33 +8,20 @@
       :translations="translations"
     />
 
-    <main class="container basic-page">
+    <main
+      class="container basic-page"
+      :class="{'is--multicolumn': entry.fields.secondary }"
+    >
       <section class="card card--content" ref="column1">
         <h1 class="card__title">{{ entry.fields.title }}</h1>
-        <div class="rich-text" v-html="richBody"></div>
+        <div class="rich-text" v-html="richPrimary"></div>
       </section>
       <section
-        v-if="entry.fields.slug === 'about'"
+        v-if="entry.fields.secondary"
         class="card card--sidebar rich-text"
-        lang="en"
-        dir="ltr"
         ref="column2"
       >
-        <h2 class="card__title">Technology on this website</h2>
-        <p>We used the following technologies to produce the Digital Situation Reports:</p>
-
-        <p>We chose <a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank">Contentful</a> as our content infrastructure in order to focus development efforts on presentation and publishing across various channels, instead of spending effort building and maintaining a backend.</p>
-        <p>We used <a rel="nofollow noopener" href="https://vuejs.org/" target="_blank">Vue.js</a> and <a rel="nofollow noopener" href="https://nuxtjs.org/" target="_blank">Nuxt</a> to build the frontend. Vue enables us to build a robust, modern web application. Nuxt provides server-side integration to output static HTML that does not require JavaScript to display the site's content.</p>
-        <p>We serve the frontend using <a rel="nofollow noopener" href="https://www.nginx.com/" target="_blank">NGINX</a>.</p>
-
-        <ul class="tech">
-          <li><a rel="nofollow noopener" href="https://www.contentful.com/" target="_blank"><img src="https://images.ctfassets.net/fo9twyrwpveg/44baP9Gtm8qE2Umm8CQwQk/c43325463d1cb5db2ef97fca0788ea55/PoweredByContentful_LightBackground.svg" alt="Contentful"></a></li>
-          <li><a rel="nofollow noopener" href="https://nuxtjs.org/" target="_blank"><img src="/logo-nuxt.png" alt="Nuxt.js"></a></li>
-          <li><a rel="nofollow noopener" href="https://vuejs.org/" target="_blank"><img src="/logo-vue.png" alt="Vue.js"></a></li>
-          <li><a rel="nofollow noopener" href="https://www.nginx.com/" target="_blank"><img src="/logo-nginx.png" alt="NGINX"></a></li>
-        </ul>
-
-        <p>The code is <a href="https://github.com/UN-OCHA/reports-site/" target="_blank" rel="noopener">open source on GitHub</a>.</p>
+        <div class="rich-text" v-html="richSecondary"></div>
       </section>
     </main>
 
@@ -191,8 +178,9 @@
         this.$store.commit('SET_LANG', lang);
       }
 
-      // Render rich text
-      this.richBody = this.entry.fields.body ? documentToHtmlString(this.entry.fields.body, this.renderOptions) : '';
+      // Render rich text fields
+      this.richPrimary = this.entry.fields.body ? documentToHtmlString(this.entry.fields.body, this.renderOptions) : '';
+      this.richSecondary = this.entry.fields.secondary ? documentToHtmlString(this.entry.fields.secondary, this.renderOptions) : '';
     },
 
     mounted() {
@@ -211,32 +199,7 @@
   //
   // The main page layout is inside _Page.vue
   //
-
-  ul.tech {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: space-evenly;
-    margin: 0 1rem;
-    padding: 0;
-
-    li {
-      display: inline-block;
-      flex: 0 1 25%;
-      align-self: center;
-      padding: 1rem;
-    }
-  }
-
   main img {
     transform: none; // avoid flipping on RTL
-  }
-
-  // Override the overrides for Arabic
-  [lang="en"] {
-    font-family: $roboto;
-
-    .card__title {
-      font-family: $roboto-condensed;
-    }
   }
 </style>

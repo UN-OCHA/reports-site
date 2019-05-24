@@ -7,7 +7,7 @@
       :title-is-multilingual="true"
     />
 
-    <main class="container basic-page">
+    <main class="container basic-page is--multicolumn">
       <section class="card card--content" ref="column1">
         <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
         <SitrepList
