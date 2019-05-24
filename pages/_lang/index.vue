@@ -15,7 +15,7 @@
           :sitreps="sitreps"
         />
       </section>
-      <section class="card card--sidebar rich-text" ref="column2">
+      <section class="card card--sidebar" ref="column2">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
         <div class="rich-text" v-html="richBody"></div>
       </section>

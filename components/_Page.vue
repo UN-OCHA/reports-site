@@ -49,8 +49,8 @@
 // your Vue template inside the page:
 //
 // main.basic-page
-//   .card--content
-//   .card--sidebar
+//   .card--content[ref="column1"]
+//   .card--sidebar[ref="column2"]
 //
 .basic-page.is--multicolumn {
   @media (min-width: 800px) {
@@ -123,6 +123,10 @@
       font-family: $kufi-bold;
       line-height: 1;
     }
+  }
+
+  [dir="rtl"] & img {
+    transform: none; // undo the img-flipping done in RTL
   }
 }
 </style>

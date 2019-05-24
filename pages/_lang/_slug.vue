@@ -18,7 +18,7 @@
       </section>
       <section
         v-if="entry.fields.secondary"
-        class="card card--sidebar rich-text"
+        class="card card--sidebar"
         ref="column2"
       >
         <div class="rich-text" v-html="richSecondary"></div>
