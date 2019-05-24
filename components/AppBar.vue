@@ -23,7 +23,7 @@
             />
           </no-ssr>
           <li class="link link--about">
-            <nuxt-link :to="'/en/about/'/*$i18n.path('about/')*/" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
+            <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
           </li>
         </ul>
 

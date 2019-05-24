@@ -34,6 +34,11 @@
 
 <style lang="scss">
 //
+// Import shared variables
+//
+@import '~/assets/Global.scss';
+
+//
 // Shared layout for Basic Page
 //
 // Since these are shared across multiple page components, we scope our classes
@@ -44,10 +49,10 @@
 // your Vue template inside the page:
 //
 // main.basic-page
-//   .card--content
-//   .card--sidebar
+//   .card--content[ref="column1"]
+//   .card--sidebar[ref="column2"]
 //
-.basic-page {
+.basic-page.is--multicolumn {
   @media (min-width: 800px) {
     //
     // IE11 layout
@@ -98,6 +103,30 @@
         grid-area: sidebar;
       }
     }
+  }
+}
+
+.basic-page {
+  // Unfortunately, duping this style was easier than figuring out how to use
+  // @extend between files on the day I added the secondary column. Sorry.
+  h2,
+  .card__title {
+    display: block;
+    margin-bottom: 1rem;
+    color: #444;
+    font-family: $roboto-condensed;
+    font-weight: 700;
+    font-size: 17px;
+    text-transform: uppercase;
+
+    [lang="ar"] & {
+      font-family: $kufi-bold;
+      line-height: 1;
+    }
+  }
+
+  [dir="rtl"] & img {
+    transform: none; // undo the img-flipping done in RTL
   }
 }
 </style>
