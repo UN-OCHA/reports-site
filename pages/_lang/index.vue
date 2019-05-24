@@ -91,7 +91,7 @@
       }
 
       // Render rich-text obtained from our Contentful query.
-      this.richBody = this.body ? documentToHtmlString(this.body, this.renderOptions) : this.$t('No data available.');
+      this.richBody = this.body ? documentToHtmlString(this.body, this.renderOptions) : this.$t('No data available.', this.locale);
     },
 
     mounted() {
