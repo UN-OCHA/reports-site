@@ -41,8 +41,6 @@ module.exports = {
   // Homepage
   'About this site': 'Про сайт',
   'Recently updated': 'Оновлено',
-  'The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.': 'Метою Оперативного зведення в електронному форматі є спростити роботу з низкою звітів (Експрес-звіт, Оперативне зведення, Гуманітарний бюлетень) та перейти від статичних звітів у форматі PDF до єдиного консолідованого онлайн формату. Такий формат буде більш динамічним, наочним та аналітичним. Платформа заощаджуватиме час користувачів завдяки автоматичному відправленню та формуванню дизайну документа.',
-  'As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.': 'Після подальшого доопрацювання системи буде можливість автоматичного завантаження даних та інформації з інших платформ, що сприятиме уніфікації продуктів та забезпечить доступ для поглибленого аналізу. Завдяки переходу до модульного онлайн формату представлення інформації УКГС суттєво покращить гуманітарну звітність',
 
   // Key Messages
   'Key Messages': 'Ключові положення',

@@ -41,8 +41,6 @@ module.exports = {
   // Homepage
   'About this site': 'حول هذا الموقع',
   'Recently updated': 'أخر التحديثات',
-  'The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.': 'يهدف تقرير الحالة الرقمية إلى تبسيط المجموعة الحالية من منتجات التقارير الميدانية التي يصدرها مكتب تنسيق الشؤون الإنسانية (المستجدات الإنسانية الطارئة وتقرير الحالة والنشرة الإنسانية) من خلال الانتقال من ملفات الـPDF الجامدة وتوحيدها بصيغة إلكترونية واحدة، لتصبح بذلك أكثر ديناميكية وبصرية وتحليلية. وستوفر المنصة وقت المستخدمين من خلال أتمتة التوزيع والتصميم.',
-  'As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.': 'ومع تطور النظام، سيتم تكييفه لسحب البيانات والمعلومات تلقائياً من منصات أخرى، مما سيعزز الاتساق عبر المنتجات ويسهل الوصول إلى تحليل أوسع نطاقاً. ومن خلال الانتقال إلى المحتوى المرن على الإنترنت، سيحقق مكتب تنسيق الشؤون الإنسانية تقدماً كبيراً في كتابة التقارير الإنسانية.',
 
   // Key Messages
   'Key Messages': 'الرسائل الرئيسية',

@@ -40,7 +40,6 @@
   import AppHeader from '~/components/AppHeader';
 
   // Contentful
-  import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'page';

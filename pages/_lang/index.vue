@@ -17,8 +17,7 @@
       </section>
       <section class="card card--sidebar rich-text" ref="column2">
         <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <p>{{ $t('The Digital Situation Report aims to simplify OCHA\'s current portfolio of field reporting products (Flash Update, Situation Report and Humanitarian Bulletin) by moving out of static PDFs and consolidating into a single online format. It will be more dynamic, visual, and analytical. The platform will save users\' time by automating distribution and design.', locale) }}</p>
-        <p>{{ $t('As the system develops further, it will be adapted to pull data and information automatically from other platforms, which will promote consistency across products and facilitate access to wider analysis. By moving to modular, online content, OCHA will advance significantly in its humanitarian reporting.', locale) }}</p>
+        <div class="rich-text" v-html="richBody"></div>
       </section>
     </main>
 
@@ -42,6 +41,10 @@
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
+
+  // Rich Text
+  import { BLOCKS } from '@contentful/rich-text-types';
+  import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
     mixins: [
@@ -70,6 +73,7 @@
 
     data() {
       return {
+        body: false,
         sitreps: [],
       }
     },
@@ -85,6 +89,9 @@
       if (lang) {
         this.$store.commit('SET_LANG', lang);
       }
+
+      // Render rich-text obtained from our Contentful query.
+      this.richBody = this.body ? documentToHtmlString(this.body, this.renderOptions) : this.$t('No data available.');
     },
 
     mounted() {
@@ -108,9 +115,20 @@
         client.getEntries({
           'include': 0,
           'content_type': active_content_type,
+        }),
+
+        // Fetch the About page in the current language to populate the second column.
+        client.getEntries({
+          'include': 0,
+          'content_type': 'page',
+          'fields.slug': params.slug,
+          'fields.language': params.lang,
         })
-      ]).then(([sitreps]) => {
+      ]).then(([sitreps, about]) => {
+        let bodyRichText = about && about.items[0] && about.items[0].fields && about.items[0].fields.body ? about.items[0].fields.body : false;
+
         return {
+          'body': bodyRichText,
           'sitreps': sitreps.items,
         }
       }).catch((err) => {
