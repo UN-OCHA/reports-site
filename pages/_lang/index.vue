@@ -110,6 +110,8 @@
     },
 
     asyncData({env, params, store, error}) {
+      const currentLang = (params && typeof params.lang !== 'undefined') ? params.lang : 'en';
+
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
@@ -121,8 +123,8 @@
         client.getEntries({
           'include': 0,
           'content_type': 'page',
-          'fields.slug': params.slug,
-          'fields.language': params.lang,
+          'fields.slug': 'about', // slug is hard-coded here
+          'fields.language': currentLang,
         })
       ]).then(([sitreps, about]) => {
         let bodyRichText = about && about.items[0] && about.items[0].fields && about.items[0].fields.body ? about.items[0].fields.body : false;
