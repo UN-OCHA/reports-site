@@ -267,6 +267,9 @@
       let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
       let ftsData = fts2018.concat(fts2019);
 
+      // Extract the FTS PlanID out of the SitRep field data
+      let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
+
       // Reformat CTF translations response so follows format of locales Store.
       let translations = translationEntries.items.map((translation) => {
         return {
@@ -278,7 +281,10 @@
       return {
         'translations': translations,
         'entry': entries.items[0],
-        'ftsData': ftsData,
+        'ftsData': ftsData.filter((plan) => {
+          // Look at the FTS URL and filter out any unrelated data
+          return plan.id === ftsPlanId;
+        }),
         'flashUpdates': flashUpdatesAll.items.filter((fu) => {
           // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
