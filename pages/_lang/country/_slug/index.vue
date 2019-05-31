@@ -86,13 +86,6 @@
     },
 
     computed: {
-      flashUpdates() {
-        return this.flashUpdatesAll.filter((fu) => {
-          // Look at the sys.id of the corresponding sitrep and only return matches.
-          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
-        });
-      },
-
       keyMessagesHasImage() {
         return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
       },
@@ -206,11 +199,10 @@
         'fields.slug': params.slug,
       }),
 
-      // Contentful: fetch any Flash Updates that are associated with this SitRep
+      // Contentful: fetch all Flash Updates — we will filter in then()
       client.getEntries({
         'include': 4,
         'content_type': 'flashUpdate',
-        // 'fields.relatedSitRep.sys.id': '',
       }),
 
       // FTS: fetch all v2 plans for 2018.
@@ -243,7 +235,7 @@
           .then(response => response.data)
           .catch(console.warn)
 
-    ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
+    ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2018, ftsData2019]) => {
       // If Contentful doesn't return an Entry, log error
       if (entries.items.length === 0) {
         throw ({
@@ -287,7 +279,10 @@
         'translations': translations,
         'entry': entries.items[0],
         'ftsData': ftsData,
-        'flashUpdatesAll': flashUpdates.items,
+        'flashUpdates': flashUpdatesAll.items.filter((fu) => {
+          // Look at the sys.id of the corresponding sitrep and only return matches.
+          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+        }),
       };
     }).catch((err) => {
       // Log to our stack

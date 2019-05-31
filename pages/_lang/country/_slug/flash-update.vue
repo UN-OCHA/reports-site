@@ -34,15 +34,6 @@
       return slugIsValid && langIsValid;
     },
 
-    computed: {
-      flashUpdates() {
-        return this.flashUpdatesAll.filter((fu) => {
-          // Look at the sys.id of the corresponding sitrep and only return matches.
-          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
-        });
-      },
-    },
-
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
@@ -100,7 +91,7 @@
           'fields.slug': params.slug,
         }),
 
-        // Contentful: fetch any Flash Updates that are associated with this SitRep
+        // Contentful: fetch all Flash Updates — we will filter in then()
         client.getEntries({
           'include': 4,
           'content_type': 'flashUpdate',
@@ -144,7 +135,10 @@
         return {
           'translations': translations,
           'entry': entries.items[0],
-          'flashUpdatesAll': flashUpdatesAll.items,
+          'flashUpdates': flashUpdatesAll.items.filter((fu) => {
+            // Look at the sys.id of the corresponding sitrep and only return matches.
+            return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+          }),
         };
       }).catch((err) => {
         // Log to our stack
