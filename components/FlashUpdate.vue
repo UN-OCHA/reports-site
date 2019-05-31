@@ -49,21 +49,35 @@
       </div>
     </div>
 
-    <CardActions label="Flash Update" :frag="'#' + cssId" />
+    <CardActions
+      label="Flash Update"
+      :frag="'#' + cssId"
+      :show-png="true"
+      :show-pdf="true"
+      :title="$t('Flash Update', locale)"
+      :subtitle="content.fields.title"
+      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
+      :filename-prefix="$t('Flash Update', locale)"
+      :pdf-url="pdfUrl"
+    />
+
     <CardFooter />
   </article>
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Extends
   import Card from '~/components/Card';
+
+  // Rich Text
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
     extends: Card,
-    mixins: [
-      Global,
-    ],
+    mixins: [Global],
 
     props: {
       'content': Object,
@@ -89,6 +103,10 @@
       // of minutes since last-updated versus the duration field.
       displayFlashUpdate() {
         return (Math.floor(this.timeAgoInMinutes / 60) > this.content.fields.duration) ? false : true;
+      },
+
+      pdfUrl() {
+        return process.client ? window.location.href + 'flash-update/' : '#';
       },
     },
 
@@ -278,6 +296,17 @@
   //
   .snap--png,
   .snap--pdf {
+    .card {
+      background: none;
+      border-bottom: none;
+    }
+
+    // When the FlashUpdate is rendered as PDF on its own URL, we hide the
+    // "FLASH UPDATE" heading. We do want to show this in all other contexts.
+    .page--flash-update .card__title {
+      display: none;
+    }
+
     .is--expandable {
       // Force full-height content.
       height: auto !important;

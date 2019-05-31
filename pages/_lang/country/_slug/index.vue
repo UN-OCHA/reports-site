@@ -32,7 +32,10 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Components
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
@@ -47,10 +50,13 @@
   import Video from '~/components/Video';
   import Visual from '~/components/Visual';
 
-  import axios from 'axios';
+  // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
+
+  // FTS
+  import axios from 'axios';
 
   export default {
     mixins: [Global],

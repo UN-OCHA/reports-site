@@ -5,14 +5,15 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import file from 'file-saver';
+  // Mixins
   import Global from '~/components/_Global';
 
+  // Custom functionality
+  import axios from 'axios';
+  import file from 'file-saver';
+
   export default {
-    mixins: [
-      Global
-    ],
+    mixins: [Global],
 
     props: {
       'output': String,
@@ -26,7 +27,7 @@
     },
 
     computed: {
-      sitRepUrl() {
+      defaultSitRepUrl() {
         return window.location.href;
       },
 
