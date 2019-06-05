@@ -8,7 +8,7 @@
     </h2>
     <div class="key-messages__area">
       <ul class="message-list">
-        <li :key="message.sys.id" v-for="message in messages" class="message">
+        <li :key="message.sys.id" v-for="message in messages" v-if="typeof message.fields !== 'undefined'" class="message">
           {{ message.fields.keyMessage }}
         </li>
       </ul>

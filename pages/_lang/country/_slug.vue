@@ -90,6 +90,11 @@
       keyMessagesHasImage() {
         return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
       },
+
+      keyMessagesJoined() {
+        const validHighlights = this.entry.fields.keyMessages.filter(highlight => typeof highlight.fields !== 'undefined');
+        return validHighlights.map(msg => msg.fields.keyMessage).join(' — ');
+      },
     },
 
     methods: {
@@ -124,7 +129,7 @@
 
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
-          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'dsr-desc', name: 'description', content: this.keyMessagesJoined },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
@@ -133,7 +138,7 @@
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
-          { hid: 'og-desc', property: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'og-desc', property: 'og:description', content: this.keyMessagesJoined },
           { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
         ],
       };
