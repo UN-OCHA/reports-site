@@ -25,6 +25,7 @@
     "contentful": "^7.1.0",
     "file-saver": "^2.0.0",
     "lodash": ">=4.17.11",
+    "lodash.debounce": "^4.0.8",
     "moment": "^2.22.2",
     "newrelic": "^5.9.0",
     "nuxt": "^2.6.3",

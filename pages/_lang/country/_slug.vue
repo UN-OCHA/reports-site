@@ -47,6 +47,7 @@
   import Video from '~/components/Video';
   import Visual from '~/components/Visual';
 
+  import debounce from 'lodash.debounce';
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
@@ -102,6 +103,12 @@
         var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
         return val ? val.pop() : '';
       },
+
+      handleWindowResize: debounce(function () {
+        // put GTM code here
+        // ga('send', 'event', [eventCategory], [eventAction], [eventLabel], [eventValue]);
+        console.log(window.innerWidth);
+      }, 250),
     },
 
     // We use the object populated by asyncData here. It might be empty at first
@@ -174,6 +181,14 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
+    },
+
+    beforeMount() {
+      window.addEventListener('resize', this.handleWindowResize);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleWindowResize);
     },
   }
 
