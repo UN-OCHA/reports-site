@@ -2,22 +2,22 @@
   <div class="page--error-404" @click="noop">
     <AppBar />
     <AppHeader
-      :title="$t('Page not found', locale)"
+      :title="$t('Situation Reports', locale)"
       :subtitle="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
       :translations="[]"
     />
 
-    <main class="container container--404-grid">
-      <section class="card card--404 rich-text">
-        <img class="card__image" src="/locust-404.svg" :alt="$t('Page not found', locale)">
-        <h2 class="card__title">{{ $t('Page not found', locale) }}</h2>
-        <p v-if="false" class="error-text">{{ $t('We want to help you find the information you are looking for.', locale) }}</p>
-        <p v-if="false" class="error-text">{{ $t('Here are some of OCHA\'s latest Situation Reports to help you get back on track:', locale) }}</p>
+    <main class="container container--error-grid" v-if="statusCode === 404">
+      <section class="card card--error rich-text">
+        <img class="card__image" src="/locust-404.svg" :alt="pageTitle">
+        <h2 class="card__title">{{ pageTitle }}</h2>
+      </section>
+    </main>
 
-        <SitrepList
-          v-if="false"
-          format="full"
-        />
+    <main class="container container--error-grid" v-if="statusCode === 500">
+      <section class="card card--error rich-text">
+        <h2 class="card__title">{{ pageTitle }}</h2>
+        <p class="error-text">The URL you requested exists, but there were problems displaying the page.</p>
       </section>
     </main>
 
@@ -30,8 +30,6 @@
   import AppBar from '~/components/AppBar';
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
-  import Card from '~/components/Card';
-  import SitrepList from '~/components/SitrepList';
 
   export default {
     mixins: [Global],
@@ -40,20 +38,29 @@
       AppBar,
       AppHeader,
       AppFooter,
-      Card,
-      SitrepList,
     },
 
-    data() {
-      return {
-        sitreps: [],
+    props: {
+      error: {
+        type: Object,
+        default: null
       }
+    },
+
+    computed: {
+      statusCode() {
+        return (this.error && this.error.statusCode) || 500
+      },
+
+      pageTitle() {
+        return (this.statusCode === 404) ? this.$t('Page not found', this.locale) : this.$t('Server Error', this.locale);
+      },
     },
 
     head() {
       return {
         // Page title
-        title: this.$t('Page not found', this.locale),
+        title: this.pageTitle + ' | ' + this.$t('Situation Reports', this.locale),
 
         // Language settings determined by user language preference.
         htmlAttrs: {
@@ -79,14 +86,14 @@
 </script>
 
 <style lang="scss" scoped>
-  // .container--404-grid {
+  // .container--error-grid {
   //   display: grid;
   //   grid-template-rows: 1fr;
   //   grid-template-columns: 1fr 1fr;
   //   grid-gap: 1rem;
   // }
 
-  .card--404 {
+  .card--error {
     padding: 2em 0;
   }
 

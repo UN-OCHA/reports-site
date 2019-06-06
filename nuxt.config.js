@@ -37,7 +37,7 @@ module.exports = {
     htmlAttrs: {
       lang: 'en-US',
     },
-    title: 'Digital Situation Report',
+    title: 'Digital Situation Reports',
     meta: [
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
