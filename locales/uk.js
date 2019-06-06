@@ -12,6 +12,7 @@ module.exports = {
   // Errors
   'No data available.': 'Дані відсутні',
   'Page not found': 'Сторінку не знайдено.',
+  'Server Error': 'Server Error',
   'We want to help you find the information you are looking for.': 'Ми хочемо допомогти Вам знайти необхідну інформацію.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Зверніться до Оперативних зведень УКГС, щоб бути в курсі останніх оновлень',
 

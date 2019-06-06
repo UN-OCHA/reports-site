@@ -243,7 +243,12 @@
           .catch(console.warn)
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
-      // If Contentful doesn't return an Entry, log error
+      //
+      // Check for 404
+      //
+      // If Contentful doesn't return an Entry, throw error and display Nuxt
+      // error page (see catch() below).
+      //
       if (entries.items.length === 0) {
         throw ({
           args: [{
@@ -257,6 +262,67 @@
             // Since no exception is being thrown, res.statusCode = 200 so we have
             // to set 404 manually on account of the dataset being empty.
             response: res && 404,
+          }],
+        });
+      }
+
+      //
+      // Helper function to check for Contentful fields within entries.
+      //
+      function haveFields(element, index, array) {
+        return typeof element.fields !== 'undefined';
+      }
+
+      //
+      // Check for 500
+      //
+      // If various required fields are somehow missing, we need to throw an
+      // error to avoid displaying a generic Nuxt error. By explicitly throwing
+      // on any of these conditions, the website will display a branded 500 page
+      // instead of the framework's context-free page.
+      //
+      // These are conditions which should not appear if all warnings are heeded
+      // when using the Contentful UI, but alas they can be ignored and we cannot
+      // expect the payload from Contentful to contain all that we need.
+      //
+      if (
+        typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
+        entries.items[0].fields.keyMessages.some(haveFields) &&
+        entries.items[0].fields.keyFigure.some(haveFields) &&
+        entries.items[0].fields.contacts.some(haveFields)
+      ) {
+        // All content checks passed. Continue with execution.
+      } else {
+        // One or more required aspects were missing from SitRep data. Try to
+        // collect a list of problems, and throw an error with as much data as
+        // we can provide.
+        const problems = [];
+
+        if (typeof entries.items[0].fields.keyMessagesImage.fields === 'undefined') {
+          problems.push('keyMessagesImage contains no published asset');
+        }
+        if (!entries.items[0].fields.keyMessages.some(haveFields)) {
+          problems.push('keyMessages field contains no published entries');
+        }
+        if (!entries.items[0].fields.keyFigure.some(haveFields)) {
+          problems.push('keyFigure field contains no published entries');
+        }
+        if (!entries.items[0].fields.contacts.some(haveFields)) {
+          problems.push('contacts field contains no published entries');
+        }
+
+        throw ({
+          args: [{
+            message: `Contentful delivered expected Entry, but it did not contain all required data to render a SitRep page. We detected the following problems:\n\n${problems.join('\n')}`,
+            lang: params.lang,
+            slug: params.slug,
+            url: req && req.url,
+            'user-agent': req && req.headers && req.headers['user-agent'],
+            headers: req && req.headers,
+            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+            // Since no exception is being thrown, res.statusCode = 200 so we have
+            // to set 404 manually on account of the dataset being empty.
+            response: res && 500,
           }],
         });
       }
@@ -293,7 +359,7 @@
       console.error(err);
 
       // Display Nuxt error page
-      error({ statusCode: 404, message: err.message });
+      error({ statusCode: err.args[0].response, message: err.args[0].message });
     });
   }
 </script>
