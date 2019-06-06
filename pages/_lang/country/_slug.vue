@@ -112,14 +112,8 @@
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
-      // In case the data is not loaded properly we don't want to produce either
-      // a blank title or an error. The SSR will produce the correct title so
-      // this is out an abundance of caution and will rarely be seen.
-      const pageTitle = this.entry.fields.title || 'Loading...';
-
       return {
-        // %s is the default site title. In our case the name of the website.
-        titleTemplate: `${pageTitle} | %s`,
+        title: this.entry.fields.title + ' | ' + this.$t('Situation Reports', this.locale),
 
         // Language settings determined by a field within each SitRep.
         htmlAttrs: {

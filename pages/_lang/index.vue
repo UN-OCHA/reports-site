@@ -101,6 +101,9 @@
 
     head() {
       return {
+        // Page title
+        title: this.$t('Situation Reports', this.locale),
+
         // Language settings determined by user language preference.
         htmlAttrs: {
           lang: this.locale,
