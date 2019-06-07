@@ -69,6 +69,31 @@
           'visual': 'Visual',
         };
       },
+
+      //
+      // GTM Tracker
+      //
+      // Since GTM is not guaranteed to exist, we provide a small setup function
+      // that also safely logs out the hypothetical results in situations where
+      // the ga() function is somehow unavailable.
+      //
+      ga() {
+        if ('ga' in window && ga.getAll()[0]) {
+          return ga.getAll()[0];
+        }
+        else {
+          // since we couldn't find a valid tracker, set up a debug logging func
+          // in its place so that all our existing calls at least output to console.
+          return {
+            set: function () {
+              console.warn('ga.set() not found, but we would have set:', ...arguments);
+            },
+            send: function () {
+              console.warn('ga.send() not found, but we would have sent:', ...arguments);
+            }
+          };
+        }
+      },
     },
 
     methods: {
