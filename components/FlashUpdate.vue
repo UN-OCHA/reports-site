@@ -54,7 +54,7 @@
       :frag="'#' + cssId"
       :show-png="true"
       :show-pdf="true"
-      :title="$t('Flash Update', locale)"
+      :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
       :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
       :filename-prefix="$t('Flash Update', locale)"
