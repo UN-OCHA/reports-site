@@ -105,9 +105,7 @@
       },
 
       handleWindowResize: debounce(function () {
-        // put GTM code here
-        // ga('send', 'event', [eventCategory], [eventAction], [eventLabel], [eventValue]);
-        console.log(window.innerWidth);
+        this.ga.send('event', 'window', 'resize', 'width', window.innerWidth);
       }, 250),
     },
 
