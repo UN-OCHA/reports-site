@@ -46,3 +46,18 @@ $ docker-compose up
 # run server detached so that logs are not shown on screen
 $ docker-compose up -d
 ```
+
+## Google Analytics tracking within DSR
+
+In the `components/_Global.vue` we have a prop called `ga` — any component or page which uses `_Global` as a mixin automatically can send events to GA using `this.ga.send()`:
+
+```js
+  this.ga.send('event', 'category', 'action', 'label', myValue);
+```
+
+In case the `ga()` function cannot be found or loaded, we mock the function so
+that any invocations will result in debug output instead of errors:
+
+```
+ga.send() not found, but we would have sent: event category action label [myValue]
+```

@@ -5,9 +5,9 @@ describe('AppFooter', () => {
     await page.goto('https://reports.unocha.org/fr/');
   });
 
-  it('should contain an EN About link', async () => {
+  it('should contain a localized About link', async () => {
     const expectedLength = 1;
-    const actualLength = await page.$$eval(`.footer-menu a[href="/en/about/"]`, nodeList => nodeList.length);
+    const actualLength = await page.$$eval(`.footer-menu a[href="/fr/about/"]`, nodeList => nodeList.length);
     expect(actualLength).toBe(expectedLength);
   });
 

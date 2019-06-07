@@ -1,7 +1,7 @@
 <template>
   <section class="card card--contacts">
     <h3 class="card__title">{{ $t('Contacts', locale) }}</h3>
-    <address :key="contact.sys.id" v-for="contact in content" class="card__contact contact">
+    <address :key="contact.sys.id" v-for="contact in content" v-if="typeof contact.fields !== 'undefined'" class="card__contact contact">
       <h4 class="name">{{ contact.fields.name }}</h4>
       <span v-if="contact.fields.jobTitle" class="job-title">{{ contact.fields.jobTitle }}</span>
       <a class="email" :href="'mailto:' + (hideEmail ? 'no-bots@example.com' : contact.fields.email)">{{ hideEmail ? 'no-bots@example.com' : contact.fields.email }}</a>

@@ -4,7 +4,7 @@
 
     <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>
     <div class="figures clearfix">
-      <figure v-for="figure in content" :key="figure.sys.id">
+      <figure v-for="figure in content" :key="figure.sys.id" v-if="typeof figure.fields !== 'undefined'">
         <a v-if="figure.fields.source" :href="figure.fields.source" class="data" target="_blank" rel="noopener">{{ figure.fields.figure }}</a>
         <span v-else class="data">{{ figure.fields.figure }}</span>
         <figcaption>{{ figure.fields.caption }}</figcaption>
