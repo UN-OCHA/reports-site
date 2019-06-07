@@ -16,6 +16,7 @@
 
     <main class="container container--error-grid" v-if="statusCode === 500">
       <section class="card card--error rich-text">
+        <img class="card__image" src="/locust-500.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
         <p class="error-text">The URL you requested exists, but there were problems displaying the page.</p>
       </section>
