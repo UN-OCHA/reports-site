@@ -52,7 +52,8 @@ $ docker-compose up -d
 In the `components/_Global.vue` we have a prop called `ga` — any component or page which uses `_Global` as a mixin automatically can send events to GA using `this.ga.send()`:
 
 ```js
-  this.ga.send('event', 'category', 'action', 'label', myValue);
+  // Our coding standards use Capitalized Labels
+  this.ga.send('event', 'Category', 'Action', 'Label', myValue);
 ```
 
 In case the `ga()` function cannot be found or loaded, we mock the function so
