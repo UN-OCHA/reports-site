@@ -6,6 +6,7 @@ Generally, each file in this directory corresponds to one unique component. In s
 * `Snap.vue` is a shared component with specific implementations `SnapCard.vue` and `SnapPage.vue` — they have common functionality but each variant has unique properties or behaviors.
 * `Card.vue` is an _extendable_ component. It doesn't do much on its own but again provide common functionality to other components which consider themselves cards. It includes the common subcomponents and contains a few methods and styles common to all cards.
 * `KeyMessages` got renamed to **Highlights** on the surface, but all the underlying code in both Contentful and Vue is `KeyMessages`
+* `KeyFinancials` got renamed to **Funding** on the surface, but all the underlying code in both Contentful and Vue is `KeyFinancials`
 
 ## Authoring RTL CSS
 

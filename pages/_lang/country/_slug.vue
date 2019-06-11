@@ -18,7 +18,7 @@
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials :content="ftsData" :ftsUrl="entry.fields.keyFinancialsUrl" />
+        <KeyFinancials :fts-raw-data="ftsData" :fts-manual-data="entry.fields.keyFinancialsManual" :fts-url="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
       </section>
 
@@ -47,6 +47,7 @@
   import Video from '~/components/Video';
   import Visual from '~/components/Visual';
 
+  import debounce from 'lodash.debounce';
   import axios from 'axios';
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
@@ -90,6 +91,11 @@
       keyMessagesHasImage() {
         return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
       },
+
+      keyMessagesJoined() {
+        const validHighlights = this.entry.fields.keyMessages.filter(highlight => typeof highlight.fields !== 'undefined');
+        return validHighlights.map(msg => msg.fields.keyMessage).join(' — ');
+      },
     },
 
     methods: {
@@ -102,19 +108,17 @@
         var val = (typeof document !== 'undefined') ? document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') : false;
         return val ? val.pop() : '';
       },
+
+      handleWindowResize: debounce(function () {
+        this.ga.send('event', 'Window', 'Resize', 'Width', window.innerWidth);
+      }, 250),
     },
 
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
-      // In case the data is not loaded properly we don't want to produce either
-      // a blank title or an error. The SSR will produce the correct title so
-      // this is out an abundance of caution and will rarely be seen.
-      const pageTitle = this.entry.fields.title || 'Loading...';
-
       return {
-        // %s is the default site title. In our case the name of the website.
-        titleTemplate: `${pageTitle} | %s`,
+        title: this.entry.fields.title + ' | ' + this.$t('Situation Reports', this.locale),
 
         // Language settings determined by a field within each SitRep.
         htmlAttrs: {
@@ -124,7 +128,7 @@
 
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
-          { hid: 'dsr-desc', name: 'description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'dsr-desc', name: 'description', content: this.keyMessagesJoined },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
@@ -133,7 +137,7 @@
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
-          { hid: 'og-desc', property: 'og:description', content: this.entry.fields.keyMessages.map(msg => msg.fields.keyMessage).join(' — ') },
+          { hid: 'og-desc', property: 'og:description', content: this.keyMessagesJoined },
           { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
         ],
       };
@@ -174,6 +178,14 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
+    },
+
+    beforeMount() {
+      window.addEventListener('resize', this.handleWindowResize);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleWindowResize);
     },
   }
 
@@ -238,7 +250,12 @@
           .catch(console.warn)
 
     ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
-      // If Contentful doesn't return an Entry, log error
+      //
+      // Check for 404
+      //
+      // If Contentful doesn't return an Entry, throw error and display Nuxt
+      // error page (see catch() below).
+      //
       if (entries.items.length === 0) {
         throw ({
           args: [{
@@ -252,6 +269,67 @@
             // Since no exception is being thrown, res.statusCode = 200 so we have
             // to set 404 manually on account of the dataset being empty.
             response: res && 404,
+          }],
+        });
+      }
+
+      //
+      // Helper function to check for Contentful fields within entries.
+      //
+      function haveFields(element, index, array) {
+        return typeof element.fields !== 'undefined';
+      }
+
+      //
+      // Check for 500
+      //
+      // If various required fields are somehow missing, we need to throw an
+      // error to avoid displaying a generic Nuxt error. By explicitly throwing
+      // on any of these conditions, the website will display a branded 500 page
+      // instead of the framework's context-free page.
+      //
+      // These are conditions which should not appear if all warnings are heeded
+      // when using the Contentful UI, but alas they can be ignored and we cannot
+      // expect the payload from Contentful to contain all that we need.
+      //
+      if (
+        typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
+        entries.items[0].fields.keyMessages.some(haveFields) &&
+        entries.items[0].fields.keyFigure.some(haveFields) &&
+        entries.items[0].fields.contacts.some(haveFields)
+      ) {
+        // All content checks passed. Continue with execution.
+      } else {
+        // One or more required aspects were missing from SitRep data. Try to
+        // collect a list of problems, and throw an error with as much data as
+        // we can provide.
+        const problems = [];
+
+        if (typeof entries.items[0].fields.keyMessagesImage.fields === 'undefined') {
+          problems.push('keyMessagesImage contains no published asset');
+        }
+        if (!entries.items[0].fields.keyMessages.some(haveFields)) {
+          problems.push('keyMessages field contains no published entries');
+        }
+        if (!entries.items[0].fields.keyFigure.some(haveFields)) {
+          problems.push('keyFigure field contains no published entries');
+        }
+        if (!entries.items[0].fields.contacts.some(haveFields)) {
+          problems.push('contacts field contains no published entries');
+        }
+
+        throw ({
+          args: [{
+            message: `Contentful delivered expected Entry, but it did not contain all required data to render a SitRep page. We detected the following problems:\n\n${problems.join('\n')}`,
+            lang: params.lang,
+            slug: params.slug,
+            url: req && req.url,
+            'user-agent': req && req.headers && req.headers['user-agent'],
+            headers: req && req.headers,
+            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+            // Since no exception is being thrown, res.statusCode = 200 so we have
+            // to set 404 manually on account of the dataset being empty.
+            response: res && 500,
           }],
         });
       }
@@ -288,7 +366,7 @@
       console.error(err);
 
       // Display Nuxt error page
-      error({ statusCode: 404, message: err.message });
+      error({ statusCode: err.args[0].response, message: err.args[0].message });
     });
   }
 </script>

@@ -138,7 +138,7 @@
       },
 
       pastReports() {
-        return `https://reliefweb.int/updates?search=(primary_country.iso3%3A%22${this.countrycode}%22)+AND+(ocha_product%3A%22Humanitarian+Bulletin%22+OR+ocha_product%3A%22Situation+Report%22+OR+ocha_product%3A%22Flash+Update%22+)+AND+source%3A%22UN+Office+for+the+Coordination+of+Humanitarian+Affairs%22#content`;
+        return `https://reliefweb.int/updates?search=primary_country.iso3:${this.countrycode} AND ocha_product:("Humanitarian Bulletin" OR "Situation Report" OR "Flash Update") AND source:OCHA#content`;
       },
 
       shareBaseUrl() {

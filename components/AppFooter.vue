@@ -1,6 +1,6 @@
 <template>
   <footer class="container footer">
-    <div v-if="footer">
+    <div v-if="footer && footer.fields">
       <p class="text">{{ footer.fields.defaultFooterText }}</p>
       <ul class="links">
         <li class="link" v-if="footer.fields.relatedLink"><a :href="footer.fields.relatedLink" target="_blank" rel="noopener">{{ footer.fields.relatedLink }}</a></li>
