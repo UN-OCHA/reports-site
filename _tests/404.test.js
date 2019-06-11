@@ -24,8 +24,8 @@ describe('404', () => {
   // Invalid language
   it('should display 404 page at /zz', async () => {
     await page.goto(`${env.baseUrl}/zz`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
@@ -33,8 +33,8 @@ describe('404', () => {
   // Invalid language
   it('should display 404 page at /show-me-404', async () => {
     await page.goto(`${env.baseUrl}/show-me-404`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
@@ -42,8 +42,8 @@ describe('404', () => {
   // Valid language, invalid page slug
   it('should display 404 page at /en/show-me-404', async () => {
     await page.goto(`${env.baseUrl}/en/show-me-404`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
@@ -51,8 +51,8 @@ describe('404', () => {
   // Invalid language, invalid page slug
   it('should display 404 page at /zz/show-me-404', async () => {
     await page.goto(`${env.baseUrl}/zz/show-me-404`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
@@ -60,8 +60,8 @@ describe('404', () => {
   // Valid language, non-existent SitRep
   it('should display 404 page at /ar/country/burundi/', async () => {
     await page.goto(`${env.baseUrl}/ar/country/burundi/`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleAr);
     });
   });
@@ -69,8 +69,8 @@ describe('404', () => {
   // Invalid language, non-existent SitRep
   it('should display 404 page at /zz/country/burundi/', async () => {
     await page.goto(`${env.baseUrl}/zz/country/burundi/`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
@@ -78,8 +78,8 @@ describe('404', () => {
   // Valid language, invalid static URL parameters
   it('should display 404 page at /en/invalid/url/', async () => {
     await page.goto(`${env.baseUrl}/en/invalid/url/`);
-    await page.waitFor('.card--error').then(async () => {
-      const actualTitle = await page.$eval('.card--error .card__title', el => el.innerText);
+    await page.waitFor('.card--error-404').then(async () => {
+      const actualTitle = await page.$eval('.card--error-404 .card__title', el => el.innerText);
       await expect(actualTitle).toBe(expectedTitleEn);
     });
   });
