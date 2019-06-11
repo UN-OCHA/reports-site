@@ -25,7 +25,7 @@
         <br><br>
       </div>
     </div>
-    <a :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
+    <a v-if="!!ftsUrl" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
 
     <CardActions label="Funding" :frag="'#' + cssId" />
     <CardFooter />
@@ -41,17 +41,33 @@
     mixins: [Global],
 
     props: {
-      'content': Array,
-      'ftsUrl': String,
+      'ftsRawData': {
+        required: false,
+        type: Array,
+        default: () => [],
+      },
+      'ftsUrl': {
+        required: false,
+        type: String,
+        default: '',
+      },
+      'ftsManualData': {
+        required: false,
+        type: Array,
+        default: () => [],
+      }
     },
 
     computed: {
       cssId() {
-        if (typeof this.content === 'Array' && this.content.length > 0) {
-          return 'cf-' + this.content.map((item) => item.sys.id).join('_');
+        if (this.ftsPlanId) {
+          return 'cf-keyFinancials-fts-' + this.ftsPlanId;
+        }
+        else if (typeof this.ftsData !== 'undefined' && this.ftsData.length > 0) {
+          return 'cf-' + this.ftsData.map((item) => item.sys.id).join('_');
         }
         else {
-          return 'cf-keyFinancials-notAvailable';
+          return 'cf-keyFinancials';
         }
       },
 
@@ -60,56 +76,62 @@
       },
 
       ftsData() {
-        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+        const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        // If we failed to fetch FTS Data along the way, return nothing and our
-        // template will display a prepared error message.
-        if (!plan) {
+        if (plan) {
+          // The structure mimics Contentful JSON API with some extra data so that
+          // our template above doesn't have to be duplicated based on input data.
+          return [
+            {
+              sys: {
+                id: `${this.ftsPlanId}-requirements.revisedRequirements`,
+              },
+              fields: {
+                type: 'requirements',
+                raw: plan.requirements.revisedRequirements,
+                financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
+                caption: this.$t('Requirements', this.locale),
+              },
+            },
+            {
+              sys: {
+                id: `${this.ftsPlanId}-funding.totalFunding`,
+              },
+              fields: {
+                type: 'total',
+                raw: plan.funding.totalFunding,
+                financial: '$' + this.formatNumber(plan.funding.totalFunding),
+                caption: this.$t('Funding', this.locale),
+              },
+            },
+            {
+              sys: {
+                id: `${this.ftsPlanId}-funding.progress`,
+              },
+              fields: {
+                type: 'progress',
+                // Do not allow raw vals greater than 100. Pie chart will break.
+                raw: (plan.funding.progress > 100) ? 100 : plan.funding.progress,
+                financial: Math.round(plan.funding.progress) + '%',
+                caption: this.$t('Progress', this.locale),
+              },
+            },
+          ];
+        }
+        // If FTS URL is missing, check for manually-entered data to render.
+        else if (!plan && typeof this.ftsManualData !== 'undefined' && this.ftsManualData.length > 0) {
+          return this.ftsManualData;
+        }
+        // If we failed to fetch FTS Data along the way, and no manual data was
+        // supplied, then return nothing and our template will display a prepared
+        // error message.
+        else {
           return [];
         }
-
-        // The structure mimics Contentful JSON API so that our template above
-        // doesn't have to be duplicated based on input data.
-        return [
-          {
-            sys: {
-              id: `${this.ftsPlanId}-requirements.revisedRequirements`,
-            },
-            fields: {
-              type: 'requirements',
-              raw: plan.requirements.revisedRequirements,
-              financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
-              caption: this.$t('Requirements', this.locale),
-            },
-          },
-          {
-            sys: {
-              id: `${this.ftsPlanId}-funding.totalFunding`,
-            },
-            fields: {
-              type: 'total',
-              raw: plan.funding.totalFunding,
-              financial: '$' + this.formatNumber(plan.funding.totalFunding),
-              caption: this.$t('Funding', this.locale),
-            },
-          },
-          {
-            sys: {
-              id: `${this.ftsPlanId}-funding.progress`,
-            },
-            fields: {
-              type: 'progress',
-              // Do not allow raw vals greater than 100. Pie chart will break.
-              raw: (plan.funding.progress > 100) ? 100 : plan.funding.progress,
-              financial: Math.round(plan.funding.progress) + '%',
-              caption: this.$t('Progress', this.locale),
-            },
-          },
-        ];
       },
 
       ftsDataYear() {
-        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+        const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
         return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
       },
