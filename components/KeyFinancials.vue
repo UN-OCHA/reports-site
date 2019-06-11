@@ -41,14 +41,14 @@
     mixins: [Global],
 
     props: {
-      'content': Array,
+      'ftsRawData': Array,
       'ftsUrl': String,
     },
 
     computed: {
       cssId() {
-        if (typeof this.content === 'Array' && this.content.length > 0) {
-          return 'cf-' + this.content.map((item) => item.sys.id).join('_');
+        if (typeof this.ftsRawData === 'Array' && this.ftsRawData.length > 0) {
+          return 'cf-' + this.ftsRawData.map((item) => item.sys.id).join('_');
         }
         else {
           return 'cf-keyFinancials-notAvailable';
@@ -60,7 +60,7 @@
       },
 
       ftsData() {
-        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+        const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
         // If we failed to fetch FTS Data along the way, return nothing and our
         // template will display a prepared error message.
@@ -109,7 +109,7 @@
       },
 
       ftsDataYear() {
-        const plan = this.content && this.content.filter(plan => plan.id === this.ftsPlanId)[0] || false;
+        const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
         return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
       },
