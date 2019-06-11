@@ -18,7 +18,7 @@
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials :fts-raw-data="ftsData" :fts-url="entry.fields.keyFinancialsUrl" />
+        <KeyFinancials :fts-raw-data="ftsData" :fts-manual-data="entry.fields.keyFinancialsManual" :fts-url="entry.fields.keyFinancialsUrl" />
         <Contacts :content="entry.fields.contacts" />
       </section>
 
