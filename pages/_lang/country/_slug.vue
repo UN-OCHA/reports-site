@@ -110,7 +110,7 @@
       },
 
       handleWindowResize: debounce(function () {
-        this.ga.send('event', 'Window', 'Resize', 'Width', window.innerWidth);
+        this.ga.send('event', 'Window', 'Resize Width', window.innerWidth);
       }, 250),
     },
 
