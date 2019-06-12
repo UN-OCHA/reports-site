@@ -16,7 +16,6 @@
   // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
-  const active_content_type = 'sitrep';
 
   export default {
     mixins: [Global],

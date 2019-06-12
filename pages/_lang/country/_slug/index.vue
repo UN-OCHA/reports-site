@@ -55,10 +55,8 @@
   const client = createClient();
   const active_content_type = 'sitrep';
 
-  // FTS
-  import axios from 'axios';
-
   // Util
+  import axios from 'axios';
   import debounce from 'lodash.debounce';
 
   export default {

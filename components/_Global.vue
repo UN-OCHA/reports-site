@@ -64,6 +64,7 @@
         return {
           'article': 'Article',
           'clusterInformation': 'Cluster',
+          'flashUpdate': 'FlashUpdate',
           'interactive': 'Interactive',
           'video': 'Video',
           'visual': 'Visual',
