@@ -1,5 +1,5 @@
 <template>
-  <div class="page--error-404" @click="noop">
+  <div class="page--error" @click="noop">
     <AppBar />
     <AppHeader
       :title="$t('Situation Reports', locale)"
@@ -8,14 +8,14 @@
     />
 
     <main class="container container--error-grid" v-if="statusCode === 404">
-      <section class="card card--error rich-text">
+      <section class="card card--error card--error-404 rich-text">
         <img class="card__image" src="/locust-404.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
       </section>
     </main>
 
     <main class="container container--error-grid" v-if="statusCode === 500">
-      <section class="card card--error rich-text">
+      <section class="card card--error card--error-500 rich-text">
         <img class="card__image" src="/locust-500.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
         <p class="error-text">The URL you requested exists, but there were problems displaying the page.</p>
