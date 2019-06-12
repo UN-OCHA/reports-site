@@ -18,15 +18,15 @@
       </div>
     </div>
     <div class="cluster__content clearfix">
-      <div class="cluster__bucket">
+      <div class="cluster__bucket cluster__bucket--needs">
         <h3 class="cluster__bucket-title">{{ $t('Needs', locale) }}</h3>
         <div class="rich-text" v-html="richNeeds"></div>
       </div>
-      <div class="cluster__bucket">
+      <div class="cluster__bucket cluster__bucket--response">
         <h3 class="cluster__bucket-title">{{ $t('Response', locale) }}</h3>
         <div class="rich-text" v-html="richResponse"></div>
       </div>
-      <div class="cluster__bucket">
+      <div class="cluster__bucket cluster__bucket--gaps">
         <h3 class="cluster__bucket-title">{{ $t('Gaps', locale) }}</h3>
         <div class="rich-text" v-html="richGaps"></div>
       </div>
@@ -93,6 +93,56 @@
 
   .cluster__bucket {
     margin-bottom: 1rem;
+  }
+
+  .cluster__bucket .cluster__bucket-title {
+    padding-left: 1.8rem;
+    position: relative;
+  }
+
+  .cluster__bucket .cluster__bucket-title::before {
+    content: '';
+    position: absolute;
+    top: .15rem;
+    left: 0;
+    width: 1.333rem;
+    height: 1.333rem;
+    background-repeat: no-repeat;
+    background-size: 1.333rem 1.333rem;
+
+    @supports (mask-image: url()) {
+      background-color: #999;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+    }
+  }
+
+  // CSS SVG Mask
+  //
+  // IE11 needs direct image but when possible we're using a colored SVG mask.
+  .cluster__bucket--needs .cluster__bucket-title::before {
+    background-image: url('/icons/icon--cluster-needs.svg');
+
+    @supports (mask-image: url()) {
+      background-image: none;
+      mask-image: url('/icons/icon--cluster-needs.svg');
+    }
+  }
+  .cluster__bucket--response .cluster__bucket-title::before {
+    background-image: url('/icons/icon--cluster-response.svg');
+
+    @supports (mask-image: url()) {
+      background-image: none;
+      mask-image: url('/icons/icon--cluster-response.svg');
+    }
+  }
+  .cluster__bucket--gaps .cluster__bucket-title::before {
+    background-image: url('/icons/icon--cluster-gaps.svg');
+
+    @supports (mask-image: url()) {
+      background-image: none;
+      mask-image: url('/icons/icon--cluster-gaps.svg');
+    }
   }
 
   .cluster__meta {
