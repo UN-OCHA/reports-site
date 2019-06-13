@@ -36,7 +36,7 @@
         // cookies along to Snap Service.
         const cookies = document.cookie;
 
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=150&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
       },
 
       filename() {
