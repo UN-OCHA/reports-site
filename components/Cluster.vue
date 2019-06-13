@@ -7,7 +7,7 @@
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </h2>
     <div class="cluster__meta clearfix">
-      <h3 class="cluster__title">{{ content.fields.clusterName }}</h3>
+      <h3 class="cluster__title" :class="clusterIconClasses">{{ content.fields.clusterName }}</h3>
       <div class="figures clearfix" v-if="content.fields.clusterFigures">
         <figure v-for="figure in content.fields.clusterFigures" :key="figure.sys.id">
           <div v-if="typeof figure !== 'undefined' && typeof figure.fields !== 'undefined' && typeof figure.fields.figure !== 'undefined'">
@@ -38,9 +38,16 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Extends
   import Card from '~/components/Card';
+
+  // Components
   import KeyFigures from '~/components/KeyFigures';
+
+  // Rich Text
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
@@ -57,13 +64,40 @@
         richResponse: '',
         richGaps: '',
         updatedAt: this.content.sys.updatedAt,
+        clusterIconMap: {
+          'Agriculture': 'agriculture',
+          'Camp Coordination and Camp Management': 'camp-coordination-and-camp-management',
+          'Child Protection': 'child-protection',
+          'Coordination': 'coordination',
+          'Early Recovery': 'early-recovery',
+          'Education': 'education',
+          'Emergency Telecommunications': 'emergency-telecommunications',
+          'Food Security': 'food-security',
+          'Gender-based Violence': 'gender-based-violence',
+          'Health': 'health',
+          'Logistics': 'logistics',
+          'Multi-cluster Sector': 'multi-cluster-sector',
+          'Non-food Items': 'non-food-items',
+          'Nutrition': 'nutrition',
+          'Protection': 'protection',
+          'Shelter': 'shelter',
+          'Water, Sanitation and Hygiene': 'water-sanitation-and-hygiene',
+        },
       };
     },
 
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
-      }
+      },
+
+      clusterIconClasses() {
+        return this.content.fields.globalClusterIcon ? `cluster__title--has-icon cluster__title--${this.clusterIconClass}` : '';
+      },
+
+      clusterIconClass() {
+        return this.clusterIconMap[this.content.fields.globalClusterIcon];
+      },
     },
 
     created() {
@@ -91,6 +125,11 @@
     }
   }
 
+  .cluster__meta {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
   .cluster__bucket {
     margin-bottom: 1rem;
   }
@@ -109,46 +148,95 @@
     height: 1.333rem;
     background-repeat: no-repeat;
     background-size: 1.333rem 1.333rem;
-
-    @supports (mask-image: url()) {
-      background-color: #999;
-      mask-repeat: no-repeat;
-      mask-size: contain;
-    }
   }
 
-  // CSS SVG Mask
-  //
-  // IE11 needs direct image but when possible we're using a colored SVG mask.
   .cluster__bucket--needs .cluster__bucket-title::before {
     background-image: url('/icons/icon--cluster-needs.svg');
-
-    @supports (mask-image: url()) {
-      background-image: none;
-      mask-image: url('/icons/icon--cluster-needs.svg');
-    }
   }
   .cluster__bucket--response .cluster__bucket-title::before {
     background-image: url('/icons/icon--cluster-response.svg');
-
-    @supports (mask-image: url()) {
-      background-image: none;
-      mask-image: url('/icons/icon--cluster-response.svg');
-    }
   }
   .cluster__bucket--gaps .cluster__bucket-title::before {
     background-image: url('/icons/icon--cluster-gaps.svg');
+  }
 
-    @supports (mask-image: url()) {
-      background-image: none;
-      mask-image: url('/icons/icon--cluster-gaps.svg');
+  //
+  // Global Cluster Icons
+  //
+  .cluster__title {
+    position: relative;
+
+    &--has-icon {
+      min-height: 2em;
+      padding-left: 3.5rem;
+    }
+
+    &--has-icon::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3rem;
+      height: 3rem;
+      background-position: 0% 0%;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &--agriculture::before {
+      background-image: url('/icons--clusters/agriculture.svg')
+    }
+    &--camp-coordination-and-camp-management::before {
+      background-image: url('/icons--clusters/camp-coordination-and-camp-management.svg')
+    }
+    &--child-protection::before {
+      background-image: url('/icons--clusters/child-protection.svg')
+    }
+    &--coordination::before {
+      background-image: url('/icons--clusters/coordination.svg')
+    }
+    &--early-recovery::before {
+      background-image: url('/icons--clusters/early-recovery.svg')
+    }
+    &--education::before {
+      background-image: url('/icons--clusters/education.svg')
+    }
+    &--emergency-telecommunications::before {
+      background-image: url('/icons--clusters/emergency-telecommunications.svg')
+    }
+    &--food-security::before {
+      background-image: url('/icons--clusters/food-security.svg')
+    }
+    &--gender-based-violence::before {
+      background-image: url('/icons--clusters/gender-based-violence.svg')
+    }
+    &--health::before {
+      background-image: url('/icons--clusters/health.svg')
+    }
+    &--logistics::before {
+      background-image: url('/icons--clusters/logistics.svg')
+    }
+    &--multi-cluster-sector::before {
+      background-image: url('/icons--clusters/multi-cluster-sector.svg')
+    }
+    &--non-food-items::before {
+      background-image: url('/icons--clusters/non-food-items.svg')
+    }
+    &--nutrition::before {
+      background-image: url('/icons--clusters/nutrition.svg')
+    }
+    &--protection::before {
+      background-image: url('/icons--clusters/protection.svg')
+    }
+    &--shelter::before {
+      background-image: url('/icons--clusters/shelter.svg')
+    }
+    &--water-sanitation-and-hygiene::before {
+      background-image: url('/icons--clusters/water-sanitation-and-hygiene.svg')
     }
   }
 
-  .cluster__meta {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
-  }
 
   //
   // Float layout for old desktops.
