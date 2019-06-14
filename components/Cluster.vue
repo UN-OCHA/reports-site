@@ -142,7 +142,7 @@
   .cluster__bucket .cluster__bucket-title::before {
     content: '';
     position: absolute;
-    top: .15rem;
+    top: 0;
     left: 0;
     width: 1.333rem;
     height: 1.333rem;
@@ -181,7 +181,7 @@
       height: 3rem;
       background-position: 0% 0%;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 3rem 3rem;
     }
 
     &--agriculture::before {
