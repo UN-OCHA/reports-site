@@ -270,90 +270,90 @@
     }
   }
 
-  @media (min-width: 1164px) {
-    .cluster__meta {
-      margin-bottom: 0;
-    }
-    .cluster__content {
-      clear: both;
-    }
-    .cluster__bucket {
-      float: left;
-      width: calc(33% - .666rem); // see Grid definition for intended layout
-      margin-top: 1rem;
-      margin-left: 1rem;
-      margin-bottom: 0;
-      padding-left: 1rem;
-      border-left: 1px solid #ddd;
+  // @media (min-width: 1164px) {
+  //   .cluster__meta {
+  //     margin-bottom: 0;
+  //   }
+  //   .cluster__content {
+  //     clear: both;
+  //   }
+  //   .cluster__bucket {
+  //     float: left;
+  //     width: calc(33% - .666rem); // see Grid definition for intended layout
+  //     margin-top: 1rem;
+  //     margin-left: 1rem;
+  //     margin-bottom: 0;
+  //     padding-left: 1rem;
+  //     border-left: 1px solid #ddd;
 
-      [dir="rtl"] & {
-        float: right;
-        margin-left: 0;
-        padding-left: 0;
-        border-left: 0;
-        margin-right: 1rem;
-        padding-right: 1rem;
-        border-right: 1px solid #ddd;
-      }
+  //     [dir="rtl"] & {
+  //       float: right;
+  //       margin-left: 0;
+  //       padding-left: 0;
+  //       border-left: 0;
+  //       margin-right: 1rem;
+  //       padding-right: 1rem;
+  //       border-right: 1px solid #ddd;
+  //     }
 
-      &:first-child {
-        margin-left: 0;
-        border-left: 0;
-        padding-left: 0;
+  //     &:first-child {
+  //       margin-left: 0;
+  //       border-left: 0;
+  //       padding-left: 0;
 
-        [dir="rtl"] & {
-          margin-right: 0;
-          border-right: 0;
-          padding-right: 0;
-        }
-      }
-    }
+  //       [dir="rtl"] & {
+  //         margin-right: 0;
+  //         border-right: 0;
+  //         padding-right: 0;
+  //       }
+  //     }
+  //   }
 
-    @supports (display: grid) {
-      .cluster__meta {
-        padding-bottom: 0;
-        margin-bottom: 1rem;
-        page-break-after: always;
-      }
+  //   @supports (display: grid) {
+  //     .cluster__meta {
+  //       padding-bottom: 0;
+  //       margin-bottom: 1rem;
+  //       page-break-after: always;
+  //     }
 
-      .cluster__content {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 0; // we do this with margin/padding so borders are evenly spaced
-        margin-bottom: 1rem;
-        page-break-after: always;
+  //     .cluster__content {
+  //       display: grid;
+  //       grid-template-columns: 1fr 1fr 1fr;
+  //       grid-gap: 0; // we do this with margin/padding so borders are evenly spaced
+  //       margin-bottom: 1rem;
+  //       page-break-after: always;
 
-        // unset legacy layout
-        * {
-          float: none;
-          width: auto;
-          margin-left: 0;
-        }
+  //       // unset legacy layout
+  //       * {
+  //         float: none;
+  //         width: auto;
+  //         margin-left: 0;
+  //       }
 
-        .cluster__bucket {
-          padding: 0 1rem;
-          margin: 0;
+  //       .cluster__bucket {
+  //         padding: 0 1rem;
+  //         margin: 0;
 
-          &:first-child {
-            [dir="ltr"] & {
-              padding-left: 0;
-            }
+  //         &:first-child {
+  //           [dir="ltr"] & {
+  //             padding-left: 0;
+  //           }
 
-            [dir="rtl"] & {
-              padding-right: 0;
-            }
-          }
-          &:last-child {
-            [dir="ltr"] & {
-              padding-right: 0;
-            }
+  //           [dir="rtl"] & {
+  //             padding-right: 0;
+  //           }
+  //         }
+  //         &:last-child {
+  //           [dir="ltr"] & {
+  //             padding-right: 0;
+  //           }
 
-            [dir="rtl"] & {
-              padding-left: 0;
-            }
-          }
-        }
-      }
-    } // @supports (display: grid)
-  } // @media (min-width: 900)
+  //           [dir="rtl"] & {
+  //             padding-left: 0;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } // @supports (display: grid)
+  // } // @media (min-width: 1164px)
 </style>
