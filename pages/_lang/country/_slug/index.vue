@@ -456,57 +456,56 @@
   } /* @supports (display: grid) */
 } /* @media print and (min-width: 10cm), screen and (min-width: 760px) */
 
-/*—— Report Large layout —————————————————————————————————————————————————————*/
+//——— Report Large layout ——————————————————————————————————————————————————————
 
-/*
-@media screen and (min-width: 1164px) {
-  /**
-   * CSS Grid
-   *
-   * We can do whatever we want here because CSS Grid is the best!
-   * /
-  @supports (display: grid) {
-    .section--primary {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages keyFinancials"
-                           "keyMessages contacts";
-      grid-template-columns: 3fr 1fr;
-      grid-gap: 1rem;
-      margin-bottom: 1rem;
-    }
+// @media screen and (min-width: 1164px) {
+//   /**
+//    * CSS Grid
+//    *
+//    * We can do whatever we want here because CSS Grid is the best!
+//    */
+//   @supports (display: grid) {
+//     .section--primary {
+//       display: grid;
+//       grid-template-areas: "keyMessages keyFigures"
+//                            "keyMessages keyFinancials"
+//                            "keyMessages contacts";
+//       grid-template-columns: 3fr 1fr;
+//       grid-gap: 1rem;
+//       margin-bottom: 1rem;
+//     }
 
-    /* Cards are set with CSS Grid and don't need any special treatment * /
-    .section--primary .card {
-      float: none;
-      width: auto;
-      height: auto;
-      margin-right: 0;
-      margin-bottom: 0;
-    }
+//     /* Cards are set with CSS Grid and don't need any special treatment */
+//     .section--primary .card {
+//       float: none;
+//       width: auto;
+//       height: auto;
+//       margin-right: 0;
+//       margin-bottom: 0;
+//     }
 
-    /* Drop selected cards into their homes * /
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--keyFinancials {
-      grid-area: keyFinancials;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
+//     /* Drop selected cards into their homes */
+//     .card--keyMessages {
+//       grid-area: keyMessages;
+//     }
+//     .card--keyFigures {
+//       grid-area: keyFigures;
+//     }
+//     .card--keyFinancials {
+//       grid-area: keyFinancials;
+//     }
+//     .card--contacts {
+//       grid-area: contacts;
+//     }
 
-    /* All other cards will appear in EverythingElse section * /
-    .section--everythingElse {
-    }
-    .section--everythingElse .card {
-      margin-bottom: 1rem;
-    }
-  } /* @supports (display: grid) * /
-} /* @media screen and (min-width: 1164px) */
+//     /* All other cards will appear in EverythingElse section */
+//     .section--everythingElse {
+//     }
+//     .section--everythingElse .card {
+//       margin-bottom: 1rem;
+//     }
+//   } /* @supports (display: grid) */
+// } /* @media screen and (min-width: 1164px) */
 
 /*—— Print styles ————————————————————————————————————————————————————————————*/
 @media print {
