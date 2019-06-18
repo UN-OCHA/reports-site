@@ -14,7 +14,6 @@
 
     <main class="container report">
       <FlashUpdate
-        format="teaser"
         :content="flashUpdate"
         v-for="flashUpdate in flashUpdates"
         :key="flashUpdate.sys.id"

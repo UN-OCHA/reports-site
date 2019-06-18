@@ -2,28 +2,20 @@
   <article
     v-if="displayFlashUpdate"
     class="card card--flash-update flash-update clearfix"
-    :class="'card--flash-update--' + format"
     :id="cssId">
     <CardHeader />
 
     <span class="card__title">
-      {{ $t('Flash Update', locale) }}
+      <span class="card__heading">{{ $t('Flash Update', locale) }}</span>
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
-    <div
-      v-if="format === 'teaser'"
-      class="flash-update__teaser"
-    >
-      <h3 class="flash-update__title">{{ content.fields.title }}</h3>
-    </div>
 
     <div
-      v-if="format === 'full'"
-      class="flash-update__content"
-      :class="{ 'flash-update__content--has-image': content.fields.image }"
+      class="article__content"
+      :class="{ 'article__content--has-image': articleHasImage }"
     >
-      <div class="flash-update__image" v-if="content.fields.image">
-        <figure>
+      <div class="article__image" v-if="content.fields.image">
+        <figure ref="articleImg">
           <picture>
             <source type="image/webp"
               :srcset="'\
@@ -50,24 +42,41 @@
                 (min-width: 1220px) 413px" />
 
             <img
-              ref="articleImg"
-              class="interactive__img"
+              class="article__img"
               :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
-          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
+          <figcaption v-if="content.fields.image.fields.description">
+            {{ content.fields.image.fields.description }}
+          </figcaption>
         </figure>
       </div>
-      <div ref="flash-update" class="flash-update__text">
-        <h3 class="flash-update__title">{{ content.fields.title }}</h3>
+      <div
+        ref="article"
+        class="article__text"
+        :class="{
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
+        }" :style="{
+          'height': getArticleHeight,
+        }"
+      >
+        <h3 class="article__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="this.richBody"></div>
       </div>
     </div>
+    <button
+      v-if="isExpandable"
+      class="btn btn--toggle-text"
+      :class="{ 'is--expanded': isExpanded }"
+      @click="isExpanded = !isExpanded">
+      {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
+    </button>
 
     <CardActions
       label="Flash Update"
       :frag="'#' + cssId"
-      :show-png="format === 'full'"
+      :show-png="true"
       :show-pdf="true"
       :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
@@ -85,13 +94,13 @@
   import Global from '~/components/_Global';
 
   // Extends
-  import Card from '~/components/Card';
+  import Article from '~/components/Article';
 
   // Rich Text
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
-    extends: Card,
+    extends: Article,
     mixins: [Global],
 
     props: {
@@ -99,11 +108,6 @@
         type: Object,
         required: true,
       },
-      'format': {
-        type: String,
-        required: false,
-        default: 'full',
-      }
     },
 
     data() {
@@ -145,11 +149,8 @@
   //
   @import '~/assets/Global.scss';
 
-  .card--flash-update--teaser {
+  .card {
     background: #FEE7DC;
-    // background-color: rgb(248, 166, 140);
-    // background-color: rgb(243, 109, 82);
-    // color: white;
 
     .card__title {
       color: inherit;
@@ -158,209 +159,30 @@
 
     /deep/ .btn--pdf {
       width: 16px;
-      background-image: url('/icons/icon--pdf--black.svg');
-    }
-
-    .flash-update__title {
-      margin-bottom: 0;
-    }
-  }
-
-  .card__time-ago {
-    display: inline-block;
-    margin-left: .5em;
-    opacity: .8;
-    font-weight: 400;
-    text-transform: none;
-  }
-
-  .flash-update__title {
-    margin-bottom: 1em;
-    font-family: $roboto-condensed;
-    font-weight: 700;
-
-    [lang="ar"] & {
-      font-family: $kufi-bold;
-    }
-  }
-
-  .flash-update__image {
-    margin-bottom: 1rem;
-  }
-
-  @media screen and (min-width: 900px) {
-    //
-    // Float-based layout
-    //
-    .flash-update__content--has-image {
-      .flash-update__image {
-        float: right;
-        width: 33.333%;
-      }
-
-      .flash-update__text {
-        float: left;
-        clear: left;
-        width: calc(66.666% - 1rem);
-        margin-right: 1rem;
-      }
-    }
-
-    //
-    // CSS Grid layout
-    //
-    @supports (display: grid) {
-      .flash-update__content--has-image {
-        display: grid;
-        grid-template-areas: 'flashUpdateText flashUpdateImages';
-        grid-template-rows: 1fr;
-        grid-template-columns: 6fr 4fr;
-        grid-gap: 1rem;
-
-        .flash-update__text,
-        .flash-update__image {
-          float: none;
-          width: auto;
-          margin: 0;
-        }
-      }
-
-      .flash-update__text {
-        grid-area: flashUpdateText;
-      }
-
-      .flash-update__image {
-        grid-area: flashUpdateImages;
-        width: 100%;
-      }
+      background-image: url('/icons/icon--pdf--dark.svg');
     }
   }
 
   @media screen {
     //
-    // Read more: initial state
+    // Read more: gradient needs to match background-color
     //
     .is--expandable {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1em;
-
-      // height is measure before truncating text and value is stored on component
-      // meaning we can safely transition since `auto` is not set once JS runs.
-      transition: height .666s ease-in-out;
-
       &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 8em;
+        // IE11
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 1) 100%);
-        transition: opacity .666s ease-in-out;
-      }
-    }
-
-    .btn--toggle-text {
-      display: block;
-      border: none;
-      padding: 0 1em 0 0;
-      margin: 1rem 0 0 0;
-      background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
-      background-size: 12px auto;
-      color: hsl(0, 0%, 50%);
-      font-family: $roboto;
-      font-size: 1em;
-      text-transform: uppercase;
-      cursor: pointer;
-
-      &:focus {
-        outline: none;
-      }
-
-      &.is--expanded {
-        background-image: url('/icons/icon--up-arrow.svg');
-      }
-    }
-
-    //
-    // Read more: Expanded state
-    //
-    .is--expandable.is--expanded {
-      &::before {
-        content: none;
-        opacity: 0;
+        // The modern browser world.
+        --gradient-from: rgba(254, 231, 220, 0);
+        --gradient-to: rgba(254, 231, 220, 1);
+        background-image: linear-gradient(to bottom, var(--gradient-from) 33%, var(--gradient-to) 100%);
       }
     }
   } // @media screen
 
-  //
-  // Print layout
-  //
-  // While capturing PNG or PDF we need non-interactive elements:
-  //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
-  //
   @media print {
-    .flash-update__image {
-      float: right;
-      max-width: 40%;
-      margin-left: 2em;
-    }
-
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
-    }
-  }
-
-  //
-  // Snap Service
-  //
-  // While capturing PNG or PDF we need non-interactive elements:
-  //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
-  //
-  .snap--png,
-  .snap--pdf {
     .card {
-      background: none;
+      background-color: transparent;
       border-bottom: none;
-    }
-
-    // When the FlashUpdate is rendered as PDF on its own URL, we hide the
-    // "FLASH UPDATE" heading. We do want to show this in all other contexts.
-    .page--flash-update .card__title {
-      display: none;
-    }
-
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
     }
   }
 </style>

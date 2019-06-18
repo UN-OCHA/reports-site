@@ -1,11 +1,5 @@
 <template>
   <div class="actions">
-    <SnapCard
-      v-if="showPng"
-      output="png"
-      :label="label"
-      :selector="this.frag"
-    />
     <SnapPage
       v-if="showPdf"
       output="pdf"
@@ -14,6 +8,12 @@
       :description="description"
       :filename-prefix="filenamePrefix"
       :pdf-url="pdfUrl"
+    />
+    <SnapCard
+      v-if="showPng"
+      output="png"
+      :label="label"
+      :selector="this.frag"
     />
   </div>
 </template>
@@ -99,5 +99,10 @@
     [dir="rtl"] & {
       left: 1rem;
     }
+  }
+
+  // When both actions are present, push them apart.
+  /deep/ .btn--pdf + .btn--download {
+    margin-left: .5rem;
   }
 </style>
