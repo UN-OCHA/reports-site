@@ -22,12 +22,4 @@
   //
   // Generic Card styles are in default.vue — inlined as critical CSS.
   //
-
-  //
-  // Snap Service: cancel border-radius so we get a perfect rectangle graphic.
-  //
-  .snap--png .card {
-    border-radius: 0;
-    box-shadow: none;
-  }
 </style>

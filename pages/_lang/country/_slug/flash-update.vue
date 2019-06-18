@@ -1,7 +1,13 @@
 <template>
   <div class="page--flash-update" :id="'cf-' + entry.sys.id" @click="noop">
     <main class="container">
-      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in flashUpdates" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+      <FlashUpdate
+        format="full"
+        :content="flashUpdate"
+        v-for="flashUpdate in flashUpdates"
+        :key="flashUpdate.sys.id"
+        v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'"
+      />
     </main>
     <AppFooter :footer="entry.fields.footer" />
   </div>
@@ -151,179 +157,10 @@
 </script>
 
 <style lang="scss">
-
-/*—— Report Medium/Print layout ——————————————————————————————————————————————*/
-
-@media print and (min-width: 10cm),
-       screen and (min-width: 760px) {
-  /**
-   * No CSS Grid support
-   *
-   * Given the landscape and browser trends, there is only one definition for
-   * large screens lacking CSS Grid. We're defining a float layout with some
-   * height units to ensure uniformity.
-   */
-  .card--keyMessages {
-    float: none;
-    width: 100%;
-  }
-
-  .card--keyFigures,
-  .card--keyFinancials,
-  .card--contacts {
-    float: left;
-    width: calc(100% / 3 - (2rem / 3));
-    min-height: 240px;
-    margin-right: .99rem;
-
-    [dir="rtl"] & {
-      float: right;
-      margin-right: 0;
-      margin-left: .99rem;
-    }
-  }
-
-  .card--contacts {
-    margin-right: 0;
-
-    [dir="rtl"] & {
-      margin-left: 0;
-    }
-  }
-
-  /**
-   * CSS Grid support
-   */
-  @supports (display: grid) {
-    .section--primary {
-      display: grid;
-      grid-template-areas: "keyMessages  keyMessages    keyMessages"
-                           "keyFigures   keyFinancials  contacts";
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 1rem;
-    }
-
-    .section--primary .card {
-      width: auto;
-      margin: 0;
-    }
-
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--keyFinancials {
-      grid-area: keyFinancials;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
-  } /* @supports (display: grid) */
-} /* @media print and (min-width: 10cm), screen and (min-width: 760px) */
-
-/*—— Report Large layout —————————————————————————————————————————————————————*/
-
-/*
-@media screen and (min-width: 1164px) {
-  /**
-   * CSS Grid
-   *
-   * We can do whatever we want here because CSS Grid is the best!
-   * /
-  @supports (display: grid) {
-    .section--primary {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages keyFinancials"
-                           "keyMessages contacts";
-      grid-template-columns: 3fr 1fr;
-      grid-gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Cards are set with CSS Grid and don't need any special treatment * /
-    .section--primary .card {
-      float: none;
-      width: auto;
-      height: auto;
-      margin-right: 0;
-      margin-bottom: 0;
-    }
-
-    /* Drop selected cards into their homes * /
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--keyFinancials {
-      grid-area: keyFinancials;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
-
-    /* All other cards will appear in EverythingElse section * /
-    .section--everythingElse {
-    }
-    .section--everythingElse .card {
-      margin-bottom: 1rem;
-    }
-  } /* @supports (display: grid) * /
-} /* @media screen and (min-width: 1164px) */
-
 /*—— Print styles ————————————————————————————————————————————————————————————*/
 @media print {
   body {
     font-size: 12pt;
-  }
-
-  .section--primary {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
-  }
-
-  .section--everythingElse {
-    /**
-     * DSR-101: we want content to flow immediately after Key sections instead
-     * of breaking to the second page. Uncomment to restore page-break and have
-     * Article content begin on page 2.
-     */
-    /*page-break-before: always;*/
-  }
-  .section--everythingElse .card:last-child {
-    border-bottom: 0;
-  }
-
-  .card--keyMessages {
-    font-size: 1em;
-  }
-  .card--keyFigures {
-    border-right: 1px solid #ddd;
-    border-bottom: 0 !important; /* override shared print/screen Grid styles */
-    margin-bottom: 0;
-
-    [dir="rtl"] & {
-      border-right: 0;
-      border-left: 1px solid #ddd;
-    }
-  }
-  .card--keyFinancials {
-    border-right: 1px solid #ddd;
-    border-bottom: 0;
-    margin-bottom: 0;
-
-    [dir="rtl"] & {
-      border-right: 0;
-      border-left: 1px solid #ddd;
-    }
-  }
-  .card--contacts {
-    border: 0;
-    margin-bottom: 0;
   }
 }
 </style>

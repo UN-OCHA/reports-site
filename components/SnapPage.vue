@@ -206,10 +206,11 @@
   .btn {
     animation: fade-in .3333s ease-out;
   }
+
   .btn--pdf {
     display: inline-block;
     background-color: transparent;
-    background-position: 50% 50%;
+    background-position: 50% 0%;
     background-repeat: no-repeat;
     background-size: 15px 21px;
     background-image: url('/icons/icon--pdf.svg');

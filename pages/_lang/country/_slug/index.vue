@@ -13,7 +13,13 @@
       :snap="true" />
 
     <main class="container report">
-      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in flashUpdates" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+      <FlashUpdate
+        format="teaser"
+        :content="flashUpdate"
+        v-for="flashUpdate in flashUpdates"
+        :key="flashUpdate.sys.id"
+        v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'"
+      />
 
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />

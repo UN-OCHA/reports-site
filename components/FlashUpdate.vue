@@ -1,12 +1,27 @@
 <template>
-  <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="cssId">
+  <article
+    v-if="displayFlashUpdate"
+    class="card card--flash-update flash-update clearfix"
+    :class="'card--flash-update--' + format"
+    :id="cssId">
     <CardHeader />
 
     <span class="card__title">
       {{ $t('Flash Update', locale) }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
-    <div class="flash-update__content" :class="{ 'flash-update__content--has-image': content.fields.image }">
+    <div
+      v-if="format === 'teaser'"
+      class="flash-update__teaser"
+    >
+      <h3 class="flash-update__title">{{ content.fields.title }}</h3>
+    </div>
+
+    <div
+      v-if="format === 'full'"
+      class="flash-update__content"
+      :class="{ 'flash-update__content--has-image': content.fields.image }"
+    >
       <div class="flash-update__image" v-if="content.fields.image">
         <figure>
           <picture>
@@ -52,7 +67,7 @@
     <CardActions
       label="Flash Update"
       :frag="'#' + cssId"
-      :show-png="true"
+      :show-png="format === 'full'"
       :show-pdf="true"
       :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
@@ -80,7 +95,15 @@
     mixins: [Global],
 
     props: {
-      'content': Object,
+      'content': {
+        type: Object,
+        required: true,
+      },
+      'format': {
+        type: String,
+        required: false,
+        default: 'full',
+      }
     },
 
     data() {
@@ -122,8 +145,25 @@
   //
   @import '~/assets/Global.scss';
 
-  .card {
-    background-color: #FEE7DC;
+  .card--flash-update--teaser {
+    background: #FEE7DC;
+    // background-color: rgb(248, 166, 140);
+    // background-color: rgb(243, 109, 82);
+    // color: white;
+
+    .card__title {
+      color: inherit;
+      margin-right: 3rem;
+    }
+
+    /deep/ .btn--pdf {
+      width: 16px;
+      background-image: url('/icons/icon--pdf--black.svg');
+    }
+
+    .flash-update__title {
+      margin-bottom: 0;
+    }
   }
 
   .card__time-ago {
