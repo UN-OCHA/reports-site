@@ -42,7 +42,7 @@
       },
 
       snapRequest() {
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=${this.output}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.defaultSitRepUrl)}&service=${this.requestingService}&output=${this.output}`;
       },
 
       // We provide a very generic filename to be overridden in each specific
