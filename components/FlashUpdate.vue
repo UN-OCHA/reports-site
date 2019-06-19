@@ -76,8 +76,8 @@
     <CardActions
       label="Flash Update"
       :frag="'#' + cssId"
-      :show-png="true"
-      :show-pdf="true"
+      :show-png="showPng"
+      :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
       :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
@@ -118,6 +118,16 @@
         required: false,
         default: false,
       },
+      'showPng': {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
+      'showPdf': {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
     },
 
     data() {
@@ -143,7 +153,7 @@
       },
 
       pdfUrl() {
-        return process.client ? window.location.href + 'flash-update/' : '#';
+        return process.client ? window.location.href + 'flash-update/' + this.content.sys.id + '/' : '#';
       },
     },
 

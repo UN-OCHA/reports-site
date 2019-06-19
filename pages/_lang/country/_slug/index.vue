@@ -135,7 +135,7 @@
           { hid: 'dsr-desc', name: 'description', content: this.keyMessagesJoined },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
-          { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
+          { hid: 'tw-title', name: 'twitter:title', content: this.$t('Situation Report', this.locale) + ': ' + this.entry.fields.title },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
           { hid: 'og-type', property: 'og:type', content: 'website' },

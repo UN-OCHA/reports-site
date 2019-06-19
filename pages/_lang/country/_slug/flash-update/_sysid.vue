@@ -1,14 +1,22 @@
 <template>
   <div class="page--flash-update" :id="'cf-' + entry.sys.id" @click="noop">
+    <AppBar />
+    <AppHeader
+      :title="entry.fields.title"
+      :title-is-multilingual="true"
+      :subtitle="flashUpdate.fields.title"
+      :updated="flashUpdate.sys.updatedAt"
+      :translations="[]"
+      :share="true"
+      :snap="true" />
+
     <main class="container">
-      <p>↵ Back to <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link></p>
-      <br><br>
+      <p class="go-back">↵ <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link></p>
       <FlashUpdate
         :force-flash-update-display="true"
         :force-flash-update-expanded="true"
+        :show-pdf="false"
         :content="flashUpdate"
-        v-for="flashUpdate in flashUpdates"
-        :key="flashUpdate.sys.id"
         v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'"
       />
     </main>
@@ -19,8 +27,12 @@
 <script>
   // Mixins
   import Global from '~/components/_Global';
-  import FlashUpdate from '~/components/FlashUpdate';
+
+  // Components
+  import AppBar from '~/components/AppBar';
+  import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
+  import FlashUpdate from '~/components/FlashUpdate';
 
   // Contentful
   import {createClient} from '~/plugins/contentful.js';
@@ -31,6 +43,8 @@
 
     components: {
       FlashUpdate,
+      AppBar,
+      AppHeader,
       AppFooter,
     },
 
@@ -42,13 +56,19 @@
       return slugIsValid && langIsValid;
     },
 
+    computed: {
+      flashUpdateHasImage() {
+        return this.flashUpdate.fields.image && this.flashUpdate.fields.image.fields && this.flashUpdate.fields.image.fields.file && this.flashUpdate.fields.image.fields.file.url;
+      },
+    },
+
     // We use the object populated by asyncData here. It might be empty at first
     // but we can guard against that with a conditional.
     head() {
       // In case the data is not loaded properly we don't want to produce either
       // a blank title or an error. The SSR will produce the correct title so
       // this is out an abundance of caution and will rarely be seen.
-      const pageTitle = this.entry.fields.title || 'Loading...';
+      const pageTitle = this.entry.fields.title.trim() || 'Loading...';
 
       return {
         // %s is the default site title. In our case the name of the website.
@@ -59,6 +79,21 @@
           lang: this.entry.fields.language,
           dir: this.languageDirection(this.entry.fields.language),
         },
+
+        // @see https://nuxtjs.org/api/pages-head/
+        meta: [
+          { hid: 'dsr-desc', name: 'description', content: this.flashUpdate.fields.title },
+          { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
+          { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
+          { hid: 'tw-title', name: 'twitter:title', content: this.$t('Flash Update', this.locale) + ' ' + this.entry.fields.title.trim() },
+          { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
+          { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'og-type', property: 'og:type', content: 'website' },
+          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/flash-update/${this.flashUpdate.sys.id}/` },
+          { hid: 'og-title', property: 'og:title', content: this.$t('Flash Update', this.locale) + ' ' + this.entry.fields.title.trim() },
+          { hid: 'og-desc', property: 'og:description', content: this.flashUpdate.fields.title },
+          { hid: 'og-image', property: 'og:image', content: (this.flashUpdateHasImage) ? 'https:' + this.flashUpdate.fields.image.fields.file.url : '' },
+        ],
       };
     },
 
@@ -99,13 +134,10 @@
           'fields.slug': params.slug,
         }),
 
-        // Contentful: fetch all Flash Updates — we will filter in then()
-        client.getEntries({
-          'include': 4,
-          'content_type': 'flashUpdate',
-        })
+        // Contentful: fetch a single Flash Update via URL param.
+        client.getEntry(params.sysid)
 
-      ]).then(([entries, translationEntries, flashUpdatesAll]) => {
+      ]).then(([entries, translationEntries, flashUpdate]) => {
         // If Contentful doesn't return an Entry, log error
         if (entries.items.length === 0) {
           throw ({
@@ -143,10 +175,7 @@
         return {
           'translations': translations,
           'entry': entries.items[0],
-          'flashUpdates': flashUpdatesAll.items.filter((fu) => {
-            // Look at the sys.id of the corresponding sitrep and only return matches.
-            return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
-          }),
+          'flashUpdate': flashUpdate,
         };
       }).catch((err) => {
         // Log to our stack
@@ -160,6 +189,9 @@
 </script>
 
 <style lang="scss">
+.go-back {
+  margin-bottom: 1.5rem;
+}
 /*—— Print styles ————————————————————————————————————————————————————————————*/
 @media print {
   body {
