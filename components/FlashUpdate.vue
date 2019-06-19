@@ -1,6 +1,6 @@
 <template>
   <article
-    v-if="displayFlashUpdate"
+    v-if="forceFlashUpdateDisplay || displayFlashUpdate"
     class="card card--flash-update flash-update clearfix"
     :id="cssId">
     <CardHeader />
@@ -55,10 +55,10 @@
         ref="article"
         class="article__text"
         :class="{
-          'is--expandable': isExpandable,
-          'is--expanded': isExpanded,
+          'is--expandable': forceFlashUpdateExpanded || isExpandable,
+          'is--expanded': forceFlashUpdateExpanded || isExpanded,
         }" :style="{
-          'height': getArticleHeight,
+          'height': forceFlashUpdateExpanded ? 'auto' : getArticleHeight,
         }"
       >
         <h3 class="article__title">{{ content.fields.title }}</h3>
@@ -66,7 +66,7 @@
       </div>
     </div>
     <button
-      v-if="isExpandable"
+      v-if="!forceFlashUpdateExpanded && isExpandable"
       class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
@@ -107,6 +107,16 @@
       'content': {
         type: Object,
         required: true,
+      },
+      'forceFlashUpdateDisplay': {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      'forceFlashUpdateExpanded': {
+        type: Boolean,
+        required: false,
+        default: false,
       },
     },
 

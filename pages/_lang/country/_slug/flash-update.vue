@@ -1,8 +1,11 @@
 <template>
   <div class="page--flash-update" :id="'cf-' + entry.sys.id" @click="noop">
     <main class="container">
+      <p>↵ Back to <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link></p>
+      <br><br>
       <FlashUpdate
-        format="full"
+        :force-flash-update-display="true"
+        :force-flash-update-expanded="true"
         :content="flashUpdate"
         v-for="flashUpdate in flashUpdates"
         :key="flashUpdate.sys.id"
