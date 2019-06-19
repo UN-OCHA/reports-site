@@ -122,7 +122,7 @@
     // but we can guard against that with a conditional.
     head() {
       return {
-        title: this.entry.fields.title + ' | ' + this.$t('Situation Reports', this.locale),
+        title: this.entry.fields.title.trim() + ' | ' + this.$t('Situation Reports', this.locale),
 
         // Language settings determined by a field within each SitRep.
         htmlAttrs: {

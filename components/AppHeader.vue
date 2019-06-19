@@ -7,7 +7,7 @@
       <div class="title-area__headings">
         <h1
           class="title title--sitrep"
-        >{{ title }}</h1>
+        >{{ title.trim() }}</h1>
 
         <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
