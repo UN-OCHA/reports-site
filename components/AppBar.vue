@@ -244,14 +244,8 @@
     text-decoration: none;
 
     background-repeat: no-repeat;
-    background-position: 0% 50%;
+    background-position: 0% 0%;
     background-size: 1.25rem 1.25rem;
-
-    // IE11 needs units so we put the settings for modern browsers in a custom
-    // prop that IE11 can't read. The others will gleefully override with this
-    // setting and leave IE11 to rot for eternity.
-    --bgsize: contain;
-    background-size: var(--bgsize);
 
     [dir="rtl"] & {
       padding-left: 0;

@@ -162,22 +162,29 @@
   //
   .format--compact {
     &.sitrep-list {
-      margin-left: 2rem;
+      margin-left: 1.5rem;
 
       [dir="rtl"] & {
         margin-left: auto;
-        margin-right: 2rem;
+        margin-right: 1.5rem;
       }
     }
 
-    .sitrep-group__heading {
-      display: inline-block;
-      margin: 0 0 .5rem 0;
+    .sitrep-group {
       padding-left: 1.5rem;
+      background-image: url('/icons/icon--location.svg');
+      background-position: 0 0%;
+      background-repeat: no-repeat;
+      background-size: 1.25rem 1.25rem;
+    }
+
+    .sitrep-group__heading {
+      display: inline;
+      margin: 0 0 .5rem 0;
+      padding-left: 0;
       font-family: $roboto;
       font-size: 1em;
-      background-image: url('/icons/icon--location.svg');
-      background-position: 0 50%;
+      line-height: 1.5;
       text-transform: none;
 
       [dir="rtl"] & {
@@ -188,7 +195,7 @@
     }
 
     .sitrep {
-      display: inline-block;
+      display: inline;
       margin: 0 .25rem;
       text-transform: uppercase;
 
