@@ -132,6 +132,7 @@
 
     data() {
       return {
+        articleMinHeight: 90,
         richBody: '',
         updatedAt: this.content.sys.updatedAt,
       };
