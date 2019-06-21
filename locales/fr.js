@@ -12,9 +12,10 @@ module.exports = {
   // Errors
   'No data available.': 'Aucune donnée disponible.',
   'Page not found': 'Page non trouvée',
-  'Server Error': 'Server Error',
+  'Server Error': 'Erreur de serveur',
   'We want to help you find the information you are looking for.': 'Nous souhaitons vous aider à trouver la page que vous recherchez.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Voici quelques-uns des derniers rapports de situation:',
+  'The URL you requested exists, but there were problems displaying the page.': 'L\'URL que vous avez demandée existe, mais il y a un problème d\'affichage de la page.',
 
   // AppBar
   'Toggle menu': 'Menu toggle',
@@ -52,9 +53,11 @@ module.exports = {
 
   // Funding
   'Funding': 'Financement',
-  'Requirements': 'Conditions requises',
+  'Required': 'Requis',
+  'Received': 'Reçu',
   'Progress': 'Progrès',
   'Funding data could not be found.': 'Les données sur le financement n\'ont pu être téléchargées.',
+  'No funding data available.': 'Il n\'existe pas de données sur le financement.',
 
   // Contacts
   'Contacts': 'Contacts',
