@@ -12,9 +12,10 @@ module.exports = {
   // Errors
   'No data available.': 'No hay datos disponibles',
   'Page not found': 'Página no encontrada',
-  'Server Error': 'Server Error',
+  'Server Error': 'Error de servidor',
   'We want to help you find the information you are looking for.': 'Deseamos ayudarle a encontrar la información que está buscando.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Estos son algunos de los informes de situación más recientes de OCHA:',
+  'The URL you requested exists, but there were problems displaying the page.': 'La URL solicitada existe, pero hay un problema al mostrar la página.',
 
   // AppBar
   'Toggle menu': 'Menú toggle',

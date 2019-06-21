@@ -15,6 +15,7 @@ module.exports = {
   'Server Error': 'Server Error',
   'We want to help you find the information you are looking for.': 'We want to help you find the information you are looking for.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Here are some of OCHA\'s latest Situation Reports to help you get back on track:',
+  'The URL you requested exists, but there were problems displaying the page.': 'The URL you requested exists, but there were problems displaying the page.',
 
   // AppBar
   'Toggle menu': 'Toggle menu',

@@ -12,9 +12,10 @@ module.exports = {
   // Errors
   'No data available.': 'Нет данных',
   'Page not found': 'Страница не найдена.',
-  'Server Error': 'Server Error',
+  'Server Error': 'Ошибка сервера',
   'We want to help you find the information you are looking for.': 'Мы хотим помочь Вам найти нужную информацию.',
   'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Обратитесь к Оперативным сводкам УКГВ, чтобы быть в курсе последних обновлений',
+  'The URL you requested exists, but there were problems displaying the page.': 'Запрошенный вами URL существует, но при отображении страницы возникли проблемы.',
 
   // AppBar
   'Toggle menu': 'Выдвигающееся меню',
