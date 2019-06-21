@@ -52,9 +52,11 @@ module.exports = {
 
   // Funding
   'Funding': 'Funding',
-  'Requirements': 'Requirements',
+  'Required': 'Required',
+  'Received': 'Received',
   'Progress': 'Progress',
   'Funding data could not be found.': 'Funding data could not be found.',
+  'No funding data available.': 'No funding data available.',
 
   // Contacts
   'Contacts': 'Contacts',

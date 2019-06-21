@@ -52,9 +52,11 @@ module.exports = {
 
   // Funding
   'Funding': 'Фінансування',
-  'Requirements': 'Вимоги',
+  'Required': 'Необхідно',
+  'Received': 'Отримано',
   'Progress': 'Виконання',
   'Funding data could not be found.': 'Дані щодо фінансування не знайдено',
+  'No funding data available.': 'Дані щодо фінансування відсутні.',
 
   // Contacts
   'Contacts': 'Зворотний зв’язок',

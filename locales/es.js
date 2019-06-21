@@ -52,9 +52,11 @@ module.exports = {
 
   // Funding
   'Funding': 'Financiamiento',
-  'Requirements': 'Requisitos',
+  'Required': 'Requerido',
+  'Received': 'Recibido',
   'Progress': 'Progreso',
   'Funding data could not be found.': 'Los datos de financiamiento no se pudieron descargar.',
+  'No funding data available.': 'No existen datos sobre el financiamiento.',
 
   // Contacts
   'Contacts': 'Contactos',

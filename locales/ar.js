@@ -52,9 +52,11 @@ module.exports = {
 
   // Funding
   'Funding': 'التمويل',
-  'Requirements': 'الاحتياجات',
+  'Required': 'الاحتياجات',
+  'Received': 'المستلم',
   'Progress': 'التطور',
   'Funding data could not be found.': 'بيانات التمويل غير متوفرة',
+  'No funding data available.': 'بيانات التمويل غير متوفرة',
 
   // Contacts
   'Contacts': 'اتصال بنا',
