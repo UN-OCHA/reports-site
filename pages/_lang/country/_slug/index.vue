@@ -13,7 +13,12 @@
       :snap="true" />
 
     <main class="container report">
-      <FlashUpdate :content="flashUpdate" v-for="flashUpdate in flashUpdates" :key="flashUpdate.sys.id" v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'" />
+      <FlashUpdate
+        :content="flashUpdate"
+        v-for="flashUpdate in flashUpdates"
+        :key="flashUpdate.sys.id"
+        v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'"
+      />
 
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
@@ -32,7 +37,10 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Components
   import AppBar from '~/components/AppBar';
   import AppFooter from '~/components/AppFooter';
   import AppHeader from '~/components/AppHeader';
@@ -47,11 +55,14 @@
   import Video from '~/components/Video';
   import Visual from '~/components/Visual';
 
-  import debounce from 'lodash.debounce';
-  import axios from 'axios';
+  // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
+
+  // Util
+  import axios from 'axios';
+  import debounce from 'lodash.debounce';
 
   export default {
     mixins: [Global],
@@ -81,13 +92,6 @@
     },
 
     computed: {
-      flashUpdates() {
-        return this.flashUpdatesAll.filter((fu) => {
-          // Look at the sys.id of the corresponding sitrep and only return matches.
-          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === this.entry.sys.id;
-        });
-      },
-
       keyMessagesHasImage() {
         return this.entry.fields.keyMessagesImage && this.entry.fields.keyMessagesImage.fields && this.entry.fields.keyMessagesImage.fields.file && this.entry.fields.keyMessagesImage.fields.file.url;
       },
@@ -118,7 +122,7 @@
     // but we can guard against that with a conditional.
     head() {
       return {
-        title: this.entry.fields.title + ' | ' + this.$t('Situation Reports', this.locale),
+        title: this.entry.fields.title.trim() + ' | ' + this.$t('Situation Reports', this.locale),
 
         // Language settings determined by a field within each SitRep.
         htmlAttrs: {
@@ -131,7 +135,7 @@
           { hid: 'dsr-desc', name: 'description', content: this.keyMessagesJoined },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
-          { hid: 'tw-title', name: 'twitter:title', content: 'Digital Situation Report: ' + this.entry.fields.title },
+          { hid: 'tw-title', name: 'twitter:title', content: this.$t('Situation Report', this.locale) + ': ' + this.entry.fields.title },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
           { hid: 'og-type', property: 'og:type', content: 'website' },
@@ -212,11 +216,10 @@
         'fields.slug': params.slug,
       }),
 
-      // Contentful: fetch any Flash Updates that are associated with this SitRep
+      // Contentful: fetch all Flash Updates — we will filter in then()
       client.getEntries({
         'include': 4,
         'content_type': 'flashUpdate',
-        // 'fields.relatedSitRep.sys.id': '',
       }),
 
       // FTS: fetch all v2 plans for 2018.
@@ -249,7 +252,7 @@
           .then(response => response.data)
           .catch(console.warn)
 
-    ]).then(([entries, translationEntries, flashUpdates, ftsData2018, ftsData2019]) => {
+    ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2018, ftsData2019]) => {
       //
       // Check for 404
       //
@@ -347,6 +350,9 @@
       let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
       let ftsData = fts2018.concat(fts2019);
 
+      // Extract the FTS PlanID out of the SitRep field data
+      let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
+
       // Reformat CTF translations response so follows format of locales Store.
       let translations = translationEntries.items.map((translation) => {
         return {
@@ -358,8 +364,14 @@
       return {
         'translations': translations,
         'entry': entries.items[0],
-        'ftsData': ftsData,
-        'flashUpdatesAll': flashUpdates.items,
+        'ftsData': ftsData.filter((plan) => {
+          // Look at the FTS URL and filter out any unrelated data
+          return plan.id === ftsPlanId;
+        }),
+        'flashUpdates': flashUpdatesAll.items.filter((fu) => {
+          // Look at the sys.id of the corresponding sitrep and only return matches.
+          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+        }),
       };
     }).catch((err) => {
       // Log to our stack
@@ -444,57 +456,56 @@
   } /* @supports (display: grid) */
 } /* @media print and (min-width: 10cm), screen and (min-width: 760px) */
 
-/*—— Report Large layout —————————————————————————————————————————————————————*/
+//——— Report Large layout ——————————————————————————————————————————————————————
 
-/*
-@media screen and (min-width: 1164px) {
-  /**
-   * CSS Grid
-   *
-   * We can do whatever we want here because CSS Grid is the best!
-   * /
-  @supports (display: grid) {
-    .section--primary {
-      display: grid;
-      grid-template-areas: "keyMessages keyFigures"
-                           "keyMessages keyFinancials"
-                           "keyMessages contacts";
-      grid-template-columns: 3fr 1fr;
-      grid-gap: 1rem;
-      margin-bottom: 1rem;
-    }
+// @media screen and (min-width: 1164px) {
+//   /**
+//    * CSS Grid
+//    *
+//    * We can do whatever we want here because CSS Grid is the best!
+//    */
+//   @supports (display: grid) {
+//     .section--primary {
+//       display: grid;
+//       grid-template-areas: "keyMessages keyFigures"
+//                            "keyMessages keyFinancials"
+//                            "keyMessages contacts";
+//       grid-template-columns: 3fr 1fr;
+//       grid-gap: 1rem;
+//       margin-bottom: 1rem;
+//     }
 
-    /* Cards are set with CSS Grid and don't need any special treatment * /
-    .section--primary .card {
-      float: none;
-      width: auto;
-      height: auto;
-      margin-right: 0;
-      margin-bottom: 0;
-    }
+//     /* Cards are set with CSS Grid and don't need any special treatment */
+//     .section--primary .card {
+//       float: none;
+//       width: auto;
+//       height: auto;
+//       margin-right: 0;
+//       margin-bottom: 0;
+//     }
 
-    /* Drop selected cards into their homes * /
-    .card--keyMessages {
-      grid-area: keyMessages;
-    }
-    .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--keyFinancials {
-      grid-area: keyFinancials;
-    }
-    .card--contacts {
-      grid-area: contacts;
-    }
+//     /* Drop selected cards into their homes */
+//     .card--keyMessages {
+//       grid-area: keyMessages;
+//     }
+//     .card--keyFigures {
+//       grid-area: keyFigures;
+//     }
+//     .card--keyFinancials {
+//       grid-area: keyFinancials;
+//     }
+//     .card--contacts {
+//       grid-area: contacts;
+//     }
 
-    /* All other cards will appear in EverythingElse section * /
-    .section--everythingElse {
-    }
-    .section--everythingElse .card {
-      margin-bottom: 1rem;
-    }
-  } /* @supports (display: grid) * /
-} /* @media screen and (min-width: 1164px) */
+//     /* All other cards will appear in EverythingElse section */
+//     .section--everythingElse {
+//     }
+//     .section--everythingElse .card {
+//       margin-bottom: 1rem;
+//     }
+//   } /* @supports (display: grid) */
+// } /* @media screen and (min-width: 1164px) */
 
 /*—— Print styles ————————————————————————————————————————————————————————————*/
 @media print {

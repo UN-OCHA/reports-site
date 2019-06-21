@@ -1,14 +1,21 @@
 <template>
-  <article v-if="displayFlashUpdate" class="card card--flashUpdate flash-update clearfix" :id="cssId">
+  <article
+    v-if="forceFlashUpdateDisplay || displayFlashUpdate"
+    class="card card--flash-update flash-update clearfix"
+    :id="cssId">
     <CardHeader />
 
     <span class="card__title">
-      {{ $t('Flash Update', locale) }}
+      <span class="card__heading">{{ $t('Flash Update', locale) }}</span>
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
-    <div class="flash-update__content" :class="{ 'flash-update__content--has-image': content.fields.image }">
-      <div class="flash-update__image" v-if="content.fields.image">
-        <figure>
+
+    <div
+      class="article__content"
+      :class="{ 'article__content--has-image': articleHasImage }"
+    >
+      <div class="article__image" v-if="content.fields.image">
+        <figure ref="articleImg">
           <picture>
             <source type="image/webp"
               :srcset="'\
@@ -35,42 +42,97 @@
                 (min-width: 1220px) 413px" />
 
             <img
-              ref="articleImg"
-              class="interactive__img"
+              class="article__img"
               :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
-          <figcaption v-if="content.fields.image.fields.description">{{ content.fields.image.fields.description }}</figcaption>
+          <figcaption v-if="content.fields.image.fields.description">
+            {{ content.fields.image.fields.description }}
+          </figcaption>
         </figure>
       </div>
-      <div ref="flash-update" class="flash-update__text">
-        <h3 class="flash-update__title">{{ content.fields.title }}</h3>
+      <div
+        ref="article"
+        class="article__text"
+        :class="{
+          'is--expandable': forceFlashUpdateExpanded || isExpandable,
+          'is--expanded': forceFlashUpdateExpanded || isExpanded,
+        }" :style="{
+          'height': forceFlashUpdateExpanded ? 'auto' : getArticleHeight,
+        }"
+      >
+        <h3 class="article__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="this.richBody"></div>
       </div>
     </div>
+    <button
+      v-if="!forceFlashUpdateExpanded && isExpandable"
+      class="btn btn--toggle-text"
+      :class="{ 'is--expanded': isExpanded }"
+      @click="isExpanded = !isExpanded">
+      {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
+    </button>
 
-    <CardActions label="Flash Update" :frag="'#' + cssId" />
+    <CardActions
+      label="Flash Update"
+      :frag="'#' + cssId"
+      :show-png="showPng"
+      :show-pdf="showPdf"
+      :title="$store.state.reportMeta.title"
+      :subtitle="content.fields.title"
+      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
+      :filename-prefix="$t('Flash Update', locale)"
+      :pdf-url="pdfUrl"
+    />
+
     <CardFooter />
   </article>
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
-  import Card from '~/components/Card';
+
+  // Extends
+  import Article from '~/components/Article';
+
+  // Rich Text
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
-    extends: Card,
-    mixins: [
-      Global,
-    ],
+    extends: Article,
+    mixins: [Global],
 
     props: {
-      'content': Object,
+      'content': {
+        type: Object,
+        required: true,
+      },
+      'forceFlashUpdateDisplay': {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      'forceFlashUpdateExpanded': {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+      'showPng': {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
+      'showPdf': {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
     },
 
     data() {
       return {
+        articleMinHeight: 90,
         richBody: '',
         updatedAt: this.content.sys.updatedAt,
       };
@@ -90,6 +152,10 @@
       displayFlashUpdate() {
         return (Math.floor(this.timeAgoInMinutes / 60) > this.content.fields.duration) ? false : true;
       },
+
+      pdfUrl() {
+        return process.client ? window.location.href + 'flash-update/' + this.content.sys.id + '/' : '#';
+      },
     },
 
     created() {
@@ -105,193 +171,39 @@
   @import '~/assets/Global.scss';
 
   .card {
-    background-color: #FEE7DC;
-  }
+    background: #FEE7DC;
 
-  .card__time-ago {
-    display: inline-block;
-    margin-left: .5em;
-    opacity: .8;
-    font-weight: 400;
-    text-transform: none;
-  }
-
-  .flash-update__title {
-    margin-bottom: 1em;
-    font-family: $roboto-condensed;
-    font-weight: 700;
-
-    [lang="ar"] & {
-      font-family: $kufi-bold;
-    }
-  }
-
-  .flash-update__image {
-    margin-bottom: 1rem;
-  }
-
-  @media screen and (min-width: 900px) {
-    //
-    // Float-based layout
-    //
-    .flash-update__content--has-image {
-      .flash-update__image {
-        float: right;
-        width: 33.333%;
-      }
-
-      .flash-update__text {
-        float: left;
-        clear: left;
-        width: calc(66.666% - 1rem);
-        margin-right: 1rem;
-      }
+    .card__title {
+      color: inherit;
+      margin-right: 3rem;
     }
 
-    //
-    // CSS Grid layout
-    //
-    @supports (display: grid) {
-      .flash-update__content--has-image {
-        display: grid;
-        grid-template-areas: 'flashUpdateText flashUpdateImages';
-        grid-template-rows: 1fr;
-        grid-template-columns: 6fr 4fr;
-        grid-gap: 1rem;
-
-        .flash-update__text,
-        .flash-update__image {
-          float: none;
-          width: auto;
-          margin: 0;
-        }
-      }
-
-      .flash-update__text {
-        grid-area: flashUpdateText;
-      }
-
-      .flash-update__image {
-        grid-area: flashUpdateImages;
-        width: 100%;
-      }
+    /deep/ .btn--pdf {
+      width: 16px;
+      background-image: url('/icons/icon--pdf--dark.svg');
     }
   }
 
   @media screen {
     //
-    // Read more: initial state
+    // Read more: gradient needs to match background-color
     //
     .is--expandable {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1em;
-
-      // height is measure before truncating text and value is stored on component
-      // meaning we can safely transition since `auto` is not set once JS runs.
-      transition: height .666s ease-in-out;
-
       &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 8em;
+        // IE11
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 1) 100%);
-        transition: opacity .666s ease-in-out;
-      }
-    }
-
-    .btn--toggle-text {
-      display: block;
-      border: none;
-      padding: 0 1em 0 0;
-      margin: 1rem 0 0 0;
-      background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
-      background-size: 12px auto;
-      color: hsl(0, 0%, 50%);
-      font-family: $roboto;
-      font-size: 1em;
-      text-transform: uppercase;
-      cursor: pointer;
-
-      &:focus {
-        outline: none;
-      }
-
-      &.is--expanded {
-        background-image: url('/icons/icon--up-arrow.svg');
-      }
-    }
-
-    //
-    // Read more: Expanded state
-    //
-    .is--expandable.is--expanded {
-      &::before {
-        content: none;
-        opacity: 0;
+        // The modern browser world.
+        --gradient-from: rgba(254, 231, 220, 0);
+        --gradient-to: rgba(254, 231, 220, 1);
+        background-image: linear-gradient(to bottom, var(--gradient-from) 33%, var(--gradient-to) 100%);
       }
     }
   } // @media screen
 
-  //
-  // Print layout
-  //
-  // While capturing PNG or PDF we need non-interactive elements:
-  //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
-  //
   @media print {
-    .flash-update__image {
-      float: right;
-      max-width: 40%;
-      margin-left: 2em;
-    }
-
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
-    }
-  }
-
-  //
-  // Snap Service
-  //
-  // While capturing PNG or PDF we need non-interactive elements:
-  //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
-  //
-  .snap--png,
-  .snap--pdf {
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
+    .card {
+      background-color: transparent;
+      border-bottom: none;
     }
   }
 </style>

@@ -6,7 +6,10 @@
       <span class="card__heading">{{ $t(content.fields.sectionHeading, locale) }}</span>
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </span>
-    <div class="article__content" :class="{ 'article__content--has-image': articleHasImage }">
+    <div
+      class="article__content"
+      :class="{ 'article__content--has-image': articleHasImage }"
+    >
       <div class="article__image" v-if="articleHasImage">
         <figure ref="articleImg">
           <picture>
@@ -35,7 +38,7 @@
                 (min-width: 1220px) 413px" />
 
             <img
-              class="interactive__img"
+              class="article__img"
               :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>
@@ -149,7 +152,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   //
   // Import shared variables
   //
@@ -234,6 +237,8 @@
       position: relative;
       overflow: hidden;
       margin-bottom: 1em;
+      --gradient-from: rgba(255, 255, 255, 0);
+      --gradient-to: rgba(255, 255, 255, 1);
 
       // height is measure before truncating text and value is stored on component
       // meaning we can safely transition since `auto` is not set once JS runs.
@@ -247,6 +252,7 @@
         bottom: 0;
         height: 8em;
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 1) 100%);
+        background-image: linear-gradient(to bottom, var(--gradient-from) 33%, var(--gradient-to) 100%);
         transition: opacity .666s ease-in-out;
       }
     }

@@ -13,15 +13,35 @@
 </template>
 
 <script>
+  // Extends
   import Snap from '~/components/Snap';
 
   export default {
     extends: Snap,
 
     props: {
-      'title': String,
-      'subtitle': String,
-      'description': String,
+      'title': {
+        type: String,
+        required: true,
+      },
+      'subtitle': {
+        type: String,
+        required: false,
+      },
+      'description': {
+        type: String,
+        required: false,
+      },
+      'pdfUrl': {
+        type: String,
+        required: false,
+        default: '',
+      },
+      'filenamePrefix': {
+        type: String,
+        required: false,
+        default: 'Situation Report',
+      }
     },
 
     data() {
@@ -36,12 +56,16 @@
         // cookies along to Snap Service.
         const cookies = document.cookie;
 
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=150&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
+        // Determine which URL to Snap
+        const finalSnapUrl = this.pdfUrl || this.defaultSitRepUrl;
+
+        // Return the fully parameterized Snap request.
+        return `${this.snapEndpoint}?url=${encodeURIComponent(finalSnapUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=150&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
       },
 
       filename() {
         const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.locale).format('D MMM YYYY');
-        return `${this.$t('Situation Report', this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
+        return `${this.$t(this.filenamePrefix, this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
       },
 
       //
@@ -182,10 +206,11 @@
   .btn {
     animation: fade-in .3333s ease-out;
   }
+
   .btn--pdf {
     display: inline-block;
     background-color: transparent;
-    background-position: 50% 50%;
+    background-position: 50% 0%;
     background-repeat: no-repeat;
     background-size: 15px 21px;
     background-image: url('/icons/icon--pdf.svg');
