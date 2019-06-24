@@ -1,7 +1,7 @@
 <template>
   <ul class="sitrep-list" :class="'format--' + format">
     <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="data in sorted">
-      <span class="sitrep-group__heading">{{ data[0].fields.title }}</span>
+      <span class="sitrep-group__heading">{{ data[0].fields.title.trim() }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
@@ -12,7 +12,7 @@
       </span>
     </li>
     <li class="sitrep-group" v-if="format === 'full'" :key="data[0].sys.id" v-for="data in sorted">
-      <h3 class="sitrep-group__heading">{{ data[0].fields.title }}</h3>
+      <h3 class="sitrep-group__heading">{{ data[0].fields.title.trim() }}</h3>
       <p class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
@@ -162,22 +162,29 @@
   //
   .format--compact {
     &.sitrep-list {
-      margin-left: 2rem;
+      margin-left: 1.5rem;
 
       [dir="rtl"] & {
         margin-left: auto;
-        margin-right: 2rem;
+        margin-right: 1.5rem;
       }
     }
 
-    .sitrep-group__heading {
-      display: inline-block;
-      margin: 0 0 .5rem 0;
+    .sitrep-group {
       padding-left: 1.5rem;
+      background-image: url('/icons/icon--location.svg');
+      background-position: 0 0%;
+      background-repeat: no-repeat;
+      background-size: 1.25rem 1.25rem;
+    }
+
+    .sitrep-group__heading {
+      display: inline;
+      margin: 0 0 .5rem 0;
+      padding-left: 0;
       font-family: $roboto;
       font-size: 1em;
-      background-image: url('/icons/icon--location.svg');
-      background-position: 0 50%;
+      line-height: 1.5;
       text-transform: none;
 
       [dir="rtl"] & {
@@ -188,7 +195,7 @@
     }
 
     .sitrep {
-      display: inline-block;
+      display: inline;
       margin: 0 .25rem;
       text-transform: uppercase;
 

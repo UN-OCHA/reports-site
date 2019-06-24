@@ -7,7 +7,7 @@
       <div class="title-area__headings">
         <h1
           class="title title--sitrep"
-        >{{ title }}</h1>
+        >{{ title.trim() }}</h1>
 
         <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
@@ -40,7 +40,8 @@
           output="pdf"
           :title="title"
           :subtitle="$t('Situation Report', locale)"
-          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')" />
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')"
+        />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <no-ssr>
             <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
@@ -440,7 +441,7 @@
     white-space: nowrap;
 
     position: absolute;
-    top: 7px;
+    top: 1px;
     width: auto;
     height: $button-height;
 
@@ -505,11 +506,12 @@
     position: relative;
 
     $share-width: 80px;
+    $toggle-offset: -6px;
 
     &__toggle {
       display: inline-block;
       position: absolute;
-      top: 0;
+      top: $toggle-offset;
       left: 0;
       width: $button-height;
       height: $button-height;
@@ -545,7 +547,7 @@
 
     &__options {
       position: absolute;
-      top: $button-height;
+      top: $button-height + $toggle-offset;
       z-index: 10;
       width: calc(#{$share-width} + 2rem); // 2rem comes from .card padding
 

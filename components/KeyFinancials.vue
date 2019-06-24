@@ -21,7 +21,7 @@
         <figcaption>{{ figure.fields.caption }}</figcaption>
       </figure>
       <div v-if="!ftsData.length" class="figures-none">
-        {{ $t('Funding data could not be found.', locale) }}
+        {{ $t('No funding data available.', locale) }}
         <br><br>
       </div>
     </div>
@@ -90,7 +90,7 @@
                 type: 'requirements',
                 raw: plan.requirements.revisedRequirements,
                 financial: '$' + this.formatNumber(plan.requirements.revisedRequirements),
-                caption: this.$t('Requirements', this.locale),
+                caption: this.$t('Required', this.locale),
               },
             },
             {
@@ -101,7 +101,7 @@
                 type: 'total',
                 raw: plan.funding.totalFunding,
                 financial: '$' + this.formatNumber(plan.funding.totalFunding),
-                caption: this.$t('Funding', this.locale),
+                caption: this.$t('Received', this.locale),
               },
             },
             {

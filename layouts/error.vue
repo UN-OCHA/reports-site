@@ -18,7 +18,7 @@
       <section class="card card--error card--error-500 rich-text">
         <img class="card__image" src="/locust-500.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
-        <p class="error-text">The URL you requested exists, but there were problems displaying the page.</p>
+        <p class="error-text">{{ $t('The URL you requested exists, but there were problems displaying the page.', locale) }}</p>
       </section>
     </main>
 

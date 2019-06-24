@@ -1,23 +1,79 @@
 <template>
   <div class="actions">
+    <SnapPage
+      v-if="showPdf"
+      output="pdf"
+      :title="title"
+      :subtitle="subtitle"
+      :description="description"
+      :filename-prefix="filenamePrefix"
+      :pdf-url="pdfUrl"
+    />
     <SnapCard
+      v-if="showPng"
       output="png"
       :label="label"
-      :selector="this.frag" />
+      :selector="this.frag"
+    />
   </div>
 </template>
 
 <script>
+  // Mixins
+  import Global from '~/components/_Global';
+
+  // Components
   import SnapCard from '~/components/SnapCard';
+  import SnapPage from '~/components/SnapPage';
 
   export default {
     components: {
       SnapCard,
+      SnapPage,
     },
 
     props: {
-      'label': String,
-      'frag': String,
+      showPng: {
+        type: Boolean,
+        default: true,
+      },
+      showPdf: {
+        type: Boolean,
+        default: false,
+      },
+      label: {
+        type: String,
+        required: false,
+      },
+      frag: {
+        type: String,
+        required: true,
+      },
+      title: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      subtitle: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      description: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      filenamePrefix: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      pdfUrl: {
+        type: String,
+        required: false,
+        default: '',
+      },
     },
   }
 </script>
@@ -43,5 +99,10 @@
     [dir="rtl"] & {
       left: 1rem;
     }
+  }
+
+  // When both actions are present, push them apart.
+  /deep/ .btn--pdf + .btn--download {
+    margin-left: .5rem;
   }
 </style>

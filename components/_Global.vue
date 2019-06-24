@@ -64,6 +64,7 @@
         return {
           'article': 'Article',
           'clusterInformation': 'Cluster',
+          'flashUpdate': 'FlashUpdate',
           'interactive': 'Interactive',
           'video': 'Video',
           'visual': 'Visual',
@@ -93,6 +94,13 @@
             }
           };
         }
+      },
+
+      //
+      // Ensure that any component tries to Snap the current URL by default.
+      //
+      defaultSitRepUrl() {
+        return process.client ? window.location.href : '#';
       },
     },
 

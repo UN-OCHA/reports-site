@@ -5,14 +5,15 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import file from 'file-saver';
+  // Mixins
   import Global from '~/components/_Global';
 
+  // Custom functionality
+  import axios from 'axios';
+  import file from 'file-saver';
+
   export default {
-    mixins: [
-      Global
-    ],
+    mixins: [Global],
 
     props: {
       'output': String,
@@ -26,7 +27,7 @@
     },
 
     computed: {
-      sitRepUrl() {
+      defaultSitRepUrl() {
         return window.location.href;
       },
 
@@ -41,7 +42,7 @@
       },
 
       snapRequest() {
-        return `${this.snapEndpoint}?url=${encodeURIComponent(this.sitRepUrl)}&service=${this.requestingService}&output=${this.output}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(this.defaultSitRepUrl)}&service=${this.requestingService}&output=${this.output}`;
       },
 
       // We provide a very generic filename to be overridden in each specific
