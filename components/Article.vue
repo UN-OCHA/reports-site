@@ -127,13 +127,21 @@
         let article = this.$refs['article'];
         let articleImg = this.$refs['articleImg'];
 
-        // Set the article's min-height to the height of the image
+        // Set the article's min-height to the constant, or if the image is
+        // present, the height of the image.
         this.articleMinHeight = (!!this.articleHasImage) ? Math.max(articleImg.clientHeight, this.articleMinHeight) : this.articleMinHeight;
 
+        // First-check if the article $ref is there at all. Since FlashUpdate
+        // extends Article, it is possible for this calculation to run when the
+        // DOM does NOT contain a corresponding element for our $refs['article']
+        //
         // If the truncated article text will be sufficiently longer than the
         // accompanying image or the minimum defined in data(), then we apply
         // the 'Read More' treatment.
-        if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
+        if (
+          typeof article !== 'undefined'
+          && article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)
+        ) {
           this.articleHeight = article.clientHeight;
           this.isExpandable = true;
         }
