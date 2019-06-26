@@ -256,7 +256,7 @@
     // looking for a lang attribute directly on this element, not on <html>
     &[lang="ar"] {
       line-height: 1.2;
-      font-family: $kufi;
+      font-family: $dubai;
     }
 
     a {
