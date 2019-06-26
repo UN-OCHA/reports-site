@@ -1,7 +1,7 @@
 <template>
   <ul class="sitrep-list" :class="'format--' + format">
     <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="data in sorted">
-      <span class="sitrep-group__heading">{{ data[0].fields.title.trim() }}</span>
+      <span class="sitrep-group__heading" :lang="data[0].fields.language">{{ data[0].fields.title.trim() }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
@@ -171,26 +171,32 @@
     }
 
     .sitrep-group {
-      padding-left: 1.5rem;
       background-image: url('/icons/icon--location.svg');
-      background-position: 0 0%;
       background-repeat: no-repeat;
       background-size: 1.25rem 1.25rem;
+
+      [dir="ltr"] & {
+        padding-left: 1.5rem;
+        background-position: 0% 50%;
+      }
+
+      [dir="rtl"] & {
+        padding-right: 1.5rem;
+        background-position: 100% 50%;
+      }
     }
 
     .sitrep-group__heading {
       display: inline;
       margin: 0 0 .5rem 0;
       padding-left: 0;
-      font-family: $roboto;
       font-size: 1em;
       line-height: 1.5;
       text-transform: none;
 
-      [dir="rtl"] & {
-        padding-left: 0;
-        padding-right: 1.5rem;
-        background-position: 100% 50%;
+      [dir="rtl"] &[lang="ar"] {
+        padding-left: 1em;
+        padding-right: 4px;
       }
     }
 
