@@ -1,45 +1,140 @@
 <template>
   <div v-on-clickaway="closeMenu">
-    <input id="app-bar__toggle" type="checkbox" v-model="isExpanded" class="element-invisible">
-    <label for="app-bar__toggle" class="btn btn--toggle" :aria-label="$t('Toggle menu', locale)"></label>
+    <input
+      id="app-bar__toggle"
+      v-model="isExpanded"
+      type="checkbox"
+      class="element-invisible"
+    >
+    <label
+      :aria-label="$t('Toggle menu', locale)"
+      for="app-bar__toggle"
+      class="btn btn--toggle"
+    />
 
-    <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
-      <nuxt-link :to="$i18n.path('')" class="logo-link">
-        <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
+    <nav
+      :class="{ 'is--expanded': isExpanded }"
+      class="app-bar"
+    >
+      <nuxt-link
+        :to="$i18n.path('')"
+        class="logo-link"
+      >
+        <img
+          :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)"
+          class="logo"
+          src="/logo--unocha-lockup.svg"
+        >
       </nuxt-link>
       <div class="app-bar__content">
         <ul class="main-nav">
-          <li class="link link--home" :lang="locale">
-            <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
+          <li
+            :lang="locale"
+            class="link link--home"
+          >
+            <nuxt-link
+              :to="$i18n.path('')"
+              @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
           </li>
           <no-ssr>
-            <li class="link link--latest" :lang="locale">
+            <li
+              :lang="locale"
+              class="link link--latest"
+            >
               {{ $t('Latest updates', locale) }}
             </li>
             <li class="link--container">
               <SitrepList
-                format="compact"
                 :sitreps="sitreps"
-                v-on:close-menu="closeMenu"
+                format="compact"
+                @close-menu="closeMenu"
               />
             </li>
           </no-ssr>
           <li class="link link--about">
-            <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
+            <nuxt-link
+              :to="$i18n.path('about/')"
+              @click="closeMenu"
+            >
+              {{ $t('About', locale) }}
+            </nuxt-link>
           </li>
         </ul>
 
         <p class="ocha-heading">{{ $t('OCHA Services', locale) }}</p>
         <ul class="main-nav ocha-services">
-          <li class="link link--fts"><a href="https://fts.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Financial Tracking Service</a></li>
-          <li class="link link--hdx"><a href="https://data.humdata.org/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Data Exchange</a></li>
-          <li class="link link--hid"><a href="https://humanitarian.id/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian ID</a></li>
-          <li class="link link--hri"><a href="https://humanitarianresponse.info/" target="_blank" rel="noopener" @click="closeMenu">Humanitarian Response</a></li>
-          <li class="link link--iasc"><a href="https://interagencystandingcommittee.org/" target="_blank" rel="noopener" @click="closeMenu">Inter-Agency Standing Committee</a></li>
-          <li class="link link--ocha"><a href="https://unocha.org/" target="_blank" rel="noopener" @click="closeMenu">OCHA website</a></li>
-          <li class="link link--rw"><a href="https://reliefweb.int/" target="_blank" rel="noopener" @click="closeMenu">ReliefWeb</a></li>
-          <li class="link link--vosocc"><a href="https://vosocc.unocha.org/" target="_blank" rel="noopener" @click="closeMenu">Virtual OSOCC</a></li>
-          <li class="link link--all"><a href="https://www.unocha.org/ocha-digital-services" target="_blank" rel="noopener" @click="closeMenu">See all OCHA services</a></li>
+          <li class="link link--fts">
+            <a
+              href="https://fts.unocha.org/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Financial Tracking Service</a>
+          </li>
+          <li class="link link--hdx">
+            <a
+              href="https://data.humdata.org/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Humanitarian Data Exchange</a>
+          </li>
+          <li class="link link--hid">
+            <a
+              href="https://humanitarian.id/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Humanitarian ID</a>
+          </li>
+          <li class="link link--hri">
+            <a
+              href="https://humanitarianresponse.info/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Humanitarian Response</a>
+          </li>
+          <li class="link link--iasc">
+            <a
+              href="https://interagencystandingcommittee.org/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Inter-Agency Standing Committee</a>
+          </li>
+          <li class="link link--ocha">
+            <a
+              href="https://unocha.org/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >OCHA website</a>
+          </li>
+          <li class="link link--rw">
+            <a
+              href="https://reliefweb.int/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >ReliefWeb</a>
+          </li>
+          <li class="link link--vosocc">
+            <a
+              href="https://vosocc.unocha.org/"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >Virtual OSOCC</a>
+          </li>
+          <li class="link link--all">
+            <a
+              href="https://www.unocha.org/ocha-digital-services"
+              target="_blank"
+              rel="noopener"
+              @click="closeMenu"
+            >See all OCHA services</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -56,20 +151,32 @@
   const active_content_type = 'sitrep';
 
   export default {
+    components: {
+      SitrepList,
+    },
+
     mixins: [
       Global,
       clickaway,
     ],
-
-    components: {
-      SitrepList,
-    },
 
     data() {
       return {
         'sitreps': [],
         'isExpanded': false,
       }
+    },
+
+    beforeCreate() {
+      return Promise.all([
+        // Fetch all SitReps without populating any Links (references, images, etc).
+        client.getEntries({
+          'include': 0,
+          'content_type': active_content_type,
+        })
+      ]).then(([entries]) => {
+        this.sitreps = entries.items;
+      }).catch(console.error)
     },
 
     methods: {
@@ -84,18 +191,6 @@
       closeMenu() {
         this.isExpanded = false;
       },
-    },
-
-    beforeCreate() {
-      return Promise.all([
-        // Fetch all SitReps without populating any Links (references, images, etc).
-        client.getEntries({
-          'include': 0,
-          'content_type': active_content_type,
-        })
-      ]).then(([entries]) => {
-        this.sitreps = entries.items;
-      }).catch(console.error)
     },
   }
 </script>
