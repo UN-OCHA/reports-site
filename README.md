@@ -34,18 +34,23 @@ They will be copied to `.contentful.json` during the docker build step (see belo
 
 When the `CTF_HOST` AND `CTF_CDA_PREVIEW_TOKEN` environment variables are present, the app will configure itself to display all edits and new entries immediately, regardless of whether they have been published.
 
+
 ## Docker setup/development
 
-```bash
-# first-time setup
-$ docker-compose build
+To make full use of our stack (including the ability to test/debug Snap Service integration) you'll need to use the full Docker stack found at [`UN-OCHA/reports-site-stack`](https://github.com/UN-OCHA/reports-site-stack/blob/master/env/local/README.md), which contains its own setup/usage instructions.
 
-# run server and view logs
-$ docker-compose up
 
-# run server detached so that logs are not shown on screen
-$ docker-compose up -d
+## Linting
+
+We are now enforcing code linting using the `vue/recommended` ruleset. Travis will lint your PR and report any issues. If you'd like to run it locally:
+
+```sh
+# on your host machine
+npm run lint
 ```
+
+Optional: follow instructions on the Vue website to [integrate ESLint into your editor](https://eslint.vuejs.org/user-guide/#editor-integrations).
+
 
 ## Google Analytics tracking within DSR
 
