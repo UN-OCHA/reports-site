@@ -331,7 +331,7 @@
             headers: req && req.headers,
             ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
             // Since no exception is being thrown, res.statusCode = 200 so we have
-            // to set 404 manually on account of the dataset being empty.
+            // to set 500 manually on account of the problems we detected.
             response: res && 500,
           }],
         });

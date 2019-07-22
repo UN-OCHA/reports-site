@@ -69,7 +69,8 @@
         return 'cf-' + this.content.sys.id;
       },
       videoSlug() {
-        return this.content.fields.videoUrl.split('=')[1];
+        const videoSlug = this.parseQueryParams('v');
+        return videoSlug;
       },
       videoEmbedLink() {
         return 'https://www.youtube.com/watch?v=' + this.videoSlug;
@@ -88,6 +89,28 @@
         ev.preventDefault();
 
         this.videoProcessed = true;
+      },
+
+      // Parse URL parameters
+      //
+      // Since IE11+node don't support URLSearchParams
+      //
+      // @see https://stackoverflow.com/a/901144
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#Browser_compatibility
+      parseQueryParams(name) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const url = this.content.fields.videoUrl;
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+
+        if (!results) {
+          return null;
+        }
+        if (!results[2]) {
+          return '';
+        }
+
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
       },
     },
 
