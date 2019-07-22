@@ -111,7 +111,7 @@
         }
 
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
-      }
+      },
     },
 
     created() {
