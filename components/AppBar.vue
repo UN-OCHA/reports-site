@@ -16,11 +16,13 @@
             <li class="link link--latest" :lang="locale">
               {{ $t('Latest updates', locale) }}
             </li>
-            <SitrepList
-              format="compact"
-              :sitreps="sitreps"
-              v-on:close-menu="closeMenu"
-            />
+            <li class="link--container">
+              <SitrepList
+                format="compact"
+                :sitreps="sitreps"
+                v-on:close-menu="closeMenu"
+              />
+            </li>
           </no-ssr>
           <li class="link link--about">
             <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
@@ -256,7 +258,7 @@
     // looking for a lang attribute directly on this element, not on <html>
     &[lang="ar"] {
       line-height: 1.2;
-      font-family: $kufi;
+      font-family: $dubai;
     }
 
     a {
@@ -268,6 +270,10 @@
   .link--home { background-image: url('/icons/icon--home.svg'); }
   .link--latest { background-image: url('/icons/icon--location.svg'); }
   .link--about { background-image: url('/icons/icon--about.svg'); }
+
+  .link--container {
+    list-style-type: none;
+  }
 
   // Most styles are in the component itself, but we need to copy the .link
   // styles from this component and @extending here is the least messy way.
