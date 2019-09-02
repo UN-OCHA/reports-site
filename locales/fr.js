@@ -87,9 +87,11 @@ module.exports = {
 
   // Videos
   'Video': 'Vidéo',
+  'View this Video': 'View this Video',
 
   // Interactives
   'Interactive': 'Interactif',
+  'View this interactive graphic': 'View this interactive graphic',
 
   // Visuals
   'Visual': 'Visuels',

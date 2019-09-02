@@ -31,7 +31,7 @@
         </a>
       </div>
       <div class="video__pdf-link">
-        <p>View this video at: <a :href="videoEmbedLink">{{ videoEmbedLink }}</a></p>
+        <p>{{ $t('View this Video', locale) }}: <a :href="videoEmbedLink">{{ videoEmbedLink }}</a></p>
       </div>
       <div class="video__text">
         <h3 class="video__title">{{ content.fields.title }}</h3>
