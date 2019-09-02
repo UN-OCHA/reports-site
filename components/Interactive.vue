@@ -50,7 +50,7 @@
           </picture>
         </a>
         <div v-if="content.fields.interactiveUrl" class="interactive__pdf-link">
-          <p>View interactive graphic: <a :href="content.fields.interactiveUrl">{{ content.fields.interactiveUrl }}</a></p>
+          <p>View this interactive graphic: <a :href="content.fields.interactiveUrl">{{ content.fields.interactiveUrl }}</a></p>
         </div>
       </div>
       <div v-else>
@@ -60,7 +60,7 @@
           target="_blank"
           rel="noopener"
           class="interactive__link">
-          View interactive graphic
+          View this interactive graphic
         </a>
       </div>
     </div>
