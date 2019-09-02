@@ -50,7 +50,7 @@
           </picture>
         </a>
         <div v-if="content.fields.interactiveUrl" class="interactive__pdf-link">
-          <p>View this interactive graphic: <a :href="content.fields.interactiveUrl">{{ content.fields.interactiveUrl }}</a></p>
+          <p>{{ pdfFallbackText }}: <a :href="content.fields.interactiveUrl">{{ content.fields.interactiveUrl }}</a></p>
         </div>
       </div>
       <div v-else>
@@ -60,7 +60,7 @@
           target="_blank"
           rel="noopener"
           class="interactive__link">
-          View this interactive graphic
+          {{ pdfFallbackText }}
         </a>
       </div>
     </div>
@@ -93,8 +93,13 @@
       cssId() {
         return 'cf-' + this.content.sys.id;
       },
+
       secureImageUrl() {
         return 'https:' + this.content.fields.image.fields.file.url;
+      },
+
+      pdfFallbackText() {
+        return this.$t('View this interactive graphic', this.locale);
       },
     },
 

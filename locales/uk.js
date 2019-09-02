@@ -90,6 +90,7 @@ module.exports = {
 
   // Interactives
   'Interactive': 'Інтерактивна версія',
+  'View this interactive graphic': 'View this interactive graphic',
 
   // Visuals
   'Visual': 'Графічні зображення',
