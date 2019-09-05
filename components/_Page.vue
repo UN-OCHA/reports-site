@@ -124,9 +124,5 @@
       line-height: 1;
     }
   }
-
-  [dir="rtl"] & img {
-    transform: none; // undo the img-flipping done in RTL
-  }
 }
 </style>
