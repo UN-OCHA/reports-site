@@ -188,11 +188,4 @@
   // Import shared variables
   //
   @import '~/assets/Global.scss';
-
-  //
-  // The main page layout is inside _Page.vue
-  //
-  main img {
-    transform: none; // avoid flipping on RTL
-  }
 </style>

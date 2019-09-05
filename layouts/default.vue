@@ -346,10 +346,6 @@ main {
 }
 main img {
   max-width: 100%;
-
-  [dir="rtl"] & {
-    transform: scale(-1, 1); // flip horizontally
-  }
 }
 main ul {
   margin: 0;
