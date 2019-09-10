@@ -64,6 +64,7 @@ module.exports = {
 
   // Clusters
   'Cluster Status': 'وضع المجموعات',
+  'Sector Status': 'Sector Status',
   'Needs': 'الاحتياجات',
   'Response': 'استجابة',
   'Gaps': 'الفجوات',
