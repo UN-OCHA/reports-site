@@ -49,6 +49,9 @@
               :alt="content.fields.image.fields.title">
           </picture>
         </a>
+        <div v-if="content.fields.interactiveUrl" class="interactive__pdf-link">
+          <p>{{ pdfFallbackText }}: <a :href="content.fields.interactiveUrl">{{ content.fields.interactiveUrl }}</a></p>
+        </div>
       </div>
       <div v-else>
         <a
@@ -57,7 +60,7 @@
           target="_blank"
           rel="noopener"
           class="interactive__link">
-          View interactive graphic
+          {{ pdfFallbackText }}
         </a>
       </div>
     </div>
@@ -90,8 +93,13 @@
       cssId() {
         return 'cf-' + this.content.sys.id;
       },
+
       secureImageUrl() {
         return 'https:' + this.content.fields.image.fields.file.url;
+      },
+
+      pdfFallbackText() {
+        return this.$t('View this interactive graphic', this.locale);
       },
     },
 
@@ -102,28 +110,46 @@
 </script>
 
 <style lang="scss" scoped>
-  //
-  // Import shared variables
-  //
-  @import '~/assets/Global.scss';
+//
+// Import shared variables
+//
+@import '~/assets/Global.scss';
 
-  .interactive__text {
-    margin-bottom: 1rem;
+.interactive__text {
+  margin-bottom: 1rem;
+}
+
+.interactive__title {
+  margin-bottom: 1em;
+  font-family: $roboto-condensed;
+  font-weight: 700;
+
+  [lang="ar"] & {
+    font-family: $kufi-bold;
   }
+}
 
-  .interactive__title {
-    margin-bottom: 1em;
-    font-family: $roboto-condensed;
-    font-weight: 700;
+.interactive__image {
+  width: 100%;
+  height: auto;
+}
 
-    [lang="ar"] & {
-      font-family: $kufi-bold;
-    }
+// Hide PDF link by default. See Snap section.
+.interactive__pdf-link {
+  display: none;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-style: italic;
+}
+
+//
+// Snap: PDF
+//
+.snap--pdf {
+  // Since the image isn't clickable automatically, print an extra message
+  // containing a plaintext link.
+  .interactive__pdf-link {
+    display: block;
   }
-
-
-  .interactive__image {
-    width: 100%;
-    height: auto;
-  }
+}
 </style>
