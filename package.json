@@ -20,7 +20,7 @@
     "@contentful/rich-text-types": "^9.0.0",
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "consola": "^2.6.0",
     "contentful": "^7.1.0",
     "file-saver": "^2.0.0",
