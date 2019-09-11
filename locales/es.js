@@ -63,8 +63,8 @@ module.exports = {
   'Contacts': 'Contactos',
 
   // Clusters
-  'Cluster Status': 'Estado del cluster',
-  'Sector Status': 'Sector Status',
+  'Cluster Status': 'Estatus del cluster',
+  'Sector Status': 'Estatus del sector',
   'Needs': 'Necesidades',
   'Response': 'Respuesta',
   'Gaps': 'Necesidades no cubiertas',
@@ -88,11 +88,11 @@ module.exports = {
 
   // Videos
   'Video': 'Video',
-  'View this Video': 'View this Video',
+  'View this Video': 'Ver el video',
 
   // Interactives
   'Interactive': 'Interactivo',
-  'View this interactive graphic': 'View this interactive graphic',
+  'View this interactive graphic': 'Ver el gráfico interactivo',
 
   // Visuals
   'Visual': 'Visuales',
