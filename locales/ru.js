@@ -64,6 +64,7 @@ module.exports = {
 
   // Clusters
   'Cluster Status': 'Статус кластера',
+  'Sector Status': 'Статус сектора',
   'Needs': 'Потребности',
   'Response': 'Реагирование',
   'Gaps': 'Пробелы',
@@ -87,11 +88,11 @@ module.exports = {
 
   // Videos
   'Video': 'Видео',
-  'View this Video': 'View this Video',
+  'View this Video': 'Просмотреть видео',
 
   // Interactives
   'Interactive': 'Интерактивная версия',
-  'View this interactive graphic': 'View this interactive graphic',
+  'View this interactive graphic': 'Просмотреть интерактивную графику',
 
   // Visuals
   'Visual': 'Графические изображения',
