@@ -3,7 +3,7 @@
     <CardHeader />
 
     <h2 class="card__title">
-      {{ $t('Cluster Status', locale) }}
+      {{ sectionHeading }}
       <span class="card__time-ago">({{ formatTimeAgo }})</span>
     </h2>
     <div class="cluster__meta clearfix">
@@ -97,6 +97,13 @@
 
       clusterIconClass() {
         return this.clusterIconMap[this.content.fields.globalClusterIcon];
+      },
+
+      sectionHeading() {
+        let heading = this.content.fields.sectionHeading || 'Cluster';
+        heading += ' Status';
+
+        return this.$t(heading, this.locale);
       },
     },
 

@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -20,7 +20,7 @@
     "@contentful/rich-text-types": "^9.0.0",
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "consola": "^2.6.0",
     "contentful": "^7.1.0",
     "file-saver": "^2.0.0",
@@ -53,6 +53,7 @@
     "node-sass": "^4.12.0",
     "puppeteer": "^1.14.0",
     "sass-loader": "^7.1.0",
+    "set-value": "^2.0.1",
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
