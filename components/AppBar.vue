@@ -18,7 +18,6 @@
             </li>
             <li class="link--container">
               <SitrepList
-                format="compact"
                 :sitreps="sitreps"
                 v-on:close-menu="closeMenu"
               />
@@ -279,6 +278,11 @@
   // styles from this component and @extending here is the least messy way.
   /deep/ .sitrep-group__heading {
     @extend .link;
+
+    // Now unset some stuff.....
+    display: inline-block;
+    padding-left: 0;
+    margin: 0;
   }
 
   .ocha-services .link {
@@ -338,7 +342,7 @@
 
       input#app-bar__toggle:checked ~ &,
       &.is--expanded {
-        width: 23rem;
+        width: 25rem;
         overflow: hidden;
       }
     }
@@ -348,7 +352,7 @@
     }
 
     .app-bar__content {
-      width: 22rem;
+      width: 24rem;
     }
 
     .ocha-heading {
