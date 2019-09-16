@@ -8,10 +8,22 @@
     />
 
     <main class="container basic-page">
-      <section class="card card--content">
-        <h2 class="card__title">{{ $t('All Digital Situation Reports', locale) }}</h2>
-        <p>New listing TBD</p>
-      </section>
+      <h2 class="card__title">{{ $t('Situation Reports', locale) }}</h2>
+      <div class="sitrep-listing--grid">
+        <article class="card card--office" :key="office[0].sys.id" v-for="office in sortedSitReps(sitreps)">
+          <h2>{{ office[0].fields.title }}</h2>
+          <p class="sitrep" :key="translation.sys.id" v-for="translation in office">
+            <nuxt-link
+              :to="'/' + translation.fields.language + '/country/' + translation.fields.slug + '/'"
+              :lang="translation.fields.language"
+            >{{ localeName(translation.fields.language) }}</nuxt-link>
+            <span class="sitrep__last-updated">
+              <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
+              <time :datetime="translation.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(translation.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
+            </span>
+          </p>
+        </article>
+      </div>
     </main>
 
     <AppFooter />
@@ -28,16 +40,11 @@
   import AppHeader from '~/components/AppHeader';
   import AppFooter from '~/components/AppFooter';
   import Card from '~/components/Card';
-  import SitrepList from '~/components/SitrepList';
 
   // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
   const active_content_type = 'sitrep';
-
-  // Rich Text
-  import { BLOCKS } from '@contentful/rich-text-types';
-  import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
   export default {
     mixins: [
@@ -51,7 +58,6 @@
       AppHeader,
       AppFooter,
       Card,
-      SitrepList,
     },
 
     // Validate URL params
@@ -62,13 +68,6 @@
       const langIsValid = !!store.state.locales.find((lang) => lang.code === thisLang);
 
       return langIsValid;
-    },
-
-    data() {
-      return {
-        body: false,
-        sitreps: [],
-      }
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
@@ -82,14 +81,6 @@
       if (lang) {
         this.$store.commit('SET_LANG', lang);
       }
-
-      // Render rich-text obtained from our Contentful query.
-      this.richBody = this.body ? documentToHtmlString(this.body, this.renderOptions) : this.$t('No data available.', this.locale);
-    },
-
-    mounted() {
-      // align column heights on IE11.
-      this.alignColumnHeights();
     },
 
     head() {
@@ -114,19 +105,8 @@
           'include': 0,
           'content_type': active_content_type,
         }),
-
-        // Fetch the About page in the current language to populate the second column.
-        client.getEntries({
-          'include': 0,
-          'content_type': 'page',
-          'fields.slug': 'about', // slug is hard-coded here
-          'fields.language': currentLang,
-        })
-      ]).then(([sitreps, about]) => {
-        let bodyRichText = about && about.items[0] && about.items[0].fields && about.items[0].fields.body ? about.items[0].fields.body : false;
-
+      ]).then(([sitreps]) => {
         return {
-          'body': bodyRichText,
           'sitreps': sitreps.items,
         }
       }).catch((err) => {
@@ -138,5 +118,68 @@
 </script>
 
 <style lang="scss" scoped>
-  // Nothing special
+//——————————————————————————————————————————————————————————————————————————————
+// Import shared variables
+//——————————————————————————————————————————————————————————————————————————————
+@import '~/assets/Global.scss';
+
+
+//——————————————————————————————————————————————————————————————————————————————
+// Legacy layout: float
+//——————————————————————————————————————————————————————————————————————————————
+.card--office {
+  width: 30%;
+  margin-right: 5%; // (100 - 30% width * 3 cols) / 2 gaps
+
+  &:nth-child(3n) {
+    margin-left: 0;
+  }
+}
+
+
+//——————————————————————————————————————————————————————————————————————————————
+// Modern layout: Grid
+//——————————————————————————————————————————————————————————————————————————————
+@supports (display: grid) {
+  .sitrep-listing--grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+
+  .card--office {
+    float: none;
+    width: auto;
+    margin: 0;
+  }
+
+  @media (min-width: 800px) {
+    .sitrep-listing--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1rem;
+    }
+  }
+
+  @media (min-width: $bkpt-grid-max) {
+    .sitrep-listing--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 1rem;
+    }
+  }
+}
+
+
+//——————————————————————————————————————————————————————————————————————————————
+// Page styles
+//——————————————————————————————————————————————————————————————————————————————
+.sitrep__last-updated {
+  color: #666;
+  font-style: italic;
+
+  [dir="ltr"] & {
+    font-size: .9em;
+  }
+}
 </style>
