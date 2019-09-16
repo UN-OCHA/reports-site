@@ -36,6 +36,8 @@
 
           <img
             class="visual__img"
+            loading="lazy"
+            lazyload="1"
             :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048, content.fields.image) + '&fm=jpg'"
             :alt="content.fields.image.fields.title">
         </picture>

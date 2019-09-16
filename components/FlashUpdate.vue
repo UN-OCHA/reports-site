@@ -26,7 +26,7 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 900px) calc((1080px - 2rem) * .4),\
                 (min-width: 1220px) 413px" />
 
             <source type="image/jpeg"
@@ -38,11 +38,13 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 900px) calc((1080px - 2rem) * .4),\
                 (min-width: 1220px) 413px" />
 
             <img
               class="article__img"
+              loading="lazy"
+              lazyload="1"
               :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
               :alt="content.fields.image.fields.title">
           </picture>

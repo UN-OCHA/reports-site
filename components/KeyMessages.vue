@@ -24,7 +24,7 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2)\
+                (min-width: 800px) calc((100vw - 10rem) / 2),\
                 (min-width: 1220px) 515px" />
 
             <source type="image/jpeg"
@@ -36,10 +36,13 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2)\
+                (min-width: 800px) calc((100vw - 10rem) / 2),\
                 (min-width: 1220px) 515px" />
 
-            <img :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'" :alt="image.fields.title">
+            <img
+              :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'"
+              :alt="image.fields.title"
+              loading="auto">
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
         </figure>

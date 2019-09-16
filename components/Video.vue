@@ -26,7 +26,12 @@
           target="_blank"
           rel="noopener"
           class="video__container">
-          <img class="video__img" :src="videoEmbedPreview">
+          <img
+            class="video__img"
+            loading="lazy"
+            lazyload="1"
+            :src="videoEmbedPreview"
+            :alt="`Preview of ${videoEmbedLink}`">
           <button class="video__play"></button>
         </a>
       </div>
