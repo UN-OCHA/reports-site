@@ -16,33 +16,39 @@
         <figure>
           <picture class="image">
             <source type="image/webp"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=webp 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=webp 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=webp 1032w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2),\
-                (min-width: 1220px) 515px" />
-
-            <source type="image/jpeg"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=jpg 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=jpg 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg 1032w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2),\
-                (min-width: 1220px) 515px" />
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, image)}&fm=webp 320w,
+                ${secureImageUrl}?w=640&h=${getImageHeight(640, image)}&fm=webp 640w,
+                ${secureImageUrl}?w=800&h=${getImageHeight(800, image)}&fm=webp 800w,
+                ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}&fm=webp 1032w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 800px) calc((100vw - 10rem) / 2),
+                (min-width: 1220px) 515px
+              `"
+            />
+            <source
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, image)} 320w,
+                ${secureImageUrl}?w=640&h=${getImageHeight(640, image)} 640w,
+                ${secureImageUrl}?w=800&h=${getImageHeight(800, image)} 800w,
+                ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)} 1032w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 800px) calc((100vw - 10rem) / 2),
+                (min-width: 1220px) 515px
+              `"
+            />
 
             <img
-              :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'"
+              :src="`${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}`"
               :alt="image.fields.title"
-              loading="auto">
+              loading="auto"
+            >
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
         </figure>
