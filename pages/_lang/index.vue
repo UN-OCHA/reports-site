@@ -9,7 +9,7 @@
 
     <main class="container basic-page">
       <h2 class="card__title">{{ $t('Situation Reports', locale) }}</h2>
-      <div class="sitrep-listing--grid">
+      <div class="sitrep-listing--grid clearfix">
         <article class="card card--office" :key="office[0].sys.id" v-for="office in sortedSitReps(sitreps)">
           <h2>{{ office[0].fields.title }}</h2>
           <p class="sitrep" :key="translation.sys.id" v-for="translation in office">
@@ -128,12 +128,10 @@
 // Legacy layout: float
 //——————————————————————————————————————————————————————————————————————————————
 .card--office {
-  width: 30%;
-  margin-right: 5%; // (100 - 30% width * 3 cols) / 2 gaps
-
-  &:nth-child(3n) {
-    margin-left: 0;
-  }
+  float: left;
+  min-width: 339px;
+  margin: .5rem 10px;
+  height: 150px;
 }
 
 
@@ -150,6 +148,7 @@
   .card--office {
     float: none;
     width: auto;
+    height: auto;
     margin: 0;
   }
 
