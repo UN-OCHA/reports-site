@@ -39,7 +39,10 @@
                 (min-width: 800px) calc((100vw - 10rem) / 2)\
                 (min-width: 1220px) 515px" />
 
-            <img :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'" :alt="image.fields.title" loading="auto">
+            <img
+              :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'"
+              :alt="image.fields.title"
+              loading="auto">
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
         </figure>
