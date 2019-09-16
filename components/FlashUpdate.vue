@@ -18,34 +18,40 @@
         <figure ref="articleImg">
           <picture>
             <source type="image/webp"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=webp 413w,\
-                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826, content.fields.image) + '&fm=webp 826w,\
-                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239, content.fields.image) + '&fm=webp 1239w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4),\
-                (min-width: 1220px) 413px" />
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)}&fm=webp 320w,
+                ${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)}&fm=webp 413w,
+                ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)}&fm=webp 826w,
+                ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)}&fm=webp 1239w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 900px) calc((1080px - 2rem) * .4),
+                (min-width: 1220px) 413px
+              `"
+            />
 
             <source
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + ' 320w,\
-                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + ' 413w,\
-                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826, content.fields.image) + ' 826w,\
-                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239, content.fields.image) + ' 1239w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4),\
-                (min-width: 1220px) 413px" />
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)} 320w,
+                ${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)} 413w,
+                ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)} 826w,
+                ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)} 1239w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 900px) calc((1080px - 2rem) * .4),
+                (min-width: 1220px) 413px
+              `"
+            />
 
             <img
               class="article__img"
               loading="lazy"
               lazyload="1"
-              :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image)"
+              :src="`${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)}`"
               :alt="content.fields.image.fields.title">
           </picture>
           <figcaption v-if="content.fields.image.fields.description">
