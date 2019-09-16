@@ -7,17 +7,10 @@
       :title-is-multilingual="true"
     />
 
-    <main class="container basic-page is--multicolumn">
-      <section class="card card--content" ref="column1">
-        <h2 class="card__title">{{ $t('Recently updated', locale) }}</h2>
-        <SitrepList
-          format="full"
-          :sitreps="sitreps"
-        />
-      </section>
-      <section class="card card--sidebar" ref="column2">
-        <h2 class="card__title">{{ $t('About this site', locale) }}</h2>
-        <div class="rich-text" v-html="richBody"></div>
+    <main class="container basic-page">
+      <section class="card card--content">
+        <h2 class="card__title">{{ $t('All Digital Situation Reports', locale) }}</h2>
+        <p>New listing TBD</p>
       </section>
     </main>
 

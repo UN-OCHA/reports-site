@@ -1,6 +1,6 @@
 <template>
-  <ul class="sitrep-list" :class="'format--' + format">
-    <li class="sitrep-group" v-if="format === 'compact'" :key="data[0].sys.id" v-for="data in sorted">
+  <ul class="sitrep-list">
+    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sorted">
       <span class="sitrep-group__heading" :lang="data[0].fields.language">{{ data[0].fields.title.trim() }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
@@ -10,19 +10,6 @@
           v-on:click.native="closeParentMenu"
         >{{ sitrep.fields.language }}</nuxt-link>
       </span>
-    </li>
-    <li class="sitrep-group" v-if="format === 'full'" :key="data[0].sys.id" v-for="data in sorted">
-      <h3 class="sitrep-group__heading">{{ data[0].fields.title.trim() }}</h3>
-      <p class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
-        <nuxt-link
-          :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
-          :lang="sitrep.fields.language"
-        >{{ localeName(sitrep.fields.language) }}</nuxt-link>
-        <span class="sitrep__last-updated">
-          <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
-          <time :datetime="sitrep.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(sitrep.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
-        </span>
-      </p>
     </li>
   </ul>
 </template>
@@ -34,10 +21,9 @@
     mixins: [Global],
 
     props: {
-      'sitreps': Array,
-      'format': {
-        type: String,
-        default: 'full',
+      'sitreps': {
+        type: Array,
+        required: true,
       },
     },
 
@@ -75,7 +61,7 @@
         });
 
         // We'll provide the template with a multidimensional array instead of
-        // the flat one we get form Contentful.
+        // the flat one we get from Contentful.
         let sorted = {};
 
         // For each Sitrep in our sorted list...
@@ -101,114 +87,99 @@
 </script>
 
 <style lang="scss" scoped>
-  //
-  // Import shared variables
-  //
-  @import '~/assets/Global.scss';
+//
+// Import shared variables
+//
+@import '~/assets/Global.scss';
 
+.sitrep-list {
+  margin: 1rem 0;
+  padding: 0;
 
-  .sitrep-list {
-    margin: 1rem 0;
-    padding: 0;
+  [dir="ltr"] & {
+    margin-left: 1.5rem;
   }
-  .sitrep-group {
-    list-style-type: none;
-    margin: 0 0 .5rem 0;
-    padding: 0;
-  }
-  .sitrep-group__heading {
-    text-transform: uppercase;
-    font-family: $roboto-condensed;
-  }
-  .sitrep {
-    margin: .25rem 0;
 
-    //
-    // Although it brings consistency to the various pages, this one rule adds
-    // a 82K font download to the homepage to render a single word. Unless it is
-    // deemed extremely important to retain branding across pages, we are not
-    // applying the Dubai font to the non-Arabic language homepage for now.
-    //
-    // a[lang="ar"] {
-    //   font-family: $dubai;
-    // }
+  [dir="rtl"] & {
+    margin-right: 1.5rem;
   }
-  .sitrep__last-updated {
-    color: #666;
-    font-style: italic;
+}
 
-    [dir="ltr"] & {
-      font-size: .9em;
-    }
+.sitrep-group {
+  list-style-type: none;
+  margin: 0 0 .5rem 0;
+  padding: 0;
+}
 
-    [lang="ar"] & {
-      font-style: normal;
-    }
-  }
+.sitrep-group__heading {
+  text-transform: uppercase;
+  font-family: $roboto;
+}
+
+.sitrep {
+  margin: .25rem 0;
 
   //
-  // Format: Full
+  // Although it brings consistency to the various pages, this one rule adds
+  // a 82K font download to the homepage to render a single word. Unless it is
+  // deemed extremely important to retain branding across pages, we are not
+  // applying the Dubai font to the non-Arabic language homepage for now.
   //
-  .format--full {
-    .sitrep-group__heading {
-      margin-top: 1rem;
-      font-size: 1.1em;
-      color: #666;
-    }
+  // a[lang="ar"] {
+  //   font-family: $dubai;
+  // }
+}
+
+.sitrep__last-updated {
+  color: #666;
+  font-style: italic;
+
+  [dir="ltr"] & {
+    font-size: .9em;
   }
 
-  //
-  // Format: Compact
-  //
-  .format--compact {
-    &.sitrep-list {
-      margin-left: 1.5rem;
+  [lang="ar"] & {
+    font-style: normal;
+  }
+}
 
-      [dir="rtl"] & {
-        margin-left: auto;
-        margin-right: 1.5rem;
-      }
-    }
+.sitrep-group {
+  background-image: url('/icons/icon--location.svg');
+  background-repeat: no-repeat;
+  background-size: 1.25rem 1.25rem;
 
-    .sitrep-group {
-      background-image: url('/icons/icon--location.svg');
-      background-repeat: no-repeat;
-      background-size: 1.25rem 1.25rem;
-
-      [dir="ltr"] & {
-        padding-left: 1.5rem;
-        background-position: 0% 50%;
-      }
-
-      [dir="rtl"] & {
-        padding-right: 1.5rem;
-        background-position: 100% 50%;
-      }
-    }
-
-    .sitrep-group__heading {
-      display: inline;
-      margin: 0 0 .5rem 0;
-      padding-left: 0;
-      font-size: 1em;
-      line-height: 1.5;
-      text-transform: none;
-
-      [dir="rtl"] &[lang="ar"] {
-        padding-left: 1em;
-        padding-right: 4px;
-      }
-    }
-
-    .sitrep {
-      display: inline;
-      margin: 0 .25rem;
-      text-transform: uppercase;
-
-      a {
-        color: white;
-      }
-    }
+  [dir="ltr"] & {
+    padding-left: 1.5rem;
+    background-position: 0% 50%;
   }
 
+  [dir="rtl"] & {
+    padding-right: 1.5rem;
+    background-position: 100% 50%;
+  }
+}
+
+.sitrep-group__heading {
+  display: inline;
+  margin: 0 0 .5rem 0;
+  padding-left: 0;
+  font-size: 1em;
+  line-height: 1.5;
+  text-transform: none;
+
+  [dir="rtl"] &[lang="ar"] {
+    padding-left: 1em;
+    padding-right: 4px;
+  }
+}
+
+.sitrep {
+  display: inline;
+  margin: 0 .25rem;
+  text-transform: uppercase;
+
+  a {
+    color: white;
+  }
+}
 </style>
