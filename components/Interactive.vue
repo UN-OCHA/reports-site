@@ -31,13 +31,13 @@
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
                 (min-width: 1220px) calc(1080px - 2rem)" />
 
-            <source type="image/jpeg"
+            <source
               :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + '&fm=jpg 640w,\
-                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + '&fm=jpg 960w,\
-                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + '&fm=jpg 1280w,\
-                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + '&fm=jpg 1920w'"
+                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + ' 320w,\
+                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + ' 640w,\
+                '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + ' 960w,\
+                '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + ' 1280w,\
+                '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + ' 1920w'"
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
@@ -47,7 +47,7 @@
               class="interactive__img"
               loading="lazy"
               lazyload="1"
-              :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048, content.fields.image) + '&fm=jpg'"
+              :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048, content.fields.image)"
               :alt="content.fields.image.fields.title">
           </picture>
         </a>
