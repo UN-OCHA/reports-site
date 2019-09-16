@@ -22,7 +22,7 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 900px) calc((1080px - 2rem) * .4),\
                 (min-width: 1220px) 413px" />
 
             <source type="image/jpeg"
@@ -34,7 +34,7 @@
               sizes="\
                 calc(100vw - 4rem),\
                 (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
+                (min-width: 900px) calc((1080px - 2rem) * .4),\
                 (min-width: 1220px) 413px" />
 
             <img
