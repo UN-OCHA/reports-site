@@ -1,6 +1,6 @@
 <template>
   <ul class="sitrep-list">
-    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sorted">
+    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sortedSitReps(sitreps)">
       <span class="sitrep-group__heading" :lang="data[0].fields.language">{{ data[0].fields.title.trim() }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
@@ -24,57 +24,6 @@
       'sitreps': {
         type: Array,
         required: true,
-      },
-    },
-
-    computed: {
-      //
-      // This component requires a very specific structure in order to render the
-      // list with both country names and language options. The basic structure is
-      // an object with slugs as top-level properties, each containing an array of
-      // SitRep translations:
-      //
-      // sitreps (Object)
-      // └ slug (Array)
-      //   └ sitrep (Object)
-      //
-      // Suppose we have two SitReps for Ukraine (en, uk) and one for Burundi (fr)
-      //
-      // sitreps = {
-      //   'burundi': [
-      //     0: {/* SitRep object from Contentful */},
-      //   ],
-      //   'ukraine': [
-      //     0: {/* SitRep object from Contentful */},
-      //     1: {/* SitRep object from Contentful */},
-      //   ],
-      // };
-      //
-      sorted() {
-        // Group entries by Country, sort by dateUpdated, newest first.
-        let tmpList = this.sitreps.slice(0).sort((a, b) => {
-          if (a.fields.slug === b.fields.slug) {
-            // Date is only important when SitReps are the same
-            return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-          }
-          return a.fields.slug > b.fields.slug ? 1 : -1;
-        });
-
-        // We'll provide the template with a multidimensional array instead of
-        // the flat one we get from Contentful.
-        let sorted = {};
-
-        // For each Sitrep in our sorted list...
-        tmpList.forEach((sitrep) => {
-          // If the group already exists...
-          (sorted[sitrep.fields.slug])
-            // Add the current SitRep to the group.
-            ? sorted[sitrep.fields.slug].push(sitrep)
-            // Otherwise begin a new group with the current SitRep.
-            : sorted[sitrep.fields.slug] = [sitrep];
-        });
-
-        return sorted;
       },
     },
 
