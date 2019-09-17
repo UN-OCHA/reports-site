@@ -8,6 +8,7 @@
       :updated="entry.fields.dateUpdated"
       :mailchimp="entry.fields.mailchimpSignup"
       :countrycode="entry.fields.countryCode"
+      :custom-archive="entry.fields.customArchive"
       :translations="translations"
       :share="true"
       :snap="true" />

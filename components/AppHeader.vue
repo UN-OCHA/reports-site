@@ -13,7 +13,7 @@
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
 
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
-        <span class="past-sitreps" v-if="countrycode"><a :href="pastReports" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
+        <span class="past-sitreps" v-if="countrycode || customArchive"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
 
@@ -80,6 +80,11 @@
       'updated': String,
       'mailchimp': String,
       'countrycode': String,
+      'customArchive': {
+        type: String,
+        required: false,
+        default: '',
+      },
       'translations': Array,
       'share': Boolean,
       'snap': Boolean,
@@ -138,8 +143,19 @@
         return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
       },
 
-      pastReports() {
-        return `https://reliefweb.int/updates?search=primary_country.iso3:${this.countrycode} AND ocha_product:("Humanitarian Bulletin" OR "Situation Report" OR "Flash Update") AND source:OCHA#content`;
+      archiveLink() {
+        let archiveLink;
+
+        // When a custom link is provided, use its value.
+        if (this.customArchive) {
+          archiveLink = this.customArchive;
+        }
+        else {
+          // By default we use `countryCode` to create the archive link
+          archiveLink = `https://reliefweb.int/updates?search=primary_country.iso3:${this.countrycode} AND ocha_product:("Humanitarian Bulletin" OR "Situation Report" OR "Flash Update") AND source:OCHA#content`;
+        }
+
+        return archiveLink;
       },
 
       shareBaseUrl() {
