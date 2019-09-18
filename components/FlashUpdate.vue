@@ -188,7 +188,13 @@
 
     .card__title {
       color: inherit;
-      margin-right: 3rem;
+
+      [dir="ltr"] & {
+        margin-right: 6rem;
+      }
+      [dir="rtl"] & {
+        margin-left: 6rem;
+      }
     }
 
     /deep/ .btn--pdf {

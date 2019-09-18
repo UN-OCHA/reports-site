@@ -101,6 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'Leer la última actualización del informe de situación de COUNTRY',
 
   // Card Actions
+  'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
   'Save Situation Report as PDF': 'Guardar el informe de situación como PDF',
   'Save THING as PNG': 'Guardar THING como PNG',
 
