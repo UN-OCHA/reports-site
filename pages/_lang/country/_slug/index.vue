@@ -114,9 +114,20 @@
         return val ? val.pop() : '';
       },
 
+      // Debounce our resize listener to avoid firing too often.
       handleWindowResize: debounce(function () {
         this.ga.send('event', 'Window', 'Resize Width', window.innerWidth);
       }, 250),
+
+      // When the URL is detected to contain one of our Contentful Entry IDs,
+      // scroll the window so the element is in view.
+      scrollToAnchor(id) {
+        document.querySelector(id).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'center'
+        });
+      },
     },
 
     // We use the object populated by asyncData here. It might be empty at first
@@ -183,6 +194,12 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
+
+      if (window.location.hash) {
+        setTimeout(() => {
+          this.scrollToAnchor(window.location.hash);
+        }, 500);
+      }
     },
 
     beforeMount() {
