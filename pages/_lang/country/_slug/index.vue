@@ -197,7 +197,13 @@
 
       if (window.location.hash) {
         setTimeout(() => {
+          // Scroll to element smoothly.
           this.scrollToAnchor(window.location.hash);
+
+          // Set element focus without further scrolling.
+          document.querySelector(window.location.hash).focus({
+            preventScroll: true,
+          });
         }, 500);
       }
     },

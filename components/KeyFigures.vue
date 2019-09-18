@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFigures" :id="cssId">
+  <section class="card card--keyFigures" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>

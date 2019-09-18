@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--cluster cluster" :id="cssId">
+  <section class="card card--cluster cluster" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">

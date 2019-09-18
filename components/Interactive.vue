@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--interactive interactive clearfix" :id="cssId">
+  <article class="card card--interactive interactive clearfix" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <span class="card__title">
