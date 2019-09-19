@@ -37,7 +37,9 @@
 
     computed: {
       buttonText() {
-        return this.$t('Copy [THING] to clipboard').replace('[THING]', this.$t(this.label, this.locale));
+        // Two-step translation. Our translations have the literal string [THING]
+        // in them, so we swap that word out in a second step.
+        return this.$t('Copy [THING] URL to clipboard', this.locale).replace('[THING]', this.$t(this.label, this.locale));
       },
     },
 

@@ -64,7 +64,7 @@ module.exports = {
 
   // Clusters
   'Cluster Status': 'Статус кластера',
-  'Sector Status': 'Sector Status',
+  'Sector Status': 'Статус сектору',
   'Needs': 'Потреби',
   'Response': 'Реагування',
   'Gaps': 'Прогалини',
@@ -88,11 +88,11 @@ module.exports = {
 
   // Videos
   'Video': 'Відео',
-  'View this Video': 'View this Video',
+  'View this Video': 'Переглянути це відео',
 
   // Interactives
   'Interactive': 'Інтерактивна версія',
-  'View this interactive graphic': 'View this interactive graphic',
+  'View this interactive graphic': 'Переглянути цю інтерактивну графіку',
 
   // Visuals
   'Visual': 'Графічні зображення',
@@ -101,7 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',
 
   // Card Actions
-  'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
+  'Copy [THING] URL to clipboard': 'Копіювати [THING] URL в буфер обміну',
   'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
   'Save THING as PNG': 'Зберегти THING у форматі PNG',
 
