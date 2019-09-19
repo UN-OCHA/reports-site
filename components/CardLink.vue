@@ -6,13 +6,6 @@
       :title="buttonText"
       @click="copyLinkToClipboard">
       <span class="element-invisible">{{ buttonText }}</span>
-      <input
-        ref="input"
-        class="element-invisible"
-        aria-hidden="true"
-        type="text"
-        value=""
-        tabindex="-1">
     </button>
   </no-ssr>
 </template>
@@ -20,6 +13,9 @@
 <script>
   // Mixins
   import Global from '~/components/_Global';
+
+  // Utilities
+  import * as clipboard from 'clipboard-polyfill';
 
   export default {
     mixins: [Global],
@@ -48,21 +44,14 @@
       // Copy the current component's unique anchor to the clipboard
       //
       copyLinkToClipboard() {
-        // Get the current URL then append the anchor of the current component.
-        let link = window.location.origin + window.location.pathname + this.id;
+        // Format our URL
+        const link = window.location.origin + window.location.pathname + this.id;
 
         // Update URL bar if we weren't already at this anchor on page load.
         window.location = this.id;
 
-        // Add the result to our hidden <input> and select the text so we can
-        // copy to cliipboard.
-        this.$refs['input'].value = link;
-        this.$refs['input'].select();
-
-        // We're using the old API because we have to support IE11. boohoo.
-        //
-        // @see https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand#Browser_compatibility
-        document.execCommand('copy');
+        // Copy to clipboard
+        clipboard.writeText(link);
 
         // Focus on Card element.
         document.querySelector(this.id).focus();
