@@ -31,12 +31,7 @@
 
     computed: {
       cssId() {
-        if (typeof this.content === 'Array' && this.content.length > 0) {
-          return 'cf-' + this.content.map((item) => item.sys.id).join('_');
-        }
-        else {
-          return 'cf-keyFigures-notAvailable';
-        }
+        return 'key-figures';
       }
     }
   }

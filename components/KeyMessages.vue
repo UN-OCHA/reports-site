@@ -86,7 +86,7 @@
 
     computed: {
       cssId() {
-        return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
+        return 'highlights';
       },
 
       keyMessagesHasImage() {
