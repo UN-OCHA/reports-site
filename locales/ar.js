@@ -101,7 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن COUNTRY',
 
   // Card Actions
-  'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
+  'Copy [THING] URL to clipboard': 'انسخ [THING] URL إلى الحافظة',
   'Save Situation Report as PDF': 'احفظ تقريرعن الوضع ك PDF',
   'Save THING as PNG': 'احفظ THING كملف PNG',
 
