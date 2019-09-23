@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // System
   'lang': 'es',
   'lang-name': 'Español',
