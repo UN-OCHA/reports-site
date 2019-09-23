@@ -4,7 +4,7 @@
       type="button"
       class="btn btn--link"
       :title="buttonText"
-      @click="copyLinkToClipboard">
+      @click="handleClick">
       <span class="element-invisible">{{ buttonText }}</span>
     </button>
   </no-ssr>
@@ -48,23 +48,57 @@
         const link = window.location.origin + window.location.pathname + this.id;
 
         // Update URL bar if we weren't already at this anchor on page load.
-        window.location = this.id;
+        if ('pushState' in window.history) {
+          window.history.pushState(null, null, this.id);
+        } else {
+          window.location = this.id;
+        }
 
         // Copy to clipboard
         clipboard.writeText(link);
+      },
 
-        // Focus on Card element.
-        const el = document.querySelector(this.id);
-        el.focus();
+      //
+      // Position/focus a Card
+      //
 
-        // Slide it into view.
-        window.scrollTo({
-          // This logic matches scrollToAnchor() which is thoroughly commented.
-          top: el.offsetTop - 12 - (window.innerWidth < 600 ? 48 : 0),
-          left: 0,
-          behavior: 'smooth',
-        });
-      }
+      focusCard() {
+        // Store the Card element so we can perform calculations and focus.
+        const card = document.querySelector(this.id);
+
+        // Calculate where to scroll to. This logic matches scrollToAnchor()
+        // which is thoroughly commented.
+        const newPosition = card.offsetTop - 12 - (window.innerWidth < 600 ? 48 : 0);
+
+        // Grab current window position
+        const originalPosition = window.pageYOffset;
+
+        // Scroll to card. Try the smooth scrolling method, and if it's not
+        // detected then fall back to old syntax that jumps directly.
+        if ('scrollBehavior' in document.documentElement.style) {
+          // Smooth scrolling
+          window.scrollTo({
+            top: newPosition,
+            left: 0,
+            behavior: 'smooth',
+          });
+        } else {
+          // Jump straight there
+          window.scrollTo(0, newPosition);
+        }
+
+        // Set focus
+        card.focus();
+      },
+
+      //
+      // Handle clicks of the button
+      //
+      handleClick(ev) {
+        ev.preventDefault();
+        this.copyLinkToClipboard();
+        this.focusCard(ev);
+      },
     }
   }
 </script>

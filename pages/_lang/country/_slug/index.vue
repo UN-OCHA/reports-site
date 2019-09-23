@@ -141,17 +141,17 @@
           offsetFinal = offsetFinal - 48;
         }
 
-        // Now we're ready to scroll. Try the scrollToOptions method that does
-        // smooth scrolling. Modern browsers support this.
-        window.scrollTo({
-          top: offsetFinal,
-          left: 0,
-          behavior: 'smooth',
-        });
-
-        // If the window offset is still 0, the browser doesn't support the
-        // previous method. Fall back to the one present since time eternal.
-        if (window.pageYOffset === 0) {
+        // Scroll to card. Try the smooth scrolling method, and if it's not
+        // detected then fall back to old syntax that jumps directly.
+        if ('scrollBehavior' in document.documentElement.style) {
+          // Smooth scrolling
+          window.scrollTo({
+            top: offsetFinal,
+            left: 0,
+            behavior: 'smooth',
+          });
+        } else {
+          // Jump directly there
           window.scrollTo(0, offsetFinal);
         }
       },
