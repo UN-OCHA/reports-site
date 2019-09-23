@@ -120,13 +120,40 @@
       }, 250),
 
       // When the URL is detected to contain one of our Contentful Entry IDs,
-      // scroll the window so the element is in view.
+      // scroll the window so the element is in view, unobscured by other UI
+      // elements such as AppBar.
+      //
+      // Some browsers support native smooth scrolling, while others do not.
+      // Since smooth scrolling isn't essential functionality, we either use
+      // the new smooth scrolling or fall back to the old jumpy behavior.
+      //
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
       scrollToAnchor(id) {
-        document.querySelector(id).scrollIntoView({
+        const el = document.querySelector(id);
+        const offsetRaw = el.offsetTop;
+
+        // First, no matter which method we use or what breakpoint we are at, we
+        // want the element to be fully within the window including the outline.
+        let offsetFinal = offsetRaw - 12;
+
+        // Make room for AppBar when it's at the top of the window on mobile.
+        if (window.innerWidth < 600) {
+          offsetFinal = offsetFinal - 48;
+        }
+
+        // Now we're ready to scroll. Try the scrollToOptions method that does
+        // smooth scrolling. Modern browsers support this.
+        window.scrollTo({
+          top: offsetFinal,
+          left: 0,
           behavior: 'smooth',
-          block: 'start',
-          inline: 'center'
         });
+
+        // If the window offset is still 0, the browser doesn't support the
+        // previous method. Fall back to the one present since time eternal.
+        if (window.pageYOffset === 0) {
+          window.scrollTo(0, offsetFinal);
+        }
       },
     },
 
@@ -197,7 +224,7 @@
 
       if (window.location.hash) {
         setTimeout(() => {
-          // Scroll to element smoothly.
+          // Scroll/jump to element according to browser capability.
           this.scrollToAnchor(window.location.hash);
 
           // Set element focus without further scrolling.
