@@ -1,4 +1,4 @@
-const fr = require('../locales/fr.js');
+import fr from '../locales/fr.js';
 
 describe('SitRep', () => {
   beforeEach(async () => {
