@@ -1,5 +1,5 @@
 <template>
-  <article class="card card--visual visual clearfix" :id="cssId">
+  <article class="card card--visual visual clearfix" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <span class="card__title">

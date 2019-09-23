@@ -1,5 +1,16 @@
 <template>
   <div class="actions">
+    <CardLink
+      v-if="showLink"
+      :label="label"
+      :id="this.frag"
+    />
+    <SnapCard
+      v-if="showPng"
+      output="png"
+      :label="label"
+      :selector="this.frag"
+    />
     <SnapPage
       v-if="showPdf"
       output="pdf"
@@ -9,12 +20,6 @@
       :filename-prefix="filenamePrefix"
       :pdf-url="pdfUrl"
     />
-    <SnapCard
-      v-if="showPng"
-      output="png"
-      :label="label"
-      :selector="this.frag"
-    />
   </div>
 </template>
 
@@ -23,6 +28,7 @@
   import Global from '~/components/_Global';
 
   // Components
+  import CardLink from '~/components/CardLink';
   import SnapCard from '~/components/SnapCard';
   import SnapPage from '~/components/SnapPage';
 
@@ -30,6 +36,7 @@
     components: {
       SnapCard,
       SnapPage,
+      CardLink,
     },
 
     props: {
@@ -40,6 +47,10 @@
       showPdf: {
         type: Boolean,
         default: false,
+      },
+      showLink: {
+        type: Boolean,
+        default: true,
       },
       label: {
         type: String,
@@ -99,10 +110,16 @@
     [dir="rtl"] & {
       left: 1rem;
     }
+
+    // Give each button some breathing room.
+    > * {
+      [dir="ltr"] & {
+        margin-left: .5rem;
+      }
+      [dir="rtl"] & {
+        margin-right: .5rem;
+      }
+    }
   }
 
-  // When both actions are present, push them apart.
-  /deep/ .btn--pdf + .btn--download {
-    margin-left: .5rem;
-  }
 </style>

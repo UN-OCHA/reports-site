@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // System
   'lang': 'en',
   'lang-name': 'English',
@@ -101,6 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
 
   // Card Actions
+  'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
   'Save Situation Report as PDF': 'Save Situation Report as PDF',
   'Save THING as PNG': 'Save THING as PNG',
 

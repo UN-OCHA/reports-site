@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFinancials" :id="cssId">
+  <section class="card card--keyFinancials" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">
@@ -60,15 +60,7 @@
 
     computed: {
       cssId() {
-        if (this.ftsPlanId) {
-          return 'cf-keyFinancials-fts-' + this.ftsPlanId;
-        }
-        else if (typeof this.ftsData !== 'undefined' && this.ftsData.length > 0) {
-          return 'cf-' + this.ftsData.map((item) => item.sys.id).join('_');
-        }
-        else {
-          return 'cf-keyFinancials';
-        }
+        return 'funding';
       },
 
       ftsPlanId() {

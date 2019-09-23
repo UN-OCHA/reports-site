@@ -1,9 +1,9 @@
-const ar = require('../locales/ar.js');
-const en = require('../locales/en.js');
-const es = require('../locales/es.js');
-const fr = require('../locales/fr.js');
-const ru = require('../locales/ru.js');
-const uk = require('../locales/uk.js');
+import ar from '../locales/ar.js';
+import en from '../locales/en.js';
+import es from '../locales/es.js';
+import fr from '../locales/fr.js';
+import ru from '../locales/ru.js';
+import uk from '../locales/uk.js';
 
 describe('Homepage', () => {
   beforeAll(async () => {

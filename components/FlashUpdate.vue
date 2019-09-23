@@ -2,7 +2,8 @@
   <article
     v-if="forceFlashUpdateDisplay || displayFlashUpdate"
     class="card card--flash-update flash-update clearfix"
-    :id="cssId">
+    :id="cssId"
+    tabindex="-1">
     <CardHeader />
 
     <span class="card__title">
@@ -181,9 +182,19 @@
   .card {
     background: #FEE7DC;
 
+    &:focus {
+      box-shadow: 0 0 0 4px $secondary;
+    }
+
     .card__title {
       color: inherit;
-      margin-right: 3rem;
+
+      [dir="ltr"] & {
+        margin-right: 6rem;
+      }
+      [dir="rtl"] & {
+        margin-left: 6rem;
+      }
     }
 
     /deep/ .btn--pdf {

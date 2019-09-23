@@ -2,7 +2,7 @@ const env = {
   baseUrl: 'https://reports.unocha.org',
 };
 
-const ar = require('../locales/ar.js');
+import ar from '../locales/ar.js';
 
 
 //

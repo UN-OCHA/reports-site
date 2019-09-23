@@ -541,6 +541,11 @@ figure picture ~ figcaption {
     border-bottom: 1px solid #ddd;
     padding: 0 0 1rem 0;
   }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px $main-blue;
+  }
 }
 
 .card__title {

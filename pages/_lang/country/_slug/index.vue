@@ -114,9 +114,47 @@
         return val ? val.pop() : '';
       },
 
+      // Debounce our resize listener to avoid firing too often.
       handleWindowResize: debounce(function () {
         this.ga.send('event', 'Window', 'Resize Width', window.innerWidth);
       }, 250),
+
+      // When the URL is detected to contain one of our Contentful Entry IDs,
+      // scroll the window so the element is in view, unobscured by other UI
+      // elements such as AppBar.
+      //
+      // Some browsers support native smooth scrolling, while others do not.
+      // Since smooth scrolling isn't essential functionality, we either use
+      // the new smooth scrolling or fall back to the old jumpy behavior.
+      //
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      scrollToAnchor(id) {
+        const el = document.querySelector(id);
+        const offsetRaw = el.offsetTop;
+
+        // First, no matter which method we use or what breakpoint we are at, we
+        // want the element to be fully within the window including the outline.
+        let offsetFinal = offsetRaw - 12;
+
+        // Make room for AppBar when it's at the top of the window on mobile.
+        if (window.innerWidth < 600) {
+          offsetFinal = offsetFinal - 48;
+        }
+
+        // Scroll to card. Try the smooth scrolling method, and if it's not
+        // detected then fall back to old syntax that jumps directly.
+        if ('scrollBehavior' in document.documentElement.style) {
+          // Smooth scrolling
+          window.scrollTo({
+            top: offsetFinal,
+            left: 0,
+            behavior: 'smooth',
+          });
+        } else {
+          // Jump directly there
+          window.scrollTo(0, offsetFinal);
+        }
+      },
     },
 
     // We use the object populated by asyncData here. It might be empty at first
@@ -183,6 +221,18 @@
         // Only update FTS when the server-side data wasn't loaded.
         this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
       });
+
+      if (window.location.hash) {
+        setTimeout(() => {
+          // Scroll/jump to element according to browser capability.
+          this.scrollToAnchor(window.location.hash);
+
+          // Set element focus without further scrolling.
+          document.querySelector(window.location.hash).focus({
+            preventScroll: true,
+          });
+        }, 500);
+      }
     },
 
     beforeMount() {

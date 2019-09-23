@@ -1,5 +1,5 @@
 <template>
-  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId">
+  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">
@@ -86,7 +86,7 @@
 
     computed: {
       cssId() {
-        return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
+        return 'highlights';
       },
 
       keyMessagesHasImage() {
