@@ -54,7 +54,16 @@
         clipboard.writeText(link);
 
         // Focus on Card element.
-        document.querySelector(this.id).focus();
+        const el = document.querySelector(this.id);
+        el.focus();
+
+        // Slide it into view.
+        window.scrollTo({
+          // This logic matches scrollToAnchor() which is thoroughly commented.
+          top: el.offsetTop - 12 - (window.innerWidth < 600 ? 48 : 0),
+          left: 0,
+          behavior: 'smooth',
+        });
       }
     }
   }
