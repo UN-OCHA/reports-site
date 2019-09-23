@@ -97,7 +97,7 @@
       handleClick(ev) {
         ev.preventDefault();
         this.copyLinkToClipboard();
-        this.focusCard(ev);
+        this.focusCard();
       },
     }
   }
