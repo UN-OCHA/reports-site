@@ -85,6 +85,15 @@
       },
     },
 
+    watch: {
+      // Since isExpanded is using v-model, sometimes the component changes its
+      // state without using one of our methods. This catches all state changes
+      // and reports to Vuex for other parts of our app.
+      isExpanded(bool) {
+        this.$store.commit('SET_APPBAR', this.isExpanded);
+      }
+    },
+
     beforeCreate() {
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
