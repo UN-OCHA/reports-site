@@ -102,9 +102,10 @@
       return Promise.all([
         // Fetch all SitReps without populating any Links (references, images, etc).
         client.getEntries({
-          'include': 0,
-          'content_type': active_content_type,
-        }),
+          include: 0,
+          content_type: active_content_type,
+          select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
+        })
       ]).then(([sitreps]) => {
         return {
           'sitreps': sitreps.items,

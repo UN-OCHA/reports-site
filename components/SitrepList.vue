@@ -1,7 +1,7 @@
 <template>
   <ul class="sitrep-list">
-    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sortedSitReps(sitreps)">
-      <span class="sitrep-group__heading" :lang="data[0].fields.language">{{ data[0].fields.title.trim() }}</span>
+    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sitreps">
+      <span class="sitrep-group__heading" lang="en">{{ data[0].fields.title.trim() }}</span>
       <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
@@ -22,7 +22,7 @@
 
     props: {
       'sitreps': {
-        type: Array,
+        type: Object,
         required: true,
       },
     },
