@@ -17,10 +17,7 @@
               {{ $t('Latest updates', locale) }}
             </li>
             <li class="link--container">
-              <SitrepList
-                :sitreps="sitreps"
-                v-on:close-menu="closeMenu"
-              />
+              <SitrepList v-on:close-menu="closeMenu" />
             </li>
           </no-ssr>
           <li class="link link--about">
@@ -46,13 +43,14 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Components
   import SitrepList from '~/components/SitrepList';
 
+  // Utilities
   import { mixin as clickaway } from 'vue-clickaway';
-  import {createClient} from '~/plugins/contentful.js';
-  const client = createClient();
-  const active_content_type = 'sitrep';
 
   export default {
     mixins: [
@@ -66,7 +64,6 @@
 
     data() {
       return {
-        'sitreps': {},
         'isExpanded': false,
       }
     },
@@ -92,64 +89,6 @@
       isExpanded(bool) {
         this.$store.commit('SET_APPBAR', this.isExpanded);
       }
-    },
-
-    beforeCreate() {
-      return Promise.all([
-        // Fetch all SitReps without populating any Links (references, images, etc).
-        client.getEntries({
-          include: 0,
-          content_type: active_content_type,
-          select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
-          order: '-fields.dateUpdated',
-          limit: 5,
-        })
-      ]).then(([entries]) => {
-        //
-        // Lists of SitReps require a very specific structure in order to render the
-        // list with both country names and language options. The basic structure is
-        // an object with slugs as top-level properties, each containing an array of
-        // SitRep translations:
-        //
-        // sitreps (Object)
-        // └ dateUpdated (Array)
-        //   └ sitrep (Object)
-        //
-        // Suppose we have two SitReps for Ukraine (en, uk) and one for Burundi (fr)
-        //
-        // sitreps = {
-        //   'burundi': [
-        //     0: {/* SitRep object from Contentful */},
-        //   ],
-        //   'ukraine': [
-        //     0: {/* SitRep object from Contentful */},
-        //     1: {/* SitRep object from Contentful */},
-        //   ],
-        // };
-        //
-
-        // First, group entries by Country, sort by dateUpdated, newest first.
-        let tmpList = entries.items.sort((a, b) => {
-          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
-        });
-
-        // We'll provide the template with a multidimensional array instead of
-        // the flat one we get from Contentful.
-        let sorted = {};
-
-        // For each Sitrep in our sorted list...
-        tmpList.forEach((sitrep) => {
-          // If the group already exists...
-          (sorted[sitrep.fields.slug])
-            // Add the current SitRep to the group.
-            ? sorted[sitrep.fields.slug].push(sitrep)
-            // Otherwise begin a new group with the current SitRep.
-            : sorted[sitrep.fields.slug] = [sitrep];
-        });
-
-        // Finally, add the data to our Vue component
-        this.sitreps = sorted;
-      }).catch(console.error);
     },
   }
 </script>
@@ -329,8 +268,8 @@
     list-style-type: none;
   }
 
-  // Most styles are in the component itself, but we need to copy the .link
-  // styles from this component and @extending here is the least messy way.
+  // Most styles for SitRepList are in the component itself, but we need to copy
+  // .link styles from this component and using @extend here is the least messy.
   /deep/ .sitrep-group__heading {
     @extend .link;
 

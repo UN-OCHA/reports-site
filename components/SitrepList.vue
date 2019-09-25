@@ -15,22 +15,84 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Contentful
+  import {createClient} from '~/plugins/contentful.js';
+  const client = createClient();
 
   export default {
     mixins: [Global],
 
-    props: {
-      'sitreps': {
-        type: Object,
-        required: true,
-      },
+    data() {
+      return {
+        sitreps: {},
+      };
     },
 
     methods: {
       closeParentMenu() {
         this.$emit('close-menu');
       },
+    },
+
+    beforeCreate() {
+      return Promise.all([
+        // Fetch all SitReps without populating any Links (references, images, etc).
+        client.getEntries({
+          include: 0,
+          content_type: 'sitrep',
+          select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
+          order: '-fields.dateUpdated',
+          limit: 5,
+        })
+      ]).then(([entries]) => {
+        //
+        // Lists of SitReps require a very specific structure in order to render the
+        // list with both country names and language options. The basic structure is
+        // an object with slugs as top-level properties, each containing an array of
+        // SitRep translations:
+        //
+        // sitreps (Object)
+        // └ slug (Array)
+        //   └ sitrep (Object)
+        //
+        // Suppose we have two SitReps for Ukraine (en, uk) and one for Burundi (fr)
+        //
+        // sitreps = {
+        //   'burundi': [
+        //     0: {/* SitRep object from Contentful */},
+        //   ],
+        //   'ukraine': [
+        //     0: {/* SitRep object from Contentful */},
+        //     1: {/* SitRep object from Contentful */},
+        //   ],
+        // };
+        //
+
+        // First, group entries by Country, sort by dateUpdated, newest first.
+        let tmpList = entries.items.sort((a, b) => {
+          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+        });
+
+        // We'll provide the template with a multidimensional array instead of
+        // the flat one we get from Contentful.
+        let sorted = {};
+
+        // For each Sitrep in our sorted list...
+        tmpList.forEach((sitrep) => {
+          // If the group already exists...
+          (sorted[sitrep.fields.slug])
+            // Add the current SitRep to the group.
+            ? sorted[sitrep.fields.slug].push(sitrep)
+            // Otherwise begin a new group with the current SitRep.
+            : sorted[sitrep.fields.slug] = [sitrep];
+        });
+
+        // Finally, add the data to our Vue component
+        this.sitreps = sorted;
+      }).catch(console.error);
     },
   }
 </script>
