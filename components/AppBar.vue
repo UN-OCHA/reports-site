@@ -254,7 +254,7 @@
   // Expanded Menu contents
   .app-bar__content {
     margin-top: 4rem;
-    padding: 0 .5rem;
+    padding: 0 .333rem;
     opacity: 0;
     transition: opacity .1666s ease-in-out;
 
@@ -268,7 +268,7 @@
         left: 0;
         right: 0;
         height: 4rem;
-        background: linear-gradient(to bottom, #4c8cca 80%, rgba(#4c8cca, 0));
+        background: linear-gradient(to bottom, #4c8cca 3.5rem, rgba(#4c8cca, 0) 4rem);
       }
     }
   }
@@ -385,7 +385,7 @@
       bottom: 0;
       width: 4rem;
       height: auto;
-      padding: 2rem 1rem;
+      padding: 0 1rem;
       overflow: hidden;
       transition-property: width;
 
