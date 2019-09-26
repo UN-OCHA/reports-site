@@ -36,6 +36,9 @@ export const state = () => ({
     title: '',
     dateUpdated: '',
   },
+  appbar: {
+    isExpanded: false,
+  },
 });
 
 export const mutations = {
@@ -50,5 +53,11 @@ export const mutations = {
       title: meta.title,
       dateUpdated: meta.dateUpdated,
     }
-  }
+  },
+
+  SET_APPBAR(state, bool) {
+    state.appbar = {
+      isExpanded: bool,
+    }
+  },
 };

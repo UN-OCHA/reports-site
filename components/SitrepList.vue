@@ -1,8 +1,8 @@
 <template>
   <ul class="sitrep-list">
-    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sortedSitReps(sitreps)">
-      <span class="sitrep-group__heading" :lang="data[0].fields.language">{{ data[0].fields.title.trim() }}</span>
-      <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
+    <li class="sitrep-group" :key="office[0].sys.id" v-for="office,index in sitreps">
+      <span class="sitrep-group__heading" lang="en">{{ office[0].fields.title.trim() }}</span>
+      <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in office">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
           :lang="sitrep.fields.language"
@@ -15,22 +15,87 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Contentful
+  import {createClient} from '~/plugins/contentful.js';
+  const client = createClient();
 
   export default {
     mixins: [Global],
 
-    props: {
-      'sitreps': {
-        type: Array,
-        required: true,
-      },
+    data() {
+      return {
+        sitreps: {},
+      };
     },
 
     methods: {
       closeParentMenu() {
         this.$emit('close-menu');
       },
+    },
+
+    beforeCreate() {
+      return Promise.all([
+        // Fetch all SitReps without populating any Links (references, images, etc).
+        client.getEntries({
+          include: 0,
+          content_type: 'sitrep',
+          select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
+          order: '-fields.dateUpdated',
+          limit: 15,
+        })
+      ]).then(([entries]) => {
+        //
+        // Lists of SitReps require a very specific structure in order to render the
+        // list with both country names and language options. The basic structure is
+        // an object with slugs as top-level properties, each containing an array of
+        // SitRep translations:
+        //
+        // sitreps (Object)
+        // └ slug (Array)
+        //   └ sitrep (Object)
+        //
+        // Suppose we have two SitReps for Ukraine (en, uk) and one for Burundi (fr)
+        //
+        // sitreps = {
+        //   'burundi': [
+        //     0: {/* SitRep object from Contentful */},
+        //   ],
+        //   'ukraine': [
+        //     0: {/* SitRep object from Contentful */},
+        //     1: {/* SitRep object from Contentful */},
+        //   ],
+        // };
+        //
+
+        // First, group entries by Country, sort by dateUpdated, newest first.
+        let tmpList = entries.items.sort((a, b) => {
+          return new Date(b.fields.dateUpdated) - new Date(a.fields.dateUpdated);
+        });
+
+        // We'll provide the template with a multidimensional array instead of
+        // the flat one we get from Contentful.
+        let sorted = {};
+
+        // For each Sitrep in our sorted list...
+        tmpList.forEach((sitrep) => {
+          // If the group already exists...
+          (sorted[sitrep.fields.slug])
+            // Add the current SitRep to the group.
+            ? sorted[sitrep.fields.slug].push(sitrep)
+            // Otherwise begin a new group with the current SitRep.
+            : sorted[sitrep.fields.slug] = [sitrep];
+        });
+
+        // Slice our Object to limit to 5 offices
+        const sliced = Object.entries(sorted).slice(0,5).map(entry => entry[1]);
+
+        // Finally, add the data to our Vue component
+        this.sitreps = sliced;
+      }).catch(console.error);
     },
   }
 </script>
