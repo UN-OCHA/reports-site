@@ -4,7 +4,7 @@
 
     <h2 class="card__title">
       {{ $t('Highlights', locale) }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -73,17 +73,6 @@
       'image': Object,
     },
 
-    data() {
-      return {
-        // updatedAt is the first index of the sorted array of timestamps.
-        updatedAt: this.messages.map((msg) => {
-          return msg.sys.updatedAt
-        }).sort((b, a) => {
-          return a < b ? -1 : (a > b ? 1 : 0);
-        })[0],
-      }
-    },
-
     computed: {
       cssId() {
         return 'highlights';
@@ -95,6 +84,16 @@
 
       secureImageUrl() {
         return 'https:' + this.image.fields.file.url;
+      },
+
+      // For Highlights each message has its own timestamp, so sort all of them
+      // by date and use the newest timestamp for the whole card.
+      updatedAt() {
+        return this.messages.map((msg) => {
+          return msg.sys.updatedAt
+        }).sort((b, a) => {
+          return a < b ? -1 : (a > b ? 1 : 0);
+        })[0];
       },
     },
   }

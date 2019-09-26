@@ -4,7 +4,7 @@
 
     <h2 class="card__title">
       {{ sectionHeading }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title" :class="clusterIconClasses">{{ content.fields.clusterName }}</h3>

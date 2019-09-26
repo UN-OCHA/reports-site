@@ -4,6 +4,7 @@
       return {
         // Options or custom methods for rendering Contentful RichText fields.
         renderOptions: {},
+        formatTimestamps: true,
       }
     },
 
@@ -62,6 +63,13 @@
 
         // Return our formatted, translated timestamp
         return translated;
+      },
+
+      //
+      // Toggle-able timestamps
+      //
+      timestamp() {
+        return this.formatTimestamps ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.locale).format('D MMM YYYY');
       },
 
       //
@@ -169,6 +177,17 @@
         ];
 
         return (rtl.includes(language)) ? 'rtl' : 'ltr';
+      },
+
+      //
+      // Toggles formatting of timestamps.
+      //
+      toggleTimestampFormatting(ev) {
+        // We want to avoid bringing focus to the card itself.
+        ev.stopPropagation();
+
+        // flip our bit.
+        this.formatTimestamps = !this.formatTimestamps;
       },
     }
   }
