@@ -118,4 +118,8 @@ export default {
   '# hours ago': 'منذ # ساعة',
   '# day ago': 'منذ يوم',
   '# days ago': 'منذ # يوم',
+  '# week ago': '# week ago',
+  '# weeks ago': '# weeks ago',
+  '# month ago': '# month ago',
+  '# months ago': '# months ago',
 }

@@ -118,4 +118,8 @@ export default {
   '# hours ago': 'Hace # horas',
   '# day ago': 'Hace # día',
   '# days ago': 'Hace # días',
+  '# week ago': '# week ago',
+  '# weeks ago': '# weeks ago',
+  '# month ago': '# month ago',
+  '# months ago': '# months ago',
 }

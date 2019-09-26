@@ -25,24 +25,43 @@
 
       // Format the duration since the Entry was published.
       formatTimeAgo() {
+        // Start by formatting in minutes. If no other conditional applies as
+        // we progress through this function, it will output minutes.
         let duration = this.timeAgoInMinutes;
         let units = (duration === 1) ? 'minute' : 'minutes';
 
-        if (duration > 1440) {
+        // Months (we consider anything more than 4 weeks a month)
+        if (duration > 40320) {
+          duration = Math.floor(duration / 40320);
+          units = (duration === 1) ? 'month' : 'months';
+        }
+        // Weeks
+        else if (duration > 10080) {
+          duration = Math.floor(duration / 10080);
+          units = (duration === 1) ? 'week' : 'weeks';
+        }
+        // Days
+        else if (duration > 1440) {
           duration = Math.floor(duration / 1440);
           units = (duration === 1) ? 'day' : 'days';
         }
+        // Hours
         else if (duration > 60) {
           duration = Math.floor(duration / 60);
           units = (duration === 1) ? 'hour' : 'hours';
         }
 
+        // Translate
+        //
         // This is done in two steps. Our translations are supplied with the
         // literal string `#` in them, so we first translate then replace
         // with the dynamic value of #. That substitution could also be
         // localized if we want to maintain a list.
         const value = /\#/gi;
-        return this.$t(`# ${units} ago`, this.locale).replace(value, duration);
+        const translated = this.$t(`# ${units} ago`, this.locale).replace(value, duration);
+
+        // Return our formatted, translated timestamp
+        return translated;
       },
 
       //
