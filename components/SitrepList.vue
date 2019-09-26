@@ -1,8 +1,8 @@
 <template>
   <ul class="sitrep-list">
-    <li class="sitrep-group" :key="data[0].sys.id" v-for="data in sitreps">
-      <span class="sitrep-group__heading" lang="en">{{ data[0].fields.title.trim() }}</span>
-      <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in data">
+    <li class="sitrep-group" :key="office[0].sys.id" v-for="office,index in sitreps">
+      <span class="sitrep-group__heading" lang="en">{{ office[0].fields.title.trim() }}</span>
+      <span class="sitrep" :key="sitrep.sys.id" v-for="sitrep in office">
         <nuxt-link
           :to="'/' + sitrep.fields.language + '/country/' + sitrep.fields.slug + '/'"
           :lang="sitrep.fields.language"
@@ -45,7 +45,7 @@
           content_type: 'sitrep',
           select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
           order: '-fields.dateUpdated',
-          limit: 5,
+          limit: 15,
         })
       ]).then(([entries]) => {
         //
@@ -90,8 +90,11 @@
             : sorted[sitrep.fields.slug] = [sitrep];
         });
 
+        // Slice our Object to limit to 5 offices
+        const sliced = Object.entries(sorted).slice(0,5).map(entry => entry[1]);
+
         // Finally, add the data to our Vue component
-        this.sitreps = sorted;
+        this.sitreps = sliced;
       }).catch(console.error);
     },
   }
