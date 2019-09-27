@@ -189,6 +189,37 @@
         // flip our bit.
         this.formatTimestamps = !this.formatTimestamps;
       },
-    }
+    },
+
+    //
+    // Client-side ONLY: disable timestamp formatting when Snap is detected
+    //
+    // We do this by checking for the Snap class that gets injected, and reacting
+    // to it.
+    //
+    // TODO: Maybe this is better as a MutationObserver?
+    //
+    mounted() {
+      // Allow references to this component in setTimeout/setInterval.
+      const GlobalMixin = this;
+
+      // Setup detection and store ID.
+      var detectId = setInterval(detectSnapClass, 33);
+
+      function detectSnapClass() {
+        // If we detect the Snap class, disable relative timestamps and stop
+        // running the detection function.
+        if (document.documentElement.className.indexOf('snap') !== -1) {
+          GlobalMixin.formatTimestamps = false;
+          clearInterval(detectId);
+        }
+      }
+
+      // Kill the detection after some time has passed. This is for regular
+      // users so their JS thread doesn't have this running indefinitely.
+      setTimeout(function () {
+        clearInterval(detectId);
+      }, 10000)
+    },
   }
 </script>
