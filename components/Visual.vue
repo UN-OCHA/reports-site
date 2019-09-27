@@ -4,7 +4,7 @@
 
     <span class="card__title">
       {{ $t('Visual', locale) }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
     <div class="visual__content">
       <h3 class="visual__title">{{ content.fields.title }}</h3>

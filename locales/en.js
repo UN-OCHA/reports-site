@@ -118,4 +118,10 @@ export default {
   '# hours ago': '# hours ago',
   '# day ago': '# day ago',
   '# days ago': '# days ago',
+  '# week ago': '# week ago',
+  '# weeks ago': '# weeks ago',
+  '# month ago': '# month ago',
+  '# months ago': '# months ago',
+  '# year ago': '# year ago',
+  '# years ago': '# years ago',
 }

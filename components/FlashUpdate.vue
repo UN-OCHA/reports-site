@@ -8,7 +8,7 @@
 
     <span class="card__title">
       <span class="card__heading">{{ $t('Flash Update', locale) }}</span>
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
 
     <div

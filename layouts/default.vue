@@ -569,6 +569,7 @@ figure picture ~ figcaption {
   opacity: .8;
   font-weight: 400;
   text-transform: none;
+  cursor: pointer;
 
   [lang="ar"] & {
     font-family: $kufi;

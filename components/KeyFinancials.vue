@@ -4,7 +4,7 @@
 
     <h2 class="card__title">
       {{ $t('Funding', locale) }}
-      <span v-if="ftsDataYear" class="card__time-ago">({{ ftsDataYear }})</span>
+      <time v-if="ftsDataYear" :datetime="ftsDataYear" class="card__time-ago">({{ ftsDataYear }})</time>
     </h2>
     <div class="figures clearfix">
       <figure v-if="ftsData.length" v-for="figure in ftsData" :key="figure.sys.id" :class="{'figure--progress': figure.fields.type === 'progress'}">
@@ -168,6 +168,13 @@
   // Import shared variables
   //
   @import '~/assets/Global.scss';
+
+  // By default most timestamps are now clickable. This one isn't.
+  //
+  // @see DSR-182
+  .card__time-ago {
+    cursor: default;
+  }
 
   // The size of the pie chart is needed by a few definitions in this component.
   // Defined in pixels.

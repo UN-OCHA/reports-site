@@ -4,7 +4,7 @@
 
     <span class="card__title">
       {{ $t('Media', locale) }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
     <div class="video__content">
       <div class="video__embed" v-if="content.fields.videoUrl">
