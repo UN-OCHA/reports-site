@@ -68,8 +68,27 @@
       //
       // Toggle-able timestamps
       //
+      // At certain times the Vuex store might be used to globally override all
+      // components, but otherwise we allow the mixin to provide a per-component
+      // flag that can be individually toggled.
+      //
       timestamp() {
-        return this.formatTimestamps ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.locale).format('D MMM YYYY');
+        let shouldFormat;
+
+        // If Vuex store contains a boolean, respect its value. The default value
+        // is a string equal to 'auto' so this block will be skipped.
+        if (typeof this.$store.state.globalFormatting.formatTimestamps === 'boolean') {
+          shouldFormat = this.$store.state.globalFormatting.formatTimestamps;
+        }
+
+        // Fall back to the mixin prop which can change per-component. This is
+        // the normal value that allows timestamps to be clicked on and toggled.
+        else {
+          shouldFormat = this.formatTimestamps;
+        }
+
+        // Return timestamp string based on our boolean.
+        return shouldFormat ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.locale).format('D MMM YYYY');
       },
 
       //
@@ -189,37 +208,6 @@
         // flip our bit.
         this.formatTimestamps = !this.formatTimestamps;
       },
-    },
-
-    //
-    // Client-side ONLY: disable timestamp formatting when Snap is detected
-    //
-    // We do this by checking for the Snap class that gets injected, and reacting
-    // to it.
-    //
-    // TODO: Maybe this is better as a MutationObserver?
-    //
-    mounted() {
-      // Allow references to this component in setTimeout/setInterval.
-      const GlobalMixin = this;
-
-      // Setup detection and store ID.
-      var detectId = setInterval(detectSnapClass, 33);
-
-      function detectSnapClass() {
-        // If we detect the Snap class, disable relative timestamps and stop
-        // running the detection function.
-        if (document.documentElement.className.indexOf('snap') !== -1) {
-          GlobalMixin.formatTimestamps = false;
-          clearInterval(detectId);
-        }
-      }
-
-      // Kill the detection after some time has passed. This is for regular
-      // users so their JS thread doesn't have this running indefinitely.
-      setTimeout(function () {
-        clearInterval(detectId);
-      }, 10000)
     },
   }
 </script>

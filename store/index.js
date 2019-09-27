@@ -39,6 +39,9 @@ export const state = () => ({
   appbar: {
     isExpanded: false,
   },
+  globalFormatting: {
+    formatTimestamps: 'auto',
+  },
 });
 
 export const mutations = {
@@ -59,5 +62,9 @@ export const mutations = {
     state.appbar = {
       isExpanded: bool,
     }
+  },
+
+  SET_GLOBAL_TIMESTAMP_FORMATTING(state, setting) {
+    state.globalFormatting.formatTimestamps = setting;
   },
 };
