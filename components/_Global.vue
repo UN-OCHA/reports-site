@@ -31,8 +31,13 @@
         let duration = this.timeAgoInMinutes;
         let units = (duration === 1) ? 'minute' : 'minutes';
 
-        // Months (we consider anything more than 4 weeks a month)
-        if (duration > 40320) {
+        // Years (> 365 days)
+        if (duration > 525600) {
+          duration = Math.floor(duration / 525600);
+          units = (duration === 1) ? 'year' : 'years';
+        }
+        // Months (> 4 weeks)
+        else if (duration > 40320) {
           duration = Math.floor(duration / 40320);
           units = (duration === 1) ? 'month' : 'months';
         }
