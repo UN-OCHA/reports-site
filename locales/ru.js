@@ -122,4 +122,6 @@ export default {
   '# weeks ago': '# weeks ago',
   '# month ago': '# month ago',
   '# months ago': '# months ago',
+  '# year ago': '# year ago',
+  '# years ago': '# years ago',
 }
