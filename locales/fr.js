@@ -118,12 +118,12 @@ export default {
   '# hours ago': 'Il y a # heures',
   '# day ago': 'Il y a # jour',
   '# days ago': 'Il y a # jours',
-  '# week ago': '# week ago',
-  '# weeks ago': '# weeks ago',
-  '# month ago': '# month ago',
-  '# months ago': '# months ago',
-  '# year ago': '# year ago',
-  '# years ago': '# years ago',
+  '# week ago': 'Il y a # semaine',
+  '# weeks ago': 'Il y a # semaines',
+  '# month ago': 'Il y a # mois',
+  '# months ago': 'Il y a  # mois',
+  '# year ago': 'Il y a # an',
+  '# years ago': 'Il y a # ans',
 
   // Languages
   'Arabic': 'Arabe',
