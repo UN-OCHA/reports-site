@@ -17,11 +17,7 @@
               {{ $t('Latest updates', locale) }}
             </li>
             <li class="link--container">
-              <SitrepList
-                format="compact"
-                :sitreps="sitreps"
-                v-on:close-menu="closeMenu"
-              />
+              <SitrepList v-on:close-menu="closeMenu" />
             </li>
           </no-ssr>
           <li class="link link--about">
@@ -47,13 +43,14 @@
 </template>
 
 <script>
+  // Mixins
   import Global from '~/components/_Global';
+
+  // Components
   import SitrepList from '~/components/SitrepList';
 
+  // Utilities
   import { mixin as clickaway } from 'vue-clickaway';
-  import {createClient} from '~/plugins/contentful.js';
-  const client = createClient();
-  const active_content_type = 'sitrep';
 
   export default {
     mixins: [
@@ -67,7 +64,6 @@
 
     data() {
       return {
-        'sitreps': [],
         'isExpanded': false,
       }
     },
@@ -86,16 +82,13 @@
       },
     },
 
-    beforeCreate() {
-      return Promise.all([
-        // Fetch all SitReps without populating any Links (references, images, etc).
-        client.getEntries({
-          'include': 0,
-          'content_type': active_content_type,
-        })
-      ]).then(([entries]) => {
-        this.sitreps = entries.items;
-      }).catch(console.error)
+    watch: {
+      // Since isExpanded is using v-model, sometimes the component changes its
+      // state without using one of our methods. This catches all state changes
+      // and reports to Vuex for other parts of our app.
+      isExpanded(bool) {
+        this.$store.commit('SET_APPBAR', this.isExpanded);
+      }
     },
   }
 </script>
@@ -200,7 +193,7 @@
   // Expanded Menu contents
   .app-bar__content {
     margin-top: 4rem;
-    padding: 0 .5rem;
+    padding: 0 .333rem;
     opacity: 0;
     transition: opacity .1666s ease-in-out;
 
@@ -214,7 +207,7 @@
         left: 0;
         right: 0;
         height: 4rem;
-        background: linear-gradient(to bottom, #4c8cca 80%, rgba(#4c8cca, 0));
+        background: linear-gradient(to bottom, #4c8cca 3.5rem, rgba(#4c8cca, 0) 4rem);
       }
     }
   }
@@ -275,10 +268,15 @@
     list-style-type: none;
   }
 
-  // Most styles are in the component itself, but we need to copy the .link
-  // styles from this component and @extending here is the least messy way.
+  // Most styles for SitRepList are in the component itself, but we need to copy
+  // .link styles from this component and using @extend here is the least messy.
   /deep/ .sitrep-group__heading {
     @extend .link;
+
+    // Now unset some stuff.....
+    display: inline-block;
+    padding-left: 0;
+    margin: 0;
   }
 
   .ocha-services .link {
@@ -326,7 +324,7 @@
       bottom: 0;
       width: 4rem;
       height: auto;
-      padding: 2rem 1rem;
+      padding: 0 1rem;
       overflow: hidden;
       transition-property: width;
 
@@ -338,7 +336,7 @@
 
       input#app-bar__toggle:checked ~ &,
       &.is--expanded {
-        width: 23rem;
+        width: 25rem;
         overflow: hidden;
       }
     }
@@ -348,7 +346,7 @@
     }
 
     .app-bar__content {
-      width: 22rem;
+      width: 24rem;
     }
 
     .ocha-heading {

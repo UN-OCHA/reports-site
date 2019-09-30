@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // System
   'lang': 'fr',
   'lang-name': 'Français',
@@ -101,6 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'COUNTRY: lire la dernière mise à jour du rapport de situation',
 
   // Card Actions
+  'Copy [THING] URL to clipboard': 'Copier l\'URL [THING] dans le presse-papier',
   'Save Situation Report as PDF': 'Sauvegarder le rapport de situation comme PDF',
   'Save THING as PNG': 'Sauvegarder THING comme PNG',
 
@@ -117,4 +118,10 @@ module.exports = {
   '# hours ago': 'Il y a # heures',
   '# day ago': 'Il y a # jour',
   '# days ago': 'Il y a # jours',
+  '# week ago': '# week ago',
+  '# weeks ago': '# weeks ago',
+  '# month ago': '# month ago',
+  '# months ago': '# months ago',
+  '# year ago': '# year ago',
+  '# years ago': '# years ago',
 }

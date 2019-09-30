@@ -1,10 +1,10 @@
 <template>
-  <section class="card card--cluster cluster" :id="cssId">
+  <section class="card card--cluster cluster" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">
       {{ sectionHeading }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="cluster__meta clearfix">
       <h3 class="cluster__title" :class="clusterIconClasses">{{ content.fields.clusterName }}</h3>
@@ -142,19 +142,32 @@
   }
 
   .cluster__bucket .cluster__bucket-title {
-    padding-left: 1.8rem;
     position: relative;
+
+    [dir="ltr"] & {
+      padding-left: 1.8rem;
+    }
+    [dir="rtl"] & {
+      padding-right: 1.8rem;
+    }
   }
 
   .cluster__bucket .cluster__bucket-title::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
     width: 1.333rem;
     height: 1.333rem;
     background-repeat: no-repeat;
     background-size: 1.333rem 1.333rem;
+
+    [dir="ltr"] & {
+      top: 0;
+      left: 0;
+    }
+    [dir="rtl"] & {
+      top: 5px; // due to Dubai font
+      right: 0;
+    }
   }
 
   .cluster__bucket--needs .cluster__bucket-title::before {
@@ -175,20 +188,32 @@
 
     &--has-icon {
       min-height: 2em;
-      padding-left: 3.5rem;
+
+      [dir="ltr"] & {
+        padding-left: 3.5rem;
+      }
+      [dir="rtl"] & {
+        padding-right: 3.5rem;
+      }
     }
 
     &--has-icon::before {
       content: '';
       display: block;
       position: absolute;
-      left: 0;
       top: 0;
       width: 3rem;
       height: 3rem;
       background-position: 0% 0%;
       background-repeat: no-repeat;
       background-size: 3rem 3rem;
+
+      [dir="ltr"] & {
+        left: 0;
+      }
+      [dir="rtl"] & {
+        right: 0;
+      }
     }
 
     &--agriculture::before {

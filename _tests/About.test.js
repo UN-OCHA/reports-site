@@ -1,5 +1,5 @@
-const en = require('../locales/en.js');
-const fr = require('../locales/fr.js');
+import en from '../locales/en.js';
+import fr from '../locales/fr.js';
 
 describe('AboutPage', () => {
   beforeAll(async () => {

@@ -1,11 +1,12 @@
 <template>
-  <article class="card card--article article clearfix" :id="cssId">
+  <article class="card card--article article clearfix" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <span class="card__title">
       <span class="card__heading">{{ $t(content.fields.sectionHeading, locale) }}</span>
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
+
     <div
       class="article__content"
       :class="{ 'article__content--has-image': articleHasImage }"
@@ -14,32 +15,40 @@
         <figure ref="articleImg">
           <picture>
             <source type="image/webp"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=webp 413w,\
-                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826, content.fields.image) + '&fm=webp 826w,\
-                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239, content.fields.image) + '&fm=webp 1239w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
-                (min-width: 1220px) 413px" />
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)}&fm=webp 320w,
+                ${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)}&fm=webp 413w,
+                ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)}&fm=webp 826w,
+                ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)}&fm=webp 1239w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 900px) calc((1080px - 2rem) * .4),
+                (min-width: 1220px) 413px
+              `"
+            />
 
-            <source type="image/jpeg"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg 413w,\
-                '+ secureImageUrl + '?w=826&h=' + getImageHeight(826, content.fields.image) + '&fm=jpg 826w,\
-                '+ secureImageUrl + '?w=1239&h=' + getImageHeight(1239, content.fields.image) + '&fm=jpg 1239w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 900px) calc((1080px - 2rem) * .4)\
-                (min-width: 1220px) 413px" />
+            <source
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)} 320w,
+                ${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)} 413w,
+                ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)} 826w,
+                ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)} 1239w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 900px) calc((1080px - 2rem) * .4),
+                (min-width: 1220px) 413px
+              `"
+            />
 
             <img
               class="article__img"
-              :src="secureImageUrl + '?w=413&h=' + getImageHeight(413, content.fields.image) + '&fm=jpg'"
+              loading="lazy"
+              lazyload="1"
+              :src="`${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)}`"
               :alt="content.fields.image.fields.title">
           </picture>
           <figcaption v-if="content.fields.image.fields.description">

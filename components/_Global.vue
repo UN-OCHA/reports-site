@@ -4,6 +4,7 @@
       return {
         // Options or custom methods for rendering Contentful RichText fields.
         renderOptions: {},
+        formatTimestamps: true,
       }
     },
 
@@ -25,24 +26,74 @@
 
       // Format the duration since the Entry was published.
       formatTimeAgo() {
+        // Start by formatting in minutes. If no other conditional applies as
+        // we progress through this function, it will output minutes.
         let duration = this.timeAgoInMinutes;
         let units = (duration === 1) ? 'minute' : 'minutes';
 
-        if (duration > 1440) {
+        // Years (> 365 days)
+        if (duration > 525600) {
+          duration = Math.floor(duration / 525600);
+          units = (duration === 1) ? 'year' : 'years';
+        }
+        // Months (> 4 weeks)
+        else if (duration > 40320) {
+          duration = Math.floor(duration / 40320);
+          units = (duration === 1) ? 'month' : 'months';
+        }
+        // Weeks
+        else if (duration > 10080) {
+          duration = Math.floor(duration / 10080);
+          units = (duration === 1) ? 'week' : 'weeks';
+        }
+        // Days
+        else if (duration > 1440) {
           duration = Math.floor(duration / 1440);
           units = (duration === 1) ? 'day' : 'days';
         }
+        // Hours
         else if (duration > 60) {
           duration = Math.floor(duration / 60);
           units = (duration === 1) ? 'hour' : 'hours';
         }
 
+        // Translate
+        //
         // This is done in two steps. Our translations are supplied with the
         // literal string `#` in them, so we first translate then replace
         // with the dynamic value of #. That substitution could also be
         // localized if we want to maintain a list.
         const value = /\#/gi;
-        return this.$t(`# ${units} ago`, this.locale).replace(value, duration);
+        const translated = this.$t(`# ${units} ago`, this.locale).replace(value, duration);
+
+        // Return our formatted, translated timestamp
+        return translated;
+      },
+
+      //
+      // Toggle-able timestamps
+      //
+      // At certain times the Vuex store might be used to globally override all
+      // components, but otherwise we allow the mixin to provide a per-component
+      // flag that can be individually toggled.
+      //
+      timestamp() {
+        let shouldFormat;
+
+        // If Vuex store contains a boolean, respect its value. The default value
+        // is a string equal to 'auto' so this block will be skipped.
+        if (typeof this.$store.state.globalFormatting.formatTimestamps === 'boolean') {
+          shouldFormat = this.$store.state.globalFormatting.formatTimestamps;
+        }
+
+        // Fall back to the mixin prop which can change per-component. This is
+        // the normal value that allows timestamps to be clicked on and toggled.
+        else {
+          shouldFormat = this.formatTimestamps;
+        }
+
+        // Return timestamp string based on our boolean.
+        return shouldFormat ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.locale).format('D MMM YYYY');
       },
 
       //
@@ -151,6 +202,17 @@
 
         return (rtl.includes(language)) ? 'rtl' : 'ltr';
       },
-    }
+
+      //
+      // Toggles formatting of timestamps.
+      //
+      toggleTimestampFormatting(ev) {
+        // We want to avoid bringing focus to the card itself.
+        ev.stopPropagation();
+
+        // flip our bit.
+        this.formatTimestamps = !this.formatTimestamps;
+      },
+    },
   }
 </script>

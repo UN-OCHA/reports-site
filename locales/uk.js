@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // System
   'lang': 'uk',
   'lang-name': 'Українська',
@@ -64,7 +64,7 @@ module.exports = {
 
   // Clusters
   'Cluster Status': 'Статус кластера',
-  'Sector Status': 'Sector Status',
+  'Sector Status': 'Статус сектору',
   'Needs': 'Потреби',
   'Response': 'Реагування',
   'Gaps': 'Прогалини',
@@ -88,11 +88,11 @@ module.exports = {
 
   // Videos
   'Video': 'Відео',
-  'View this Video': 'View this Video',
+  'View this Video': 'Переглянути це відео',
 
   // Interactives
   'Interactive': 'Інтерактивна версія',
-  'View this interactive graphic': 'View this interactive graphic',
+  'View this interactive graphic': 'Переглянути цю інтерактивну графіку',
 
   // Visuals
   'Visual': 'Графічні зображення',
@@ -101,6 +101,7 @@ module.exports = {
   'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',
 
   // Card Actions
+  'Copy [THING] URL to clipboard': 'Копіювати [THING] URL в буфер обміну',
   'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
   'Save THING as PNG': 'Зберегти THING у форматі PNG',
 
@@ -117,4 +118,10 @@ module.exports = {
   '# hours ago': '# години/годин тому',
   '# day ago': '# день тому',
   '# days ago': '# дня/дні тому',
+  '# week ago': '# week ago',
+  '# weeks ago': '# weeks ago',
+  '# month ago': '# month ago',
+  '# months ago': '# months ago',
+  '# year ago': '# year ago',
+  '# years ago': '# years ago',
 }

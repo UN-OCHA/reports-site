@@ -69,7 +69,7 @@
     width: 16px;
     height: 32px;
     background-image: url('/icons/icon--download.svg');
-    background-position: 50% 0%;
+    background-position: 50% 5%;
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
   }

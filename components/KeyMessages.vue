@@ -1,10 +1,10 @@
 <template>
-  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId">
+  <article :lang="this.$route.params.lang" class="card card--keyMessages key-messages" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">
       {{ $t('Highlights', locale) }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="key-messages__area">
       <ul class="message-list">
@@ -16,30 +16,39 @@
         <figure>
           <picture class="image">
             <source type="image/webp"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=webp 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=webp 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=webp 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=webp 1032w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2)\
-                (min-width: 1220px) 515px" />
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, image)}&fm=webp 320w,
+                ${secureImageUrl}?w=640&h=${getImageHeight(640, image)}&fm=webp 640w,
+                ${secureImageUrl}?w=800&h=${getImageHeight(800, image)}&fm=webp 800w,
+                ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}&fm=webp 1032w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 800px) calc((100vw - 10rem) / 2),
+                (min-width: 1220px) 515px
+              `"
+            />
+            <source
+              :srcset="`
+                ${secureImageUrl}?w=320&h=${getImageHeight(320, image)} 320w,
+                ${secureImageUrl}?w=640&h=${getImageHeight(640, image)} 640w,
+                ${secureImageUrl}?w=800&h=${getImageHeight(800, image)} 800w,
+                ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)} 1032w
+              `"
+              sizes="`
+                calc(100vw - 4rem),
+                (min-width: 600px) calc(100vw - 8rem - 2rem),
+                (min-width: 800px) calc((100vw - 10rem) / 2),
+                (min-width: 1220px) 515px
+              `"
+            />
 
-            <source type="image/jpeg"
-              :srcset="'\
-                '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, image) + '&fm=jpg 320w,\
-                '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, image) + '&fm=jpg 640w,\
-                '+ secureImageUrl + '?w=800&h=' + getImageHeight(800, image) + '&fm=jpg 800w,\
-                '+ secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg 1032w'"
-              sizes="\
-                calc(100vw - 4rem),\
-                (min-width: 600px) calc(100vw - 8rem - 2rem),\
-                (min-width: 800px) calc((100vw - 10rem) / 2)\
-                (min-width: 1220px) 515px" />
-
-            <img :src="secureImageUrl + '?w=1032&h=' + getImageHeight(1032, image) + '&fm=jpg'" :alt="image.fields.title">
+            <img
+              :src="`${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}`"
+              :alt="image.fields.title"
+              loading="auto"
+            >
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
         </figure>
@@ -64,20 +73,9 @@
       'image': Object,
     },
 
-    data() {
-      return {
-        // updatedAt is the first index of the sorted array of timestamps.
-        updatedAt: this.messages.map((msg) => {
-          return msg.sys.updatedAt
-        }).sort((b, a) => {
-          return a < b ? -1 : (a > b ? 1 : 0);
-        })[0],
-      }
-    },
-
     computed: {
       cssId() {
-        return `cf-${this.messages.map((msg) => msg.sys.id).join('_')}`;
+        return 'highlights';
       },
 
       keyMessagesHasImage() {
@@ -86,6 +84,16 @@
 
       secureImageUrl() {
         return 'https:' + this.image.fields.file.url;
+      },
+
+      // For Highlights each message has its own timestamp, so sort all of them
+      // by date and use the newest timestamp for the whole card.
+      updatedAt() {
+        return this.messages.map((msg) => {
+          return msg.sys.updatedAt
+        }).sort((b, a) => {
+          return a < b ? -1 : (a > b ? 1 : 0);
+        })[0];
       },
     },
   }

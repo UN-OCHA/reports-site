@@ -1,5 +1,5 @@
 <template>
-  <section class="card card--keyFigures" :id="cssId">
+  <section class="card card--keyFigures" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <h2 class="card__title">{{ $t('Key Figures', locale) }}</h2>
@@ -31,12 +31,7 @@
 
     computed: {
       cssId() {
-        if (typeof this.content === 'Array' && this.content.length > 0) {
-          return 'cf-' + this.content.map((item) => item.sys.id).join('_');
-        }
-        else {
-          return 'cf-keyFigures-notAvailable';
-        }
+        return 'key-figures';
       }
     }
   }

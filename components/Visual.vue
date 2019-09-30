@@ -1,42 +1,49 @@
 <template>
-  <article class="card card--visual visual clearfix" :id="cssId">
+  <article class="card card--visual visual clearfix" :id="cssId" tabindex="-1">
     <CardHeader />
 
     <span class="card__title">
       {{ $t('Visual', locale) }}
-      <span class="card__time-ago">({{ formatTimeAgo }})</span>
+      <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
     <div class="visual__content">
       <h3 class="visual__title">{{ content.fields.title }}</h3>
       <div class="visual__image" v-if="content.fields.image">
         <picture>
           <source type="image/webp"
-            :srcset="'\
-              '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=webp 320w,\
-              '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + '&fm=webp 640w,\
-              '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + '&fm=webp 960w,\
-              '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + '&fm=webp 1280w,\
-              '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + '&fm=webp 1920w'"
-            sizes="\
-              calc(100vw - 4rem),\
-              (min-width: 600px) calc(100vw - 8rem - 2rem),\
-              (min-width: 1220px) calc(1080px - 2rem)" />
-
-          <source type="image/jpeg"
-            :srcset="'\
-              '+ secureImageUrl + '?w=320&h=' + getImageHeight(320, content.fields.image) + '&fm=jpg 320w,\
-              '+ secureImageUrl + '?w=640&h=' + getImageHeight(640, content.fields.image) + '&fm=jpg 640w,\
-              '+ secureImageUrl + '?w=960&h=' + getImageHeight(960, content.fields.image) + '&fm=jpg 960w,\
-              '+ secureImageUrl + '?w=1280&h=' + getImageHeight(1280, content.fields.image) + '&fm=jpg 1280w,\
-              '+ secureImageUrl + '?w=1920&h=' + getImageHeight(1920, content.fields.image) + '&fm=jpg 1920w'"
-            sizes="\
-              calc(100vw - 4rem),\
-              (min-width: 600px) calc(100vw - 8rem - 2rem),\
-              (min-width: 1220px) calc(1080px - 2rem)" />
+            :srcset="`
+              ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)}&fm=webp 320w,
+              ${secureImageUrl}?w=640&h=${getImageHeight(640, content.fields.image)}&fm=webp 640w,
+              ${secureImageUrl}?w=960&h=${getImageHeight(960, content.fields.image)}&fm=webp 960w,
+              ${secureImageUrl}?w=1280&h=${getImageHeight(1280, content.fields.image)}&fm=webp 1280w,
+              ${secureImageUrl}?w=1920&h=${getImageHeight(1920, content.fields.image)}&fm=webp 1920w
+            `"
+            sizes="`
+              calc(100vw - 4rem),
+              (min-width: 600px) calc(100vw - 8rem - 2rem),
+              (min-width: 1220px) calc(1080px - 2rem)
+            `"
+          />
+          <source
+            :srcset="`
+              ${secureImageUrl}?w=320&h=${getImageHeight(320, content.fields.image)} 320w,
+              ${secureImageUrl}?w=640&h=${getImageHeight(640, content.fields.image)} 640w,
+              ${secureImageUrl}?w=960&h=${getImageHeight(960, content.fields.image)} 960w,
+              ${secureImageUrl}?w=1280&h=${getImageHeight(1280, content.fields.image)} 1280w,
+              ${secureImageUrl}?w=1920&h=${getImageHeight(1920, content.fields.image)} 1920w
+            `"
+            sizes="`
+              calc(100vw - 4rem),
+              (min-width: 600px) calc(100vw - 8rem - 2rem),
+              (min-width: 1220px) calc(1080px - 2rem)
+            `"
+          />
 
           <img
             class="visual__img"
-            :src="secureImageUrl + '?w=1048&h=' + getImageHeight(1048, content.fields.image) + '&fm=jpg'"
+            loading="lazy"
+            lazyload="1"
+            :src="`${secureImageUrl}?w=1048&h=${getImageHeight(1048, content.fields.image)}`"
             :alt="content.fields.image.fields.title">
         </picture>
       </div>
