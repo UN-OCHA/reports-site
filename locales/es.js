@@ -124,4 +124,12 @@ export default {
   '# months ago': '# months ago',
   '# year ago': '# year ago',
   '# years ago': '# years ago',
+
+  // Languages
+  'Arabic': 'Árabe',
+  'English': 'Inglés',
+  'French': 'Francés',
+  'Russian': 'Ruso',
+  'Spanish': 'Español',
+  'Ukrainian': 'Ucraniano',
 }
