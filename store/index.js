@@ -22,6 +22,9 @@ export const state = () => ({
   //     solely on what languages the Offices have authored their content in.
   //
   locales: [
+    //
+    // Official UN Translations
+    //
     {
       code: 'en',
       name: 'English',
@@ -47,16 +50,27 @@ export const state = () => ({
       display: true,
     },
     {
-      code: 'uk',
-      name: 'Українська',
-      dir: 'ltr',
-      display: false,
-    },
-    {
       code: 'ar',
       name: 'عربي',
       dir: 'rtl',
       display: true,
+    },
+    // {
+    //   code: 'zh',
+    //   name: '中文',
+    //   dir: 'ltr', // Following www.un.org/zh/ for direction
+    //   display: true,
+    // },
+
+    //
+    // Non-default languages.
+    // All languages below this comment should have `display: false`
+    //
+    {
+      code: 'uk',
+      name: 'Українська',
+      dir: 'ltr',
+      display: false,
     },
   ],
 
