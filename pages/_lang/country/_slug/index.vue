@@ -461,7 +461,8 @@
       // Reformat CTF translations response so follows format of locales Store.
       let translations = translationEntries.items.map((translation) => {
         return {
-          'code': translation.fields.language,
+          code: translation.fields.language,
+          display: true,
         }
       });
 
