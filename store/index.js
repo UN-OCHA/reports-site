@@ -1,44 +1,82 @@
 export const state = () => ({
-  locale: 'en',
+  //
+  // Define each Language
+  //
+  // code: this is the ISO 2-character language code. We don't support locales,
+  //     despite the name of all the variables below.
+  //
+  // name: the language's own name for itself. Our translation files contain the
+  //     specific names of each language.
+  //
+  // dir: the reading direction as it pertains to HTML. The two options are
+  //     * ltr - left-to-right
+  //     * rtl - right-to-left
+  //
+  // display: a DSR-specific property that sets a default which controls generic
+  //     pages such as home/about/etc. These pages only feature the languages in
+  //     the "UN 6" group, but can still be rendered in other languages when
+  //     navigating from a SitRep or a direct URL.
+  //
+  //     When a SitRep is authored in multiple languages the property is always
+  //     forced to `true`, meaning the language selection of SitReps is based
+  //     solely on what languages the Offices have authored their content in.
+  //
   locales: [
     {
       code: 'en',
       name: 'English',
       dir: 'ltr',
+      display: true,
     },
     {
       code: 'es',
       name: 'Español',
       dir: 'ltr',
+      display: true,
     },
     {
       code: 'fr',
       name: 'Français',
       dir: 'ltr',
+      display: true,
     },
     {
       code: 'ru',
       name: 'Русский',
       dir: 'ltr',
+      display: true,
     },
     {
       code: 'uk',
       name: 'Українська',
       dir: 'ltr',
+      display: false,
     },
     {
       code: 'ar',
       name: 'عربي',
       dir: 'rtl',
+      display: true,
     },
   ],
+
+  // Default site language. Changing this will break our translation system.
+  locale: 'en',
+
+  // Allow sub-components of a SitRep to display the Title/Date of a SitRep by
+  // holding the current URL's metadata in the store. Primarily used by Snap PNGs.
   reportMeta: {
     title: '',
     dateUpdated: '',
   },
+
+  // Lets the whole app know about the AppBar state.
   appbar: {
     isExpanded: false,
   },
+
+  // Lets the whole app render dates consistently when context requires it.
+  // e.g. Used by Snaps to render PDF/PNGs with absolute dates.
   globalFormatting: {
     formatTimestamps: 'auto',
   },
