@@ -16,7 +16,7 @@
       :class="{ 'article__content--has-image': articleHasImage }"
     >
       <div class="article__image" v-if="content.fields.image">
-        <figure ref="articleImg">
+        <figure ref="cardImg">
           <picture>
             <source type="image/webp"
               :srcset="`
@@ -61,13 +61,13 @@
         </figure>
       </div>
       <div
-        ref="article"
+        ref="card"
         class="article__text"
         :class="{
           'is--expandable': forceFlashUpdateExpanded || isExpandable,
           'is--expanded': forceFlashUpdateExpanded || isExpanded,
         }" :style="{
-          'height': forceFlashUpdateExpanded ? 'auto' : getArticleHeight,
+          'height': forceFlashUpdateExpanded ? 'auto' : getCardHeight,
         }"
       >
         <h3 class="article__title">{{ content.fields.title }}</h3>
@@ -141,7 +141,7 @@
 
     data() {
       return {
-        articleMinHeight: 90,
+        cardMinHeight: 90,
         richBody: '',
         updatedAt: this.content.sys.updatedAt,
       };
