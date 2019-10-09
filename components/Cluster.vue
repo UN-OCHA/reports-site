@@ -17,7 +17,16 @@
         </figure>
       </div>
     </div>
-    <div class="cluster__content clearfix">
+    <div
+      ref="card"
+      class="cluster__content clearfix"
+      :class="{
+        'is--expandable': isExpandable,
+        'is--expanded': isExpanded,
+      }" :style="{
+        'height': getCardHeight,
+      }"
+    >
       <div class="cluster__bucket cluster__bucket--needs">
         <h3 class="cluster__bucket-title">{{ $t('Needs', locale) }}</h3>
         <div class="rich-text" v-html="richNeeds"></div>
@@ -31,6 +40,13 @@
         <div class="rich-text" v-html="richGaps"></div>
       </div>
     </div>
+    <button
+      v-if="isExpandable"
+      class="btn btn--toggle-text"
+      :class="{ 'is--expanded': isExpanded }"
+      @click="isExpanded = !isExpanded">
+      {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
+    </button>
 
     <CardActions label="Cluster Status" :frag="'#' + cssId" />
     <CardFooter />
@@ -120,6 +136,10 @@
   // Import shared variables
   //
   @import '~/assets/Global.scss';
+
+  .card--cluster {
+    padding-bottom: 3rem; // make room for read more/less btn
+  }
 
   .cluster__title,
   .cluster__bucket-title {

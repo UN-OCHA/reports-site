@@ -110,6 +110,9 @@
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 1) 100%);
         background-image: linear-gradient(to bottom, var(--gradient-from) 33%, var(--gradient-to) 100%);
         transition: opacity .666s ease-in-out;
+        // Cluster bucket headings are pos:rel for their icons. Ensure that our
+        // gradient is above any heading.
+        z-index: 1;
       }
     }
 
