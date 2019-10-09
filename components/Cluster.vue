@@ -48,7 +48,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions label="Cluster Status" :frag="'#' + cssId" />
+    <CardActions :label="sectionHeading" :frag="'#' + cssId" />
     <CardFooter />
   </section>
 </template>
