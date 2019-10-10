@@ -542,9 +542,11 @@ figure picture ~ figcaption {
     padding: 0 0 1rem 0;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px $main-blue;
+  @media screen {
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px $main-blue;
+    }
   }
 }
 
