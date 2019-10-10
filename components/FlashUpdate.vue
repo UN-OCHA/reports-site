@@ -163,7 +163,7 @@
       },
 
       pdfUrl() {
-        return process.client ? window.location.href + 'flash-update/' + this.content.sys.id + '/' : '#';
+        return process.client ? window.location.origin + window.location.pathname + 'flash-update/' + this.content.sys.id + '/' : '#';
       },
     },
 
