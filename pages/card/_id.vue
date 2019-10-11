@@ -8,21 +8,26 @@
 
   // Components
   import Article from '~/components/Article';
+  import Cluster from '~/components/Cluster';
   import FlashUpdate from '~/components/FlashUpdate';
+  import Interactive from '~/components/Interactive';
+  import Visual from '~/components/Visual';
+  import Video from '~/components/Video';
 
   // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
-
-  // Util
-  import axios from 'axios';
 
   export default {
     mixins: [Global],
 
     components: {
       Article,
+      Cluster,
       FlashUpdate,
+      Interactive,
+      Visual,
+      Video,
     },
 
     // Validate URL params
