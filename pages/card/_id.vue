@@ -32,17 +32,24 @@
 
     // Validate URL params
     validate({params, query, store}) {
-      const idIsValid = !!params.id.match(/[a-zA-Z0-9]+/);
+      // We allow partial matches of the sys.id, but too little and we might get
+      // collisions. Validate to include at least 10 chars so that this doesn't
+      // ever happen while the sun still warms the Earth.
+      const idIsValid = !!params.id.match(/[a-zA-Z0-9]{10,22}/);
       return idIsValid;
     },
 
     asyncData({env, params, store, error, req, res}) {
       return Promise.all([
-        // Contentful: fetch the requested Entry via sys.id
-        client.getEntry(params.id),
-      ]).then(([entry]) => {
+        // Contentful: fetch the requested Entry via text-matching on the sys.id
+        client.getEntries({
+          'include': 4,
+          'limit': 1,
+          'sys.id[match]': params.id,
+        }),
+      ]).then(([entries]) => {
         return {
-          entry: entry,
+          entry: entries.items[0],
         };
       });
     },
