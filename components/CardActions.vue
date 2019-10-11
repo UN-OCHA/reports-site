@@ -1,7 +1,7 @@
 <template>
   <div class="actions">
-    <CardLink
-      v-if="showLink"
+    <CardAnchor
+      v-if="showAnchor"
       :label="label"
       :id="this.frag"
     />
@@ -28,7 +28,7 @@
   import Global from '~/components/_Global';
 
   // Components
-  import CardLink from '~/components/CardLink';
+  import CardAnchor from '~/components/CardAnchor';
   import SnapCard from '~/components/SnapCard';
   import SnapPage from '~/components/SnapPage';
 
@@ -36,7 +36,7 @@
     components: {
       SnapCard,
       SnapPage,
-      CardLink,
+      CardAnchor,
     },
 
     props: {
@@ -48,7 +48,7 @@
         type: Boolean,
         default: false,
       },
-      showLink: {
+      showAnchor: {
         type: Boolean,
         default: true,
       },
