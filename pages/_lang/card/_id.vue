@@ -48,10 +48,30 @@
           'sys.id[match]': params.id,
         }),
       ]).then(([entries]) => {
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_LANG', params.lang);
+        store.commit('SET_META', {
+          slug: '',
+          title: entries.items[0].fields.title,
+          dateUpdated: entries.items[0].fields.dateUpdated,
+          language: params.lang,
+        });
+
         return {
           entry: entries.items[0],
         };
       });
     },
+
+    head() {
+      return {
+        // Language settings determined by URL
+        htmlAttrs: {
+          lang: this.$route.params.lang,
+          dir: this.languageDirection(this.$route.params.lang),
+        },
+      };
+    },
+
   }
 </script>
