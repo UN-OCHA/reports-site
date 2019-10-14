@@ -12,7 +12,7 @@
       :class="{ 'article__content--has-image': articleHasImage }"
     >
       <div class="article__image" v-if="articleHasImage">
-        <figure ref="articleImg">
+        <figure ref="cardImg">
           <picture>
             <source type="image/webp"
               :srcset="`
@@ -56,11 +56,11 @@
           </figcaption>
         </figure>
       </div>
-      <div ref="article" class="article__text" :class="{
+      <div ref="card" class="article__text" :class="{
         'is--expandable': isExpandable,
         'is--expanded': isExpanded,
       }" :style="{
-        'height': getArticleHeight,
+        'height': getCardHeight,
       }">
         <h3 class="article__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="richBody"></div>
@@ -94,11 +94,6 @@
 
     data() {
       return {
-        articleMinGrowth: 150,
-        articleMinHeight: 200,
-        articleHeight: 'auto',
-        isExpandable: false,
-        isExpanded: false,
         richBody: '',
         updatedAt: this.content.sys.updatedAt,
       };
@@ -116,56 +111,11 @@
       secureImageUrl() {
         return this.articleHasImage && 'https:' + this.content.fields.image.fields.file.url;
       },
-
-      // Allows us to smoothly transition between unknown min-max heights.
-      // Returns 'auto' when no transition is necessary.
-      getArticleHeight() {
-        if (!this.isExpandable) {
-          return 'auto'
-        } else {
-          return this.isExpanded ? this.articleHeight + 'px' : this.articleMinHeight + 'px';
-        }
-      },
-    },
-
-    methods: {
-      computeArticleHeight() {
-        // Do some client-side manipulation of the Articles to expose a read-more
-        // button on some entries. We calculate the height of the article as
-        // rendered in browser then truncate when it exceeds a certain height.
-        let article = this.$refs['article'];
-        let articleImg = this.$refs['articleImg'];
-
-        // First, check if the article $ref is there at all. Since FlashUpdate
-        // extends Article, it is possible for this calculation to run when the
-        // DOM does NOT contain a corresponding element for $refs['article']
-        if (typeof article === 'undefined') {
-          return;
-        }
-
-        // Set the article's min-height to the constant, or if the image is
-        // present, the height of the image + caption.
-        this.articleMinHeight = (!!this.articleHasImage) ? Math.max(articleImg.clientHeight, this.articleMinHeight) : this.articleMinHeight;
-
-        // If the expanded article text will be sufficiently longer than the
-        // accompanying image or the minimum defined in data(), then we apply
-        // the 'Read More' treatment.
-        if (article.clientHeight > (this.articleMinHeight + this.articleMinGrowth)) {
-          this.articleHeight = article.clientHeight;
-          this.isExpandable = true;
-        }
-      },
     },
 
     created() {
       this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
     },
-
-    mounted() {
-      // When component mounts, we need to wait for any potential images to load
-      // before trying to calculate the truncated article size.
-      setTimeout(this.computeArticleHeight, 500);
-    }
   }
 </script>
 
@@ -246,89 +196,13 @@
     }
   }
 
-  @media screen {
-    //
-    // Read more: initial state
-    //
-    .is--expandable {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1em;
-      --gradient-from: rgba(255, 255, 255, 0);
-      --gradient-to: rgba(255, 255, 255, 1);
-
-      // height is measure before truncating text and value is stored on component
-      // meaning we can safely transition since `auto` is not set once JS runs.
-      transition: height .666s ease-in-out;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 8em;
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 33%, rgba(255, 255, 255, 1) 100%);
-        background-image: linear-gradient(to bottom, var(--gradient-from) 33%, var(--gradient-to) 100%);
-        transition: opacity .666s ease-in-out;
-      }
-    }
-
-    .btn--toggle-text {
-      display: block;
-      width: auto;
-      border: none;
-      padding: 0 1em 0 0;
-      margin: 1rem 0 0 0;
-      background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
-      background-size: 12px auto;
-      color: hsl(0, 0%, 50%);
-      font-family: $roboto;
-      font-size: 1em;
-      line-height: 1;
-      text-transform: uppercase;
-      cursor: pointer;
-
-      [dir="ltr"] & {
-        float: left;
-        clear: left;
-      }
-      [dir="rtl"] & {
-        float: right;
-        clear: right;
-      }
-
-      [lang="ar"] & {
-        font-family: $kufi;
-      }
-
-      &:focus {
-        outline: none;
-      }
-
-      &.is--expanded {
-        background-image: url('/icons/icon--up-arrow.svg');
-      }
-    }
-
-    //
-    // Read more: Expanded state
-    //
-    .is--expandable.is--expanded {
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-  } // @media screen
-
   //
   // Print layout
   //
   // While capturing PNG or PDF we need non-interactive elements:
   //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
+  // * Ensure text content is totally visible and fills full column, wrapping
+  //   around any images.
   //
   @media print {
     .article__image {
@@ -341,49 +215,6 @@
         margin-left: 0;
         margin-right: 2em;
       }
-    }
-
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
-    }
-  }
-
-  //
-  // Snap Service
-  //
-  // While capturing PNG or PDF we need non-interactive elements:
-  //
-  // * Ensure text content is totally visible
-  // * Don't render read-more buttons.
-  //
-  .snap--png,
-  .snap--pdf {
-    .is--expandable {
-      // Force full-height content.
-      height: auto !important;
-
-      // Remove white gradient that normally appears on expandable content.
-      &::before {
-        content: none;
-        opacity: 0;
-      }
-    }
-
-    // Do not show read-more button.
-    .btn--toggle-text {
-      display: none !important;
     }
   }
 </style>

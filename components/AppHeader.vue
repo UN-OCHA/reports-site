@@ -25,6 +25,7 @@
         <div class="lang-switcher" dir="ltr">
           <span class="lang-switcher__label element-invisible">{{ $t('Read this Situation Report in a different language:', locale) }}</span>
           <nuxt-link v-for="translation in availableTranslations"
+            v-if="translation.display === true"
             :key="translation.code"
             :to="'/' + translation.code + '/' + urlContext"
             :class="[
