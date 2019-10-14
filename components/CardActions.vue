@@ -1,10 +1,5 @@
 <template>
   <div class="actions">
-    <CardAnchor
-      v-if="showAnchor"
-      :label="label"
-      :id="'#' + this.cssId"
-    />
     <CardUrl
       v-if="showUrl"
       :label="label"
@@ -33,14 +28,12 @@
   import Global from '~/components/_Global';
 
   // Components
-  import CardAnchor from '~/components/CardAnchor';
   import CardUrl from '~/components/CardUrl';
   import SnapCard from '~/components/SnapCard';
   import SnapPage from '~/components/SnapPage';
 
   export default {
     components: {
-      CardAnchor,
       CardUrl,
       SnapCard,
       SnapPage,
