@@ -12,7 +12,7 @@
       <p v-if="!content">{{ $t('No data available.', locale) }}</p>
     </div>
 
-    <CardActions label="Key Figures" :frag="'#' + cssId" />
+    <CardActions label="Key Figures" :css-id="cssId" :showUrl="false" />
     <CardFooter />
   </section>
 </template>

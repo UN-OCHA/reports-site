@@ -27,7 +27,7 @@
     </div>
     <a v-if="ftsDataYear" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
 
-    <CardActions label="Funding" :frag="'#' + cssId" />
+    <CardActions label="Funding" :css-id="cssId" />
     <CardFooter />
   </section>
 </template>

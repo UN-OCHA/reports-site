@@ -74,7 +74,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="content.fields.sectionHeading" :frag="'#' + cssId" />
+    <CardActions :label="content.fields.sectionHeading" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
@@ -95,6 +95,7 @@
     data() {
       return {
         richBody: '',
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
       };
     },

@@ -48,7 +48,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="sectionHeading" :frag="'#' + cssId" />
+    <CardActions :label="sectionHeading" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </section>
 </template>
@@ -79,6 +79,7 @@
         richNeeds: '',
         richResponse: '',
         richGaps: '',
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
         clusterIconMap: {
           'Agriculture': 'agriculture',

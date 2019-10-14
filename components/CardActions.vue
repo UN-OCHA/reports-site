@@ -3,13 +3,18 @@
     <CardAnchor
       v-if="showAnchor"
       :label="label"
-      :id="this.frag"
+      :id="'#' + this.cssId"
+    />
+    <CardUrl
+      v-if="showUrl"
+      :label="label"
+      :id="this.sysId"
     />
     <SnapCard
       v-if="showPng"
       output="png"
       :label="label"
-      :selector="this.frag"
+      :selector="this.cssId"
     />
     <SnapPage
       v-if="showPdf"
@@ -29,14 +34,16 @@
 
   // Components
   import CardAnchor from '~/components/CardAnchor';
+  import CardUrl from '~/components/CardUrl';
   import SnapCard from '~/components/SnapCard';
   import SnapPage from '~/components/SnapPage';
 
   export default {
     components: {
+      CardAnchor,
+      CardUrl,
       SnapCard,
       SnapPage,
-      CardAnchor,
     },
 
     props: {
@@ -52,13 +59,21 @@
         type: Boolean,
         default: true,
       },
+      showUrl: {
+        type: Boolean,
+        default: false,
+      },
       label: {
         type: String,
         required: false,
       },
-      frag: {
+      cssId: {
         type: String,
-        required: true,
+        required: false,
+      },
+      sysId: {
+        type: String,
+        required: false,
       },
       title: {
         type: String,

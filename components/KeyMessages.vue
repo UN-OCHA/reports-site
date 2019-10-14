@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <CardActions label="Highlights" :frag="'#' + cssId" />
+    <CardActions label="Highlights" :css-id="cssId" :showUrl="false" />
     <CardFooter />
   </article>
 </template>

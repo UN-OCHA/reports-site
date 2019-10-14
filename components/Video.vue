@@ -44,8 +44,8 @@
       </div>
     </div>
 
-    <!-- <CardActions label="Video" :frag="'#' + cssId" /> -->
-    <!-- <CardFooter /> -->
+    <CardActions label="Video" showAnchor="false" :sys-id="sysId" :showUrl="true" />
+    <CardFooter />
   </article>
 </template>
 
@@ -64,8 +64,9 @@
 
     data() {
       return {
-        videoProcessed: false,
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
+        videoProcessed: false,
       };
     },
 

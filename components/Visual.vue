@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <CardActions label="Visual" :frag="'#' + cssId" />
+    <CardActions label="Visual" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
@@ -82,6 +82,7 @@
 
     data() {
       return {
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
       };
     },
