@@ -1,5 +1,5 @@
 <template>
-  <component :is="componentMap[entry.sys.contentType.sys.id]" :content="entry" v-if="typeof entry !== 'undefined' && typeof entry.fields !== 'undefined'" />
+  <component :is="componentMap[entry.sys.contentType.sys.id]" :content="entry" :force-expanded="true" v-if="typeof entry !== 'undefined' && typeof entry.fields !== 'undefined'" />
 </template>
 
 <script>

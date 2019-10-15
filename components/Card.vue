@@ -16,6 +16,14 @@
       CardFooter,
     },
 
+    props: {
+      forceExpanded: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+    },
+
     data() {
       return {
         cardMinGrowth: 150,
@@ -30,7 +38,7 @@
       // Allows us to smoothly transition between unknown min-max heights.
       // Returns 'auto' when no transition is necessary.
       getCardHeight() {
-        if (!this.isExpandable) {
+        if (this.forceExpanded || !this.isExpandable) {
           return 'auto'
         } else {
           return this.isExpanded ? this.cardHeight + 'px' : this.cardMinHeight + 'px';
@@ -70,7 +78,9 @@
       // When any Card mounts resulting from client-side navigation, we need to
       // wait for any potential images to load before trying to calculate the
       // truncated size.
-      setTimeout(this.computeCardHeight, 500);
+      if (!this.forceExpanded) {
+        setTimeout(this.computeCardHeight, 500);
+      }
     },
   }
 </script>
