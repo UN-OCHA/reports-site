@@ -56,12 +56,16 @@
           </figcaption>
         </figure>
       </div>
-      <div ref="card" class="article__text" :class="{
-        'is--expandable': isExpandable,
-        'is--expanded': isExpanded,
-      }" :style="{
-        'height': getCardHeight,
-      }">
+      <div
+        ref="card"
+        class="article__text"
+        :class="{
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
+        }" :style="{
+          'height': getCardHeight,
+        }"
+      >
         <h3 class="article__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="richBody"></div>
       </div>

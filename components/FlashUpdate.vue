@@ -64,10 +64,10 @@
         ref="card"
         class="article__text"
         :class="{
-          'is--expandable': forceFlashUpdateExpanded || isExpandable,
-          'is--expanded': forceFlashUpdateExpanded || isExpanded,
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
         }" :style="{
-          'height': forceFlashUpdateExpanded ? 'auto' : getCardHeight,
+          'height': getCardHeight,
         }"
       >
         <h3 class="article__title">{{ content.fields.title }}</h3>
@@ -75,7 +75,7 @@
       </div>
     </div>
     <button
-      v-if="!forceFlashUpdateExpanded && isExpandable"
+      v-if="isExpandable"
       class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
@@ -118,11 +118,6 @@
         required: true,
       },
       'forceFlashUpdateDisplay': {
-        type: Boolean,
-        required: false,
-        default: false,
-      },
-      'forceFlashUpdateExpanded': {
         type: Boolean,
         required: false,
         default: false,
