@@ -10,6 +10,12 @@
       :snap="true" />
 
     <main class="container">
+      <div>
+        <p>See this card in context of its Situation Report:</p>
+        <ul class="go-back">
+          <li v-for="parent in parents" v-bind:key="parent.sys.id">↵ <nuxt-link :to="'/' + parent.fields.language + '/country/' + parent.fields.slug + '/#cf-' + entry.sys.id">{{ parent.fields.title }}</nuxt-link></li>
+        </ul>
+      </div>
       <component :is="componentMap[entry.sys.contentType.sys.id]" :content="entry" :force-expanded="true" v-if="typeof entry !== 'undefined' && typeof entry.fields !== 'undefined'" />
     </main>
 
@@ -85,28 +91,34 @@
       return idIsValid;
     },
 
-    asyncData({env, params, store, error, req, res}) {
-      return Promise.all([
-        // Contentful: fetch the requested Entry via text-matching on the sys.id
-        client.getEntries({
-          'include': 4,
-          'limit': 1,
-          'sys.id[match]': params.id,
-        }),
-      ]).then(([entries]) => {
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_LANG', params.lang);
-        store.commit('SET_META', {
-          slug: '',
-          title: entries.items[0].fields.title,
-          dateUpdated: entries.items[0].fields.dateUpdated,
-          language: params.lang,
-        });
-
-        return {
-          entry: entries.items[0],
-        };
+    async asyncData({env, params, store, error, req, res}) {
+      // First, fetch Card from Contentful using partial ID.
+      const entries = await client.getEntries({
+        'include': 4,
+        'limit': 1,
+        'sys.id[match]': params.id,
       });
+
+      // Contentful: fetch the Sitreps which link to this card by using the
+      // full sys.id which comes back from the Card query.
+      const parents = await client.getEntries({
+        'include': 4,
+        'links_to_entry': entries.items[0].sys.id,
+      });
+
+      // For client-side, update our store with the fresh data.
+      store.commit('SET_LANG', params.lang);
+      store.commit('SET_META', {
+        slug: parents.items[0].fields.slug,
+        title: parents.items[0].fields.title,
+        dateUpdated: parents.items[0].fields.dateUpdated,
+        language: params.lang,
+      });
+
+      return {
+        entry: entries.items[0],
+        parents: parents.items,
+      };
     },
 
     head() {
@@ -121,3 +133,16 @@
 
   }
 </script>
+
+<style lang="scss" scoped>
+//
+// Import shared variables
+//
+@import '~/assets/Global.scss';
+
+.go-back {
+  list-style-type: none;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+</style>
