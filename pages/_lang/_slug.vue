@@ -145,10 +145,13 @@
           language: lang,
         });
 
-        // Reformat CTF translations response so follows format of locales Store.
+        // Reformat CTF translations response to follow format of locales Store.
         let translations = translationEntries.items.map((translation) => {
           return {
             'code': translation.fields.language,
+            // neither `this` nor Global.methods seemed to be avilable within
+            // asyncData so we hardcode the UN 6.
+            'display': ['en','es','fr','ru','ar','zh'].includes(translation.fields.language),
           }
         });
 
