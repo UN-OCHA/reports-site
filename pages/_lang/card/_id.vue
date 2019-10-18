@@ -57,6 +57,16 @@
     },
 
     computed: {
+      sysIdShort() {
+        return this.entry.sys.id.slice(0, 10);
+      },
+
+      socialImageUrl() {
+        return (this.entry.fields.image && this.entry.fields.image.fields && this.entry.fields.image.fields.file && this.entry.fields.image.fields.file.url)
+          ? 'https:' + this.entry.fields.image.fields.file.url + '?w=1024'
+          : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=1024'
+      },
+
       pageTitle() {
         return this.parents[0].fields.title;
       },
@@ -134,6 +144,21 @@
           lang: this.$route.params.lang,
           dir: this.languageDirection(this.$route.params.lang),
         },
+
+        // @see https://nuxtjs.org/api/pages-head/
+        meta: [
+          { hid: 'dsr-desc', name: 'description', content: this.cardSubtitle },
+          { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
+          { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
+          { hid: 'tw-title', name: 'twitter:title', content: this.pageTitle },
+          { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
+          { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'og-type', property: 'og:type', content: 'website' },
+          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.parents[0].fields.language}/card/${this.sysIdShort}/` },
+          { hid: 'og-title', property: 'og:title', content: this.pageTitle },
+          { hid: 'og-desc', property: 'og:description', content: this.cardTitle + ' - ' + this.cardSubtitle },
+          { hid: 'og-image', property: 'og:image', content: this.socialImageUrl },
+        ],
       };
     },
 
