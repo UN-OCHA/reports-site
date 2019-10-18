@@ -43,8 +43,8 @@
 
       buttonHref() {
         return (process.server)
-          ? process.env.BASE_URL + '/' + this.locale + '/card/' + this.shortId
-          : window.location.origin + '/' + this.locale + '/card/' + this.shortId;
+          ? process.env.BASE_URL + '/' + this.locale + '/card/' + this.shortId + '/'
+          : window.location.origin + '/' + this.locale + '/card/' + this.shortId+ '/';
       },
     },
 
