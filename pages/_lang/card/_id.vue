@@ -2,8 +2,8 @@
   <div class="page--card" :id="'card-' + entry.sys.id" @click="noop">
     <AppBar />
     <AppHeader
-      :title="cardTitle"
-      :subtitle="cardSubtitle"
+      :title="pageTitle"
+      :subtitle="cardTitle"
       :updated="entry.sys.updatedAt"
       :translations="[locale]"
       :share="true"
@@ -11,7 +11,6 @@
 
     <main class="container">
       <div>
-        <p>See this card in context of its Situation Report:</p>
         <ul class="go-back">
           <li v-for="parent in parents" v-bind:key="parent.sys.id">↵ <nuxt-link :to="'/' + parent.fields.language + '/country/' + parent.fields.slug + '/#cf-' + entry.sys.id">{{ parent.fields.title }}</nuxt-link></li>
         </ul>
@@ -58,6 +57,10 @@
     },
 
     computed: {
+      pageTitle() {
+        return this.parents[0].fields.title;
+      },
+
       cardTitle() {
         // The subtitle of Cluster is different than all other cards, so check
         // for its fields first, then default to the other card fields.
@@ -123,6 +126,9 @@
 
     head() {
       return {
+        // Page title
+        titleTemplate: `${this.pageTitle} ${this.cardTitle} | %s`,
+
         // Language settings determined by URL
         htmlAttrs: {
           lang: this.$route.params.lang,
