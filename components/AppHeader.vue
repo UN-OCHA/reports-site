@@ -127,9 +127,7 @@
         // NOTE: We do the JSON stringify/parse on this.locales to avoid passing
         //       by reference which would lead to a fatal Vuex mutation error
         //       when we run the sort() method.
-        let available = this.translations || JSON.parse(JSON.stringify(this.locales));
-
-        return available.sort();
+        return this.translations || JSON.parse(JSON.stringify(this.locales));
       },
 
       urlContext() {
