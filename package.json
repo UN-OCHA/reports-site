@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.8.3",
+  "version": "2.8.4",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -28,7 +28,7 @@
     "lodash": ">=4.17.13",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.22.2",
-    "newrelic": "^5.9.0",
+    "newrelic": "^6.0.0",
     "nuxt": "^2.6.3",
     "nuxt-start": "^2.6.3",
     "pm2": "^3.5.0",
