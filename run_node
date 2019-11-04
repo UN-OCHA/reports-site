@@ -2,8 +2,8 @@
 
 cd $NODE_APP_DIR
 
-# build the site if .nuxt folder is not present
-[ -d .nuxt ] || yarn run build
+# build the site
+yarn run build
 
 # the deps install and the build occured in the Dockerfile
 echo "==> Starting the server"
