@@ -61,7 +61,7 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "8.11.3",
+    "node": "8.14.0",
     "npm": "6.9.0"
   },
   "jest": {
