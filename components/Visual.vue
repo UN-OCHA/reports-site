@@ -8,7 +8,7 @@
     </span>
     <div class="visual__content">
       <h3 class="visual__title">{{ content.fields.title }}</h3>
-      <div class="visual__image" v-if="content.fields.image">
+      <div class="visual__image" v-if="visualHasImage">
         <picture>
           <source type="image/webp"
             :srcset="`
@@ -89,6 +89,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      visualHasImage() {
+        return this.content.fields.image && this.content.fields.image.fields && this.content.fields.image.fields.file && this.content.fields.image.fields.file.url;
       },
 
       secureImageUrl() {
