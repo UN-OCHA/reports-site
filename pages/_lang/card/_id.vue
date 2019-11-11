@@ -12,7 +12,7 @@
     <main class="container">
       <div>
         <ul class="go-back">
-          <li v-for="parent in parents" v-bind:key="parent.sys.id">↵ <nuxt-link :to="'/' + parent.fields.language + '/country/' + parent.fields.slug + '/#cf-' + entry.sys.id">{{ parent.fields.title }}</nuxt-link></li>
+          <li v-for="parent in parents" v-bind:key="parent.sys.id">↵ <nuxt-link :to="'/' + parent.fields.language + '/country/' + parent.fields.slug + '/#cf-' + entry.sys.id">{{ backText(parent) }}</nuxt-link></li>
         </ul>
       </div>
       <component :is="componentMap[entry.sys.contentType.sys.id]" :content="entry" :force-expanded="true" v-if="typeof entry !== 'undefined' && typeof entry.fields !== 'undefined'" />
@@ -92,6 +92,15 @@
           : (this.entry.fields.sectionHeading)
             ? this.$t(this.entry.fields.sectionHeading, this.locale)
             : 'NO SUBTITLE';
+      },
+    },
+
+    methods: {
+      // Since it's possible to have more than one parent, this string mist be
+      // generated with an argument
+      backText(parent) {
+        // Two-step translation for country name token.
+        return this.$t('See entire digital situation report for [COUNTRY]', parent.fields.language).replace('[COUNTRY]', parent.fields.title);
       },
     },
 

@@ -105,6 +105,10 @@ export default {
   'Save Situation Report as PDF': 'Save Situation Report as PDF',
   'Save THING as PNG': 'Save THING as PNG',
 
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'See entire digital situation report for [COUNTRY]',
+  'See entire digital situation report': 'See entire digital situation report',
+
   // Snap strings
   'Date of Creation': 'Date of Creation',
   'Date': 'Date',
