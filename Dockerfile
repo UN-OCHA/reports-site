@@ -1,4 +1,4 @@
-FROM unocha/nodejs:8.11.3
+FROM unocha/nodejs:8.14.0-r0
 
 ENV CTF_HOST=cdn.contentful.com \
     CTF_SPACE_ID=123456 \
