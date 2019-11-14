@@ -402,8 +402,11 @@
       //
       if (
         typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
+        typeof entries.items[0].fields.keyMessages !== 'undefined' &&
         entries.items[0].fields.keyMessages.some(haveFields) &&
-        entries.items[0].fields.keyFigure.some(haveFields) &&
+        // typeof entries.items[0].fields.keyFigure !== 'undefined' &&
+        // entries.items[0].fields.keyFigure.some(haveFields) &&
+        typeof entries.items[0].fields.contacts !== 'undefined' &&
         entries.items[0].fields.contacts.some(haveFields)
       ) {
         // All content checks passed. Continue with execution.
@@ -416,14 +419,23 @@
         if (typeof entries.items[0].fields.keyMessagesImage.fields === 'undefined') {
           problems.push('keyMessagesImage contains no published asset');
         }
-        if (!entries.items[0].fields.keyMessages.some(haveFields)) {
-          problems.push('keyMessages field contains no published entries');
+        if (typeof entries.items[0].fields.keyMessages === 'undefined') {
+          problems.push('keyMessages field contains nothing');
         }
-        if (!entries.items[0].fields.keyFigure.some(haveFields)) {
-          problems.push('keyFigure field contains no published entries');
+        if (typeof entries.items[0].fields.keyMessages !== 'undefined' && !entries.items[0].fields.keyMessages.some(haveFields)) {
+          problems.push('keyMessages field contains unpublished entries');
         }
-        if (!entries.items[0].fields.contacts.some(haveFields)) {
-          problems.push('contacts field contains no published entries');
+        // if (typeof entries.items[0].fields.keyFigure === 'undefined') {
+        //   problems.push('keyFigure field contains nothing');
+        // }
+        // if (typeof entries.items[0].fields.keyFigure !== 'undefined' && !entries.items[0].fields.keyFigure.some(haveFields)) {
+        //   problems.push('keyFigure field contains unpublished entries');
+        // }
+        if (typeof entries.items[0].fields.contacts === 'undefined') {
+          problems.push('contacts field contains nothing');
+        }
+        if (typeof entries.items[0].fields.contacts !== 'undefined' && !entries.items[0].fields.contacts.some(haveFields)) {
+          problems.push('contacts field contains unpublished entries');
         }
 
         throw ({

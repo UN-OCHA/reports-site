@@ -8,7 +8,7 @@
     </span>
     <div class="visual__content">
       <h3 class="visual__title">{{ content.fields.title }}</h3>
-      <div class="visual__image" v-if="content.fields.image">
+      <div class="visual__image" v-if="visualHasImage">
         <picture>
           <source type="image/webp"
             :srcset="`
@@ -56,6 +56,9 @@
           class="visual__link">
           View graphic
         </a>
+        <div v-else>
+          <em>The image is not published yet.</em>
+        </div>
       </div>
       <div class="visual__text">
         <div class="rich-text" v-html="richBody"></div>
@@ -89,6 +92,28 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      visualHasImage() {
+        const imageExists = this.content.fields.image && this.content.fields.image.fields && this.content.fields.image.fields.file && this.content.fields.image.fields.file.url;
+
+        // Send logs to ELK when this happens on production. Admins can also
+        // check browser console and hotfix by clicking URL if necessary.
+        if (!imageExists) {
+          const spaceId = this.content.sys.space.sys.id;
+          const envId = this.content.sys.environment.sys.id;
+          const ctfUrlPrefix = `https://app.contentful.com/spaces/${spaceId}/environments/${envId}`;
+          const entryId = this.content.sys.id;
+
+          if (this.content.fields.image) {
+            console.error(`The image asset for this Visuals card is unpublished. To fix this, visit ${ctfUrlPrefix}/assets/${this.content.fields.image.sys.id} and publish the asset.`);
+          }
+          else {
+            console.error(`The image asset for Entry ${entryId} is totally missing. Please add an asset and publish it by visiting ${ctfUrlPrefix}/entries/${entryId}`);
+          }
+        }
+
+        return imageExists;
       },
 
       secureImageUrl() {
