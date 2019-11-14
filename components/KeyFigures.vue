@@ -12,7 +12,7 @@
       <p v-if="!content">{{ $t('No data available.', locale) }}</p>
     </div>
 
-    <CardActions label="Key Figures" :css-id="cssId" :showUrl="false" />
+    <CardActions label="Key Figures" :css-id="cssIdSelector" :showUrl="false" />
     <CardFooter />
   </section>
 </template>
@@ -32,7 +32,11 @@
     computed: {
       cssId() {
         return 'key-figures';
-      }
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
+      },
     }
   }
 </script>

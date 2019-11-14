@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <CardActions label="Visual" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
+    <CardActions label="Visual" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
@@ -93,6 +93,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       visualHasImage() {

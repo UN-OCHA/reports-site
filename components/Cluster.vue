@@ -48,7 +48,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="sectionHeading" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
+    <CardActions :label="sectionHeading" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </section>
 </template>
@@ -106,6 +106,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       clusterIconClasses() {

@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <CardActions label="Interactive" :css-id="cssId" :sys-id="sysId" :showUrl="true" />
+    <CardActions label="Interactive" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
@@ -101,6 +101,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       secureImageUrl() {

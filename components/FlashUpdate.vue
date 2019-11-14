@@ -84,7 +84,7 @@
 
     <CardActions
       label="Flash Update"
-      :frag="'#' + cssId"
+      :css-id="cssIdSelector"
       :show-png="showPng"
       :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
@@ -145,6 +145,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       secureImageUrl() {

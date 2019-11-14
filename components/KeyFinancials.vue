@@ -27,7 +27,7 @@
     </div>
     <a v-if="ftsDataYear" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
 
-    <CardActions label="Funding" :css-id="cssId" />
+    <CardActions label="Funding" :css-id="cssIdSelector" />
     <CardFooter />
   </section>
 </template>
@@ -61,6 +61,10 @@
     computed: {
       cssId() {
         return 'funding';
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       ftsPlanId() {
