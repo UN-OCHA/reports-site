@@ -404,8 +404,8 @@
         typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
         typeof entries.items[0].fields.keyMessages !== 'undefined' &&
         entries.items[0].fields.keyMessages.some(haveFields) &&
-        typeof entries.items[0].fields.keyFigure !== 'undefined' &&
-        entries.items[0].fields.keyFigure.some(haveFields) &&
+        // typeof entries.items[0].fields.keyFigure !== 'undefined' &&
+        // entries.items[0].fields.keyFigure.some(haveFields) &&
         typeof entries.items[0].fields.contacts !== 'undefined' &&
         entries.items[0].fields.contacts.some(haveFields)
       ) {
@@ -425,12 +425,12 @@
         if (typeof entries.items[0].fields.keyMessages !== 'undefined' && !entries.items[0].fields.keyMessages.some(haveFields)) {
           problems.push('keyMessages field contains unpublished entries');
         }
-        if (typeof entries.items[0].fields.keyFigure === 'undefined') {
-          problems.push('keyFigure field contains nothing');
-        }
-        if (typeof entries.items[0].fields.keyFigure !== 'undefined' && !entries.items[0].fields.keyFigure.some(haveFields)) {
-          problems.push('keyFigure field contains unpublished entries');
-        }
+        // if (typeof entries.items[0].fields.keyFigure === 'undefined') {
+        //   problems.push('keyFigure field contains nothing');
+        // }
+        // if (typeof entries.items[0].fields.keyFigure !== 'undefined' && !entries.items[0].fields.keyFigure.some(haveFields)) {
+        //   problems.push('keyFigure field contains unpublished entries');
+        // }
         if (typeof entries.items[0].fields.contacts === 'undefined') {
           problems.push('contacts field contains nothing');
         }
