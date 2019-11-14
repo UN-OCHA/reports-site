@@ -2,8 +2,8 @@
   <div class="page--card" :id="'card-' + entry.sys.id" @click="noop">
     <AppBar />
     <AppHeader
-      :title="pageTitle"
-      :subtitle="cardTitle"
+      :title="officeName"
+      :subtitle="headerSubtitle"
       :updated="entry.sys.updatedAt"
       :translations="[locale]"
       :share="true"
@@ -67,11 +67,11 @@
           : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=1024'
       },
 
-      pageTitle() {
+      officeName() {
         return this.parents[0].fields.title;
       },
 
-      cardTitle() {
+      headerSubtitle() {
         // The subtitle of Cluster is different than all other cards, so check
         // for its fields first, then default to the other card fields.
         //
@@ -79,19 +79,9 @@
         // controls whether the Cluster label displays as "Cluster" or "Sector"
         // with a blank value that falls back to "Cluster"
         return (this.entry.sys.contentType.sys.id === 'clusterInformation')
-          ? this.$t((this.entry.fields.sectionHeading || 'Cluster') + ' Status', this.locale)
+          ? this.$t((this.entry.fields.sectionHeading || 'Cluster') + ' Status', this.locale) +': '+ this.entry.fields.clusterName
           : this.entry.fields.title
             || 'NO TITLE FIELD';
-      },
-
-      cardSubtitle() {
-        // The subtitle of Cluster is different than all other cards, so check
-        // for its fields first, then default to the other card fields.
-        return (this.entry.fields.clusterName)
-          ? this.entry.fields.clusterName // Do not translate this. Content is entered in native language.
-          : (this.entry.fields.sectionHeading)
-            ? this.$t(this.entry.fields.sectionHeading, this.locale)
-            : 'NO SUBTITLE';
       },
     },
 
@@ -146,7 +136,7 @@
     head() {
       return {
         // Page title
-        titleTemplate: `${this.pageTitle} ${this.cardTitle} | %s`,
+        titleTemplate: `${this.officeName} - ${this.headerSubtitle} | %s`,
 
         // Language settings determined by URL
         htmlAttrs: {
@@ -156,16 +146,16 @@
 
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
-          { hid: 'dsr-desc', name: 'description', content: this.cardSubtitle },
+          { hid: 'dsr-desc', name: 'description', content: this.headerSubtitle },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
-          { hid: 'tw-title', name: 'twitter:title', content: this.pageTitle },
+          { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.parents[0].fields.language}/card/${this.sysIdShort}/` },
-          { hid: 'og-title', property: 'og:title', content: this.pageTitle },
-          { hid: 'og-desc', property: 'og:description', content: this.cardTitle + ' - ' + this.cardSubtitle },
+          { hid: 'og-title', property: 'og:title', content: this.officeName },
+          { hid: 'og-desc', property: 'og:description', content: this.headerSubtitle },
           { hid: 'og-image', property: 'og:image', content: this.socialImageUrl },
         ],
       };
