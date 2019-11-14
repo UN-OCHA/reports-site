@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <CardActions label="Video" :sys-id="sysId" :showAnchor="false" :showUrl="true" />
+    <CardActions label="Video" :sys-id="sysId" :showPng="false" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
