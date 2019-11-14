@@ -83,6 +83,25 @@
           : this.entry.fields.title
             || 'NO TITLE FIELD';
       },
+
+      // If the card has one single parent and a custom footer declaring a official
+      // Twitter account, then isolate it and allow the Twitter card to display
+      // the account.
+      //
+      // @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup
+      twitterCreator() {
+        if (
+          this.parents.length === 1
+          && this.parents[0].fields.footer
+          && this.parents[0].fields.footer.fields
+          && this.parents[0].fields.footer.fields.socialTwitter
+        ) {
+          const account = this.parents[0].fields.footer.fields.socialTwitter.replace('https://twitter.com/','').replace('@','') || 'UNOCHA';
+          return '@' + account;
+        } else {
+          return '@UNOCHA';
+        }
+      },
     },
 
     methods: {
@@ -151,7 +170,7 @@
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
-          { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.parents[0].fields.language}/card/${this.sysIdShort}/` },
           { hid: 'og-title', property: 'og:title', content: this.officeName },
