@@ -22,7 +22,7 @@
                 ${secureImageUrl}?w=800&h=${getImageHeight(800, image)}&fm=webp 800w,
                 ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}&fm=webp 1032w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 800px) calc((100vw - 10rem) / 2),
@@ -36,7 +36,7 @@
                 ${secureImageUrl}?w=800&h=${getImageHeight(800, image)} 800w,
                 ${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)} 1032w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 800px) calc((100vw - 10rem) / 2),
