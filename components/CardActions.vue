@@ -3,13 +3,13 @@
     <CardUrl
       v-if="showUrl"
       :label="label"
-      :id="this.sysId"
+      :id="sysId"
     />
     <SnapCard
       v-if="showPng"
       output="png"
       :label="label"
-      :selector="this.cssId"
+      :selector="cssId"
     />
     <SnapPage
       v-if="showPdf"
