@@ -118,7 +118,7 @@
       // We allow partial matches of the sys.id, but too little and we might get
       // collisions. Validate to include at least 10 chars so that this doesn't
       // ever happen while the sun still warms the Earth.
-      const idIsValid = !!params.id.match(/[a-zA-Z0-9]{10,22}/);
+      const idIsValid = !!params.sysid.match(/[a-zA-Z0-9]{10,22}/);
       return idIsValid;
     },
 
@@ -127,7 +127,7 @@
       const entries = await client.getEntries({
         'include': 4,
         'limit': 1,
-        'sys.id[match]': params.id,
+        'sys.id[match]': params.sysid,
       });
 
       // Contentful: fetch the Sitreps which link to this card by using the

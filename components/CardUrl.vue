@@ -42,9 +42,11 @@
       },
 
       buttonHref() {
+        const cardPath = `/${this.locale}/country/${this.$store.state.reportMeta.slug}/card/${this.shortId}/`;
+
         return (process.server)
-          ? process.env.BASE_URL + '/' + this.locale + '/card/' + this.shortId + '/'
-          : window.location.origin + '/' + this.locale + '/card/' + this.shortId+ '/';
+          ? process.env.BASE_URL + cardPath
+          : window.location.origin + cardPath;
       },
     },
 
