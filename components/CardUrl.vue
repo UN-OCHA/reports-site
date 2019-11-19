@@ -1,6 +1,5 @@
 <template>
   <a
-    type="button"
     class="btn btn--link"
     :title="buttonText"
     :href="buttonHref"
