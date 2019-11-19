@@ -115,11 +115,17 @@
 
     // Validate URL params
     validate({params, query, store}) {
-      // We allow partial matches of the sys.id, but too little and we might get
-      // collisions. Validate to include at least 10 chars so that this doesn't
-      // ever happen while the sun still warms the Earth.
-      const idIsValid = !!params.sysid.match(/[a-zA-Z0-9]{10,22}/);
-      return idIsValid;
+      // lang: must be in our official list
+      const langIsValid = !!store.state.locales.find((lang) => lang.code === params.lang);
+      // slug: same validation as other slugs
+      const slugIsValid = /^[a-z\-]+$/.test(params.slug);
+      // sysid: We allow partial matches of the sys.id, but too little and we
+      //   might get collisions. Validate to include at least 10 chars so that
+      //   this doesn't ever happen while the sun still warms the Earth.
+      const sysidIsValid = !!params.sysid.match(/[a-zA-Z0-9]{10,22}/);
+
+      // All three must pass.
+      return langIsValid && slugIsValid && sysidIsValid;
     },
 
     async asyncData({env, params, store, error, req, res}) {
