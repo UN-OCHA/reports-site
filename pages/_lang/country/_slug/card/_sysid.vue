@@ -129,32 +129,54 @@
     },
 
     async asyncData({env, params, store, error, req, res}) {
-      // First, fetch Card from Contentful using partial ID.
+      // Contentful: fetch Card from Contentful using partial sys.id from URL.
       const entries = await client.getEntries({
         'include': 4,
         'limit': 1,
         'sys.id[match]': params.sysid,
       });
 
-      // Contentful: fetch the Sitreps which link to this card by using the
-      // full sys.id which comes back from the Card query.
-      const parents = await client.getEntries({
-        'include': 4,
+      // Contentful: fetch the main parent from the URL. When in doubt we use
+      //   this to render the page Header.
+      const mainParent = await client.getEntries({
+        'include': 1,
+        'content_type': 'sitrep',
+        'fields.slug': params.slug,
+        'fields.language': params.lang,
+      });
+
+      // Contentful: fetch the Sitreps which link to this card by using the full
+      //   sys.id which comes back from the Card query.
+      const extraParents = await client.getEntries({
+        'include': 1,
         'links_to_entry': entries.items[0].sys.id,
+      });
+
+      // Combine both queries into one array.
+      const combined = [];
+      combined.push(mainParent.items[0]);
+      combined.push(...extraParents.items);
+
+      // Deduplicate the two collections of parents.
+      const parents = combined.filter(function dedupe(sitrep, index, self) {
+        var firstIndexFound = self.findIndex(function (sr) {
+          return sr.sys.id === sitrep.sys.id;
+        });
+        return firstIndexFound === index;
       });
 
       // For client-side, update our store with the fresh data.
       store.commit('SET_LANG', params.lang);
       store.commit('SET_META', {
-        slug: parents.items[0].fields.slug,
-        title: parents.items[0].fields.title,
-        dateUpdated: parents.items[0].fields.dateUpdated,
+        slug: mainParent.items[0].fields.slug,
+        title: mainParent.items[0].fields.title,
+        dateUpdated: mainParent.items[0].fields.dateUpdated,
         language: params.lang,
       });
 
       return {
         entry: entries.items[0],
-        parents: parents.items,
+        parents: parents,
       };
     },
 
