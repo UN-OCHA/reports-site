@@ -129,55 +129,81 @@
     },
 
     async asyncData({env, params, store, error, req, res}) {
-      // Contentful: fetch Card from Contentful using partial sys.id from URL.
-      const entries = await client.getEntries({
-        'include': 4,
-        'limit': 1,
-        'sys.id[match]': params.sysid,
-      });
-
-      // Contentful: fetch the main parent from the URL. When in doubt we use
-      //   this to render the page Header.
-      const mainParent = await client.getEntries({
-        'include': 1,
-        'content_type': 'sitrep',
-        'fields.slug': params.slug,
-        'fields.language': params.lang,
-      });
-
-      // Contentful: fetch the Sitreps which link to this card by using the full
-      //   sys.id which comes back from the Card query.
-      const extraParents = await client.getEntries({
-        'include': 1,
-        'links_to_entry': entries.items[0].sys.id,
-      });
-
-      // Combine both queries into one array.
-      const combined = [];
-      combined.push(mainParent.items[0]);
-      combined.push(...extraParents.items);
-
-      // Deduplicate the two collections of parents.
-      const parents = combined.filter(function dedupe(sitrep, index, self) {
-        var firstIndexFound = self.findIndex(function (sr) {
-          return sr.sys.id === sitrep.sys.id;
+      try {
+        // Contentful: fetch Card from Contentful using partial sys.id from URL.
+        const entries = await client.getEntries({
+          'include': 4,
+          'limit': 1,
+          'sys.id[match]': params.sysid,
         });
-        return firstIndexFound === index;
-      });
 
-      // For client-side, update our store with the fresh data.
-      store.commit('SET_LANG', params.lang);
-      store.commit('SET_META', {
-        slug: mainParent.items[0].fields.slug,
-        title: mainParent.items[0].fields.title,
-        dateUpdated: mainParent.items[0].fields.dateUpdated,
-        language: params.lang,
-      });
+        // If no data was returned, display a 404 immediately.
+        if (entries.items.length === 0) {
+          throw ({
+            args: [{
+              message: 'No Entry found in Contentful with sys.id=' + params.sysid,
+              lang: params.lang,
+              slug: params.slug,
+              url: req && req.url,
+              'user-agent': req && req.headers && req.headers['user-agent'],
+              headers: req && req.headers,
+              ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+              // Since no exception is being thrown, res.statusCode = 200 so we have
+              // to set 404 manually on account of the dataset being empty.
+              response: res && 404,
+            }],
+          });
+        }
 
-      return {
-        entry: entries.items[0],
-        parents: parents,
-      };
+        // Contentful: fetch the main parent from the URL. When in doubt we use
+        //   this to render the page Header.
+        const mainParent = await client.getEntries({
+          'include': 1,
+          'content_type': 'sitrep',
+          'fields.slug': params.slug,
+          'fields.language': params.lang,
+        });
+
+        // Contentful: fetch the Sitreps which link to this card by using the full
+        //   sys.id which comes back from the Card query.
+        const extraParents = await client.getEntries({
+          'include': 1,
+          'links_to_entry': entries.items[0].sys.id,
+        });
+
+        // Combine both queries into one array.
+        const combined = [];
+        combined.push(mainParent.items[0]);
+        combined.push(...extraParents.items);
+
+        // Deduplicate the two collections of parents.
+        const parents = combined.filter(function dedupe(sitrep, index, self) {
+          var firstIndexFound = self.findIndex(function (sr) {
+            return sr.sys.id === sitrep.sys.id;
+          });
+          return firstIndexFound === index;
+        });
+
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_LANG', params.lang);
+        store.commit('SET_META', {
+          slug: mainParent.items[0].fields.slug,
+          title: mainParent.items[0].fields.title,
+          dateUpdated: mainParent.items[0].fields.dateUpdated,
+          language: params.lang,
+        });
+
+        return {
+          entry: entries.items[0],
+          parents: parents,
+        };
+      } catch (err) {
+        // Log to our stack
+        console.error(err);
+
+        // Display Nuxt error page
+        error({ statusCode: err.args[0].response, message: err.args[0].message });
+      }
     },
 
     head() {
