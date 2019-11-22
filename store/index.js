@@ -67,6 +67,12 @@ export const state = () => ({
     // All languages below this comment should have `display: false`
     //
     {
+      code: 'rn',
+      name: 'Kirundi',
+      dir: 'ltr',
+      display: false,
+    },
+    {
       code: 'uk',
       name: 'Українська',
       dir: 'ltr',

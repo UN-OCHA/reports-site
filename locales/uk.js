@@ -132,4 +132,5 @@ export default {
   'Russian': 'Pосійська',
   'Spanish': 'Іспанська',
   'Ukrainian': 'Українська',
+  'Kirundi': 'Kirundi',
 }
