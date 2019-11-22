@@ -3,7 +3,7 @@
     <CardHeader />
 
     <h2 class="card__title">
-      {{ sectionHeading }}
+      {{ $t(sectionHeading, locale) }}
       <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="cluster__meta clearfix">
@@ -121,10 +121,7 @@
       },
 
       sectionHeading() {
-        let heading = this.content.fields.sectionHeading || 'Cluster';
-        heading += ' Status';
-
-        return this.$t(heading, this.locale);
+        return (this.content.fields.sectionHeading || 'Cluster') + ' Status';
       },
     },
 
