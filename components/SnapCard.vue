@@ -37,7 +37,7 @@
       },
 
       snapRequest() {
-        // To deal with some layout issues on some cards, particularly Key Messages
+        // To deal with some layout issues on some cards, particularly Highlights
         // we want to render the website at a large size, but not trigger the
         // biggest layout caused by 1164px-wide window. So use 1163 as a minimum
         // and when the actual width is smaller, we'll use current window.

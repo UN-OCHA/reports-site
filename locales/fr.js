@@ -44,8 +44,7 @@ export default {
   'About this site': 'A propos de ce site',
   'Recently updated': 'Récemment mis à jour',
 
-  // Key Messages
-  'Key Messages': 'Messages clés',
+  // Highlights
   'Highlights': 'Faits saillants',
 
   // Key Figures
@@ -132,4 +131,5 @@ export default {
   'Russian': 'Russe',
   'Spanish': 'Espagnol',
   'Ukrainian': 'Ukrainien',
+  'Kirundi': 'Kirundi',
 }
