@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <CardActions label="Highlights" :frag="'#' + cssId" />
+    <CardActions label="Highlights" :css-id="cssIdSelector" :showUrl="false" />
     <CardFooter />
   </article>
 </template>
@@ -76,6 +76,10 @@
     computed: {
       cssId() {
         return 'highlights';
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       keyMessagesHasImage() {

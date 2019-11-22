@@ -104,6 +104,10 @@ export default {
   'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
   'Save THING as PNG': 'Зберегти THING у форматі PNG',
 
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'Подивитися Оперативне зведення по [COUNTRY] повністю',
+  'See entire digital situation report': 'Подивитися Оперативне зведення повністю',
+
   // Snap strings
   'Date of Creation': 'Дата створення',
   'Date': 'Дата',

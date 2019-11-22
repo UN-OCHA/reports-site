@@ -40,7 +40,7 @@
           v-if="snap"
           output="pdf"
           :title="title"
-          :subtitle="$t('Situation Report', locale)"
+          :subtitle="subtitle"
           :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')"
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
@@ -76,8 +76,14 @@
     },
 
     props: {
-      'title': String,
-      'subtitle': String,
+      'title': {
+        type: String,
+        required: true,
+      },
+      'subtitle': {
+        type: String,
+        required: true,
+      },
       'updated': String,
       'mailchimp': String,
       'countrycode': String,

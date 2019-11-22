@@ -84,10 +84,13 @@ export const state = () => ({
   locale: 'en',
 
   // Allow sub-components of a SitRep to display the Title/Date of a SitRep by
-  // holding the current URL's metadata in the store. Primarily used by Snap PNGs.
+  // holding the current URL's metadata in the store. Used by Snap PNGs and also
+  // to construct CardUrl URLs.
   reportMeta: {
+    slug: '',
     title: '',
     dateUpdated: '',
+    language: '',
   },
 
   // Lets the whole app know about the AppBar state.
@@ -111,8 +114,10 @@ export const mutations = {
 
   SET_META(state, meta) {
     state.reportMeta = {
+      slug: meta.slug,
       title: meta.title,
       dateUpdated: meta.dateUpdated,
+      language: meta.language,
     }
   },
 

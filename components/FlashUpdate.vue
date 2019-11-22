@@ -64,10 +64,10 @@
         ref="card"
         class="article__text"
         :class="{
-          'is--expandable': forceFlashUpdateExpanded || isExpandable,
-          'is--expanded': forceFlashUpdateExpanded || isExpanded,
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
         }" :style="{
-          'height': forceFlashUpdateExpanded ? 'auto' : getCardHeight,
+          'height': getCardHeight,
         }"
       >
         <h3 class="article__title">{{ content.fields.title }}</h3>
@@ -75,7 +75,7 @@
       </div>
     </div>
     <button
-      v-if="!forceFlashUpdateExpanded && isExpandable"
+      v-if="isExpandable"
       class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
@@ -84,7 +84,7 @@
 
     <CardActions
       label="Flash Update"
-      :frag="'#' + cssId"
+      :css-id="cssIdSelector"
       :show-png="showPng"
       :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
@@ -122,11 +122,6 @@
         required: false,
         default: false,
       },
-      'forceFlashUpdateExpanded': {
-        type: Boolean,
-        required: false,
-        default: false,
-      },
       'showPng': {
         type: Boolean,
         required: false,
@@ -150,6 +145,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       secureImageUrl() {

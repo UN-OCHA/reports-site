@@ -34,9 +34,9 @@ export default {
   'Read this Situation Report in a different language:': 'Lire ce rapport de situation dans une autre langue :',
 
   // AppFooter
-  'Privacy policy': 'Privacy policy',
+  'Privacy policy': 'Règle de confidentialité',
   'href-privacy': 'https://www.un.org/fr/sections/about-website/privacy-notice/',
-  'Copyright notice': 'Copyright notice',
+  'Copyright notice': 'Droits d\'auteur',
   'href-copyright': 'https://www.un.org/fr/sections/about-website/copyright/index.html',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'OCHA coordonne la réponse humanitaire sur le plan mondial afin de sauver des vies et protéger les personnes dans des situations de crise humanitaire. Nous plaidons en faveur de la mise en œuvre, par tous et pour tous, d\'une action humanitaire efficace et fondée sur des principes.',
 
@@ -103,6 +103,10 @@ export default {
   'Copy [THING] URL to clipboard': 'Copier l\'URL [THING] dans le presse-papier',
   'Save Situation Report as PDF': 'Sauvegarder le rapport de situation comme PDF',
   'Save THING as PNG': 'Sauvegarder THING comme PNG',
+
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'Voir le rapport de situation complet pour le/la [COUNTRY]',
+  'See entire digital situation report': 'Voir le rapport de situation complet',
 
   // Snap strings
   'Date of Creation': 'Date de création',

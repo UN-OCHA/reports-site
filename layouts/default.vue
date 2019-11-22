@@ -442,6 +442,7 @@ figure picture ~ figcaption {
 //—— Buttons ———————————————————————————————————————————————————————————————————
 
 .btn {
+  display: inline-block;
   padding: 0;
   width: 1rem;
   height: 1rem;

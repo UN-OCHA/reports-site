@@ -44,8 +44,8 @@
       </div>
     </div>
 
-    <!-- <CardActions label="Video" :frag="'#' + cssId" /> -->
-    <!-- <CardFooter /> -->
+    <CardActions label="Video" :sys-id="sysId" :showPng="false" :showUrl="true" />
+    <CardFooter />
   </article>
 </template>
 
@@ -64,8 +64,9 @@
 
     data() {
       return {
-        videoProcessed: false,
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
+        videoProcessed: false,
       };
     },
 
@@ -73,16 +74,24 @@
       cssId() {
         return 'cf-' + this.content.sys.id;
       },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
+      },
+
       videoSlug() {
         const videoSlug = this.parseQueryParams('v');
         return videoSlug;
       },
+
       videoEmbedLink() {
         return 'https://www.youtube.com/watch?v=' + this.videoSlug;
       },
+
       videoEmbedPreview() {
         return 'https://i.ytimg.com/vi/'+ this.videoSlug +'/hqdefault.jpg';
       },
+
       videoEmbedSrc() {
         return 'https://www.youtube-nocookie.com/embed/' + this.videoSlug + '?autoplay=1&rel=0&controls=0&showinfo=0';
       },
