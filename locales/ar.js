@@ -44,8 +44,7 @@ export default {
   'About this site': 'حول هذا الموقع',
   'Recently updated': 'أخر التحديثات',
 
-  // Key Messages
-  'Key Messages': 'الرسائل الرئيسية',
+  // Highlights
   'Highlights': 'أبرز الأحداث',
 
   // Key Figures

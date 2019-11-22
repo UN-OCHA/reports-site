@@ -44,8 +44,7 @@ export default {
   'About this site': 'About this site',
   'Recently updated': 'Recently updated',
 
-  // Key Messages
-  'Key Messages': 'Key Messages',
+  // Highlights
   'Highlights': 'Highlights',
 
   // Key Figures

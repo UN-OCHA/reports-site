@@ -44,8 +44,7 @@ export default {
   'About this site': 'Про сайт',
   'Recently updated': 'Оновлено',
 
-  // Key Messages
-  'Key Messages': 'Ключові положення',
+  // Highlights
   'Highlights': 'Головне',
 
   // Key Figures
