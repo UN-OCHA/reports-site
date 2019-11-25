@@ -97,12 +97,12 @@ export default {
   'Visual': 'Графічні зображення',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Дізнайтесь про останні дані Оперативного зведення про [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Копіювати [THING] URL в буфер обміну',
   'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
-  'Save THING as PNG': 'Зберегти THING у форматі PNG',
+  'Save [THING] as PNG': 'Зберегти [THING] у форматі PNG',
 
   // Links to Situation Reports
   'See entire digital situation report for [COUNTRY]': 'Подивитися Оперативне зведення по [COUNTRY] повністю',

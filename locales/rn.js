@@ -99,12 +99,12 @@ export default {
   // Social media
   'See entire digital situation report for [COUNTRY]': 'Raba icegeranyo c\'amakuru yose  kubijanye n\'[COUNTRY]',
   'See entire digital situation report': 'Raba icegeranyo cose',
-  'Read the latest from COUNTRY\'s Situation Report': 'Soma icegeranyo ca vuba c\'[COUNTRY]',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Soma icegeranyo ca vuba c\'[COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Imura iyi [THING] URL mu kibanza',
   'Save Situation Report as PDF': 'Bika kino cegeranyo muri PDF',
-  'Save THING as PNG': 'Bika ibintu THING nkisanamu(PNG)',
+  'Save [THING] as PNG': 'Bika ibintu [THING] nkisanamu(PNG)',
 
   // Snap strings
   'Date of Creation': 'Igenekerezo yakoreweko',
