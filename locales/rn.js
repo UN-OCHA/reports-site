@@ -11,10 +11,10 @@ export default {
 
   // Errors
   'No data available.': 'Inkuru ntishoboye kuboneka',
-  'Page not found': 'Page not found',
+  'Page not found': 'Iyo nkuru ntishoboye kuboneka',
   'Server Error': 'Ingorane y\'icuma nyabwonko kibika amakuru',
-  'We want to help you find the information you are looking for.': 'We want to help you find the information you are looking for.',
-  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Here are some of OCHA\'s latest Situation Reports to help you get back on track:',
+  'We want to help you find the information you are looking for.': 'Dushaka kubafasha kurondera inkuru mwifuza.',
+  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'Ngaha murahasanga bimwe muvyegeranyo vya vuba vya OCHA:',
   'The URL you requested exists, but there were problems displaying the page.': 'Aho musanga inkuru mukeneye hariho, ariko kubera ingorane, ntibishobotse kohuguruka',
 
   // AppBar
@@ -45,7 +45,6 @@ export default {
   'Recently updated': 'Amakuru yavuba',
 
   // Highlights
-  'Key Messages': 'Key Messages',
   'Highlights': 'Inkuru nyamukuru',
 
   // Key Figures
@@ -76,8 +75,8 @@ export default {
   'Coordination': 'Guhuza ibikorwa',
   'Emergency Response': 'Gutabara vyihuta',
   'Feature': 'Inkuru nyamukuru',
-  'Forecast': 'ivyateguwe',
-  'Media': 'ibinyamakuru',
+  'Forecast': 'Ivyateguwe',
+  'Media': 'Ibinyamakuru',
   'Trends': 'Intumbero',
   'Visuals and Data': 'Ibicapo n\'ibiharuro',
   'Read more': 'Soma inkuru yose',
@@ -98,19 +97,19 @@ export default {
   'Visual': 'Ibicapo',
 
   // Social media
-  'See entire digital situation report for [COUNTRY]': 'Raba icegeranyo c\'amakuru yose  kubijanye n\' Igihugu',
+  'See entire digital situation report for [COUNTRY]': 'Raba icegeranyo c\'amakuru yose  kubijanye n\'[COUNTRY]',
   'See entire digital situation report': 'Raba icegeranyo cose',
-  'Read the latest from COUNTRY\'s Situation Report': 'Soma icegeranyo ca vuba c\'igihugu',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Soma icegeranyo ca vuba c\'[COUNTRY]',
 
   // Card Actions
-  'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
+  'Copy [THING] URL to clipboard': 'Imura iyi [THING] URL mu kibanza',
   'Save Situation Report as PDF': 'Bika kino cegeranyo muri PDF',
-  'Save THING as PNG': 'Save THING as PNG',
+  'Save [THING] as PNG': 'Bika ibintu [THING] nkisanamu(PNG)',
 
   // Snap strings
   'Date of Creation': 'Igenekerezo yakoreweko',
   'Date': 'Igenekerezo',
-  'Downloaded': 'yuguruwe',
+  'Downloaded': 'Yuguruwe',
   'Page # of #': 'urupapuro # rwa #',
 
   // Timestamps
@@ -132,7 +131,7 @@ export default {
   'English': 'Icongereza',
   'French': 'Igifaransa',
   'Russian': 'Ikirusiya',
-  'Spanish': 'ikinyaesupanyol',
-  'Ukrainian': 'ikinyawukereniya',
-  'Kirundi': 'Kirundi',
+  'Spanish': 'Ikiespanyole',
+  'Ukrainian': 'Ikinyawukereniya',
+  'Kirundi': 'Ikirundi',
 }

@@ -97,12 +97,12 @@ export default {
   'Visual': 'صور',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'انسخ [THING] URL إلى الحافظة',
   'Save Situation Report as PDF': 'احفظ تقريرعن الوضع ك PDF',
-  'Save THING as PNG': 'احفظ THING كملف PNG',
+  'Save [THING] as PNG': 'احفظ [THING] كملف PNG',
 
   // Links to Situation Reports
   'See entire digital situation report for [COUNTRY]': 'راجع تقرير الوضع الرقمي بالكامل لـ [COUNTRY]',

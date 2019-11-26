@@ -33,7 +33,7 @@
       buttonLabel() {
         // Two-step translation. Our translations have the literal string THING
         // in them, so we swap that word out in a second step.
-        return this.$t('Save THING as PNG', this.locale).replace('THING', this.$t(this.label, this.locale));
+        return this.$t('Save [THING] as PNG', this.locale).replace('[THING]', this.$t(this.label, this.locale));
       },
 
       snapRequest() {

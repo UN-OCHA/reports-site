@@ -97,12 +97,12 @@ export default {
   'Visual': 'Visuales',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Leer la última actualización del informe de situación de COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Leer la última actualización del informe de situación de [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Copiar la URL [THING] en el portapapeles',
   'Save Situation Report as PDF': 'Guardar el informe de situación como PDF',
-  'Save THING as PNG': 'Guardar THING como PNG',
+  'Save [THING] as PNG': 'Guardar [THING] como PNG',
 
   // Links to Situation Reports
   'See entire digital situation report for [COUNTRY]': 'Ver el informe de situación completo de [COUNTRY]',

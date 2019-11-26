@@ -97,12 +97,12 @@ export default {
   'Visual': 'Графические изображения',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Скопировать [THING] URL в буфер обмена',
   'Save Situation Report as PDF': 'Сохранить Оперативную сводку в формате PDF',
-  'Save THING as PNG': 'Сохранить THING в формате PNG',
+  'Save [THING] as PNG': 'Сохранить [THING] в формате PNG',
 
   // Links to Situation Reports
   'See entire digital situation report for [COUNTRY]': 'Посмотреть всю Оперативную сводку по [COUNTRY]',
