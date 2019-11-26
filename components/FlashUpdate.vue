@@ -85,6 +85,8 @@
     <CardActions
       label="Flash Update"
       :css-id="cssIdSelector"
+      :sys-id="sysId"
+      :show-url="showUrl"
       :show-png="showPng"
       :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
@@ -121,6 +123,11 @@
         type: Boolean,
         required: false,
         default: false,
+      },
+      'showUrl': {
+        type: Boolean,
+        required: false,
+        default: true,
       },
       'showPng': {
         type: Boolean,
