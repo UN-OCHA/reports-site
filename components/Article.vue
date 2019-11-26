@@ -78,7 +78,12 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="content.fields.sectionHeading" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
+    <CardActions
+      :label="content.fields.sectionHeading"
+      :css-id="cssIdSelector"
+      :sys-id="sysId"
+      :showUrl="true"
+    />
     <CardFooter />
   </article>
 </template>
