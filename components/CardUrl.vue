@@ -1,7 +1,9 @@
 <template>
   <a
     class="btn btn--link"
+    :class="{'is--showing-success': showSuccessMessage}"
     :title="buttonText"
+    :data-message="'URL Copied!'"
     :href="buttonHref"
     @click="copyUrlToClipboard">
     <span class="element-invisible">{{ buttonText }}</span>
@@ -27,6 +29,12 @@
         type: String,
         required: true,
       },
+    },
+
+    data() {
+      return {
+        showSuccessMessage: false,
+      };
     },
 
     computed: {
@@ -61,7 +69,18 @@
         const link = this.buttonHref;
 
         // Copy to clipboard
-        clipboard.writeText(link);
+        clipboard
+          .writeText(link)
+          .then(data => {
+            // Display user feedback for the duration specified in setTimeout.
+            this.showSuccessMessage = true;
+            setTimeout(() => {
+              this.showSuccessMessage = false;
+            }, 3000);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       },
     }
   }
@@ -81,5 +100,54 @@
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
     cursor: copy;
+    position: relative;
+    z-index: 5;
+
+    $msg-offset: -27px;
+
+    // Define the success message properties
+    &::before,
+    &::after {
+      position: absolute;
+      top: $msg-offset;
+      z-index: 4;
+      opacity: 0;
+      transition: .1666s ease-in-out;
+      transition-property: opacity, transform;
+    }
+    &::before {
+      content: attr(data-message);
+      display: inline-block;
+      background: black;
+      color: white;
+      width: auto;
+      font-size: 14px;
+      padding: .2em .4em;
+      white-space: nowrap;
+      border-radius: 5px;
+      transform: translateX(-50%);
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid black;
+      top: $msg-offset + 19;
+    }
+  }
+
+  // Display the success message
+  .is--showing-success {
+    &::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    &::after {
+      opacity: 1;
+      transform: translateY(-10px);
+    }
   }
 </style>
