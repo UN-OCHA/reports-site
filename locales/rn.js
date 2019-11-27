@@ -103,6 +103,7 @@ export default {
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Imura iyi [THING] URL mu kibanza',
+  '[THING] URL copied': '[THING] URL yimuwe',
   'Save Situation Report as PDF': 'Bika kino cegeranyo muri PDF',
   'Save [THING] as PNG': 'Bika ibintu [THING] nkisanamu(PNG)',
 

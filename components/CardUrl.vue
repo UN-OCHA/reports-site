@@ -3,7 +3,7 @@
     class="btn btn--link"
     :class="{'is--showing-success': showSuccessMessage}"
     :title="buttonText"
-    :data-message="'URL Copied!'"
+    :data-message="buttonSuccessMessage"
     :href="buttonHref"
     @click="copyUrlToClipboard">
     <span class="element-invisible">{{ buttonText }}</span>
@@ -54,6 +54,10 @@
         return (process.server)
           ? process.env.BASE_URL + cardPath
           : window.location.origin + cardPath;
+      },
+
+      buttonSuccessMessage() {
+        return this.$t('[THING] URL copied', this.locale).replace('[THING]', this.$t(this.label, this.locale));
       },
     },
 

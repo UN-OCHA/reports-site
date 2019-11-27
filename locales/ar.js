@@ -101,6 +101,7 @@ export default {
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'انسخ [THING] URL إلى الحافظة',
+  '[THING] URL copied': '[THING] URL copied',
   'Save Situation Report as PDF': 'احفظ تقريرعن الوضع ك PDF',
   'Save [THING] as PNG': 'احفظ [THING] كملف PNG',
 
