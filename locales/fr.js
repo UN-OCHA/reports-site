@@ -101,6 +101,7 @@ export default {
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Copier l\'URL [THING] dans le presse-papier',
+  '[THING] URL copied': 'URL copié',
   'Save Situation Report as PDF': 'Sauvegarder le rapport de situation comme PDF',
   'Save [THING] as PNG': 'Sauvegarder [THING] comme PNG',
 

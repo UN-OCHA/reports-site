@@ -101,6 +101,7 @@ export default {
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Копіювати [THING] URL в буфер обміну',
+  '[THING] URL copied': '[THING] URL скопійовано',
   'Save Situation Report as PDF': 'Зберегти Оперативне зведення у форматі PDF',
   'Save [THING] as PNG': 'Зберегти [THING] у форматі PNG',
 

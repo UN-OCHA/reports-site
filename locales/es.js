@@ -101,6 +101,7 @@ export default {
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Copiar la URL [THING] en el portapapeles',
+  '[THING] URL copied': '[THING] URL copiado',
   'Save Situation Report as PDF': 'Guardar el informe de situación como PDF',
   'Save [THING] as PNG': 'Guardar [THING] como PNG',
 

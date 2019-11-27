@@ -110,23 +110,23 @@
     position: absolute;
     top: 1rem;
     line-height: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: stretch;
 
     [dir="ltr"] & {
-      right: 1rem;
+      right: .55rem;
     }
-
     [dir="rtl"] & {
-      left: 1rem;
+      left: .55em;
     }
 
-    // Give each button some breathing room.
-    > * {
-      [dir="ltr"] & {
-        margin-left: .5rem;
-      }
-      [dir="rtl"] & {
-        margin-right: .5rem;
-      }
+    // Individual buttons
+    * {
+      flex-shrink: 0;
+      flex-grow: 0;
+      flex-basis: 32px;
     }
   }
 

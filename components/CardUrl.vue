@@ -1,7 +1,9 @@
 <template>
   <a
     class="btn btn--link"
+    :class="{'is--showing-success': showSuccessMessage}"
     :title="buttonText"
+    :data-message="buttonSuccessMessage"
     :href="buttonHref"
     @click="copyUrlToClipboard">
     <span class="element-invisible">{{ buttonText }}</span>
@@ -29,6 +31,12 @@
       },
     },
 
+    data() {
+      return {
+        showSuccessMessage: false,
+      };
+    },
+
     computed: {
       shortId() {
         return this.id.slice(0,10);
@@ -47,6 +55,10 @@
           ? process.env.BASE_URL + cardPath
           : window.location.origin + cardPath;
       },
+
+      buttonSuccessMessage() {
+        return this.$t('[THING] URL copied', this.locale).replace('[THING]', this.$t(this.label, this.locale));
+      },
     },
 
     methods: {
@@ -61,7 +73,18 @@
         const link = this.buttonHref;
 
         // Copy to clipboard
-        clipboard.writeText(link);
+        clipboard
+          .writeText(link)
+          .then(data => {
+            // Display user feedback for the duration specified in setTimeout.
+            this.showSuccessMessage = true;
+            setTimeout(() => {
+              this.showSuccessMessage = false;
+            }, 3000);
+          })
+          .catch(err => {
+            console.error(err.message);
+          });
       },
     }
   }
@@ -81,5 +104,66 @@
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
     cursor: copy;
+    position: relative;
+    z-index: 5;
+
+    $msg-vertical-offset: -27px;
+
+    // Define the success message properties
+    &::before,
+    &::after {
+      position: absolute;
+      top: $msg-vertical-offset;
+      z-index: 4;
+      opacity: 0;
+      transition: .1666s ease-in-out;
+      transition-property: opacity, transform;
+
+      [dir="ltr"] & {
+        transform: translateX(-50%);
+        left: 15px;
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%);
+        right: 15px;
+      }
+    }
+    &::before {
+      content: attr(data-message);
+      display: inline-block;
+      background: black;
+      color: white;
+      width: auto;
+      font-size: 14px;
+      padding: .2em .4em;
+      white-space: nowrap;
+      border-radius: 5px;
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid black;
+      top: $msg-vertical-offset + 19; // 19 = border-widths - 1 to ensure overlap
+      left: 50%;
+    }
+  }
+
+  // Display the success message
+  .is--showing-success {
+    &::before,
+    &::after {
+      opacity: 1;
+
+      [dir="ltr"] & {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%) translateY(-10px);
+      }
+    }
   }
 </style>
