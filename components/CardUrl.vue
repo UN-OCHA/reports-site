@@ -129,7 +129,13 @@
       padding: .2em .4em;
       white-space: nowrap;
       border-radius: 5px;
-      transform: translateX(-50%);
+
+      [dir="ltr"] & {
+        transform: translateX(-50%);
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%);
+      }
     }
     &::after {
       content: '';
@@ -147,7 +153,13 @@
   .is--showing-success {
     &::before {
       opacity: 1;
-      transform: translateX(-50%) translateY(-10px);
+
+      [dir="ltr"] & {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%) translateY(-10px);
+      }
     }
     &::after {
       opacity: 1;
