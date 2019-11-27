@@ -107,17 +107,26 @@
     position: relative;
     z-index: 5;
 
-    $msg-offset: -27px;
+    $msg-vertical-offset: -27px;
 
     // Define the success message properties
     &::before,
     &::after {
       position: absolute;
-      top: $msg-offset;
+      top: $msg-vertical-offset;
       z-index: 4;
       opacity: 0;
       transition: .1666s ease-in-out;
       transition-property: opacity, transform;
+
+      [dir="ltr"] & {
+        transform: translateX(-50%);
+        left: 15px;
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%);
+        right: 15px;
+      }
     }
     &::before {
       content: attr(data-message);
@@ -129,13 +138,6 @@
       padding: .2em .4em;
       white-space: nowrap;
       border-radius: 5px;
-
-      [dir="ltr"] & {
-        transform: translateX(-50%);
-      }
-      [dir="rtl"] & {
-        transform: translateX(50%);
-      }
     }
     &::after {
       content: '';
@@ -145,13 +147,15 @@
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
       border-top: 10px solid black;
-      top: $msg-offset + 19;
+      top: $msg-vertical-offset + 19; // 19 = border-widths - 1 to ensure overlap
+      left: 50%;
     }
   }
 
   // Display the success message
   .is--showing-success {
-    &::before {
+    &::before,
+    &::after {
       opacity: 1;
 
       [dir="ltr"] & {
@@ -160,10 +164,6 @@
       [dir="rtl"] & {
         transform: translateX(50%) translateY(-10px);
       }
-    }
-    &::after {
-      opacity: 1;
-      transform: translateY(-10px);
     }
   }
 </style>
