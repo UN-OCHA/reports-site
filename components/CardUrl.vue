@@ -1,6 +1,6 @@
 <template>
   <a
-    class="btn btn--link"
+    class="btn btn--card-url"
     :class="{'is--showing-success': showSuccessMessage}"
     :title="buttonText"
     :data-message="buttonSuccessMessage"
@@ -95,7 +95,7 @@
     animation: fade-in .3333s ease-out;
   }
 
-  .btn--link {
+  .btn--card-url {
     padding: 0;
     width: 16px;
     height: 32px;
