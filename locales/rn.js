@@ -1,7 +1,7 @@
 export default {
   // System
   'lang': 'rn',
-  'lang-name': 'Kirundi',
+  'lang-name': 'Ikirundi',
 
   // Global
   'UN OCHA': 'UN OCHA',
