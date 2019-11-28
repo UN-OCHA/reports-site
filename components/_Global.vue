@@ -19,6 +19,14 @@
         return this.$store.state.locale;
       },
 
+      // Some dependencies like moment.js don't support all local languages. We
+      // have hardcoded fallbacks defined in our store in order to pass a known
+      // available language when the active locale is not supported.
+      localeOrFallback() {
+        const fallback = this.locales.filter((lang) => lang.code === this.locale)[0].fallback;
+        return fallback;
+      },
+
       // How many minutes since the Entry was published?
       timeAgoInMinutes() {
         return this.$moment(this.updatedAt).diff(this.$moment(), 'minutes') / -1;
