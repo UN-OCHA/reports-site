@@ -64,7 +64,7 @@
       },
 
       filename() {
-        const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.locale).format('D MMM YYYY');
+        const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.localeOrFallback).format('D MMM YYYY');
         return `${this.$t(this.filenamePrefix, this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
       },
 
@@ -160,7 +160,7 @@
   </div>
   <div class="pdf-footer__right">
     <span class="url" dir="ltr"></span><br>
-    ${this.$t('Downloaded', this.locale)}: <span>${this.$moment().locale(this.locale).format('D MMM YYYY')}</span><br>
+    ${this.$t('Downloaded', this.locale)}: <span>${this.$moment().locale(this.localeOrFallback).format('D MMM YYYY')}</span><br>
   </div>
 </footer>
 <style type="text/css">

@@ -101,7 +101,7 @@
         }
 
         // Return timestamp string based on our boolean.
-        return shouldFormat ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.locale).format('D MMM YYYY');
+        return shouldFormat ? this.formatTimeAgo : this.$moment(this.updatedAt).locale(this.localeOrFallback).format('D MMM YYYY');
       },
 
       //

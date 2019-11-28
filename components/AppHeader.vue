@@ -12,7 +12,7 @@
         <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
 
-        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(localeOrFallback).format('D MMM YYYY') }}</time></span>
         <span class="past-sitreps" v-if="countrycode || customArchive"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
@@ -41,7 +41,7 @@
           output="pdf"
           :title="title"
           :subtitle="subtitle"
-          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')"
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(localeOrFallback).format('D MMM YYYY')"
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <no-ssr>
@@ -145,7 +145,7 @@
       },
 
       today() {
-        return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
+        return this.$moment(Date.now()).locale(this.localeOrFallback).format('D MMM YYYY');
       },
 
       archiveLink() {

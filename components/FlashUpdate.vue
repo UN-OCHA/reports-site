@@ -91,7 +91,7 @@
       :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
-      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
+      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(localeOrFallback).format('D MMM YYYY')"
       :filename-prefix="$t('Flash Update', locale)"
       :pdf-url="pdfUrl"
     />

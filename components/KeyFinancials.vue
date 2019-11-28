@@ -129,7 +129,7 @@
       ftsDataYear() {
         const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
+        return plan && this.$moment.utc(plan.startDate).locale(this.localeOrFallback).format('YYYY');
       },
     },
 
