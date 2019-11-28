@@ -1,7 +1,7 @@
 export default {
   // System
   'lang': 'rn',
-  'lang-name': 'Kirundi',
+  'lang-name': 'Ikirundi',
 
   // Global
   'UN OCHA': 'UN OCHA',
@@ -25,7 +25,7 @@ export default {
   'OCHA Services': 'Ibikorwa vy\'ibiro mpuzamakungu vya ONU OCHA',
 
   // AppHeader
-  'Last updated': 'Last updated',
+  'Last updated': 'Amakuru mashasha',
   'Subscribe': 'Iyandikishe',
   'Share': 'Sabikanya',
   'Email': 'Ubutumwa',
