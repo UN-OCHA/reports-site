@@ -133,8 +133,9 @@ export default {
   'Arabic': 'Aрабська',
   'English': 'Англійська',
   'French': 'Французька',
+  'Kirundi': 'Kirundi',
+  'Myanmar language': 'Myanmar language',
   'Russian': 'Pосійська',
   'Spanish': 'Іспанська',
   'Ukrainian': 'Українська',
-  'Kirundi': 'Kirundi',
 }

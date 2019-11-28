@@ -6,6 +6,7 @@ import ar from '~/locales/ar.js';
 import en from '~/locales/en.js';
 import es from '~/locales/es.js';
 import fr from '~/locales/fr.js';
+import my from '~/locales/my.js';
 import rn from '~/locales/rn.js';
 import ru from '~/locales/ru.js';
 import uk from '~/locales/uk.js';
@@ -23,6 +24,7 @@ export default ({ app, store }) => {
       'en': en,
       'es': es,
       'fr': fr,
+      'my': my,
       'rn': rn,
       'ru': ru,
       'uk': uk,

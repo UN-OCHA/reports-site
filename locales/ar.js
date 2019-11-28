@@ -133,6 +133,7 @@ export default {
   'Arabic': 'عربي',
   'English': 'إنجليزي',
   'French': 'فرنسي',
+  'Myanmar language': 'Myanmar language',
   'Russian': 'روسي',
   'Somali': 'الصومالية',
   'Spanish': 'إسباني',

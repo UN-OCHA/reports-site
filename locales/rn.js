@@ -131,8 +131,9 @@ export default {
   'Arabic': 'Icarabu',
   'English': 'Icongereza',
   'French': 'Igifaransa',
+  'Kirundi': 'Ikirundi',
+  'Myanmar language': 'Myanmar language',
   'Russian': 'Ikirusiya',
   'Spanish': 'Ikiespanyole',
   'Ukrainian': 'Ikinyawukereniya',
-  'Kirundi': 'Ikirundi',
 }

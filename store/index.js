@@ -73,11 +73,18 @@ export const state = () => ({
     //
     // * All languages below this comment MUST have `display: false`
     //
-    // * The `fallback` MUST be one of the active UN-official languages in the
-    //   block defined above these Local Languages. Some of our dependencies
-    //   don't support all of our local languages and each region should decide
-    //   what language they prefer as their fallback.
+    // * The `fallback` MUST be either itself OR one of the active UN-official
+    //   languages in the block defined above these Local Languages. Some of our
+    //   dependencies don't support all of our local languages and each region
+    //   should decide what language they prefer as their fallback.
     //
+    {
+      code: 'my',
+      name: 'Myanmar language',
+      dir: 'ltr',
+      display: false,
+      fallback: 'my',
+    },
     {
       code: 'rn',
       name: 'Ikirundi',
