@@ -83,7 +83,7 @@ export const state = () => ({
       name: 'Ikirundi',
       dir: 'ltr',
       display: false,
-      fallback: 'en',
+      fallback: 'fr',
     },
     {
       code: 'uk',
