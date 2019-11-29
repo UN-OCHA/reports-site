@@ -80,7 +80,7 @@ export const state = () => ({
     //
     {
       code: 'my',
-      name: 'Myanmar language',
+      name: 'မြန်မာဘာသာ',
       dir: 'ltr',
       display: false,
       fallback: 'my',

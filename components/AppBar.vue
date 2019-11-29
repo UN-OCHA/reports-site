@@ -313,6 +313,9 @@
     [lang="ar"] & {
       font-family: $kufi;
     }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
+    }
   }
 
   //

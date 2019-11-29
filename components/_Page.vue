@@ -118,10 +118,17 @@
     font-weight: 700;
     font-size: 17px;
     text-transform: uppercase;
+  }
 
+  // Apply language-specific fonts to the top-level Heading but avoid card titles
+  // as they currently are expected to contain English country names.
+  > h2 {
     [lang="ar"] & {
       font-family: $kufi-bold;
       line-height: 1;
+    }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
     }
   }
 }

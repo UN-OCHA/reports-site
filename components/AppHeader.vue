@@ -329,7 +329,7 @@
     text-transform: uppercase;
     margin-top: 0 - $header-padding;
 
-    // Allow Arabic-language titles in the official font.
+    // Allow local-language titles in their respecitve fonts.
     [lang="ar"] & {
       margin-bottom: .333em;
       font-family: $kufi-bold;
@@ -349,6 +349,9 @@
     [lang="ar"] & {
       font-family: $kufi;
       line-height: 1;
+    }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
     }
 
     .page--slug-about &,
@@ -376,6 +379,9 @@
       font-family: $kufi;
       font-style: normal;
     }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
+    }
   }
 
   .past-sitreps a {
@@ -389,6 +395,9 @@
     [lang="ar"] & {
       font-family: $kufi;
       font-style: normal;
+    }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
     }
 
     &::after {
@@ -431,6 +440,9 @@
     [lang="ar"] & {
       font-family: $kufi;
       line-height: 1;
+    }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
     }
 
     &:hover {
