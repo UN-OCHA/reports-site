@@ -1,48 +1,6 @@
 import fr from '../locales/fr.js';
 
 describe('SitRep', () => {
-  beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/country/burundi/');
-  });
-
-  it('should load legacy URL for Burundi', async () => {
-    await page.waitForSelector('.title--sitrep', {timeout: 10000}).then(async () => {
-      const expectedTitle = 'BURUNDI';
-      const actualTitle = await page.$eval('.title--sitrep', el => el.innerText).catch(err => 'NO MATCHING ELEMENT FOUND');
-      await expect(actualTitle).toBe(expectedTitle);
-    });
-  });
-});
-
-describe('SitRep', () => {
-  beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/country/ukraine/');
-  });
-
-  it('should load legacy URL for Ukraine', async () => {
-    await page.waitForSelector('.title--sitrep', {timeout: 10000}).then(async () => {
-      const expectedTitle = 'UKRAINE';
-      const actualTitle = await page.$eval('.title--sitrep', el => el.innerText).catch(err => 'NO MATCHING ELEMENT FOUND');
-      await expect(actualTitle).toBe(expectedTitle);
-    });
-  });
-});
-
-describe('SitRep', () => {
-  beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/country/philippines/');
-  });
-
-  it('should load legacy URL for Philippines', async () => {
-    await page.waitForSelector('.title--sitrep', {timeout: 10000}).then(async () => {
-      const expectedTitle = 'PHILIPPINES';
-      const actualTitle = await page.$eval('.title--sitrep', el => el.innerText).catch(err => 'NO MATCHING ELEMENT FOUND');
-      await expect(actualTitle).toBe(expectedTitle);
-    });
-  });
-});
-
-describe('SitRep', () => {
   beforeAll(async () => {
     await page.goto('https://reports.unocha.org/fr/country/burundi/');
   });
