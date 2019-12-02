@@ -2,7 +2,7 @@ const env = {
   baseUrl: 'https://reports.unocha.org',
 };
 
-describe('Card', () => {
+describe('Valid Cards', () => {
   beforeAll(async () => {
     await page.goto(`${env.baseUrl}/fr/country/burundi/`);
   });
@@ -19,6 +19,21 @@ describe('Card', () => {
     });
   });
 
+  it('should output a valid og:url meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const actualStatus = response.status();
+      const actualUrl = await page.url();
+      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
+
+      expect(actualUrl).toBe(expectedUrl);
+      expect(ogUrl).toBe(expectedUrl);
+    });
+  });
+});
+
+describe('Invalid Card URLs', () => {
   it('should 404 a non-existent Card URL', async () => {
     const response = await page.goto(`${env.baseUrl}/fr/country/burundi/card/abcde012345/`);
     const actualStatus = await response.status();
