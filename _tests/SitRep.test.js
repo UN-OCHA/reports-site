@@ -40,6 +40,10 @@ describe('SitRep JS Disabled', () => {
       await expect(actualTitle).toBe(expectedTitle);
     });
   });
+
+  afterAll(async () => {
+    await page.setJavaScriptEnabled(true);
+  });
 });
 
 describe('SitRep JS Enabled', () => {
