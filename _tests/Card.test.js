@@ -57,6 +57,18 @@ describe('Valid Cards', () => {
       expect(twDescription).toBe(pageSubtitle);
     });
   });
+
+  it('should output identical og:image and twitter:image meta tags', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const ogImage = await page.$eval('meta[property="og:image"]', el => el.getAttribute('content'));
+      const twImage = await page.$eval('meta[name="twitter:image"]', el => el.getAttribute('content'));
+
+      expect(ogImage).toMatch('images.ctfassets.net');
+      expect(ogImage).toBe(twImage);
+    });
+  });
 });
 
 describe('Invalid Card URLs', () => {

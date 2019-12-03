@@ -226,6 +226,7 @@
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
           { hid: 'tw-desc', name: 'twitter:description', content: this.headerSubtitle },
+          { hid: 'tw-image', name: 'twitter:image', content: this.socialImageUrl },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
           { hid: 'og-type', property: 'og:type', content: 'website' },
