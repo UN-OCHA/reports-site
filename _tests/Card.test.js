@@ -19,7 +19,7 @@ describe('Valid Cards', () => {
     });
   });
 
-  it('should output a valid og:url meta tag', async () => {
+  it('should output an accurate og:url meta tag', async () => {
     await page.waitForSelector('.btn--card-url').then(async () => {
       const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
       const response = await page.goto(expectedUrl);
@@ -29,6 +29,19 @@ describe('Valid Cards', () => {
 
       expect(actualUrl).toBe(expectedUrl);
       expect(ogUrl).toBe(expectedUrl);
+    });
+  });
+
+  it('should output identical og:title and twitter:title meta tags', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const pageTitle = await page.$eval('.title--sitrep', el => el.textContent.trim());
+      const ogTitle = await page.$eval('meta[property="og:title"]', el => el.getAttribute('content'));
+      const twTitle = await page.$eval('meta[name="twitter:title"]', el => el.getAttribute('content'));
+
+      expect(ogTitle).toBe(pageTitle);
+      expect(twTitle).toBe(pageTitle);
     });
   });
 });
