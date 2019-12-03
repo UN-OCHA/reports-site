@@ -207,6 +207,8 @@
     },
 
     head() {
+      const baseUrl = process.server ? process.env.BASE_URL : window.location.origin;
+
       return {
         // Page title
         titleTemplate: `${this.officeName} - ${this.headerSubtitle} | %s`,
@@ -223,10 +225,12 @@
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
+          { hid: 'tw-desc', name: 'twitter:description', content: this.headerSubtitle },
+          { hid: 'tw-image', name: 'twitter:image', content: this.socialImageUrl },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
           { hid: 'og-type', property: 'og:type', content: 'website' },
-          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.parents[0].fields.language}/card/${this.sysIdShort}/` },
+          { hid: 'og-url', property: 'og:url', content: `${baseUrl}/${this.parents[0].fields.language}/country/${this.parents[0].fields.slug}/card/${this.sysIdShort}/` },
           { hid: 'og-title', property: 'og:title', content: this.officeName },
           { hid: 'og-desc', property: 'og:description', content: this.headerSubtitle },
           { hid: 'og-image', property: 'og:image', content: this.socialImageUrl },
