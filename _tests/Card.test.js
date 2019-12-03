@@ -44,6 +44,19 @@ describe('Valid Cards', () => {
       expect(twTitle).toBe(pageTitle);
     });
   });
+
+  it('should output identical og:description and twitter:description meta tags', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const pageSubtitle = await page.$eval('.subtitle', el => el.textContent.trim());
+      const ogDescription = await page.$eval('meta[property="og:description"]', el => el.getAttribute('content'));
+      const twDescription = await page.$eval('meta[name="twitter:description"]', el => el.getAttribute('content'));
+
+      expect(ogDescription).toBe(pageSubtitle);
+      expect(twDescription).toBe(pageSubtitle);
+    });
+  });
 });
 
 describe('Invalid Card URLs', () => {
