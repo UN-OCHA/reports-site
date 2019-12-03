@@ -120,11 +120,11 @@
       transition-property: opacity, transform;
 
       [dir="ltr"] & {
-        transform: translateX(-50%);
+        transform: translateX(-80%);
         left: 15px;
       }
       [dir="rtl"] & {
-        transform: translateX(50%);
+        transform: translateX(80%);
         right: 15px;
       }
     }
@@ -148,7 +148,13 @@
       border-right: 10px solid transparent;
       border-top: 10px solid black;
       top: $msg-vertical-offset + 19; // 19 = border-widths - 1 to ensure overlap
-      left: 50%;
+
+      [dir="ltr"] & {
+        transform: translateX(-50%);
+      }
+      [dir="rtl"] & {
+        transform: translateX(50%);
+      }
     }
   }
 
@@ -157,7 +163,18 @@
     &::before,
     &::after {
       opacity: 1;
+    }
 
+    &::before {
+      [dir="ltr"] & {
+        transform: translateX(-80%) translateY(-10px);
+      }
+      [dir="rtl"] & {
+        transform: translateX(80%) translateY(-10px);
+      }
+    }
+
+    &::after {
       [dir="ltr"] & {
         transform: translateX(-50%) translateY(-10px);
       }
