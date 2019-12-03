@@ -13,8 +13,8 @@ export default {
   'No data available.': 'لا يوجد بيانات متوفرة',
   'Page not found': 'الصفحة غير موجودة',
   'Server Error': 'خطأ في الخادم',
-  'We want to help you find the information you are looking for.': 'نريد مساعدتك في العثور على المعلومات التي تحتاجها.',
-  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'إليك أخر التقاريرعن الوضع من أوتشا التي قد تساعدك على العودة إلى المسار الصحيح',
+  'We want to help you find the information you are looking for.': 'نريد مساعدتك في العثور على المعلومات التي تبحث عنها.',
+  'Here are some of OCHA\'s latest Situation Reports to help you get back on track:': 'فيما يلي بعض أحدث التقاريرعن الوضع  الصادرة عن مكتب تنسيق الشؤون الإنسانية لمساعدتك في العودة إلى المسار الصحيح:',
   'The URL you requested exists, but there were problems displaying the page.': 'عنوان URL الذي طلبته موجود ، ولكن كانت هناك مشاكل في عرض الصفحة.',
 
   // AppBar
@@ -44,8 +44,7 @@ export default {
   'About this site': 'حول هذا الموقع',
   'Recently updated': 'أخر التحديثات',
 
-  // Key Messages
-  'Key Messages': 'الرسائل الرئيسية',
+  // Highlights
   'Highlights': 'أبرز الأحداث',
 
   // Key Figures
@@ -53,14 +52,14 @@ export default {
 
   // Funding
   'Funding': 'التمويل',
-  'Required': 'الاحتياجات',
-  'Received': 'المستلم',
-  'Progress': 'التطور',
+  'Required': 'الاحتياج',
+  'Received': 'المبلغ المتلقى',
+  'Progress': 'نسبة التمويل',
   'Funding data could not be found.': 'بيانات التمويل غير متوفرة',
   'No funding data available.': 'بيانات التمويل غير متوفرة',
 
   // Contacts
-  'Contacts': 'اتصال بنا',
+  'Contacts': 'للأتصال بنا',
 
   // Clusters
   'Cluster Status': 'وضع المجموعات',
@@ -98,12 +97,17 @@ export default {
   'Visual': 'صور',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'إقراء آخر تقاريرعن الوضع عن [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'انسخ [THING] URL إلى الحافظة',
+  '[THING] URL copied': '[THING] URL copied',
   'Save Situation Report as PDF': 'احفظ تقريرعن الوضع ك PDF',
-  'Save THING as PNG': 'احفظ THING كملف PNG',
+  'Save [THING] as PNG': 'احفظ [THING] كملف PNG',
+
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'راجع تقرير الوضع الرقمي بالكامل لـ [COUNTRY]',
+  'See entire digital situation report': 'راجع تقرير الوضع الرقمي بأكمله',
 
   // Snap strings
   'Date of Creation': 'تاريخ الإنشاء',
@@ -118,18 +122,20 @@ export default {
   '# hours ago': 'منذ # ساعة',
   '# day ago': 'منذ يوم',
   '# days ago': 'منذ # يوم',
-  '# week ago': '# week ago',
-  '# weeks ago': '# weeks ago',
-  '# month ago': '# month ago',
-  '# months ago': '# months ago',
-  '# year ago': '# year ago',
-  '# years ago': '# years ago',
+  '# week ago': 'قبل أسبوع',
+  '# weeks ago': 'منذ # أسابيع',
+  '# month ago': 'قبل شهر',
+  '# months ago': 'منذ # اشهر',
+  '# year ago': 'منذ سنة',
+  '# years ago': 'منذ # سنوات',
 
   // Languages
   'Arabic': 'عربي',
   'English': 'إنجليزي',
   'French': 'فرنسي',
   'Russian': 'روسي',
+  'Somali': 'الصومالية',
   'Spanish': 'إسباني',
   'Ukrainian': 'أوكراني',
+  'Kirundi': 'كيروندي',
 }

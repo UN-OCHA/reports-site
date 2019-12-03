@@ -12,7 +12,7 @@
         <span class="subtitle" v-if="subtitle">{{ subtitle }}</span>
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
 
-        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(locale).format('D MMM YYYY') }}</time></span>
+        <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(localeOrFallback).format('D MMM YYYY') }}</time></span>
         <span class="past-sitreps" v-if="countrycode || customArchive"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
@@ -40,8 +40,8 @@
           v-if="snap"
           output="pdf"
           :title="title"
-          :subtitle="$t('Situation Report', locale)"
-          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(locale).format('D MMM YYYY')"
+          :subtitle="subtitle"
+          :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(localeOrFallback).format('D MMM YYYY')"
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <no-ssr>
@@ -76,8 +76,14 @@
     },
 
     props: {
-      'title': String,
-      'subtitle': String,
+      'title': {
+        type: String,
+        required: true,
+      },
+      'subtitle': {
+        type: String,
+        required: true,
+      },
       'updated': String,
       'mailchimp': String,
       'countrycode': String,
@@ -139,7 +145,7 @@
       },
 
       today() {
-        return this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
+        return this.$moment(Date.now()).locale(this.localeOrFallback).format('D MMM YYYY');
       },
 
       archiveLink() {
@@ -163,11 +169,11 @@
 
       shareMessage() {
         // This is done in two steps. Our translations are supplied with the
-        // literal string `COUNTRY` in them, so we first translate then replace
-        // with the dynamic value of COUNTRY. That substitution could also be
+        // literal string `[COUNTRY]` in them, so we first translate then replace
+        // with the dynamic value of [COUNTRY]. That substitution could also be
         // localized if we want to maintain a list.
-        const country = /COUNTRY/gi;
-        return this.$t(`Read the latest from COUNTRY's Situation Report`, this.locale).replace(country, this.title);
+        const country = /\[COUNTRY\]/gi;
+        return this.$t(`Read the latest from [COUNTRY]'s Situation Report`, this.locale).replace(country, this.title);
       },
 
       shareUrlEmail() {

@@ -14,7 +14,7 @@
       <p class="go-back">↵ <nuxt-link :to="'/' + entry.fields.language + '/country/' + entry.fields.slug + '/'">{{ entry.fields.title }}</nuxt-link></p>
       <FlashUpdate
         :force-flash-update-display="true"
-        :force-flash-update-expanded="true"
+        :force-expanded="true"
         :show-pdf="false"
         :content="flashUpdate"
         v-if="typeof flashUpdate !== 'undefined' && typeof flashUpdate.fields !== 'undefined'"

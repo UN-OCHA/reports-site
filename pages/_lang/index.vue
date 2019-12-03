@@ -19,7 +19,7 @@
             >{{ localeName(translation.fields.language) }}</nuxt-link>
             <span class="sitrep__last-updated">
               <span class="element-invisible">{{ $t('Last updated', locale) }}:</span>
-              <time :datetime="translation.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(translation.fields.dateUpdated).locale(locale).format('D MMM YYYY') }}</time>
+              <time :datetime="translation.fields.dateUpdated" :dir="languageDirection(locale)">{{ $moment(translation.fields.dateUpdated).locale(localeOrFallback).format('D MMM YYYY') }}</time>
             </span>
           </p>
         </article>

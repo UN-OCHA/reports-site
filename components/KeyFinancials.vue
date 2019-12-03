@@ -27,7 +27,7 @@
     </div>
     <a v-if="ftsDataYear" :href="ftsUrl" target="_blank" class="fts-url">FTS</a>
 
-    <CardActions label="Funding" :frag="'#' + cssId" />
+    <CardActions label="Funding" :css-id="cssIdSelector" />
     <CardFooter />
   </section>
 </template>
@@ -61,6 +61,10 @@
     computed: {
       cssId() {
         return 'funding';
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       ftsPlanId() {
@@ -125,7 +129,7 @@
       ftsDataYear() {
         const plan = this.ftsRawData && this.ftsRawData.filter(plan => plan.id === this.ftsPlanId)[0] || false;
 
-        return plan && this.$moment.utc(plan.startDate).locale(this.locale).format('YYYY');
+        return plan && this.$moment.utc(plan.startDate).locale(this.localeOrFallback).format('YYYY');
       },
     },
 

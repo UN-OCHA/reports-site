@@ -3,7 +3,7 @@
     <CardHeader />
 
     <h2 class="card__title">
-      {{ sectionHeading }}
+      {{ $t(sectionHeading, locale) }}
       <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </h2>
     <div class="cluster__meta clearfix">
@@ -48,7 +48,7 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="sectionHeading" :frag="'#' + cssId" />
+    <CardActions :label="sectionHeading" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </section>
 </template>
@@ -79,6 +79,7 @@
         richNeeds: '',
         richResponse: '',
         richGaps: '',
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
         clusterIconMap: {
           'Agriculture': 'agriculture',
@@ -107,6 +108,10 @@
         return 'cf-' + this.content.sys.id;
       },
 
+      cssIdSelector() {
+        return '#' + this.cssId;
+      },
+
       clusterIconClasses() {
         return this.content.fields.globalClusterIcon ? `cluster__title--has-icon cluster__title--${this.clusterIconClass}` : '';
       },
@@ -116,10 +121,7 @@
       },
 
       sectionHeading() {
-        let heading = this.content.fields.sectionHeading || 'Cluster';
-        heading += ' Status';
-
-        return this.$t(heading, this.locale);
+        return (this.content.fields.sectionHeading || 'Cluster') + ' Status';
       },
     },
 

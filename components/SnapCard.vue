@@ -33,11 +33,11 @@
       buttonLabel() {
         // Two-step translation. Our translations have the literal string THING
         // in them, so we swap that word out in a second step.
-        return this.$t('Save THING as PNG', this.locale).replace('THING', this.$t(this.label, this.locale));
+        return this.$t('Save [THING] as PNG', this.locale).replace('[THING]', this.$t(this.label, this.locale));
       },
 
       snapRequest() {
-        // To deal with some layout issues on some cards, particularly Key Messages
+        // To deal with some layout issues on some cards, particularly Highlights
         // we want to render the website at a large size, but not trigger the
         // biggest layout caused by 1164px-wide window. So use 1163 as a minimum
         // and when the actual width is smaller, we'll use current window.
@@ -52,7 +52,7 @@
       },
 
       filename() {
-        const rightNow = this.$moment(Date.now()).locale(this.locale).format('D MMM YYYY');
+        const rightNow = this.$moment(Date.now()).locale(this.localeOrFallback).format('D MMM YYYY');
         return `${this.$t('Situation Report', this.locale)} - ${this.$store.state.reportMeta.title} - ${rightNow}.${this.output}`;
       },
     },

@@ -34,7 +34,7 @@
 
       // Format and localize date for humans.
       todayFormatted() {
-        return this.$moment(this.now).locale(this.locale).format('D MMM YYYY');
+        return this.$moment(this.now).locale(this.localeOrFallback).format('D MMM YYYY');
       },
 
       // This never needs to run on the server, so just print empty when no window.

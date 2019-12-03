@@ -23,54 +23,74 @@ export const state = () => ({
   //
   locales: [
     //
-    // Official UN Translations
+    // Official UN Languages
     //
     {
       code: 'en',
       name: 'English',
       dir: 'ltr',
       display: true,
+      fallback: 'en',
     },
     {
       code: 'es',
       name: 'Español',
       dir: 'ltr',
       display: true,
+      fallback: 'es',
     },
     {
       code: 'fr',
       name: 'Français',
       dir: 'ltr',
       display: true,
+      fallback: 'fr',
     },
     {
       code: 'ru',
       name: 'Русский',
       dir: 'ltr',
       display: true,
+      fallback: 'ru',
     },
     {
       code: 'ar',
       name: 'عربي',
       dir: 'rtl',
       display: true,
+      fallback: 'ar',
     },
     // {
     //   code: 'zh',
     //   name: '中文',
     //   dir: 'ltr', // Following www.un.org/zh/ for direction
     //   display: true,
+    //   fallback: 'zh',
     // },
 
     //
-    // Non-default languages.
-    // All languages below this comment should have `display: false`
+    // Local languages
     //
+    // * All languages below this comment MUST have `display: false`
+    //
+    // * The `fallback` MUST be one of the active UN-official languages in the
+    //   block defined above these Local Languages. Some of our dependencies
+    //   don't support all of our local languages and each region should decide
+    //   what language they prefer as their fallback.
+    //
+    {
+      code: 'rn',
+      name: 'Ikirundi',
+      dir: 'ltr',
+      display: false,
+      fallback: 'fr',
+    },
     {
       code: 'uk',
       name: 'Українська',
       dir: 'ltr',
       display: false,
+      fallback: 'ru',
     },
   ],
 
@@ -78,10 +98,13 @@ export const state = () => ({
   locale: 'en',
 
   // Allow sub-components of a SitRep to display the Title/Date of a SitRep by
-  // holding the current URL's metadata in the store. Primarily used by Snap PNGs.
+  // holding the current URL's metadata in the store. Used by Snap PNGs and also
+  // to construct CardUrl URLs.
   reportMeta: {
+    slug: '',
     title: '',
     dateUpdated: '',
+    language: '',
   },
 
   // Lets the whole app know about the AppBar state.
@@ -105,8 +128,10 @@ export const mutations = {
 
   SET_META(state, meta) {
     state.reportMeta = {
+      slug: meta.slug,
       title: meta.title,
       dateUpdated: meta.dateUpdated,
+      language: meta.language,
     }
   },
 

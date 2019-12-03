@@ -2,7 +2,7 @@
   <no-ssr>
     <button
       type="button"
-      class="btn btn--link"
+      class="btn btn--card-anchor"
       :title="buttonText"
       @click="handleClick">
       <span class="element-invisible">{{ buttonText }}</span>
@@ -108,7 +108,7 @@
     animation: fade-in .3333s ease-out;
   }
 
-  .btn--link {
+  .btn--card-anchor {
     padding: 0;
     width: 16px;
     height: 32px;

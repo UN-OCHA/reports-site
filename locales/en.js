@@ -44,8 +44,7 @@ export default {
   'About this site': 'About this site',
   'Recently updated': 'Recently updated',
 
-  // Key Messages
-  'Key Messages': 'Key Messages',
+  // Highlights
   'Highlights': 'Highlights',
 
   // Key Figures
@@ -98,12 +97,17 @@ export default {
   'Visual': 'Visual',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Read the latest from COUNTRY\'s Situation Report',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Read the latest from [COUNTRY]\'s Situation Report',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Copy [THING] URL to clipboard',
+  '[THING] URL copied': '[THING] URL copied',
   'Save Situation Report as PDF': 'Save Situation Report as PDF',
-  'Save THING as PNG': 'Save THING as PNG',
+  'Save [THING] as PNG': 'Save [THING] as PNG',
+
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'See entire digital situation report for [COUNTRY]',
+  'See entire digital situation report': 'See entire digital situation report',
 
   // Snap strings
   'Date of Creation': 'Date of Creation',
@@ -132,4 +136,5 @@ export default {
   'Russian': 'Russian',
   'Spanish': 'Spanish',
   'Ukrainian': 'Ukrainian',
+  'Kirundi': 'Kirundi',
 }

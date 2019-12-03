@@ -44,8 +44,7 @@ export default {
   'About this site': 'О сайте',
   'Recently updated': 'Обновлено',
 
-  // Key Messages
-  'Key Messages': 'Ключевые положения',
+  // Highlights
   'Highlights': 'Главное',
 
   // Key Figures
@@ -98,12 +97,17 @@ export default {
   'Visual': 'Графические изображения',
 
   // Social media
-  'Read the latest from COUNTRY\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о COUNTRY',
+  'Read the latest from [COUNTRY]\'s Situation Report': 'Ознакомтесь с последними данными Оперативной сводки о [COUNTRY]',
 
   // Card Actions
   'Copy [THING] URL to clipboard': 'Скопировать [THING] URL в буфер обмена',
+  '[THING] URL copied': '[THING] URL скопировано',
   'Save Situation Report as PDF': 'Сохранить Оперативную сводку в формате PDF',
-  'Save THING as PNG': 'Сохранить THING в формате PNG',
+  'Save [THING] as PNG': 'Сохранить [THING] в формате PNG',
+
+  // Links to Situation Reports
+  'See entire digital situation report for [COUNTRY]': 'Посмотреть всю Оперативную сводку по [COUNTRY]',
+  'See entire digital situation report': 'Посмотреть всю Оперативную сводку',
 
   // Snap strings
   'Date of Creation': 'Дата создания',
@@ -132,4 +136,5 @@ export default {
   'Russian': 'Русский',
   'Spanish': 'Испанский',
   'Ukrainian': 'Украинский',
+  'Kirundi': 'Kirundi',
 }

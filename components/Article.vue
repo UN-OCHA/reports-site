@@ -21,7 +21,7 @@
                 ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)}&fm=webp 826w,
                 ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)}&fm=webp 1239w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 900px) calc((1080px - 2rem) * .4),
@@ -36,7 +36,7 @@
                 ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)} 826w,
                 ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)} 1239w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 900px) calc((1080px - 2rem) * .4),
@@ -56,12 +56,16 @@
           </figcaption>
         </figure>
       </div>
-      <div ref="card" class="article__text" :class="{
-        'is--expandable': isExpandable,
-        'is--expanded': isExpanded,
-      }" :style="{
-        'height': getCardHeight,
-      }">
+      <div
+        ref="card"
+        class="article__text"
+        :class="{
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
+        }" :style="{
+          'height': getCardHeight,
+        }"
+      >
         <h3 class="article__title">{{ content.fields.title }}</h3>
         <div class="rich-text" v-html="richBody"></div>
       </div>
@@ -74,7 +78,12 @@
       {{ isExpanded ? $t('Read less', locale) : $t('Read more', locale) }}
     </button>
 
-    <CardActions :label="content.fields.sectionHeading" :frag="'#' + cssId" />
+    <CardActions
+      :label="content.fields.sectionHeading"
+      :css-id="cssIdSelector"
+      :sys-id="sysId"
+      :showUrl="true"
+    />
     <CardFooter />
   </article>
 </template>
@@ -95,6 +104,7 @@
     data() {
       return {
         richBody: '',
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
       };
     },
@@ -102,6 +112,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       articleHasImage() {

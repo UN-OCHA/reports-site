@@ -87,7 +87,7 @@
     // Validate URL params
     validate({params, query, store}) {
       const langIsValid = !!store.state.locales.find((lang) => lang.code === params.lang);
-      const slugIsValid = /^[a-z\-]+$/.test(params.slug);
+      const slugIsValid = !!params.slug && /^[a-z\-]+$/.test(params.slug);
 
       return slugIsValid && langIsValid;
     },

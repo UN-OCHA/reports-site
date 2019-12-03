@@ -27,7 +27,7 @@
                 ${secureImageUrl}?w=1280&h=${getImageHeight(1280, content.fields.image)}&fm=webp 1280w,
                 ${secureImageUrl}?w=1920&h=${getImageHeight(1920, content.fields.image)}&fm=webp 1920w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 1220px) calc(1080px - 2rem)
@@ -42,7 +42,7 @@
                 ${secureImageUrl}?w=1280&h=${getImageHeight(1280, content.fields.image)} 1280w,
                 ${secureImageUrl}?w=1920&h=${getImageHeight(1920, content.fields.image)} 1920w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 1220px) calc(1080px - 2rem)
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <CardActions label="Interactive" :frag="'#' + cssId" />
+    <CardActions label="Interactive" :css-id="cssIdSelector" :sys-id="sysId" :showUrl="true" />
     <CardFooter />
   </article>
 </template>
@@ -93,6 +93,7 @@
 
     data() {
       return {
+        sysId: this.content.sys.id,
         updatedAt: this.content.sys.updatedAt,
       };
     },
@@ -100,6 +101,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       secureImageUrl() {

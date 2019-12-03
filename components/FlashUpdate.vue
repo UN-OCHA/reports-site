@@ -25,7 +25,7 @@
                 ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)}&fm=webp 826w,
                 ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)}&fm=webp 1239w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 900px) calc((1080px - 2rem) * .4),
@@ -40,7 +40,7 @@
                 ${secureImageUrl}?w=826&h=${getImageHeight(826, content.fields.image)} 826w,
                 ${secureImageUrl}?w=1239&h=${getImageHeight(1239, content.fields.image)} 1239w
               `"
-              sizes="`
+              :sizes="`
                 calc(100vw - 4rem),
                 (min-width: 600px) calc(100vw - 8rem - 2rem),
                 (min-width: 900px) calc((1080px - 2rem) * .4),
@@ -64,10 +64,10 @@
         ref="card"
         class="article__text"
         :class="{
-          'is--expandable': forceFlashUpdateExpanded || isExpandable,
-          'is--expanded': forceFlashUpdateExpanded || isExpanded,
+          'is--expandable': isExpandable,
+          'is--expanded': isExpanded,
         }" :style="{
-          'height': forceFlashUpdateExpanded ? 'auto' : getCardHeight,
+          'height': getCardHeight,
         }"
       >
         <h3 class="article__title">{{ content.fields.title }}</h3>
@@ -75,7 +75,7 @@
       </div>
     </div>
     <button
-      v-if="!forceFlashUpdateExpanded && isExpandable"
+      v-if="isExpandable"
       class="btn btn--toggle-text"
       :class="{ 'is--expanded': isExpanded }"
       @click="isExpanded = !isExpanded">
@@ -84,12 +84,14 @@
 
     <CardActions
       label="Flash Update"
-      :frag="'#' + cssId"
+      :css-id="cssIdSelector"
+      :sys-id="sysId"
+      :show-url="showUrl"
       :show-png="showPng"
       :show-pdf="showPdf"
       :title="$store.state.reportMeta.title"
       :subtitle="content.fields.title"
-      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(locale).format('D MMM YYYY')"
+      :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(localeOrFallback).format('D MMM YYYY')"
       :filename-prefix="$t('Flash Update', locale)"
       :pdf-url="pdfUrl"
     />
@@ -122,10 +124,10 @@
         required: false,
         default: false,
       },
-      'forceFlashUpdateExpanded': {
+      'showUrl': {
         type: Boolean,
         required: false,
-        default: false,
+        default: true,
       },
       'showPng': {
         type: Boolean,
@@ -150,6 +152,10 @@
     computed: {
       cssId() {
         return 'cf-' + this.content.sys.id;
+      },
+
+      cssIdSelector() {
+        return '#' + this.cssId;
       },
 
       secureImageUrl() {
