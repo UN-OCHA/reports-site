@@ -132,6 +132,7 @@ export default {
   'English': 'Icongereza',
   'French': 'Igifaransa',
   'Russian': 'Ikirusiya',
+  'Somali': 'Igisomaliya',
   'Spanish': 'Ikiespanyole',
   'Ukrainian': 'Ikinyawukereniya',
   'Kirundi': 'Ikirundi',
