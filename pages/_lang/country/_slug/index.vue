@@ -177,6 +177,8 @@
           { hid: 'tw-title', name: 'twitter:title', content: this.$t('Situation Report', this.locale) + ': ' + this.entry.fields.title },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
+          { hid: 'tw-image', name: 'twitter:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
+          { hid: 'tw-image-alt', name: 'twitter:image:alt', content: (this.keyMessagesHasImage) ? this.entry.fields.keyMessagesImage.fields.title : '' },
           { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
           { hid: 'og-type', property: 'og:type', content: 'article' },
           { hid: 'og-locale', property: 'og:locale', content: this.entry.fields.language },
@@ -184,6 +186,9 @@
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
           { hid: 'og-desc', property: 'og:description', content: this.keyMessagesJoined },
           { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
+          { hid: 'og-image-type', property: 'og:image:type', content: (this.keyMessagesHasImage) ? this.entry.fields.keyMessagesImage.fields.file.contentType : '' },
+          { hid: 'og-image-width', property: 'og:image:width', content: (this.keyMessagesHasImage) ? this.entry.fields.keyMessagesImage.fields.file.details.image.width : '' },
+          { hid: 'og-image-height', property: 'og:image:height', content: (this.keyMessagesHasImage) ? this.entry.fields.keyMessagesImage.fields.file.details.image.height : '' },
         ],
       };
     },
