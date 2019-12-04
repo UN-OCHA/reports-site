@@ -61,10 +61,47 @@
         return this.entry.sys.id.slice(0, 10);
       },
 
+      hasOwnImage() {
+        return this.entry.fields.image && this.entry.fields.image.fields && this.entry.fields.image.fields.file && this.entry.fields.image.fields.file.url || false;
+      },
+
       socialImageUrl() {
-        return (this.entry.fields.image && this.entry.fields.image.fields && this.entry.fields.image.fields.file && this.entry.fields.image.fields.file.url)
-          ? 'https:' + this.entry.fields.image.fields.file.url + '?w=1024'
-          : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=1024'
+        return (this.hasOwnImage)
+          ? 'https:' + this.entry.fields.image.fields.file.url + '?w=' + this.socialImageWidth
+          : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=' + this.socialImageWidth
+      },
+
+      socialImageType() {
+        return (this.hasOwnImage)
+          ? this.entry.fields.image.fields.file.contentType
+          : this.parents[0].fields.keyMessagesImage.fields.file.contentType;
+      },
+
+      socialImageAlt() {
+        return (this.hasOwnImage)
+          ? this.entry.fields.image.fields.title
+          : this.parents[0].fields.keyMessagesImage.fields.title;
+      },
+
+      socialImageWidth() {
+        const actualWidth = (this.hasOwnImage)
+          ? this.entry.fields.image.fields.file.details.image.width
+          : this.parents[0].fields.keyMessagesImage.fields.file.details.image.width;
+
+        return (actualWidth > 1024) ? '1024' : actualWidth;
+      },
+
+      socialImageHeight() {
+        const actualWidth = (this.hasOwnImage)
+          ? this.entry.fields.image.fields.file.details.image.width
+          : this.parents[0].fields.keyMessagesImage.fields.file.details.image.width;
+
+        const actualHeight = (this.hasOwnImage)
+          ? this.entry.fields.image.fields.file.details.image.height
+          : this.parents[0].fields.keyMessagesImage.fields.file.details.image.height;
+
+        // Do this based on how much we scaled the WIDTH down.
+        return (actualWidth > 1024) ? Math.floor(1024 / actualWidth * actualHeight) : actualHeight;
       },
 
       officeName() {
@@ -223,13 +260,21 @@
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
           { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
+          { hid: 'tw-desc', name: 'twitter:description', content: this.headerSubtitle },
+          { hid: 'tw-image', name: 'twitter:image', content: this.socialImageUrl },
+          { hid: 'tw-image-alt', name: 'twitter:image:alt', content: this.socialImageAlt },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
-          { hid: 'og-type', property: 'og:type', content: 'website' },
-          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.parents[0].fields.language}/card/${this.sysIdShort}/` },
+          { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
+          { hid: 'og-type', property: 'og:type', content: 'article' },
+          { hid: 'og-locale', property: 'og:locale', content: this.parents[0].fields.language },
+          { hid: 'og-url', property: 'og:url', content: `${process.env.baseUrl}/${this.parents[0].fields.language}/country/${this.parents[0].fields.slug}/card/${this.sysIdShort}/` },
           { hid: 'og-title', property: 'og:title', content: this.officeName },
           { hid: 'og-desc', property: 'og:description', content: this.headerSubtitle },
           { hid: 'og-image', property: 'og:image', content: this.socialImageUrl },
+          { hid: 'og-image-type', property: 'og:image:type', content: this.socialImageType },
+          { hid: 'og-image-width', property: 'og:image:width', content: this.socialImageWidth },
+          { hid: 'og-image-height', property: 'og:image:height', content: this.socialImageHeight },
         ],
       };
     },

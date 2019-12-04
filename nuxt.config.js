@@ -29,6 +29,7 @@ module.exports = {
     CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
     CTF_CDA_PREVIEW_TOKEN: process.env.CTF_CDA_PREVIEW_TOKEN,
     baseUrl: process.env.BASE_URL,
+    fbAppId: '1916193535375038',
   },
   //
   // Global <head> metadata
