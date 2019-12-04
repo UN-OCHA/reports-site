@@ -147,6 +147,9 @@
     [lang="ar"] & {
       font-family: $kufi-bold;
     }
+    [lang="my"] & {
+      font-family: $myanmar-condensed;
+    }
   }
 
   .article__image {
