@@ -178,7 +178,7 @@
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
           { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
-          { hid: 'og-type', property: 'og:type', content: 'website' },
+          { hid: 'og-type', property: 'og:type', content: 'article' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
           { hid: 'og-desc', property: 'og:description', content: this.keyMessagesJoined },
