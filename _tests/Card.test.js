@@ -15,7 +15,7 @@ describe('Valid Cards', () => {
       const actualStatus = response.status();
       const actualUrl = await page.url();
 
-      expect(actualStatus).toBe(200);
+      expect([200, 304]).toContain(actualStatus);
       expect(actualUrl).toBe(expectedUrl);
     });
   });
