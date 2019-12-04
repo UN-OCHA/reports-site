@@ -52,6 +52,19 @@ describe('SitRep JS Disabled', () => {
     });
   });
 
+  it('should output correct og:url meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const actualStatus = response.status();
+      const actualUrl = await page.url();
+      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
+
+      expect(actualUrl).toBe(expectedUrl);
+      expect(ogUrl).toBe(expectedUrl);
+    });
+  });
+
   // ⚠️ This needs to be the last test since it navigates to Homepage.
   it('should link to localized Homepage based on SitRep language', async () => {
     await Promise.all([

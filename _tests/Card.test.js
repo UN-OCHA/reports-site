@@ -20,19 +20,6 @@ describe('Valid Cards', () => {
     });
   });
 
-  it('should output an accurate og:url meta tag', async () => {
-    await page.waitForSelector('.btn--card-url').then(async () => {
-      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
-      const response = await page.goto(expectedUrl);
-      const actualStatus = response.status();
-      const actualUrl = await page.url();
-      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
-
-      expect(actualUrl).toBe(expectedUrl);
-      expect(ogUrl).toBe(expectedUrl);
-    });
-  });
-
   it('should output identical og:title and twitter:title meta tags', async () => {
     await page.waitForSelector('.btn--card-url').then(async () => {
       const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
@@ -78,6 +65,19 @@ describe('Valid Cards', () => {
       const fbAppId = await page.$eval('meta[property="fb:app_id"]', el => el.getAttribute('content'));
 
       expect(fbAppId).toMatch(env.fbAppId);
+    });
+  });
+
+  it('should output correct og:url meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const actualStatus = response.status();
+      const actualUrl = await page.url();
+      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
+
+      expect(actualUrl).toBe(expectedUrl);
+      expect(ogUrl).toBe(expectedUrl);
     });
   });
 

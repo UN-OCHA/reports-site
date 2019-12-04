@@ -180,7 +180,7 @@
           { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
           { hid: 'og-type', property: 'og:type', content: 'article' },
           { hid: 'og-type', property: 'og:locale', content: this.entry.fields.language },
-          { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
+          { hid: 'og-url', property: 'og:url', content: `${process.env.baseUrl}/${this.entry.fields.language}/country/${this.entry.fields.slug}/` },
           { hid: 'og-title', property: 'og:title', content: this.entry.fields.title },
           { hid: 'og-desc', property: 'og:description', content: this.keyMessagesJoined },
           { hid: 'og-image', property: 'og:image', content: (this.keyMessagesHasImage) ? 'https:' + this.entry.fields.keyMessagesImage.fields.file.url : '' },
