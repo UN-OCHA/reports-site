@@ -1,5 +1,6 @@
 const env = {
   baseUrl: 'https://reports.unocha.org',
+  fbAppId: '1916193535375038',
 };
 
 import fr from '../locales/fr.js';
@@ -17,9 +18,9 @@ describe('SitRep JS Disabled', () => {
   });
 
   it('should load CardUrl link', async () => {
-    const expectedLength = 0;
-    const actualLength = await page.$$eval('.btn--card-url', nodeList => nodeList.length);
-    await expect(actualLength).toBeGreaterThan(expectedLength);
+    const minimumCardUrls = 0;
+    const actualCardUrls = await page.$$eval('.btn--card-url', nodeList => nodeList.length);
+    await expect(actualCardUrls).toBeGreaterThan(minimumCardUrls);
   });
 
   it('should load HTML content', async () => {
@@ -30,6 +31,17 @@ describe('SitRep JS Disabled', () => {
     });
   });
 
+  it('should output correct fb:app_id meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const fbAppId = await page.$eval('meta[property="fb:app_id"]', el => el.getAttribute('content'));
+
+      expect(fbAppId).toMatch(env.fbAppId);
+    });
+  });
+
+  // ⚠️ This needs to be the last test since it navigates to Homepage.
   it('should link to localized Homepage based on SitRep language', async () => {
     await Promise.all([
       page.waitForNavigation(),

@@ -229,6 +229,7 @@
           { hid: 'tw-image', name: 'twitter:image', content: this.socialImageUrl },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
+          { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `${baseUrl}/${this.parents[0].fields.language}/country/${this.parents[0].fields.slug}/card/${this.sysIdShort}/` },
           { hid: 'og-title', property: 'og:title', content: this.officeName },
