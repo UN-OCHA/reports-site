@@ -15,21 +15,8 @@ describe('Valid Cards', () => {
       const actualStatus = response.status();
       const actualUrl = await page.url();
 
-      expect(actualStatus).toBe(200);
+      expect([200, 304]).toContain(actualStatus);
       expect(actualUrl).toBe(expectedUrl);
-    });
-  });
-
-  it('should output an accurate og:url meta tag', async () => {
-    await page.waitForSelector('.btn--card-url').then(async () => {
-      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
-      const response = await page.goto(expectedUrl);
-      const actualStatus = response.status();
-      const actualUrl = await page.url();
-      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
-
-      expect(actualUrl).toBe(expectedUrl);
-      expect(ogUrl).toBe(expectedUrl);
     });
   });
 
@@ -78,6 +65,30 @@ describe('Valid Cards', () => {
       const fbAppId = await page.$eval('meta[property="fb:app_id"]', el => el.getAttribute('content'));
 
       expect(fbAppId).toMatch(env.fbAppId);
+    });
+  });
+
+  it('should output correct og:url meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const actualStatus = response.status();
+      const actualUrl = await page.url();
+      const ogUrl = await page.$eval('meta[property="og:url"]', el => el.getAttribute('content'));
+
+      expect(actualUrl).toBe(expectedUrl);
+      expect(ogUrl).toBe(expectedUrl);
+    });
+  });
+
+  it('should output correct og:locale meta tag matching URL language', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const expectedLocale = expectedUrl.split('/')[3];
+      const ogLocale = await page.$eval('meta[property="og:locale"]', el => el.getAttribute('content'));
+
+      expect(ogLocale).toMatch(expectedLocale);
     });
   });
 });
