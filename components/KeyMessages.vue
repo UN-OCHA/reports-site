@@ -127,6 +127,11 @@
   margin-bottom: 1rem;
   font-size: 1.1em;
   line-height: 1.5;
+
+  // Myanmar has a very tall language
+  [lang="my"] & {
+    line-height: 1.75;
+  }
 }
 
 @media print and (min-width: 6in),

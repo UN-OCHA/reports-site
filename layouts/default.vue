@@ -419,6 +419,11 @@ main code {
 .rich-text p {
   line-height: 1.5;
   margin-bottom: 1em;
+
+  // Myanmar has a very tall language
+  [lang="my"] & {
+    line-height: 1.75;
+  }
 }
 .rich-text p img {
   display: block;
