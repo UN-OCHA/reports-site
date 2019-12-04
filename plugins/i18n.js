@@ -8,6 +8,7 @@ import es from '~/locales/es.js';
 import fr from '~/locales/fr.js';
 import rn from '~/locales/rn.js';
 import ru from '~/locales/ru.js';
+import so from '~/locales/so.js';
 import uk from '~/locales/uk.js';
 
 Vue.use(VueI18n);
@@ -25,6 +26,7 @@ export default ({ app, store }) => {
       'fr': fr,
       'rn': rn,
       'ru': ru,
+      'so': so,
       'uk': uk,
     }
   });
