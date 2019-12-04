@@ -80,6 +80,17 @@ describe('Valid Cards', () => {
       expect(fbAppId).toMatch(env.fbAppId);
     });
   });
+
+  it('should output correct og:locale meta tag matching URL language', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const expectedLocale = expectedUrl.split('/')[3];
+      const ogLocale = await page.$eval('meta[property="og:locale"]', el => el.getAttribute('content'));
+
+      expect(ogLocale).toMatch(expectedLocale);
+    });
+  });
 });
 
 describe('Invalid Card URLs', () => {
