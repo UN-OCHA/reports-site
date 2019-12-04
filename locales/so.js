@@ -10,7 +10,7 @@ export default {
   'Situation Reports': 'Warbixinta Xaaladda',
 
   // Errors
-  'No data available.': 'No data available.',
+  'No data available.': 'Ma jirto xog deeqaha la xiriirto.',
   'Page not found': 'Bogga lama helin',
   'Server Error': 'Server Error',
   'We want to help you find the information you are looking for.': 'Waxaan rabnaa inaan kaa cawino xogta aad raadineysid.',
