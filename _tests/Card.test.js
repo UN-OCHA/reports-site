@@ -1,9 +1,10 @@
 const env = {
   baseUrl: 'https://reports.unocha.org',
+  fbAppId: '1916193535375038',
 };
 
 describe('Valid Cards', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto(`${env.baseUrl}/fr/country/burundi/`);
   });
 
@@ -67,6 +68,16 @@ describe('Valid Cards', () => {
 
       expect(ogImage).toMatch('images.ctfassets.net');
       expect(ogImage).toBe(twImage);
+    });
+  });
+
+  it('should output correct fb:app_id meta tag', async () => {
+    await page.waitForSelector('.btn--card-url').then(async () => {
+      const expectedUrl = await page.$eval('.btn--card-url', el => el.href);
+      const response = await page.goto(expectedUrl);
+      const fbAppId = await page.$eval('meta[property="fb:app_id"]', el => el.getAttribute('content'));
+
+      expect(fbAppId).toMatch(env.fbAppId);
     });
   });
 });
