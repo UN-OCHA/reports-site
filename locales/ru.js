@@ -136,6 +136,7 @@ export default {
   'Kirundi': 'Kirundi',
   'Myanmar language': 'Myanmar language',
   'Russian': 'Русский',
+  'Somali': 'Сомалийский',
   'Spanish': 'Испанский',
   'Ukrainian': 'Украинский',
 }

@@ -137,5 +137,6 @@ export default {
   'Myanmar language': 'Myanmar language',
   'Russian': 'Pосійська',
   'Spanish': 'Іспанська',
+  'Somali': 'Сомалійська',
   'Ukrainian': 'Українська',
 }

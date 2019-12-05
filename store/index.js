@@ -93,6 +93,13 @@ export const state = () => ({
       fallback: 'fr',
     },
     {
+      code: 'so',
+      name: 'Soomaali',
+      dir: 'ltr',
+      display: false,
+      fallback: 'fr',
+    },
+    {
       code: 'uk',
       name: 'Українська',
       dir: 'ltr',
