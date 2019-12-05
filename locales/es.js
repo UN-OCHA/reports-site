@@ -134,6 +134,7 @@ export default {
   'English': 'Inglés',
   'French': 'Francés',
   'Russian': 'Ruso',
+  'Somali': 'Somali',
   'Spanish': 'Español',
   'Ukrainian': 'Ucraniano',
   'Kirundi': 'Kirundi',
