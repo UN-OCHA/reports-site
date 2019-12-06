@@ -18,7 +18,7 @@
       <component :is="componentMap[entry.sys.contentType.sys.id]" :content="entry" :force-expanded="true" v-if="typeof entry !== 'undefined' && typeof entry.fields !== 'undefined'" />
     </main>
 
-    <AppFooter />
+    <AppFooter :footer="parents[0].fields.footer" />
   </div>
 </template>
 
