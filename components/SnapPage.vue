@@ -77,7 +77,7 @@
       //
       pdfHeader() {
         return `
-<header class="pdf-header" ${ this.languageDirection(this.locale) === 'rtl' ? 'dir="rtl"' : 'dir="ltr"' }>
+<header class="pdf-header" lang="${this.locale}" dir="${ this.languageDirection(this.locale) === 'rtl' ? 'rtl' : 'ltr' }">
   <div class="pdf-header__meta">
     <div class="pdf-header__title">${this.title}</div>
     <div class="pdf-header__subtitle">${this.subtitle}</div>
@@ -154,7 +154,7 @@
 
       pdfFooter() {
         return `
-<footer class="pdf-footer" ${ this.languageDirection(this.locale) === 'rtl' ? 'dir="rtl"' : 'dir="ltr"' }>
+<footer class="pdf-footer" lang="${this.locale}" dir="${ this.languageDirection(this.locale) === 'rtl' ? 'rtl' : 'ltr' }">
   <div class="pdf-footer__left">
     ${this.$t('Page # of #', this.locale).replace('#', '<span class="pageNumber"></span>').replace('#', '<span class="totalPages"></span>')}
   </div>
