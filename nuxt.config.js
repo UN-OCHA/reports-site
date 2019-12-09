@@ -62,6 +62,66 @@ module.exports = {
   //
   modules: [
     ['@nuxtjs/moment', ['ar', 'es', 'fr', 'ru', 'uk']],
+    ['@nuxtjs/feed'],
+  ],
+  //
+  //
+  //
+  feed: [
+    {
+      path: '/feeds/sitreps.xml',
+      async create(feed) {
+        // To generate a query suitable for RSS, we need to use Contentful's
+        // Content Management API (CMA). Use an alternate client and endpoint
+        // to query the data for this feed.
+        const manage = require('contentful-management');
+        const api = manage.createClient({
+          accessToken: process.env.CTF_CMA_ADMIN_TOKEN,
+        });
+        const sitreps = await api.getSpace(process.env.CTF_SPACE_ID)
+          .then(space => space.getEnvironment(process.env.CTF_ENVIRONMENT))
+          .then(environment => environment.getEntries({
+            'include': 5,
+            'content_type': 'sitrep',
+            'sys.publishedVersion[gte]': 1,
+            'order': '-sys.firstPublishedAt',
+          }))
+          .catch(console.error)
+
+        sitreps.items.forEach(sitrep => {
+          const title = sitrep.fields && sitrep.fields.title && sitrep.fields.title['en-US'] || 'NO-TITLE';
+          const lang = sitrep.fields && sitrep.fields.language && sitrep.fields.language['en-US'] || 'NO-LANG';
+          const slug = sitrep.fields && sitrep.fields.slug && sitrep.fields.slug['en-US'] || 'NO-SLUG';
+          const firstPubDate = sitrep.sys.firstPublishedAt || 'NO-FIRSTPUB';
+
+          feed.addItem({
+            title: title,
+            id: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
+            link: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
+            date: new Date(Date.parse(firstPubDate)),
+          })
+        });
+
+        feed.options = {
+          title: 'DSR: SitReps',
+          link: `${process.env.BASE_URL}/feeds/sitreps.xml`,
+          description: `All SitReps published on ${process.env.BASE_URL}`,
+          docs: 'https://validator.w3.org/feed/docs/rss2.html',
+          // Measured in MINUTES. See `docs` link.
+          ttl: 60 * 24,
+          date: new Date(Date.now()),
+        }
+
+        feed.addContributor({
+          name: 'UN OCHA',
+          link: 'https://www.unocha.org',
+        });
+      },
+      // Measured in milliseconds.
+      cacheTime: 1000 * 60 * 60 * 24,
+      type: 'rss2',
+      data: [],
+    },
   ],
   //
   // Router
