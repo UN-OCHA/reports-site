@@ -196,7 +196,7 @@
       //
       localeName(langCode) {
         const targetLocale = this.locales.find((locale) => locale.code === langCode);
-        return targetLocale.name;
+        return targetLocale && targetLocale.name || `Language not installed: ${langCode}`;
       },
 
       //
