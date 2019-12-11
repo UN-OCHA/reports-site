@@ -47,6 +47,12 @@
     data() {
       return {
         mimetype: 'application/pdf',
+
+        // Magic number defining the height of each line of text in the subtitle
+        // in the PDF Header. This depends on the fact that the PDF HEader is
+        // 96 DPI while the web content is 72, the font-size in pdfHeader CSS,
+        // the border-bottom, and so forth. If it seems broken, adjust it!
+        pdfHeaderSubtitleHeightMultiplier: 18,
       }
     },
 
@@ -60,12 +66,29 @@
         const finalSnapUrl = this.pdfUrl || this.defaultSitRepUrl;
 
         // Return the fully parameterized Snap request.
-        return `${this.snapEndpoint}?url=${encodeURIComponent(finalSnapUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=150&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(finalSnapUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=${this.pdfHeaderHeight}&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
       },
 
       filename() {
         const dateUpdated = this.$moment(this.$store.state.reportMeta.dateUpdated).locale(this.localeOrFallback).format('D MMM YYYY');
         return `${this.$t(this.filenamePrefix, this.locale)} - ${this.$store.state.reportMeta.title} - ${dateUpdated}.${this.output}`;
+      },
+
+      subtitleWithLineBreaks() {
+        // Split text into suitable-length chunks, only breaking on spaces.
+        const array = this.subtitle.match(/.{1,72}(\s|$)/g);
+        // Re-join the lines with <br> tags.
+        return array.join('<br>');
+      },
+
+      pdfHeaderSubtitleLines() {
+        // Count number of <br> tags in our processed subtitle and return the number.
+        return [...this.subtitleWithLineBreaks.matchAll(/<br>/g)].length;
+      },
+
+      // Calculate the pdfMarginTop value based on how long the subtitle is.
+      pdfHeaderHeight() {
+        return 150 + (this.pdfHeaderSubtitleLines * this.pdfHeaderSubtitleHeightMultiplier);
       },
 
       //
@@ -80,7 +103,7 @@
 <header class="pdf-header" ${ this.languageDirection(this.locale) === 'rtl' ? 'dir="rtl"' : 'dir="ltr"' }>
   <div class="pdf-header__meta">
     <div class="pdf-header__title">${this.title}</div>
-    <div class="pdf-header__subtitle">${this.subtitle}</div>
+    <div class="pdf-header__subtitle">${this.subtitleWithLineBreaks}</div>
     <div class="pdf-header__description">${this.description}</div>
   </div>
   <div class="pdf-header__logo-wrapper">
