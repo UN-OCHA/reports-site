@@ -71,34 +71,39 @@ module.exports = {
     {
       path: '/feeds/sitreps.xml',
       async create(feed) {
-        // To generate a query suitable for RSS, we need to use Contentful's
-        // Content Management API (CMA). Use an alternate client and endpoint
-        // to query the data for this feed.
-        const manage = require('contentful-management');
-        const api = manage.createClient({
-          accessToken: process.env.CTF_CMA_ADMIN_TOKEN,
-        });
-        const sitreps = await api.getSpace(process.env.CTF_SPACE_ID)
-          .then(space => space.getEnvironment(process.env.CTF_ENVIRONMENT))
-          .then(environment => environment.getEntries({
-            'include': 5,
-            'content_type': 'sitrep',
-            'sys.publishedVersion[gte]': 1,
-            'order': '-sys.firstPublishedAt',
-          }))
-          .catch(console.error)
+        //
+        // Query Contentful for:
+        //
+        // * SitReps ordered by last update
+        //
+        const sitreps = await client.getEntries({
+          'include': 5,
+          'content_type': 'sitrep',
+          'order': '-sys.updatedAt',
+        })
+        .catch(console.error)
 
         sitreps.items.forEach(sitrep => {
-          const title = sitrep.fields && sitrep.fields.title && sitrep.fields.title['en-US'] || 'NO-TITLE';
-          const lang = sitrep.fields && sitrep.fields.language && sitrep.fields.language['en-US'] || 'NO-LANG';
-          const slug = sitrep.fields && sitrep.fields.slug && sitrep.fields.slug['en-US'] || 'NO-SLUG';
-          const firstPubDate = sitrep.sys.firstPublishedAt || 'NO-FIRSTPUB';
+          const title = sitrep.fields && sitrep.fields.title || 'NO-TITLE';
+          const lang = sitrep.fields && sitrep.fields.language || 'NO-LANG';
+          const slug = sitrep.fields && sitrep.fields.slug || 'NO-SLUG';
+          const lastUpdate = sitrep.sys.updatedAt || 'NO-FIRSTPUB';
+          const summary = sitrep.fields
+            && sitrep.fields.keyMessages
+            && sitrep.fields.keyMessages
+              .filter(msg => typeof msg.fields !== 'undefined')
+              .map(msg => msg.fields
+                && msg.fields.keyMessage
+                || 'This Highlight was either Archived or Unpublished')
+              .join('\n * ')
+            || 'No Highlights available';
 
           feed.addItem({
             title: title,
             id: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
             link: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
-            date: new Date(Date.parse(firstPubDate)),
+            date: new Date(Date.parse(lastUpdate)),
+            description: ` * ${summary}`,
           })
         });
 
@@ -118,7 +123,7 @@ module.exports = {
         });
       },
       // Measured in milliseconds.
-      cacheTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000,// * 60 * 60 * 24,
       type: 'rss2',
       data: [],
     },
