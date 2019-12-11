@@ -297,7 +297,12 @@
 //
 // Snap PDFs
 //
-.snap--pdf .go-back {
-  display: none;
+.snap--pdf {
+  .go-back {
+    display: none;
+  }
+  .page--card .card {
+    border-bottom: 0;
+  }
 }
 </style>
