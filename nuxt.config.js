@@ -65,70 +65,6 @@ module.exports = {
     ['@nuxtjs/feed'],
   ],
   //
-  //
-  //
-  feed: [
-    {
-      path: '/feeds/sitreps.xml',
-      async create(feed) {
-        //
-        // Query Contentful for:
-        //
-        // * SitReps ordered by last update
-        //
-        const sitreps = await client.getEntries({
-          'include': 5,
-          'content_type': 'sitrep',
-          'order': '-sys.updatedAt',
-        })
-        .catch(console.error)
-
-        sitreps.items.forEach(sitrep => {
-          const title = sitrep.fields && sitrep.fields.title || 'NO-TITLE';
-          const lang = sitrep.fields && sitrep.fields.language || 'NO-LANG';
-          const slug = sitrep.fields && sitrep.fields.slug || 'NO-SLUG';
-          const lastUpdate = sitrep.sys.updatedAt || 'NO-FIRSTPUB';
-          const summary = sitrep.fields
-            && sitrep.fields.keyMessages
-            && sitrep.fields.keyMessages
-              .filter(msg => typeof msg.fields !== 'undefined')
-              .map(msg => msg.fields
-                && msg.fields.keyMessage
-                || 'This Highlight was either Archived or Unpublished')
-              .join('\n * ')
-            || 'No Highlights available';
-
-          feed.addItem({
-            title: title,
-            id: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
-            link: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
-            date: new Date(Date.parse(lastUpdate)),
-            description: ` * ${summary}`,
-          })
-        });
-
-        feed.options = {
-          title: 'DSR: SitReps',
-          link: `${process.env.BASE_URL}/feeds/sitreps.xml`,
-          description: `All SitReps published on ${process.env.BASE_URL}`,
-          docs: 'https://validator.w3.org/feed/docs/rss2.html',
-          // Measured in MINUTES. See `docs` link.
-          ttl: 60 * 24,
-          date: new Date(Date.now()),
-        }
-
-        feed.addContributor({
-          name: 'UN OCHA',
-          link: 'https://www.unocha.org',
-        });
-      },
-      // Measured in milliseconds.
-      cacheTime: 1000,// * 60 * 60 * 24,
-      type: 'rss2',
-      data: [],
-    },
-  ],
-  //
   // Router
   //
   router: {},
@@ -154,6 +90,70 @@ module.exports = {
       }
     }
   },
+  //
+  // RSS Feeds
+  //
+  feed: [
+    {
+      path: '/feeds/sitreps.xml',
+      async create(feed) {
+        //
+        // Query Contentful for:
+        //
+        // * SitReps ordered by last update
+        //
+        const sitreps = await client.getEntries({
+          'include': 5,
+          'content_type': 'sitrep',
+          'order': '-sys.updatedAt',
+        })
+        .catch(console.error);
+
+        sitreps.items.forEach((sitrep) => {
+          const title = sitrep.fields && sitrep.fields.title || 'NO-TITLE';
+          const lang = sitrep.fields && sitrep.fields.language || 'NO-LANG';
+          const slug = sitrep.fields && sitrep.fields.slug || 'NO-SLUG';
+          const lastUpdate = sitrep.sys.updatedAt || 'NO-UPDATEDAT';
+          const summary = sitrep.fields
+            && sitrep.fields.keyMessages
+            && sitrep.fields.keyMessages
+              .filter(msg => typeof msg.fields !== 'undefined')
+              .map(msg => msg.fields
+                && msg.fields.keyMessage
+                || 'This Highlight was either Archived or Unpublished')
+              .join('\n * ')
+            || 'No Highlights available';
+
+          feed.addItem({
+            title: title,
+            id: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
+            link: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
+            date: new Date(Date.parse(lastUpdate)),
+            description: ` * ${summary}`,
+          });
+        });
+
+        feed.options = {
+          title: 'DSR: Situation Reports',
+          link: `${process.env.BASE_URL}/feeds/sitreps.xml`,
+          description: `All Situation Reports published on ${process.env.BASE_URL}`,
+          docs: 'https://validator.w3.org/feed/docs/rss2.html',
+          // Measured in MINUTES. See `docs` link.
+          ttl: 60 * 24,
+          date: new Date(Date.now()),
+        }
+
+        feed.addContributor({
+          name: 'UN OCHA',
+          link: 'https://www.unocha.org',
+        });
+      },
+      // Measured in milliseconds.
+      cacheTime: 1000,// * 60 * 60 * 24,
+      type: 'rss2',
+      data: [],
+    },
+  ],
   //
   // Static Generation config
   //
