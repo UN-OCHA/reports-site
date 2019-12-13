@@ -103,7 +103,7 @@ module.exports = {
         // * SitReps ordered by last update
         //
         const sitreps = await client.getEntries({
-          'include': 5,
+          'include': 10,
           'content_type': 'sitrep',
           'order': '-sys.updatedAt',
         })
@@ -137,6 +137,70 @@ module.exports = {
           title: 'DSR: Situation Reports',
           link: `${process.env.BASE_URL}/feeds/sitreps.xml`,
           description: `All Situation Reports published on ${process.env.BASE_URL}`,
+          docs: 'https://validator.w3.org/feed/docs/rss2.html',
+          // Measured in MINUTES. See `docs` link.
+          ttl: 60 * 24,
+          date: new Date(Date.now()),
+        }
+
+        feed.addContributor({
+          name: 'UN OCHA',
+          link: 'https://www.unocha.org',
+        });
+      },
+      // Measured in milliseconds.
+      cacheTime: 1000,// * 60 * 60 * 24,
+      type: 'rss2',
+      data: [],
+    },
+    {
+      path: '/feeds/flashupdates.xml',
+      async create(feed) {
+        const renderer = require('@contentful/rich-text-html-renderer');
+        const documentToHtmlString = renderer.documentToHtmlString;
+
+        //
+        // Query Contentful for:
+        //
+        // * FlashUpdates ordered by last update
+        //
+        const flashUpdates = await client.getEntries({
+          'include': 10,
+          'content_type': 'flashUpdate',
+          'order': '-sys.updatedAt',
+        })
+        .catch(console.error);
+
+        // Filter out Flash Updates that do not have a valid SitRep attached.
+        const validFlashUpdates = flashUpdates.items.filter(fu => fu.fields.relatedSitRep && typeof fu.fields.relatedSitRep.sys.id !== 'undefined');
+
+        // Loop through filtered Flash Updates.
+        validFlashUpdates.forEach(async (flashUpdate) => {
+          const title = flashUpdate.fields.title;
+          const lastUpdate = flashUpdate.sys.updatedAt;
+          const flashUpdateId = flashUpdate.sys.id;
+          const sitrep = flashUpdate.fields.relatedSitRep;
+          const summary = (documentToHtmlString(flashUpdate.fields.body, {}) || 'No Flash Update text available.')
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+          // With all the data collected, add an <item> to the feed.
+          feed.addItem({
+            title: title,
+            id: `${process.env.BASE_URL}/${sitrep.fields.language}/country/${sitrep.fields.slug}/flash-update/${flashUpdate.sys.id}/`,
+            link: `${process.env.BASE_URL}/${sitrep.fields.language}/country/${sitrep.fields.slug}/flash-update/${flashUpdate.sys.id}/`,
+            date: new Date(Date.parse(lastUpdate)),
+            description: `${summary}`,
+          });
+        });
+
+        feed.options = {
+          title: 'DSR: Flash Updates',
+          link: `${process.env.BASE_URL}/feeds/flashupdates.xml`,
+          description: `All Flash Updates published on ${process.env.BASE_URL}`,
           docs: 'https://validator.w3.org/feed/docs/rss2.html',
           // Measured in MINUTES. See `docs` link.
           ttl: 60 * 24,
