@@ -302,7 +302,7 @@ module.exports = {
               // Populate based on Card type
               //
               if (cardType === 'article') {
-                cardTitle = card.fields.title || 'Untitled Article';
+                cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
                 cardDescription = (card.fields.body ? richText(card.fields.body, {}) : '')
                   .replace(/&/g, "&amp;")
                   .replace(/</g, "&lt;")
@@ -475,7 +475,7 @@ module.exports = {
               // Populate based on Card type
               //
               if (cardType === 'article') {
-                cardTitle = card.fields.title || 'Untitled Article';
+                cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
                 cardDescription = (card.fields.body ? richText(card.fields.body, {}) : '')
                   .replace(/&/g, "&amp;")
                   .replace(/</g, "&lt;")
