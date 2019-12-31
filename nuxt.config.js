@@ -371,7 +371,7 @@ module.exports = {
         });
 
         feed.options = {
-          title: 'DSR: Situation Reports',
+          title: `${sitrep.fields.title} - ${THIS_LANG.toUpperCase()}`,
           link: `${process.env.BASE_URL}/feeds/${THIS_LANG}/country/${THIS_SLUG}.xml`,
           description: `All content for ${sitrep.fields.title} published on ${process.env.BASE_URL}`,
           docs: 'https://validator.w3.org/feed/docs/rss2.html',
@@ -544,7 +544,7 @@ module.exports = {
         });
 
         feed.options = {
-          title: 'DSR: Situation Reports',
+          title: `${sitrep.fields.title} - ${THIS_LANG.toUpperCase()}`,
           link: `${process.env.BASE_URL}/feeds/${THIS_LANG}/country/${THIS_SLUG}.xml`,
           description: `All content for ${sitrep.fields.title} published on ${process.env.BASE_URL}`,
           docs: 'https://validator.w3.org/feed/docs/rss2.html',
