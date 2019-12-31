@@ -234,16 +234,17 @@ module.exports = {
 
     // Capture each sitrep feed into an array which we'll spread and push later.
     const eachSitrepFeed = allSitreps.items.map(entry => {
+      // Define which country/office we're pulling data from
+      const THIS_LANG = entry.fields.language;
+      const THIS_SLUG = entry.fields.slug;
+
+      // Define this Sitrep's feed
       return {
-        path: `/feeds/${entry.fields.language}/country/${entry.fields.slug}.xml`,
+        path: `/feeds/${THIS_LANG}/country/${THIS_SLUG}.xml`,
         async create(feed) {
           // Render CTF rich text
           const renderer = require('@contentful/rich-text-html-renderer');
           const richText = renderer.documentToHtmlString;
-
-          // Define which country/office we're pulling data from
-          const THIS_LANG = entry.fields.language;
-          const THIS_SLUG = entry.fields.slug;
 
           //
           // Query Contentful for:
