@@ -164,8 +164,8 @@ module.exports = {
       type: 'rss2',
       data: [],
       async create(feed) {
-        const renderer = require('@contentful/rich-text-html-renderer');
-        const richText = renderer.documentToHtmlString;
+        const renderer = require('@contentful/rich-text-plain-text-renderer');
+        const plainText = renderer.documentToPlainTextString;
 
         //
         // Query Contentful for:
@@ -188,7 +188,7 @@ module.exports = {
           const lastUpdate = flashUpdate.sys.updatedAt;
           const flashUpdateId = flashUpdate.sys.id;
           const sitrep = flashUpdate.fields.relatedSitRep;
-          const summary = (richText(flashUpdate.fields.body, {}) || 'No Flash Update text available.')
+          const summary = plainText(flashUpdate.fields.body, {})
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
@@ -244,8 +244,8 @@ module.exports = {
         data: [],
         async create(feed) {
           // Render CTF rich text
-          const renderer = require('@contentful/rich-text-html-renderer');
-          const richText = renderer.documentToHtmlString;
+          const renderer = require('@contentful/rich-text-plain-text-renderer');
+          const plainText = renderer.documentToPlainTextString;
 
           //
           // Query Contentful for:
@@ -317,7 +317,7 @@ module.exports = {
                 //
                 if (cardType === 'article') {
                   cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
-                  cardDescription = (card.fields.body ? richText(card.fields.body, {}) : '')
+                  cardDescription = plainText(card.fields.body, {})
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
@@ -326,7 +326,7 @@ module.exports = {
                 }
                 if (cardType === 'clusterInformation') {
                   cardTitle = `${card.fields.sectionHeading || 'Cluster'} Status: ${card.fields.clusterName}`;
-                  cardDescription = ('<h3>Needs</h3>' + richText(card.fields.clusterNeeds, {}) +'<h3>Response</h3>'+ richText(card.fields.clusterResponse, {}) +'<h3>Gaps</h3>'+ richText(card.fields.clusterGaps, {}))
+                  cardDescription = ('Needs:\r\n' + plainText(card.fields.clusterNeeds, {}) +'Response:\r\n'+ plainText(card.fields.clusterResponse, {}) +'Gaps:\r\n'+ plainText(card.fields.clusterGaps, {}))
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
@@ -335,7 +335,7 @@ module.exports = {
                 }
                 if (cardType === 'interactive') {
                   cardTitle = card.fields.title || 'Untitled Interactive';
-                  cardDescription = (card.fields.description ? richText(card.fields.description, {}) : '')
+                  cardDescription = plainText(card.fields.description, {})
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
@@ -344,7 +344,7 @@ module.exports = {
                 }
                 if (cardType === 'visual') {
                   cardTitle = card.fields.title || 'Untitled Visual';
-                  cardDescription = (card.fields.description ? richText(card.fields.description, {}) : '')
+                  cardDescription = plainText(card.fields.description, {})
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
@@ -353,7 +353,7 @@ module.exports = {
                 }
                 if (cardType === 'video') {
                   cardTitle = `Video: ${card.fields.videoUrl}`;
-                  cardDescription = (card.fields.description ? richText(card.fields.description, {}) : '')
+                  cardDescription = plainText(card.fields.description, {})
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
