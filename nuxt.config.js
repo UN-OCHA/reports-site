@@ -165,7 +165,7 @@ module.exports = {
       data: [],
       async create(feed) {
         const renderer = require('@contentful/rich-text-plain-text-renderer');
-        const plainText = renderer.documentToPlainTextString;
+        const richText = renderer.documentTorichTextString;
 
         //
         // Query Contentful for:
@@ -188,7 +188,7 @@ module.exports = {
           const lastUpdate = flashUpdate.sys.updatedAt;
           const flashUpdateId = flashUpdate.sys.id;
           const sitrep = flashUpdate.fields.relatedSitRep;
-          const summary = plainText(flashUpdate.fields.body, {})
+          const summary = richText(flashUpdate.fields.body, {})
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
@@ -244,8 +244,36 @@ module.exports = {
         data: [],
         async create(feed) {
           // Render CTF rich text
-          const renderer = require('@contentful/rich-text-plain-text-renderer');
-          const plainText = renderer.documentToPlainTextString;
+          const rt = require('@contentful/rich-text-types');
+          const renderer = require('@contentful/rich-text-html-renderer');
+          const richText = renderer.documentToHtmlString;
+
+          // To work around a few of the plainText renderer limitations, we are
+          // replicating plain-text output using HTML renderOptions. Some of the
+          // outputs may look funny our of context, but there is additional
+          // processing happening below after the strings have been rendered.
+          const plainTextRenderOptions = {
+            renderNode: {
+              [rt.BLOCKS.HEADING_4]: (node, next) => {
+                return `#### ${next(node.content)}\r\n\r\n\r\n`;
+              },
+              [rt.BLOCKS.HEADING_5]: (node, next) => {
+                return `#### ${next(node.content)}\r\n\r\n\r\n`;
+              },
+              [rt.BLOCKS.OL_LIST]: (node, next) => {
+                return `${next(node.content)}\r\n`;
+              },
+              [rt.BLOCKS.UL_LIST]: (node, next) => {
+                return `${next(node.content)}\r\n`;
+              },
+              [rt.BLOCKS.LIST_ITEM]: (node, next) => {
+                return ` * ${next(node.content)}`;
+              },
+              [rt.BLOCKS.PARAGRAPH]: (node, next) => {
+                return `${next(node.content)}\r\n\r\n`;
+              },
+            },
+          };
 
           //
           // Query Contentful for:
@@ -317,48 +345,53 @@ module.exports = {
                 //
                 if (cardType === 'article') {
                   cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
-                  cardDescription = plainText(card.fields.body, {})
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
-                }
-                if (cardType === 'clusterInformation') {
-                  cardTitle = `${card.fields.sectionHeading || 'Cluster'} Status: ${card.fields.clusterName}`;
-                  cardDescription = ('Needs:\r\n' + plainText(card.fields.clusterNeeds, {}) +'Response:\r\n'+ plainText(card.fields.clusterResponse, {}) +'Gaps:\r\n'+ plainText(card.fields.clusterGaps, {}))
+                  cardDescription = richText(card.fields.body, plainTextRenderOptions)
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
                     .replace(/"/g, "&quot;")
                     .replace(/'/g, "&#039;")
+                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                }
+                if (cardType === 'clusterInformation') {
+                  cardTitle = `${card.fields.sectionHeading || 'Cluster'} Status: ${card.fields.clusterName}`;
+                  cardDescription = ('Needs:\r\n' + richText(card.fields.clusterNeeds, plainTextRenderOptions) +'Response:\r\n'+ richText(card.fields.clusterResponse, plainTextRenderOptions) +'Gaps:\r\n'+ richText(card.fields.clusterGaps, plainTextRenderOptions))
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;")
+                    .replace(/\r\n\r\n \*/g, '\r\n *');
                 }
                 if (cardType === 'interactive') {
                   cardTitle = card.fields.title || 'Untitled Interactive';
-                  cardDescription = plainText(card.fields.description, {})
+                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
                     .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
+                    .replace(/'/g, "&#039;")
+                    .replace(/\r\n\r\n \*/g, '\r\n *');
                 }
                 if (cardType === 'visual') {
                   cardTitle = card.fields.title || 'Untitled Visual';
-                  cardDescription = plainText(card.fields.description, {})
+                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
                     .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
+                    .replace(/'/g, "&#039;")
+                    .replace(/\r\n\r\n \*/g, '\r\n *');
                 }
                 if (cardType === 'video') {
                   cardTitle = `Video: ${card.fields.videoUrl}`;
-                  cardDescription = plainText(card.fields.description, {})
+                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;")
                     .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
+                    .replace(/'/g, "&#039;")
+                    .replace(/\r\n\r\n \*/g, '\r\n *');
                 }
 
                 cardTitle && feedItems.push({
