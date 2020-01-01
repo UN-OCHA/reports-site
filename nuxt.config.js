@@ -100,6 +100,9 @@ module.exports = {
     // RSS: all SitReps
     feeds.push({
       path: '/feeds/sitreps.xml',
+      cacheTime: 1000,// * 60 * 60 * 24,
+      type: 'rss2',
+      data: [],
       async create(feed) {
         //
         // Query Contentful for:
@@ -152,15 +155,14 @@ module.exports = {
           link: 'https://www.unocha.org',
         });
       },
-      // Measured in milliseconds.
-      cacheTime: 1000,// * 60 * 60 * 24,
-      type: 'rss2',
-      data: [],
     });
 
     // RSS: all Flash Updates
     feeds.push({
       path: '/feeds/flashupdates.xml',
+      cacheTime: 1000,// * 60 * 60 * 24,
+      type: 'rss2',
+      data: [],
       async create(feed) {
         const renderer = require('@contentful/rich-text-html-renderer');
         const richText = renderer.documentToHtmlString;
@@ -218,10 +220,6 @@ module.exports = {
           link: 'https://www.unocha.org',
         });
       },
-      // Measured in milliseconds.
-      cacheTime: 1000,// * 60 * 60 * 24,
-      type: 'rss2',
-      data: [],
     });
 
     // Query CTF for sitrep/lang combos. We'll map through these and return one
@@ -241,6 +239,9 @@ module.exports = {
       // Define this Sitrep's feed
       return {
         path: `/feeds/${THIS_LANG}/country/${THIS_SLUG}.xml`,
+        cacheTime: 1000,// * 60 * 60 * 24,
+        type: 'rss2',
+        data: [],
         async create(feed) {
           // Render CTF rich text
           const renderer = require('@contentful/rich-text-html-renderer');
@@ -398,10 +399,6 @@ module.exports = {
             link: 'https://www.unocha.org',
           });
         },
-        // Measured in milliseconds.
-        cacheTime: 1000,// * 60 * 60 * 24,
-        type: 'rss2',
-        data: [],
       };
     });
 
