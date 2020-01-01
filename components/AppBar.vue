@@ -12,14 +12,14 @@
           <li class="link link--home" :lang="locale">
             <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
           </li>
-          <no-ssr>
+          <client-only>
             <li class="link link--latest" :lang="locale">
               {{ $t('Latest updates', locale) }}
             </li>
             <li class="link--container">
               <SitrepList v-on:close-menu="closeMenu" />
             </li>
-          </no-ssr>
+          </client-only>
           <li class="link link--about">
             <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
           </li>
