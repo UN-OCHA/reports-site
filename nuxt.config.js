@@ -128,7 +128,7 @@ module.exports = {
               .map(msg => msg.fields
                 && msg.fields.keyMessage
                 || 'This Highlight was either Archived or Unpublished')
-              .join('\n * ')
+              .join('\r\n * ')
             || 'No Highlights available';
 
           feed.addItem({
