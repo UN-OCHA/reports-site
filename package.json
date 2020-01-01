@@ -49,7 +49,7 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.9.0",
     "contentful-migration": "^0.16.6",
-    "core-js": "2",
+    "core-js": "^3",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
