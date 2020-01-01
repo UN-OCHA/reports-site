@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -63,8 +63,8 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "8.14.0",
-    "npm": "6.9.0"
+    "node": "10.14.2",
+    "npm": "6.13.0"
   },
   "jest": {
     "preset": "jest-puppeteer"
