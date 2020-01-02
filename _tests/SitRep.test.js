@@ -1,9 +1,7 @@
-const env = {
-  baseUrl: 'https://reports.unocha.org',
-  fbAppId: '1916193535375038',
-};
-
+import env from './env';
 import fr from '../locales/fr.js';
+
+jest.setTimeout(env.timeout);
 
 describe('SitRep JS Disabled', () => {
   beforeAll(async () => {

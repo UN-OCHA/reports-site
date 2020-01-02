@@ -1,6 +1,6 @@
-const env = {
-  baseUrl: 'https://reports.unocha.org',
-};
+import env from './env';
+
+jest.setTimeout(env.timeout);
 
 //
 // Although we're testing redirects, it is complicated/slow to accomplish true

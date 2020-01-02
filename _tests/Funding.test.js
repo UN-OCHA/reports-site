@@ -1,7 +1,11 @@
+import env from './env';
+
+jest.setTimeout(env.timeout);
+
 describe('Funding', () => {
   beforeAll(async () => {
     await page.setJavaScriptEnabled(false);
-    await page.goto('https://reports.unocha.org/fr/country/burundi/');
+    await page.goto(`${env.baseUrl}/fr/country/burundi/`);
   });
 
   // If the element is either missing (due to the "Funding not available") we
@@ -17,7 +21,7 @@ describe('Funding', () => {
 describe('Funding', () => {
   beforeAll(async () => {
     await page.setJavaScriptEnabled(true);
-    await page.goto('https://reports.unocha.org/fr/country/burundi/', {waitUntil: 'networkidle0'});
+    await page.goto(`${env.baseUrl}/fr/country/burundi/`, {waitUntil: 'networkidle0'});
   });
 
   // Same here with -2
