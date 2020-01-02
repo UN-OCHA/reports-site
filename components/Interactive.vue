@@ -117,7 +117,7 @@
     },
 
     created() {
-      this.richBody = this.content.fields.description ? documentToHtmlString(this.content.fields.description, this.renderOptions) : '';
+      this.richBody = documentToHtmlString(this.content.fields.description, this.renderOptions);
     },
   }
 </script>

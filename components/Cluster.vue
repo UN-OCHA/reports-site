@@ -126,9 +126,9 @@
     },
 
     created() {
-      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions) : '';
-      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions) : '';
-      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions) : '';
+      this.richNeeds = documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions);
+      this.richResponse = documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions);
+      this.richGaps = documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions);
     }
   }
 </script>

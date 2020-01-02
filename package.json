@@ -16,8 +16,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^9.0.0",
-    "@contentful/rich-text-types": "^9.0.0",
+    "@contentful/rich-text-plain-text-renderer": "^13.4.0",
+    "@contentful/rich-text-html-renderer": "^13.4.0",
+    "@contentful/rich-text-types": "^13.4.0",
     "@nuxtjs/feed": "^1.1.0",
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
