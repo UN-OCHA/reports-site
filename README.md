@@ -47,6 +47,22 @@ $ docker-compose up
 $ docker-compose up -d
 ```
 
+## E2E testing prod/local
+
+There's a file imported by each E2E suite `_tests/env/index.js`, and you can configure it to point to the environment of your choice. Change the `import` statement to point at the environment config you'd like to test. Add new ones if you want as well, but be wary of committing sensitive data to verison control.
+
+The environment configs are in the same `_tests/env` directory. At this time there's just `local` and `production` since our other test environments have HTTP basic auth. If we wanted to add support for online dev envs, adding the auth in the config is probably the way to go.
+
+Once you have the environment configured (prod is default), install the node dependencies **on your host machine** and then run the following:
+
+```sh
+# run all tests in parallel
+yarn run test
+
+# run a specific test file
+yarn run test _tests/homepage.test.js
+```
+
 ## Google Analytics tracking within DSR
 
 In the `components/_Global.vue` we have a prop called `ga` — any component or page which uses `_Global` as a mixin automatically can send events to GA using `this.ga.send()`:
