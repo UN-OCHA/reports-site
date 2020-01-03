@@ -337,7 +337,7 @@ module.exports = {
                   cardDescription = richText(card.fields.description, renderOptions);
                 }
 
-                cardTitle && feedItems.push({
+                cardTitle && cardDescription && feedItems.push({
                   title: cardTitle,
                   id: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/card/${card.sys.id.slice(0, 10)}/`,
                   link: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/card/${card.sys.id.slice(0, 10)}/`,
