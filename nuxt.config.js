@@ -164,8 +164,8 @@ module.exports = {
       type: 'rss2',
       data: [],
       async create(feed) {
-        const renderer = require('@contentful/rich-text-plain-text-renderer');
-        const richText = renderer.documentTorichTextString;
+        const renderer = require('@contentful/rich-text-html-renderer');
+        const richText = renderer.documentToHtmlString;
 
         //
         // Query Contentful for:
@@ -188,12 +188,7 @@ module.exports = {
           const lastUpdate = flashUpdate.sys.updatedAt;
           const flashUpdateId = flashUpdate.sys.id;
           const sitrep = flashUpdate.fields.relatedSitRep;
-          const summary = richText(flashUpdate.fields.body, {})
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+          const summary = richText(flashUpdate.fields.body, {});
 
           // With all the data collected, add an <item> to the feed.
           feed.addItem({
@@ -248,32 +243,10 @@ module.exports = {
           const renderer = require('@contentful/rich-text-html-renderer');
           const richText = renderer.documentToHtmlString;
 
-          // To work around a few of the plainText renderer limitations, we are
-          // replicating plain-text output using HTML renderOptions. Some of the
-          // outputs may look funny our of context, but there is additional
-          // processing happening below after the strings have been rendered.
-          const plainTextRenderOptions = {
-            renderNode: {
-              [rt.BLOCKS.HEADING_4]: (node, next) => {
-                return `#### ${next(node.content)}\r\n\r\n\r\n`;
-              },
-              [rt.BLOCKS.HEADING_5]: (node, next) => {
-                return `#### ${next(node.content)}\r\n\r\n\r\n`;
-              },
-              [rt.BLOCKS.OL_LIST]: (node, next) => {
-                return `${next(node.content)}\r\n`;
-              },
-              [rt.BLOCKS.UL_LIST]: (node, next) => {
-                return `${next(node.content)}\r\n`;
-              },
-              [rt.BLOCKS.LIST_ITEM]: (node, next) => {
-                return ` * ${next(node.content)}`;
-              },
-              [rt.BLOCKS.PARAGRAPH]: (node, next) => {
-                return `${next(node.content)}\r\n\r\n`;
-              },
-            },
-          };
+          // If needed, customize the CTF HTML renderer here
+          //
+          // @see https://github.com/contentful/rich-text/tree/master/packages/rich-text-html-renderer#usage
+          const renderOptions = {};
 
           //
           // Query Contentful for:
@@ -345,53 +318,23 @@ module.exports = {
                 //
                 if (cardType === 'article') {
                   cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
-                  cardDescription = richText(card.fields.body, plainTextRenderOptions)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;")
-                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                  cardDescription = richText(card.fields.body, renderOptions);
                 }
                 if (cardType === 'clusterInformation') {
                   cardTitle = `${card.fields.sectionHeading || 'Cluster'} Status: ${card.fields.clusterName}`;
-                  cardDescription = ('Needs:\r\n' + richText(card.fields.clusterNeeds, plainTextRenderOptions) +'Response:\r\n'+ richText(card.fields.clusterResponse, plainTextRenderOptions) +'Gaps:\r\n'+ richText(card.fields.clusterGaps, plainTextRenderOptions))
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;")
-                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                  cardDescription = ('<h3>Needs</h3>' + richText(card.fields.clusterNeeds, renderOptions) +'<h3>Response</h3>'+ richText(card.fields.clusterResponse, renderOptions) +'<h3>Gaps</h3>'+ richText(card.fields.clusterGaps, renderOptions));
                 }
                 if (cardType === 'interactive') {
                   cardTitle = card.fields.title || 'Untitled Interactive';
-                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;")
-                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                  cardDescription = richText(card.fields.description, renderOptions);
                 }
                 if (cardType === 'visual') {
                   cardTitle = card.fields.title || 'Untitled Visual';
-                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;")
-                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                  cardDescription = richText(card.fields.description, renderOptions);
                 }
                 if (cardType === 'video') {
                   cardTitle = `Video: ${card.fields.videoUrl}`;
-                  cardDescription = richText(card.fields.description, plainTextRenderOptions)
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;")
-                    .replace(/\r\n\r\n \*/g, '\r\n *');
+                  cardDescription = richText(card.fields.description, renderOptions);
                 }
 
                 cardTitle && feedItems.push({
