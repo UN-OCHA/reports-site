@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <button
       class="btn btn--download"
       :class="{ 'btn--is-active': snapInProgress }"
@@ -9,7 +9,7 @@
         {{ buttonLabel }}
       </span>
     </button>
-  </no-ssr>
+  </client-only>
 </template>
 
 <script>

@@ -44,7 +44,7 @@
           :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(localeOrFallback).format('D MMM YYYY')"
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
-          <no-ssr>
+          <client-only>
             <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
               <span class="element-invisible">{{ $t('Share', locale) }}</span>
             </button>
@@ -53,7 +53,7 @@
               <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
               <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
             </div>
-          </no-ssr>
+          </client-only>
         </div>
       </div>
     </div>

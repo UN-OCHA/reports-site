@@ -76,17 +76,17 @@ module.exports = {
   // Build configuration
   //
   build: {
-    //
-    // Run ESLint on save
-    //
-    extend (config, { isDev }) {
-      if (isDev && process.client) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            {
+              buildTarget: isServer ? 'server' : 'client',
+              corejs: { version: 3 }
+            }
+          ]
+        ]
       }
     }
   },

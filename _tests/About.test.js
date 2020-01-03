@@ -1,9 +1,12 @@
+import env from './env';
 import en from '../locales/en.js';
 import fr from '../locales/fr.js';
 
+jest.setTimeout(env.timeout);
+
 describe('AboutPage', () => {
   beforeAll(async () => {
-    await page.goto('https://reports.unocha.org/en/about/');
+    await page.goto(`${env.baseUrl}/en/about/`);
   });
 
   it('/en/about/ should contain a localized heading "About this Site"', async () => {
@@ -15,7 +18,7 @@ describe('AboutPage', () => {
 
 describe('AboutPage', () => {
   beforeAll(async () => {
-    await page.goto('https://reports.unocha.org/fr/about/');
+    await page.goto(`${env.baseUrl}/fr/about/`);
   });
 
   it('/fr/about/ should contain a localized heading "About this Site"', async () => {
@@ -28,7 +31,7 @@ describe('AboutPage', () => {
 
 describe('AboutPage', () => {
   beforeAll(async () => {
-    await page.goto('https://reports.unocha.org/en/about/');
+    await page.goto(`${env.baseUrl}/en/about/`);
   });
 
   it('should contain the Contentful graphic in the sidebar', async () => {

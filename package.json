@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -31,13 +31,13 @@
     "lodash.debounce": "^4.0.8",
     "moment": "^2.22.2",
     "newrelic": "^6.0.0",
-    "nuxt": "^2.6.3",
+    "nuxt": "2.11.0",
     "nuxt-start": "^2.6.3",
     "pm2": "^3.5.0",
     "serialize-javascript": "^2.1.1",
     "system-font-css": "^2.0.2",
     "tar": ">=2.2.2",
-    "vue": "^2.0.0",
+    "vue": "^2.6.11",
     "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
     "webpack": "^4.20.2",
@@ -50,7 +50,7 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.9.0",
     "contentful-migration": "^0.16.6",
-    "core-js": "2",
+    "core-js": "^3",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
@@ -64,8 +64,8 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "8.14.0",
-    "npm": "6.9.0"
+    "node": "10.14.2",
+    "npm": "6.13.0"
   },
   "jest": {
     "preset": "jest-puppeteer"

@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <button
       class="btn btn--pdf"
       :class="{ 'btn--is-active': snapInProgress }"
@@ -9,7 +9,7 @@
         {{ $t('Save Situation Report as PDF', locale) }}
       </span>
     </button>
-  </no-ssr>
+  </client-only>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <button
       type="button"
       class="btn btn--card-anchor"
@@ -7,7 +7,7 @@
       @click="handleClick">
       <span class="element-invisible">{{ buttonText }}</span>
     </button>
-  </no-ssr>
+  </client-only>
 </template>
 
 <script>
