@@ -126,17 +126,17 @@ module.exports = {
             && sitrep.fields.keyMessages
               .filter(msg => typeof msg.fields !== 'undefined')
               .map(msg => msg.fields
-                && msg.fields.keyMessage
-                || 'This Highlight was either Archived or Unpublished')
-              .join('\r\n * ')
-            || 'No Highlights available';
+                && '<li>' + msg.fields.keyMessage + '</li>'
+                || '<li>This Highlight was either Archived or Unpublished</li>')
+              .join('\r\n')
+            || '<li>No Highlights available</li>';
 
           feed.addItem({
             title: title,
             id: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
             link: `${process.env.BASE_URL}/${lang}/country/${slug}/`,
             date: new Date(Date.parse(lastUpdate)),
-            description: ` * ${summary}`,
+            description: `<ul>${summary}</ul>`,
           });
         });
 
