@@ -78,7 +78,7 @@
       },
 
       socialVideoUrl() {
-        return this.isVideoCard ? `https://www.youtube-nocookie.com/embed/${this.socialVideoSlug}?autoplay=1&rel=0&controls=0&showinfo=0` : '';
+        return this.isVideoCard ? `https://www.youtube-nocookie.com/embed/${this.socialVideoSlug}?autoplay=0&rel=0&controls=1&showinfo=0` : '';
       },
 
       socialVideoWidth() {
