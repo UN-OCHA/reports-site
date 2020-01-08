@@ -221,6 +221,27 @@
         // flip our bit.
         this.formatTimestamps = !this.formatTimestamps;
       },
+
+      // Parse URL parameters
+      //
+      // Since IE11+node don't support URLSearchParams
+      //
+      // @see https://stackoverflow.com/a/901144
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#Browser_compatibility
+      parseQueryParams(url, name) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+
+        if (!results) {
+          return null;
+        }
+        if (!results[2]) {
+          return '';
+        }
+
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      },
     },
   }
 </script>
