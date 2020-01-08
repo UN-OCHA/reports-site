@@ -65,22 +65,52 @@
         return this.entry.fields.image && this.entry.fields.image.fields && this.entry.fields.image.fields.file && this.entry.fields.image.fields.file.url || false;
       },
 
+      isVideoCard() {
+        return this.entry.sys.contentType.sys.id === 'video' && typeof this.entry.fields.videoUrl !== 'undefined';
+      },
+
+      twitterCardType() {
+        return this.isVideoCard ? 'player' : 'summary_large_image';
+      },
+
+      socialVideoSlug() {
+        return this.isVideoCard ? this.parseQueryParams(this.entry.fields.videoUrl, 'v') : 'NO-SLUG-FOUND';
+      },
+
+      socialVideoUrl() {
+        return this.isVideoCard ? `https://www.youtube-nocookie.com/embed/${this.socialVideoSlug}?autoplay=1&rel=0&controls=0&showinfo=0` : '';
+      },
+
+      socialVideoWidth() {
+        return this.isVideoCard ? 1024 : '';
+      },
+
+      socialVideoHeight() {
+        return this.isVideoCard ? 576 : '';
+      },
+
       socialImageUrl() {
-        return (this.hasOwnImage)
-          ? 'https:' + this.entry.fields.image.fields.file.url + '?w=' + this.socialImageWidth
-          : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=' + this.socialImageWidth
+        return (this.isVideoCard)
+          ? `https://i.ytimg.com/vi/${this.socialVideoSlug}/hqdefault.jpg`
+          : (this.hasOwnImage)
+              ? 'https:' + this.entry.fields.image.fields.file.url + '?w=' + this.socialImageWidth
+              : 'https:' + this.parents[0].fields.keyMessagesImage.fields.file.url + '?w=' + this.socialImageWidth
       },
 
       socialImageType() {
-        return (this.hasOwnImage)
-          ? this.entry.fields.image.fields.file.contentType
-          : this.parents[0].fields.keyMessagesImage.fields.file.contentType;
+        return (this.isVideoCard)
+          ? 'image/jpeg'
+          : (this.hasOwnImage)
+            ? this.entry.fields.image.fields.file.contentType
+            : this.parents[0].fields.keyMessagesImage.fields.file.contentType;
       },
 
       socialImageAlt() {
-        return (this.hasOwnImage)
-          ? this.entry.fields.image.fields.title
-          : this.parents[0].fields.keyMessagesImage.fields.title;
+        return (this.isVideoCard)
+          ? ''
+          : (this.hasOwnImage)
+            ? this.entry.fields.image.fields.title
+            : this.parents[0].fields.keyMessagesImage.fields.title;
       },
 
       socialImageWidth() {
@@ -118,7 +148,7 @@
         return (this.entry.sys.contentType.sys.id === 'clusterInformation')
           ? this.$t((this.entry.fields.sectionHeading || 'Cluster') + ' Status', this.locale) +': '+ this.entry.fields.clusterName
           : this.entry.fields.title
-            || 'NO TITLE FIELD';
+            || '';
       },
 
       // If the card has one single parent and a custom footer declaring a official
@@ -257,14 +287,21 @@
         // @see https://nuxtjs.org/api/pages-head/
         meta: [
           { hid: 'dsr-desc', name: 'description', content: this.headerSubtitle },
+
+          // Twitter-specific
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
-          { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
+          { hid: 'tw-card', name: 'twitter:card', content: this.twitterCardType },
           { hid: 'tw-title', name: 'twitter:title', content: this.officeName },
           { hid: 'tw-desc', name: 'twitter:description', content: this.headerSubtitle },
           { hid: 'tw-image', name: 'twitter:image', content: this.socialImageUrl },
           { hid: 'tw-image-alt', name: 'twitter:image:alt', content: this.socialImageAlt },
+          { hid: 'tw-player-url', name: 'twitter:player', content: this.socialVideoUrl },
+          { hid: 'tw-player-w', name: 'twitter:player:width', content: this.socialVideoWidth },
+          { hid: 'tw-player-h', name: 'twitter:player:height', content: this.socialVideoHeight },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: this.twitterCreator },
+
+          // Facebook specific
           { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
           { hid: 'og-type', property: 'og:type', content: 'article' },
           { hid: 'og-locale', property: 'og:locale', content: this.parents[0].fields.language },
