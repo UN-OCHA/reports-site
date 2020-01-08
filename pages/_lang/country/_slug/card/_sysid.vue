@@ -73,12 +73,20 @@
         return this.isVideoCard ? 'player' : 'summary_large_image';
       },
 
+      ogType() {
+        return this.isVideoCard ? 'video:other': 'article';
+      },
+
       socialVideoSlug() {
         return this.isVideoCard ? this.parseQueryParams(this.entry.fields.videoUrl, 'v') : 'NO-SLUG-FOUND';
       },
 
       socialVideoUrl() {
-        return this.isVideoCard ? `https://www.youtube-nocookie.com/embed/${this.socialVideoSlug}?autoplay=0&rel=0&controls=1&showinfo=0` : '';
+        return this.isVideoCard ? `https://www.youtube-nocookie.com/embed/${this.socialVideoSlug}?html5=1&autoplay=0&rel=0&controls=1&showinfo=0` : '';
+      },
+
+      socialVideoType() {
+        return this.isVideoCard ? 'video/mp4' : '';
       },
 
       socialVideoWidth() {
@@ -303,7 +311,7 @@
 
           // Facebook specific
           { hid: 'fb-app-id', property: 'fb:app_id', content: process.env.fbAppId },
-          { hid: 'og-type', property: 'og:type', content: 'article' },
+          { hid: 'og-type', property: 'og:type', content: this.ogType },
           { hid: 'og-locale', property: 'og:locale', content: this.parents[0].fields.language },
           { hid: 'og-url', property: 'og:url', content: `${process.env.baseUrl}/${this.parents[0].fields.language}/country/${this.parents[0].fields.slug}/card/${this.sysIdShort}/` },
           { hid: 'og-title', property: 'og:title', content: this.officeName },
@@ -312,6 +320,11 @@
           { hid: 'og-image-type', property: 'og:image:type', content: this.socialImageType },
           { hid: 'og-image-width', property: 'og:image:width', content: this.socialImageWidth },
           { hid: 'og-image-height', property: 'og:image:height', content: this.socialImageHeight },
+          { hid: 'og-video', property: 'og:video', content: this.socialVideoUrl },
+          { hid: 'og-video-secure-url', property: 'og:video:secure_url', content: this.socialVideoUrl },
+          { hid: 'og-video-type', property: 'og:video:type', content: this.socialVideoType },
+          { hid: 'og-video-w', property: 'og:video:width', content: this.socialVideoWidth },
+          { hid: 'og-video-h', property: 'og:video:height', content: this.socialVideoHeight },
         ],
       };
     },
