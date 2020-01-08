@@ -554,6 +554,7 @@ figure picture ~ figcaption {
 .card__title {
   display: block;
   margin-bottom: 1rem;
+  margin-right: 3.5rem;
   color: #444;
   font-family: $roboto-condensed;
   font-weight: 700;
@@ -566,9 +567,12 @@ figure picture ~ figcaption {
   }
 }
 
+.card__heading {
+  margin-right: .5em;
+}
+
 .card__time-ago {
   display: inline-block;
-  margin-left: .5em;
   opacity: .8;
   font-weight: 400;
   text-transform: none;
