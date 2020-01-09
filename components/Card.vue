@@ -132,7 +132,7 @@
       border: none;
       padding: 0 1em 0 0;
       margin: 1rem 0 0 0;
-      background: transparent url('/icons/icon--down-arrow.svg') no-repeat 100% 55%;
+      background: transparent url('/assets/icons/icon--down-arrow.svg') no-repeat 100% 55%;
       background-size: 12px auto;
       color: hsl(0, 0%, 50%);
       font-family: $roboto;
@@ -159,7 +159,7 @@
       }
 
       &.is--expanded {
-        background-image: url('/icons/icon--up-arrow.svg');
+        background-image: url('/assets/icons/icon--up-arrow.svg');
       }
     }
 

@@ -1,6 +1,6 @@
 <template>
   <header class="card__snap-header">
-    <img class="logo" src="/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
+    <img class="logo" src="/assets/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
     <div class="meta">
       <h1 class="title">{{ title }}</h1>
       <span class="subtitle">{{ $t('Situation Report', locale) }}</span>

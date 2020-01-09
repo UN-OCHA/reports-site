@@ -169,8 +169,8 @@ body {
   font-weight: 400;
   src: local('Roboto'),
        local('Roboto-Regular'),
-       url('/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
-       url('/fonts/roboto-v18-latin-regular.woff') format('woff');
+       url('/assets/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
+       url('/assets/fonts/roboto-v18-latin-regular.woff') format('woff');
 }
 
 // roboto-italic - latin
@@ -181,8 +181,8 @@ body {
 //   font-weight: 400;
 //   src: local('Roboto Italic'),
 //        local('Roboto-Italic'),
-//        url('/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
-//        url('/fonts/roboto-v18-latin-italic.woff') format('woff');
+//        url('/assets/fonts/roboto-v18-latin-italic.woff2') format('woff2'),
+//        url('/assets/fonts/roboto-v18-latin-italic.woff') format('woff');
 // }
 
 // roboto-700 - latin
@@ -193,8 +193,8 @@ body {
   font-weight: 700;
   src: local('Roboto Bold'),
        local('Roboto-Bold'),
-       url('/fonts/roboto-v18-latin-700.woff2') format('woff2'),
-       url('/fonts/roboto-v18-latin-700.woff') format('woff');
+       url('/assets/fonts/roboto-v18-latin-700.woff2') format('woff2'),
+       url('/assets/fonts/roboto-v18-latin-700.woff') format('woff');
 }
 
 // DOWNLOAD URL: https://google-webfonts-helper.herokuapp.com/fonts/roboto-condensed?subsets=latin
@@ -206,8 +206,8 @@ body {
   font-weight: 400;
   src: local('Roboto Condensed'),
        local('RobotoCondensed-Regular'),
-       url('/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
-       url('/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
+       url('/assets/fonts/roboto-condensed-v16-latin-regular.woff2') format('woff2'),
+       url('/assets/fonts/roboto-condensed-v16-latin-regular.woff') format('woff');
 }
 
 // roboto-condensed-italic - latin
@@ -218,8 +218,8 @@ body {
 //   font-weight: 400;
 //   src: local('Roboto Condensed Italic'),
 //        local('RobotoCondensed-Italic'),
-//        url('/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
-//        url('/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
+//        url('/assets/fonts/roboto-condensed-v16-latin-italic.woff2') format('woff2'),
+//        url('/assets/fonts/roboto-condensed-v16-latin-italic.woff') format('woff');
 // }
 
 // roboto-condensed-700 - latin
@@ -230,8 +230,8 @@ body {
   font-weight: 700;
   src: local('Roboto Condensed Bold'),
        local('RobotoCondensed-Bold'),
-       url('/fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'),
-       url('/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
+       url('/assets/fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'),
+       url('/assets/fonts/roboto-condensed-v16-latin-700.woff') format('woff');
 }
 
 // Noto Kufi Arabic
@@ -243,7 +243,7 @@ body {
   font-weight: 400;
   src: local('NotoKufiArabic Regular'),
        local('NotoKufiArabic-Regular'),
-       url('/fonts/notokufiarabic-regular.ttf') format('woff');
+       url('/assets/fonts/notokufiarabic-regular.ttf') format('woff');
 }
 
 // Noto Kufi Arabic Bold
@@ -255,7 +255,7 @@ body {
   font-weight: 400;
   src: local('NotoKufiArabic Bold'),
        local('NotoKufiArabic-Bold'),
-       url('/fonts/notokufiarabic-bold.ttf') format('woff');
+       url('/assets/fonts/notokufiarabic-bold.ttf') format('woff');
 }
 
 // Dubai Medium
@@ -266,8 +266,8 @@ body {
   font-weight: 400;
   src: local('DubaiW23 Regular'),
        local('DubaiW23-Regular'),
-       url('/fonts/dubaiw23-regular.woff2') format('woff2'),
-       url('/fonts/dubaiw23-regular.woff') format('woff');
+       url('/assets/fonts/dubaiw23-regular.woff2') format('woff2'),
+       url('/assets/fonts/dubaiw23-regular.woff') format('woff');
 }
 
 //—— Site Container ————————————————————————————————————————————————————————————
