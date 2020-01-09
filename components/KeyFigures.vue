@@ -85,7 +85,7 @@
         bottom: .23em;
         right: -.5em;
 
-        background-image: url('/icons/icon--outofsite.svg');
+        background-image: url('/assets/icons/icon--outofsite.svg');
         background-position: 50% 50%;
         background-size: contain;
       }

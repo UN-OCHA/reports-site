@@ -236,7 +236,7 @@
     background-position: 50% 0%;
     background-repeat: no-repeat;
     background-size: 15px 21px;
-    background-image: url('/icons/icon--pdf.svg');
+    background-image: url('/assets/icons/icon--pdf.svg');
     cursor: pointer;
 
     border: 0;

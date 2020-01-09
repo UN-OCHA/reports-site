@@ -99,7 +99,7 @@
     padding: 0;
     width: 16px;
     height: 32px;
-    background-image: url('/icons/icon--link.svg');
+    background-image: url('/assets/icons/icon--link.svg');
     background-position: 50% 5%;
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
