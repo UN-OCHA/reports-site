@@ -158,7 +158,7 @@
 }
 
 .sitrep-group {
-  background-image: url('/icons/icon--location.svg');
+  background-image: url('/assets/icons/icon--location.svg');
   background-repeat: no-repeat;
   background-size: 1.25rem 1.25rem;
 

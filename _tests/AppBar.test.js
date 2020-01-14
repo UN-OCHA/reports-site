@@ -1,6 +1,10 @@
+import env from './env';
+
+jest.setTimeout(env.timeout);
+
 describe('AppBar', () => {
   beforeAll(async () => {
-    await page.goto('https://reports.unocha.org');
+    await page.goto(`${env.baseUrl}`);
   });
 
   it('should expand when clicked', async () => {

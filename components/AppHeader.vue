@@ -2,7 +2,7 @@
   <header class="container header clearfix" role="banner">
     <div class="title-area">
       <nuxt-link :to="$i18n.path('')" class="logo-link">
-        <img class="logo" src="/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
+        <img class="logo" src="/assets/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="title-area__headings">
         <h1
@@ -44,7 +44,7 @@
           :description="$t('Last updated', locale) + ': ' + $moment(updated).locale(localeOrFallback).format('D MMM YYYY')"
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
-          <no-ssr>
+          <client-only>
             <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
               <span class="element-invisible">{{ $t('Share', locale) }}</span>
             </button>
@@ -53,7 +53,7 @@
               <a class="share__option share--facebook" v-if="shareUrlFacebook" :href="shareUrlFacebook" target="_blank" rel="noopener">Facebook</a>
               <a class="share__option share--email" v-if="shareUrlEmail" :href="shareUrlEmail" target="_blank" rel="noopener">{{ $t('Email', locale) }}</a>
             </div>
-          </no-ssr>
+          </client-only>
         </div>
       </div>
     </div>
@@ -397,7 +397,7 @@
       width: .8em;
       height: .8em;
       background-color: transparent;
-      background-image: url('/icons/icon--outofsite-blue.svg');
+      background-image: url('/assets/icons/icon--outofsite-blue.svg');
       background-repeat: no-repeat;
       background-size: contain;
 
@@ -540,7 +540,7 @@
       border: 0;
       border-radius: 7px; // set by default to avoid transition
       background-color: transparent;
-      background-image: url('/icons/icon--share.svg');
+      background-image: url('/assets/icons/icon--share.svg');
       background-position: 50% 50%;
       background-repeat: no-repeat;
       background-size: 20px 16px;
@@ -626,13 +626,13 @@
     }
 
     &--twitter {
-      background-image: url('/icons/icon--share-tw.svg');
+      background-image: url('/assets/icons/icon--share-tw.svg');
     }
     &--facebook {
-      background-image: url('/icons/icon--share-fb.svg');
+      background-image: url('/assets/icons/icon--share-fb.svg');
     }
     &--email {
-      background-image: url('/icons/icon--contact.svg');
+      background-image: url('/assets/icons/icon--contact.svg');
       background-position: 50% 30%;
     }
   }

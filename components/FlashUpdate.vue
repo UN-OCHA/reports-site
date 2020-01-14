@@ -174,7 +174,7 @@
     },
 
     created() {
-      this.richBody = this.content.fields.body ? documentToHtmlString(this.content.fields.body, this.renderOptions) : '';
+      this.richBody = documentToHtmlString(this.content.fields.body, this.renderOptions);
     },
   }
 </script>
@@ -205,7 +205,7 @@
 
     /deep/ .btn--pdf {
       width: 16px;
-      background-image: url('/icons/icon--pdf--dark.svg');
+      background-image: url('/assets/icons/icon--pdf--dark.svg');
     }
   }
 

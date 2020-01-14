@@ -1,9 +1,7 @@
-const env = {
-  baseUrl: 'https://reports.unocha.org',
-};
-
+import env from './env';
 import ar from '../locales/ar.js';
 
+jest.setTimeout(env.timeout);
 
 //
 // For these tests we are inspecting actual page content rather than relying on

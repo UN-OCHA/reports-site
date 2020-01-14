@@ -1,5 +1,5 @@
 <template>
-  <no-ssr>
+  <client-only>
     <button
       class="btn btn--download"
       :class="{ 'btn--is-active': snapInProgress }"
@@ -9,7 +9,7 @@
         {{ buttonLabel }}
       </span>
     </button>
-  </no-ssr>
+  </client-only>
 </template>
 
 <script>
@@ -68,7 +68,7 @@
     padding: 0;
     width: 16px;
     height: 32px;
-    background-image: url('/icons/icon--download.svg');
+    background-image: url('/assets/icons/icon--download.svg');
     background-position: 50% 5%;
     background-repeat: no-repeat;
     background-size: 1rem 1rem;

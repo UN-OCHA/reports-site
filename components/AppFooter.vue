@@ -169,11 +169,11 @@
   }
 
   .social-link--facebook {
-    background-image: url('/icons/icon--share-fb-gray.svg');
+    background-image: url('/assets/icons/icon--share-fb-gray.svg');
     background-size: 85%; // FB SVG is slightly taller
   }
 
   .social-link--twitter {
-    background-image: url('/icons/icon--share-tw-gray.svg');
+    background-image: url('/assets/icons/icon--share-tw-gray.svg');
   }
 </style>

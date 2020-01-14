@@ -1,7 +1,6 @@
-const env = {
-  baseUrl: 'https://reports.unocha.org',
-  fbAppId: '1916193535375038',
-};
+import env from './env';
+
+jest.setTimeout(env.timeout);
 
 describe('Valid Cards', () => {
   beforeEach(async () => {

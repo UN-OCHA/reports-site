@@ -5,21 +5,21 @@
 
     <nav class="app-bar" :class="{ 'is--expanded': isExpanded }">
       <nuxt-link :to="$i18n.path('')" class="logo-link">
-        <img class="logo" src="/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
+        <img class="logo" src="/assets/logo--unocha-lockup.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
       </nuxt-link>
       <div class="app-bar__content">
         <ul class="main-nav">
           <li class="link link--home" :lang="locale">
             <nuxt-link :to="$i18n.path('')" @click="closeMenu">{{ $t('Home', locale) }}</nuxt-link>
           </li>
-          <no-ssr>
+          <client-only>
             <li class="link link--latest" :lang="locale">
               {{ $t('Latest updates', locale) }}
             </li>
             <li class="link--container">
               <SitrepList v-on:close-menu="closeMenu" />
             </li>
-          </no-ssr>
+          </client-only>
           <li class="link link--about">
             <nuxt-link :to="$i18n.path('about/')" @click="closeMenu">{{ $t('About', locale) }}</nuxt-link>
           </li>
@@ -142,7 +142,7 @@
     padding: .5rem 0;
     border: 0;
     color: white;
-    background: #4c8cca url('/icons/icon--hamburger.svg') center no-repeat;
+    background: #4c8cca url('/assets/icons/icon--hamburger.svg') center no-repeat;
     background-size: contain;
     cursor: pointer;
     transition: transform .25s ease-in-out;
@@ -260,9 +260,9 @@
     }
   }
 
-  .link--home { background-image: url('/icons/icon--home.svg'); }
-  .link--latest { background-image: url('/icons/icon--location.svg'); }
-  .link--about { background-image: url('/icons/icon--about.svg'); }
+  .link--home { background-image: url('/assets/icons/icon--home.svg'); }
+  .link--latest { background-image: url('/assets/icons/icon--location.svg'); }
+  .link--about { background-image: url('/assets/icons/icon--about.svg'); }
 
   .link--container {
     list-style-type: none;
@@ -287,15 +287,15 @@
 
   // Specify individual icons
   .ocha-services {
-    .link--fts  { background-image: url('/icons--ocha/fts.svg'); }
-    .link--hdx  { background-image: url('/icons--ocha/hdx.svg'); }
-    .link--hid  { background-image: url('/icons--ocha/hid.svg'); }
-    .link--hri  { background-image: url('/icons--ocha/hr.svg'); }
-    .link--iasc { background-image: url('/icons--ocha/iasc.svg'); }
-    .link--ocha { background-image: url('/icons--ocha/ocha.svg'); }
-    .link--rw   { background-image: url('/icons--ocha/rw.svg'); }
-    .link--vosocc { background-image: url('/icons--ocha/ocha.svg'); }
-    .link--all { background-image: url('/icons--ocha/all.svg'); }
+    .link--fts  { background-image: url('/assets/icons--ocha/fts.svg'); }
+    .link--hdx  { background-image: url('/assets/icons--ocha/hdx.svg'); }
+    .link--hid  { background-image: url('/assets/icons--ocha/hid.svg'); }
+    .link--hri  { background-image: url('/assets/icons--ocha/hr.svg'); }
+    .link--iasc { background-image: url('/assets/icons--ocha/iasc.svg'); }
+    .link--ocha { background-image: url('/assets/icons--ocha/ocha.svg'); }
+    .link--rw   { background-image: url('/assets/icons--ocha/rw.svg'); }
+    .link--vosocc { background-image: url('/assets/icons--ocha/ocha.svg'); }
+    .link--all { background-image: url('/assets/icons--ocha/all.svg'); }
   }
 
   .ocha-heading {

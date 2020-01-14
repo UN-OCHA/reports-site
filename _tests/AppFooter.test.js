@@ -1,8 +1,11 @@
+import env from './env';
 import fr from '../locales/fr.js';
+
+jest.setTimeout(env.timeout);
 
 describe('AppFooter', () => {
   beforeAll(async () => {
-    await page.goto('https://reports.unocha.org/fr/');
+    await page.goto(`${env.baseUrl}/fr/`);
   });
 
   it('should contain a localized About link', async () => {
@@ -26,7 +29,7 @@ describe('AppFooter', () => {
 
 describe('AppFooter', () => {
   beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/en/country/ukraine/');
+    await page.goto(`${env.baseUrl}/en/country/ukraine/`);
   });
 
   it('should contain some Footer text', async () => {

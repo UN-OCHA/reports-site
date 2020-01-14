@@ -126,9 +126,9 @@
     },
 
     created() {
-      this.richNeeds = this.content.fields.clusterNeeds ? documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions) : '';
-      this.richResponse = this.content.fields.clusterResponse ? documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions) : '';
-      this.richGaps = this.content.fields.clusterGaps ? documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions) : '';
+      this.richNeeds = documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions);
+      this.richResponse = documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions);
+      this.richGaps = documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions);
     }
   }
 </script>
@@ -193,13 +193,13 @@
   }
 
   .cluster__bucket--needs .cluster__bucket-title::before {
-    background-image: url('/icons/icon--cluster-needs.svg');
+    background-image: url('/assets/icons/icon--cluster-needs.svg');
   }
   .cluster__bucket--response .cluster__bucket-title::before {
-    background-image: url('/icons/icon--cluster-response.svg');
+    background-image: url('/assets/icons/icon--cluster-response.svg');
   }
   .cluster__bucket--gaps .cluster__bucket-title::before {
-    background-image: url('/icons/icon--cluster-gaps.svg');
+    background-image: url('/assets/icons/icon--cluster-gaps.svg');
   }
 
   //
@@ -239,55 +239,55 @@
     }
 
     &--agriculture::before {
-      background-image: url('/icons--clusters/agriculture.svg')
+      background-image: url('/assets/icons--clusters/agriculture.svg')
     }
     &--camp-coordination-and-camp-management::before {
-      background-image: url('/icons--clusters/camp-coordination-and-camp-management.svg')
+      background-image: url('/assets/icons--clusters/camp-coordination-and-camp-management.svg')
     }
     &--child-protection::before {
-      background-image: url('/icons--clusters/child-protection.svg')
+      background-image: url('/assets/icons--clusters/child-protection.svg')
     }
     &--coordination::before {
-      background-image: url('/icons--clusters/coordination.svg')
+      background-image: url('/assets/icons--clusters/coordination.svg')
     }
     &--early-recovery::before {
-      background-image: url('/icons--clusters/early-recovery.svg')
+      background-image: url('/assets/icons--clusters/early-recovery.svg')
     }
     &--education::before {
-      background-image: url('/icons--clusters/education.svg')
+      background-image: url('/assets/icons--clusters/education.svg')
     }
     &--emergency-telecommunications::before {
-      background-image: url('/icons--clusters/emergency-telecommunications.svg')
+      background-image: url('/assets/icons--clusters/emergency-telecommunications.svg')
     }
     &--food-security::before {
-      background-image: url('/icons--clusters/food-security.svg')
+      background-image: url('/assets/icons--clusters/food-security.svg')
     }
     &--gender-based-violence::before {
-      background-image: url('/icons--clusters/gender-based-violence.svg')
+      background-image: url('/assets/icons--clusters/gender-based-violence.svg')
     }
     &--health::before {
-      background-image: url('/icons--clusters/health.svg')
+      background-image: url('/assets/icons--clusters/health.svg')
     }
     &--logistics::before {
-      background-image: url('/icons--clusters/logistics.svg')
+      background-image: url('/assets/icons--clusters/logistics.svg')
     }
     &--multi-cluster-sector::before {
-      background-image: url('/icons--clusters/multi-cluster-sector.svg')
+      background-image: url('/assets/icons--clusters/multi-cluster-sector.svg')
     }
     &--non-food-items::before {
-      background-image: url('/icons--clusters/non-food-items.svg')
+      background-image: url('/assets/icons--clusters/non-food-items.svg')
     }
     &--nutrition::before {
-      background-image: url('/icons--clusters/nutrition.svg')
+      background-image: url('/assets/icons--clusters/nutrition.svg')
     }
     &--protection::before {
-      background-image: url('/icons--clusters/protection.svg')
+      background-image: url('/assets/icons--clusters/protection.svg')
     }
     &--shelter::before {
-      background-image: url('/icons--clusters/shelter.svg')
+      background-image: url('/assets/icons--clusters/shelter.svg')
     }
     &--water-sanitation-and-hygiene::before {
-      background-image: url('/icons--clusters/water-sanitation-and-hygiene.svg')
+      background-image: url('/assets/icons--clusters/water-sanitation-and-hygiene.svg')
     }
   }
 

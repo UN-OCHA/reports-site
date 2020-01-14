@@ -108,12 +108,6 @@
       }
     },
 
-    // In order to fetch data both during asyncData() and at other times of our
-    // own choosing, we have our own custom function which is defined outside
-    // our export.
-    // asyncData is an official API event of Nuxt. It's used to fetch data for
-    // both SSR and client-side navigations.
-
     asyncData({env, params, store, error, req, res}) {
       return Promise.all([
 

@@ -1,5 +1,7 @@
+import env from './env';
+
 // This is a long-running test. Be patient.
-jest.setTimeout(15000);
+jest.setTimeout(env.timeoutSnap);
 
 // Puppeteer doesn't allow blob downloads by default. Executing beforeAll outside
 // any describe() will cause the setting to apply to this entire file of tests.
@@ -15,7 +17,7 @@ beforeAll(async () => {
 
 describe('Snaps', () => {
   beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/en/country/ukraine/');
+    await page.goto(`${env.baseUrl}/en/country/ukraine/`);
   });
 
   it('should download an EN-PDF from EN-SitRep', async () => {
@@ -34,7 +36,7 @@ describe('Snaps', () => {
 
 describe('Snaps', () => {
   beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/fr/country/burundi/');
+    await page.goto(`${env.baseUrl}/fr/country/burundi/`);
   });
 
   it('should download an FR-PDF from FR-SitRep', async () => {
@@ -54,7 +56,7 @@ describe('Snaps', () => {
 
 describe('Snaps', () => {
   beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/fr/country/burkina-faso/');
+    await page.goto(`${env.baseUrl}/fr/country/burkina-faso/`);
   });
 
   it('should download an FR-PNG from FR-SitRep Highlights', async () => {
@@ -78,7 +80,7 @@ describe('Snaps', () => {
 
 describe('Snaps', () => {
   beforeEach(async () => {
-    await page.goto('https://reports.unocha.org/en/country/burkina-faso/');
+    await page.goto(`${env.baseUrl}/en/country/burkina-faso/`);
   });
 
   it('should download an EN-PNG from EN-SitRep Article', async () => {

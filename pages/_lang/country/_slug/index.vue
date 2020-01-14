@@ -59,7 +59,6 @@
   // Contentful
   import {createClient} from '~/plugins/contentful.js';
   const client = createClient();
-  const active_content_type = 'sitrep';
 
   // Util
   import axios from 'axios';
@@ -196,7 +195,202 @@
     // asyncData is an official API event of Nuxt. It's used to fetch data for
     // both SSR and client-side navigations.
     asyncData({env, params, store, error, req, res}) {
-      return fetchAsyncData({env, params, store, error, req, res});
+      return Promise.all([
+
+        // Contentful: fetch the requested SitRep by slug+language plus all linked
+        // data that is required to display a full Sitrep.
+        client.getEntries({
+          'include': 4,
+          'content_type': 'sitrep',
+          'fields.slug': params.slug,
+          'fields.language': params.lang,
+        }),
+
+        // Contentful: fetch related SitRep translations with same slug without
+        // any linked data.
+        client.getEntries({
+          'include': 0,
+          'content_type': 'sitrep',
+          'fields.slug': params.slug,
+        }),
+
+        // Contentful: fetch all Flash Updates — we will filter in then()
+        client.getEntries({
+          'include': 4,
+          'content_type': 'flashUpdate',
+        }),
+
+        // FTS: fetch all v2 plans for 2018.
+        (process.server)
+          ? axios({
+              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2018',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn),
+
+        // FTS: fetch all v2 plans for 2019.
+        (process.server)
+          ? axios({
+              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2019',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2019',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+
+      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2018, ftsData2019]) => {
+        //
+        // Check for 404
+        //
+        // If Contentful doesn't return an Entry, throw error and display Nuxt
+        // error page (see catch() below).
+        //
+        if (entries.items.length === 0) {
+          throw ({
+            args: [{
+              message: 'No Entry found in Contentful',
+              lang: params.lang,
+              slug: params.slug,
+              url: req && req.url,
+              'user-agent': req && req.headers && req.headers['user-agent'],
+              headers: req && req.headers,
+              ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+              // Since no exception is being thrown, res.statusCode = 200 so we have
+              // to set 404 manually on account of the dataset being empty.
+              response: res && 404,
+            }],
+          });
+        }
+
+        //
+        // Helper function to check for Contentful fields within entries.
+        //
+        function haveFields(element, index, array) {
+          return typeof element.fields !== 'undefined';
+        }
+
+        //
+        // Check for 500
+        //
+        // If various required fields are somehow missing, we need to throw an
+        // error to avoid displaying a generic Nuxt error. By explicitly throwing
+        // on any of these conditions, the website will display a branded 500 page
+        // instead of the framework's context-free page.
+        //
+        // These are conditions which should not appear if all warnings are heeded
+        // when using the Contentful UI, but alas they can be ignored and we cannot
+        // expect the payload from Contentful to contain all that we need.
+        //
+        if (
+          typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
+          typeof entries.items[0].fields.keyMessages !== 'undefined' &&
+          entries.items[0].fields.keyMessages.some(haveFields) &&
+          // typeof entries.items[0].fields.keyFigure !== 'undefined' &&
+          // entries.items[0].fields.keyFigure.some(haveFields) &&
+          typeof entries.items[0].fields.contacts !== 'undefined' &&
+          entries.items[0].fields.contacts.some(haveFields)
+        ) {
+          // All content checks passed. Continue with execution.
+        } else {
+          // One or more required aspects were missing from SitRep data. Try to
+          // collect a list of problems, and throw an error with as much data as
+          // we can provide.
+          const problems = [];
+
+          if (typeof entries.items[0].fields.keyMessagesImage.fields === 'undefined') {
+            problems.push('keyMessagesImage contains no published asset');
+          }
+          if (typeof entries.items[0].fields.keyMessages === 'undefined') {
+            problems.push('keyMessages field contains nothing');
+          }
+          if (typeof entries.items[0].fields.keyMessages !== 'undefined' && !entries.items[0].fields.keyMessages.some(haveFields)) {
+            problems.push('keyMessages field contains unpublished entries');
+          }
+          // if (typeof entries.items[0].fields.keyFigure === 'undefined') {
+          //   problems.push('keyFigure field contains nothing');
+          // }
+          // if (typeof entries.items[0].fields.keyFigure !== 'undefined' && !entries.items[0].fields.keyFigure.some(haveFields)) {
+          //   problems.push('keyFigure field contains unpublished entries');
+          // }
+          if (typeof entries.items[0].fields.contacts === 'undefined') {
+            problems.push('contacts field contains nothing');
+          }
+          if (typeof entries.items[0].fields.contacts !== 'undefined' && !entries.items[0].fields.contacts.some(haveFields)) {
+            problems.push('contacts field contains unpublished entries');
+          }
+
+          throw ({
+            args: [{
+              message: `Contentful delivered expected Entry, but it did not contain all required data to render a SitRep page. We detected the following problems:\n\n${problems.join('\n')}`,
+              lang: params.lang,
+              slug: params.slug,
+              url: req && req.url,
+              'user-agent': req && req.headers && req.headers['user-agent'],
+              headers: req && req.headers,
+              ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
+              // Since no exception is being thrown, res.statusCode = 200 so we have
+              // to set 500 manually on account of the problems we detected.
+              response: res && 500,
+            }],
+          });
+        }
+
+        // For client-side, update our store with the fresh data.
+        store.commit('SET_META', {
+          slug: params.slug,
+          title: entries.items[0].fields.title,
+          dateUpdated: entries.items[0].fields.dateUpdated,
+          language: params.lang,
+        });
+
+        // Combine both years of FTS responses into one array.
+        let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
+        let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
+        let ftsData = fts2018.concat(fts2019);
+
+        // Extract the FTS PlanID out of the SitRep field data
+        let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
+
+        // Reformat CTF translations response so follows format of locales Store.
+        let translations = translationEntries.items.map((translation) => {
+          return {
+            code: translation.fields.language,
+            display: true,
+          }
+        });
+
+        // This is the data that the template will use to render page.
+        return {
+          'translations': translations,
+          'entry': entries.items[0],
+          'ftsData': ftsData.filter((plan) => {
+            // Look at the FTS URL and filter out any unrelated data
+            return plan.id === ftsPlanId;
+          }),
+          'flashUpdates': flashUpdatesAll.items.filter((fu) => {
+            // Look at the sys.id of the corresponding sitrep and only return matches.
+            return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+          }),
+        };
+      }).catch((err) => {
+        // Log to our stack
+        console.error(err);
+
+        // Display Nuxt error page
+        error({ statusCode: err.args[0].response, message: err.args[0].message });
+      });
     },
 
     // Before we assemble this page, check the URL for locale parameter. If we
@@ -215,21 +409,6 @@
     //
     mounted() {
       //
-      // In cases where HTML response contained stale content, our second call to
-      // Contentful/FTS will ensure that everything is up to date.
-      //
-      const env = {};
-      const params = this.$route.params;
-      const store = this.$store;
-
-      fetchAsyncData({env, params, store}).then((response) => {
-        // Update the client-side model with fresh API responses.
-        this.entry = response.entry;
-        // Only update FTS when the server-side data wasn't loaded.
-        this.ftsData = (this.ftsData.length) ? this.ftsData : response.ftsData;
-      });
-
-      //
       // When a document fragment is in the window.location.hash, scroll to it
       //
       if (window.location.hash) {
@@ -247,7 +426,7 @@
       //
       // Disable timestamp formatting when Snap is detected.
       //
-      // This browser feature  actually has 100% support within our matrix, but
+      // This browser feature actually has 100% support within our matrix, but
       // no need to cause trouble in older browsers.
       //
       // @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
@@ -303,208 +482,6 @@
     beforeDestroy() {
       window.removeEventListener('resize', this.handleWindowResize);
     },
-  }
-
-  // In order to fetch data both during asyncData() and at other times of our
-  // own choosing, we have our own custom function which is defined outside
-  // our export.
-  function fetchAsyncData({env, params, store, error, req, res}) {
-    return Promise.all([
-
-      // Contentful: fetch the requested SitRep by slug+language plus all linked
-      // data that is required to display a full Sitrep.
-      client.getEntries({
-        'include': 4,
-        'content_type': active_content_type,
-        'fields.slug': params.slug,
-        'fields.language': params.lang,
-      }),
-
-      // Contentful: fetch related SitRep translations with same slug without
-      // any linked data.
-      client.getEntries({
-        'include': 0,
-        'content_type': active_content_type,
-        'fields.slug': params.slug,
-      }),
-
-      // Contentful: fetch all Flash Updates — we will filter in then()
-      client.getEntries({
-        'include': 4,
-        'content_type': 'flashUpdate',
-      }),
-
-      // FTS: fetch all v2 plans for 2018.
-      (process.server)
-        ? axios({
-            url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018',
-            method: 'GET',
-          })
-          .then(response => response.data)
-          .catch(console.warn)
-        : axios({
-            url: '/v2/fts/flow/plan/overview/progress/2018',
-            method: 'GET',
-          })
-          .then(response => response.data)
-          .catch(console.warn),
-
-      // FTS: fetch all v2 plans for 2019.
-      (process.server)
-        ? axios({
-            url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2019',
-            method: 'GET',
-          })
-          .then(response => response.data)
-          .catch(console.warn)
-        : axios({
-            url: '/v2/fts/flow/plan/overview/progress/2019',
-            method: 'GET',
-          })
-          .then(response => response.data)
-          .catch(console.warn)
-
-    ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2018, ftsData2019]) => {
-      //
-      // Check for 404
-      //
-      // If Contentful doesn't return an Entry, throw error and display Nuxt
-      // error page (see catch() below).
-      //
-      if (entries.items.length === 0) {
-        throw ({
-          args: [{
-            message: 'No Entry found in Contentful',
-            lang: params.lang,
-            slug: params.slug,
-            url: req && req.url,
-            'user-agent': req && req.headers && req.headers['user-agent'],
-            headers: req && req.headers,
-            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
-            // Since no exception is being thrown, res.statusCode = 200 so we have
-            // to set 404 manually on account of the dataset being empty.
-            response: res && 404,
-          }],
-        });
-      }
-
-      //
-      // Helper function to check for Contentful fields within entries.
-      //
-      function haveFields(element, index, array) {
-        return typeof element.fields !== 'undefined';
-      }
-
-      //
-      // Check for 500
-      //
-      // If various required fields are somehow missing, we need to throw an
-      // error to avoid displaying a generic Nuxt error. By explicitly throwing
-      // on any of these conditions, the website will display a branded 500 page
-      // instead of the framework's context-free page.
-      //
-      // These are conditions which should not appear if all warnings are heeded
-      // when using the Contentful UI, but alas they can be ignored and we cannot
-      // expect the payload from Contentful to contain all that we need.
-      //
-      if (
-        typeof entries.items[0].fields.keyMessagesImage.fields !== 'undefined' &&
-        typeof entries.items[0].fields.keyMessages !== 'undefined' &&
-        entries.items[0].fields.keyMessages.some(haveFields) &&
-        // typeof entries.items[0].fields.keyFigure !== 'undefined' &&
-        // entries.items[0].fields.keyFigure.some(haveFields) &&
-        typeof entries.items[0].fields.contacts !== 'undefined' &&
-        entries.items[0].fields.contacts.some(haveFields)
-      ) {
-        // All content checks passed. Continue with execution.
-      } else {
-        // One or more required aspects were missing from SitRep data. Try to
-        // collect a list of problems, and throw an error with as much data as
-        // we can provide.
-        const problems = [];
-
-        if (typeof entries.items[0].fields.keyMessagesImage.fields === 'undefined') {
-          problems.push('keyMessagesImage contains no published asset');
-        }
-        if (typeof entries.items[0].fields.keyMessages === 'undefined') {
-          problems.push('keyMessages field contains nothing');
-        }
-        if (typeof entries.items[0].fields.keyMessages !== 'undefined' && !entries.items[0].fields.keyMessages.some(haveFields)) {
-          problems.push('keyMessages field contains unpublished entries');
-        }
-        // if (typeof entries.items[0].fields.keyFigure === 'undefined') {
-        //   problems.push('keyFigure field contains nothing');
-        // }
-        // if (typeof entries.items[0].fields.keyFigure !== 'undefined' && !entries.items[0].fields.keyFigure.some(haveFields)) {
-        //   problems.push('keyFigure field contains unpublished entries');
-        // }
-        if (typeof entries.items[0].fields.contacts === 'undefined') {
-          problems.push('contacts field contains nothing');
-        }
-        if (typeof entries.items[0].fields.contacts !== 'undefined' && !entries.items[0].fields.contacts.some(haveFields)) {
-          problems.push('contacts field contains unpublished entries');
-        }
-
-        throw ({
-          args: [{
-            message: `Contentful delivered expected Entry, but it did not contain all required data to render a SitRep page. We detected the following problems:\n\n${problems.join('\n')}`,
-            lang: params.lang,
-            slug: params.slug,
-            url: req && req.url,
-            'user-agent': req && req.headers && req.headers['user-agent'],
-            headers: req && req.headers,
-            ip: req && req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress,
-            // Since no exception is being thrown, res.statusCode = 200 so we have
-            // to set 500 manually on account of the problems we detected.
-            response: res && 500,
-          }],
-        });
-      }
-
-      // For client-side, update our store with the fresh data.
-      store.commit('SET_META', {
-        slug: params.slug,
-        title: entries.items[0].fields.title,
-        dateUpdated: entries.items[0].fields.dateUpdated,
-        language: params.lang,
-      });
-
-      // Combine both years of FTS responses into one array.
-      let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
-      let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
-      let ftsData = fts2018.concat(fts2019);
-
-      // Extract the FTS PlanID out of the SitRep field data
-      let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
-
-      // Reformat CTF translations response so follows format of locales Store.
-      let translations = translationEntries.items.map((translation) => {
-        return {
-          code: translation.fields.language,
-          display: true,
-        }
-      });
-
-      // This is the data that the template will use to render page.
-      return {
-        'translations': translations,
-        'entry': entries.items[0],
-        'ftsData': ftsData.filter((plan) => {
-          // Look at the FTS URL and filter out any unrelated data
-          return plan.id === ftsPlanId;
-        }),
-        'flashUpdates': flashUpdatesAll.items.filter((fu) => {
-          // Look at the sys.id of the corresponding sitrep and only return matches.
-          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
-        }),
-      };
-    }).catch((err) => {
-      // Log to our stack
-      console.error(err);
-
-      // Display Nuxt error page
-      error({ statusCode: err.args[0].response, message: err.args[0].message });
-    });
   }
 </script>
 
