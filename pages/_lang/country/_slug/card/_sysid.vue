@@ -74,7 +74,7 @@
       },
 
       ogType() {
-        return this.isVideoCard ? 'video:other': 'article';
+        return this.isVideoCard ? 'video.other': 'article';
       },
 
       socialVideoSlug() {
