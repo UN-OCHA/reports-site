@@ -134,12 +134,11 @@ export const mutations = {
   },
 
   SET_META(state, meta) {
-    state.reportMeta = {
-      slug: meta.slug,
-      title: meta.title,
-      dateUpdated: meta.dateUpdated,
-      language: meta.language,
-    }
+    // Set each prop individually to allow partial, non-destructive writes.
+    state.reportMeta.slug = meta.slug ? meta.slug : state.reportMeta.slug;
+    state.reportMeta.title = meta.title ? meta.title : state.reportMeta.title;
+    state.reportMeta.dateUpdated = meta.dateUpdated ? meta.dateUpdated : state.reportMeta.dateUpdated;
+    state.reportMeta.language = meta.language ? meta.language : state.reportMeta.language;
   },
 
   SET_APPBAR(state, bool) {
