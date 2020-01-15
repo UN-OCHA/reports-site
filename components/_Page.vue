@@ -1,128 +1,56 @@
 <script>
   export default {
-    methods: {
+    mounted() {
       //
-      // Align Column Heights
+      // Disable timestamp formatting when Snap is detected.
       //
-      // Browsers that don't support CSS Grid need a little help aligning their
-      // column heights. This function reads the height of both columns and sets
-      // them to be equal.
+      // This browser feature actually has 100% support within our matrix, but
+      // no need to cause trouble in older browsers.
       //
-      alignColumnHeights() {
-        if (
-          typeof window.CSS !== 'undefined' &&
-          typeof window.CSS.supports !== 'undefined' &&
-          window.CSS.supports('display', 'grid')
-        ) {
-          // Browsers supporting CSS Grid will render properly without assistance.
-        }
-        else {
-          // Calculate which column is tallest
-          let col1 = this.$refs.column1;
-          let col2 = this.$refs.column2;
-          let col1Height = col1.getBoundingClientRect().height;
-          let col2Height = col2.getBoundingClientRect().height;
-          let tallestHeight = (col1Height > col2Height) ? col1Height : col2Height;
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+      //
+      if (window && "MutationObserver" in window) {
+        //
+        // Target of MutationOberver
+        //
+        // Must match the element targeted by the Snap Service. The other repo is
+        // always the canonical source of truth for which element should be loaded
+        // into this variable.
+        //
+        // The line in question at the time of writing this comment is linked for
+        // reference. If that repo gets updated, update this block with new link.
+        //
+        // @see https://github.com/UN-OCHA/tools-snap-service/blob/e68e6ffda5cb0d607f290cba4d7a45b4ff175e16/app/app.js#L470
+        //
+        const mutationTarget = document.documentElement;
 
-          // Both should be set to the height of the taller element;
-          col1.style.height = col2.style.height = Math.ceil(tallestHeight) + 'px';
+        // Configure MutationOberver
+        const mutationConfig = {attributes: true};
+
+        // Store `this` in a variable to access within MutationObserver.
+        const page = this;
+
+        // Callback when Snap class is detected
+        const mutationCallback = function(mutationsList, oberver) {
+          for (let mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              if (mutation.target.className.indexOf('snap') !== -1) {
+                // Disable timestamp formatting *for the entire page* by updating
+                // the Vuex store. In theory this is a short-lived page-view that
+                // only gets triggered by Snap Service so the app doesn't provide
+                // a way to "undo" the change we're making here.
+                page.$store.commit('SET_GLOBAL_TIMESTAMP_FORMATTING', false);
+              }
+            }
+          }
         }
-      },
+
+        // Create MutationOberver
+        const observer = new MutationObserver(mutationCallback);
+
+        // Start observing
+        observer.observe(mutationTarget, mutationConfig);
+      }
     },
   }
 </script>
-
-<style lang="scss">
-//
-// Import shared variables
-//
-@import '~/assets/Global.scss';
-
-//
-// Shared layout for Basic Page
-//
-// Since these are shared across multiple page components, we scope our classes
-// manually instead of using the [scoped] attribute of the Vue component <style>
-// tag.
-//
-// If you want to implement this layout, provide the following HTML structure in
-// your Vue template inside the page:
-//
-// main.basic-page
-//   .card--content[ref="column1"]
-//   .card--sidebar[ref="column2"]
-//
-.basic-page.is--multicolumn {
-  @media (min-width: 800px) {
-    //
-    // IE11 layout
-    //
-    .card {
-      [dir="ltr"] & {
-        float: left;
-      }
-      [dir="rtl"] & {
-        float: right;
-      }
-    }
-
-    .card--content {
-      width: 40%;
-
-      [dir="ltr"] & {
-        margin-right: 1rem;
-      }
-      [dir="rtl"] & {
-        margin-left: 1rem;
-      }
-    }
-    .card--sidebar {
-      width: calc(60% - 1rem);
-    }
-
-    //
-    // CSS Grid layout
-    //
-    @supports (display: grid) {
-      & {
-        display: grid;
-        grid-template-areas: "content sidebar";
-        grid-template-columns: 2fr 3fr;
-        grid-gap: 1rem;
-      }
-
-      .card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .card--content {
-        grid-area: content;
-      }
-      .card--sidebar {
-        grid-area: sidebar;
-      }
-    }
-  }
-}
-
-.basic-page {
-  // Unfortunately, duping this style was easier than figuring out how to use
-  // @extend between files on the day I added the secondary column. Sorry.
-  h2,
-  .card__title {
-    display: block;
-    margin-bottom: 1rem;
-    color: #444;
-    font-family: $roboto-condensed;
-    font-weight: 700;
-    font-size: 17px;
-    text-transform: uppercase;
-
-    [lang="ar"] & {
-      font-family: $kufi-bold;
-      line-height: 1;
-    }
-  }
-}
-</style>
