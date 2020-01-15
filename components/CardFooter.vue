@@ -5,7 +5,7 @@
       <span dir="ltr">{{ thisUrl }}</span>
     </p>
     <p class="date">
-      <span class="label">{{ $t('Date', locale) }}:</span>
+      <span class="label">{{ $t('Downloaded', locale) }}:</span>
       <time :datetime="this.today">{{ this.todayFormatted }}</time>
     </p>
   </footer>
