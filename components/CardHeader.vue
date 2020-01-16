@@ -3,7 +3,7 @@
     <img class="logo" src="/assets/logo--unocha.svg" alt="Office for the Coordination of Humanitarian Affairs">
     <div class="meta">
       <h1 class="title">{{ title }}</h1>
-      <span class="subtitle">{{ $t('Situation Report', locale) }}</span>
+      <span class="subtitle">{{ subtitle }}</span>
     </div>
   </header>
 </template>
@@ -21,7 +21,10 @@
     computed: {
       title() {
         return this.$store.state.reportMeta.title;
-      }
+      },
+      subtitle() {
+        return this.$store.state.reportMeta.subtitle;
+      },
     }
   }
 </script>

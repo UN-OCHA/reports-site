@@ -263,15 +263,6 @@
           return firstIndexFound === index;
         });
 
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_LANG', params.lang);
-        store.commit('SET_META', {
-          slug: mainParent.items[0].fields.slug,
-          title: mainParent.items[0].fields.title,
-          dateUpdated: mainParent.items[0].fields.dateUpdated,
-          language: params.lang,
-        });
-
         return {
           entry: entries.items[0],
           parents: parents,
@@ -333,6 +324,17 @@
       };
     },
 
+    created() {
+      // For client-side, update our store with the fresh data.
+      this.$store.commit('SET_LANG', this.parents[0].fields.language);
+      this.$store.commit('SET_META', {
+        slug: this.parents[0].fields.slug,
+        title: this.officeName,
+        subtitle: this.headerSubtitle,
+        dateUpdated: this.parents[0].fields.dateUpdated,
+        language: this.parents[0].fields.language,
+      });
+    },
   }
 </script>
 

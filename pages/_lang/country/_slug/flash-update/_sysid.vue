@@ -64,6 +64,10 @@
       flashUpdateHasImage() {
         return this.flashUpdate.fields.image && this.flashUpdate.fields.image.fields && this.flashUpdate.fields.image.fields.file && this.flashUpdate.fields.image.fields.file.url;
       },
+
+      headerSubtitle() {
+        return this.flashUpdate.fields.title.trim();
+      },
     },
 
     // We use the object populated by asyncData here. It might be empty at first
@@ -89,12 +93,12 @@
           { hid: 'dsr-desc', name: 'description', content: this.flashUpdate.fields.title },
           { hid: 'tw-dnt', name: 'twitter:dnt', content: 'on' },
           { hid: 'tw-card', name: 'twitter:card', content: 'summary_large_image' },
-          { hid: 'tw-title', name: 'twitter:title', content: this.$t('Flash Update', this.locale) + ' ' + this.entry.fields.title.trim() },
+          { hid: 'tw-title', name: 'twitter:title', content: this.headerSubtitle },
           { hid: 'tw-site', name: 'twitter:site', content: '@UNOCHA' },
           { hid: 'tw-creator', name: 'twitter:creator', content: '@UNOCHA' },
           { hid: 'og-type', property: 'og:type', content: 'website' },
           { hid: 'og-url', property: 'og:url', content: `https://reports.unocha.org/${this.entry.fields.language}/country/${this.entry.fields.slug}/flash-update/${this.flashUpdate.sys.id}/` },
-          { hid: 'og-title', property: 'og:title', content: this.$t('Flash Update', this.locale) + ' ' + this.entry.fields.title.trim() },
+          { hid: 'og-title', property: 'og:title', content: this.headerSubtitle },
           { hid: 'og-desc', property: 'og:description', content: this.flashUpdate.fields.title },
           { hid: 'og-image', property: 'og:image', content: (this.flashUpdateHasImage) ? 'https:' + this.flashUpdate.fields.image.fields.file.url : '' },
         ],
@@ -109,7 +113,18 @@
 
       if (lang) {
         this.$store.commit('SET_LANG', lang);
+        this.$store.commit('SET_META', {
+          language: lang,
+        });
       }
+
+      // For client-side, update our store with the fresh data.
+      this.$store.commit('SET_META', {
+        slug: this.entry.fields.slug,
+        title: this.entry.fields.title,
+        subtitle: this.headerSubtitle,
+        dateUpdated: this.entry.fields.dateUpdated,
+      });
     },
 
     asyncData({env, params, store, error, req, res}) {
@@ -153,14 +168,6 @@
             }],
           });
         }
-
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_META', {
-          slug: params.slug,
-          title: entries.items[0].fields.title,
-          dateUpdated: entries.items[0].fields.dateUpdated,
-          language: params.lang,
-        });
 
         // Reformat CTF translations response so follows format of locales Store.
         let translations = translationEntries.items.map((translation) => {

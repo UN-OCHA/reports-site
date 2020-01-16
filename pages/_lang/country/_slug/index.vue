@@ -104,6 +104,10 @@
         const validHighlights = this.entry.fields.keyMessages.filter(highlight => typeof highlight.fields !== 'undefined');
         return validHighlights.map(msg => msg.fields.keyMessage).join(' — ');
       },
+
+      headerSubtitle() {
+        return this.$t('Situation Report', this.locale);
+      },
     },
 
     methods: {
@@ -351,14 +355,6 @@
           });
         }
 
-        // For client-side, update our store with the fresh data.
-        store.commit('SET_META', {
-          slug: params.slug,
-          title: entries.items[0].fields.title,
-          dateUpdated: entries.items[0].fields.dateUpdated,
-          language: params.lang,
-        });
-
         // Combine both years of FTS responses into one array.
         let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
         let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
@@ -406,6 +402,15 @@
       if (lang) {
         this.$store.commit('SET_LANG', lang);
       }
+
+      // For client-side, update our store with the fresh data.
+      this.$store.commit('SET_META', {
+        slug: this.entry.fields.slug,
+        title: this.entry.fields.title,
+        subtitle: this.headerSubtitle,
+        dateUpdated: this.entry.fields.dateUpdated,
+        language: this.entry.fields.language,
+      });
     },
 
     //
