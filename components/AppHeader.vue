@@ -1,5 +1,8 @@
 <template>
-  <header class="container header clearfix" role="banner">
+  <header class="container header clearfix" :class="[envClass ? 'env--' + envClass : '']" role="banner">
+    <div class="env" v-if="envClass">
+      <p>You are viewing the <strong>{{ envClass }}</strong> Environment!</p>
+    </div>
     <div class="title-area">
       <nuxt-link :to="$i18n.path('')" class="logo-link">
         <img class="logo" src="/assets/logo--unocha.svg" :alt="$t('UN Office for the Coordination of Humanitarian Affairs', locale)">
@@ -126,6 +129,15 @@
     },
 
     computed: {
+      envClass() {
+        const matches = process.server
+          ? process.env.baseUrl.match(/reports\.(\D*)\.ahconu\.org/)
+          : window.location.hostname.match(/reports\.(\D*)\.ahconu\.org/);
+
+        // Only return an answer when matches contains it.
+        return matches && matches.length <= 2 ? matches[1] : false;
+      },
+
       availableTranslations() {
         // If an array of other languages was supplied, we use them, otherwise
         // we use the global list of languages.
@@ -207,7 +219,6 @@
   $logo-width: 61px;
   $button-height: 32px;
 
-
   .header {
     border-bottom: 3px solid #4c8cca;
     margin-bottom: 2rem;
@@ -223,6 +234,52 @@
         display: none;
         margin-bottom: 0;
       }
+    }
+  }
+
+  .header[class*="env--"] {
+    margin-top: 5rem;
+
+    @media (min-width: $bkpt-app-bar) {
+      margin-top: 4rem;
+    }
+  }
+
+  .env {
+    grid-column: 1 / span 2;
+
+    display: none; // NEVER display on prod. start out by hiding this.
+    width: 100%;
+    position: fixed;
+    top: 3rem;
+    left: 0;
+    z-index: 100;
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    background: #e56a54;
+    text-shadow: 0 0 2px 2px rgba(0,0,0,0.5);
+
+    @media (min-width: $bkpt-app-bar) {
+      top: 0;
+    }
+
+    strong {
+      text-transform: uppercase;
+    }
+
+    &--local .env,
+    &--dev .env {
+      display: block;
+      background: #db7d18;
+    }
+    &--preview .env {
+      display: block;
+      background: #7fb92f;
+    }
+    &--training .env {
+      display: block;
+      background: #9063cd;
     }
   }
 
