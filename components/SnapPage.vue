@@ -203,13 +203,13 @@
   font-size: 12px;
   color: #4c8cca;
 
+  display: grid;
   grid-template-areas: "left right";
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
+  align-items: end;
 }
 .pdf-footer__left {
-  position: relative;
-  top: 28px;
   grid-area: left;
 }
 .pdf-footer__right {
