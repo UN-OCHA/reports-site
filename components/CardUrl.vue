@@ -49,7 +49,7 @@
       },
 
       buttonHref() {
-        const cardPath = `/${this.locale}/country/${this.$store.state.reportMeta.slug}/card/${this.shortId}/`;
+        const cardPath = `/${this.$store.state.reportMeta.language}/country/${this.$store.state.reportMeta.slug}/card/${this.shortId}/`;
 
         return (process.server)
           ? process.env.BASE_URL + cardPath
