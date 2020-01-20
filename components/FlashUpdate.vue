@@ -170,7 +170,7 @@
       },
 
       pdfPath() {
-        return process.client ? window.location.pathname + 'flash-update/' + this.content.sys.id + '/' : '';
+        return `/${this.$store.state.reportMeta.language}/country/${this.$store.state.reportMeta.slug}/flash-update/${this.content.sys.id}/`;
       },
 
       pdfUrl() {
