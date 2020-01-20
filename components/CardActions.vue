@@ -4,6 +4,7 @@
       v-if="showUrl"
       :label="label"
       :id="sysId"
+      :card-url-override="cardUrlOverride"
     />
     <SnapCard
       v-if="showPng"
@@ -89,6 +90,11 @@
         default: '',
       },
       pdfUrl: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      cardUrlOverride: {
         type: String,
         required: false,
         default: '',
