@@ -174,7 +174,7 @@
       },
 
       pdfUrl() {
-        return process.client ? window.location.origin + this.pdfPath : '#';
+        return process.env.baseUrl + this.pdfPath;
       },
     },
 
