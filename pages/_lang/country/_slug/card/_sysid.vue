@@ -25,6 +25,7 @@
 <script>
   // Mixins
   import Global from '~/components/_Global';
+  import Page from '~/components/_Page';
 
   // Components
   import AppBar from '~/components/AppBar';
@@ -42,7 +43,10 @@
   const client = createClient();
 
   export default {
-    mixins: [Global],
+    mixins: [
+      Global,
+      Page
+    ],
 
     components: {
       AppBar,
@@ -74,7 +78,7 @@
       },
 
       ogType() {
-        return this.isVideoCard ? 'video:other': 'article';
+        return this.isVideoCard ? 'video.other': 'article';
       },
 
       socialVideoSlug() {

@@ -1,7 +1,7 @@
 <template>
   <a
     class="btn btn--card-url"
-    :class="{'is--showing-success': showSuccessMessage}"
+    :class="{'is--showing-success': showSuccessMessage, 'btn--has-js': clientHasJS }"
     :title="buttonText"
     :data-message="buttonSuccessMessage"
     :href="buttonHref"
@@ -29,6 +29,11 @@
         type: String,
         required: true,
       },
+      cardUrlOverride: {
+        type: String,
+        required: false,
+        default: '',
+      },
     },
 
     data() {
@@ -42,14 +47,24 @@
         return this.id.slice(0,10);
       },
 
+      clientHasJS() {
+        return process.client
+          ? true
+          : false;
+      },
+
       buttonText() {
         // Two-step translation. Our translations have the literal string [THING]
         // in them, so we swap that word out in a second step.
-        return this.$t('Copy [THING] URL to clipboard', this.locale).replace('[THING]', this.$t(this.label, this.locale));
+        return this.clientHasJS
+          ? this.$t('Copy [THING] URL to clipboard', this.locale).replace('[THING]', this.$t(this.label, this.locale))
+          : '[THING] URL'.replace('[THING]', this.$t(this.label, this.locale));
       },
 
       buttonHref() {
-        const cardPath = `/${this.locale}/country/${this.$store.state.reportMeta.slug}/card/${this.shortId}/`;
+        const cardPath = (this.cardUrlOverride)
+          ? this.cardUrlOverride
+          : `/${this.$store.state.reportMeta.language}/country/${this.$store.state.reportMeta.slug}/card/${this.shortId}/`;
 
         return (process.server)
           ? process.env.BASE_URL + cardPath
@@ -103,7 +118,7 @@
     background-position: 50% 5%;
     background-repeat: no-repeat;
     background-size: 1rem 1rem;
-    cursor: copy;
+    cursor: pointer;
     position: relative;
     z-index: 5;
 
@@ -155,6 +170,11 @@
       [dir="rtl"] & {
         transform: translateX(50%);
       }
+    }
+
+    // Once JS has loaded, we switch the cursor type to match JS functionality.
+    &.btn--has-js {
+      cursor: copy;
     }
   }
 

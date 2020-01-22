@@ -32,7 +32,7 @@
 <script>
   // Mixins
   import Global from '~/components/_Global';
-  import Page from '~/components/_Page';
+  import BasicPage from '~/components/_BasicPage';
 
   // Components
   import AppBar from '~/components/AppBar';
@@ -51,7 +51,7 @@
   export default {
     mixins: [
       Global,
-      Page,
+      BasicPage,
     ],
 
     components: {

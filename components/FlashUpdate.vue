@@ -94,6 +94,7 @@
       :description="$t('Last updated', locale) + ': ' + $moment(content.sys.updatedAt).locale(localeOrFallback).format('D MMM YYYY')"
       :filename-prefix="$t('Flash Update', locale)"
       :pdf-url="pdfUrl"
+      :card-url-override="pdfPath"
     />
 
     <CardFooter />
@@ -168,8 +169,12 @@
         return (Math.floor(this.timeAgoInMinutes / 60) > this.content.fields.duration) ? false : true;
       },
 
+      pdfPath() {
+        return `/${this.$store.state.reportMeta.language}/country/${this.$store.state.reportMeta.slug}/flash-update/${this.content.sys.id}/`;
+      },
+
       pdfUrl() {
-        return process.client ? window.location.origin + window.location.pathname + 'flash-update/' + this.content.sys.id + '/' : '#';
+        return process.env.baseUrl + this.pdfPath;
       },
     },
 
