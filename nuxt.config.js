@@ -225,6 +225,27 @@ module.exports = {
       select: 'sys.id,fields.title,fields.dateUpdated,fields.slug,fields.language',
     });
 
+    // Import all locales so we can localize the labels we provide, then setup
+    // a simple translation tool.
+    const ar = require('./locales/ar.js');
+    const en = require('./locales/en.js');
+    const es = require('./locales/es.js');
+    const fr = require('./locales/fr.js');
+    const rn = require('./locales/rn.js');
+    const ru = require('./locales/ru.js');
+    const so = require('./locales/so.js');
+    const uk = require('./locales/uk.js');
+    const t = {
+      'ar': ar.default,
+      'en': en.default,
+      'es': es.default,
+      'fr': fr.default,
+      'rn': rn.default,
+      'ru': ru.default,
+      'so': so.default,
+      'uk': uk.default,
+    };
+
     // Capture each sitrep feed into an array which we'll spread and push later.
     const eachSitrepFeed = allSitreps.items.map(entry => {
       // Define which country/office we're pulling data from
@@ -281,7 +302,7 @@ module.exports = {
               .filter(msg => typeof msg.fields !== 'undefined')
               .forEach(msg => {
                 msg.fields && msg.fields.keyMessage && feedItems.push({
-                  title: msg.fields.keyMessage,
+                  title: `${t[THIS_LANG]['Highlights']}: ${msg.fields.keyMessage}`,
                   id: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/`,
                   link: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/`,
                   date: new Date(Date.parse(msg.sys.updatedAt)),
@@ -295,7 +316,7 @@ module.exports = {
               .filter(figure => typeof figure.fields !== 'undefined')
               .forEach(figure => {
                 figure.fields && figure.fields.figure && feedItems.push({
-                  title: `${figure.fields.figure} ${figure.fields.caption}`,
+                  title: `${t[THIS_LANG]['Key Figures']}: ${figure.fields.figure} ${figure.fields.caption}`,
                   id: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/`,
                   link: `${process.env.BASE_URL}/${THIS_LANG}/country/${THIS_SLUG}/`,
                   date: new Date(Date.parse(figure.sys.updatedAt)),
@@ -317,24 +338,24 @@ module.exports = {
                 // Populate based on Card type
                 //
                 if (cardType === 'article') {
-                  cardTitle = card.fields.title ? `${card.fields.sectionHeading}: ${card.fields.title}` : 'Untitled Article';
+                  cardTitle = card.fields.title ? `${t[THIS_LANG][card.fields.sectionHeading]}: ${card.fields.title}` : 'Untitled Article';
                   cardDescription = richText(card.fields.body, renderOptions);
                 }
                 if (cardType === 'clusterInformation') {
-                  cardTitle = `${card.fields.sectionHeading || 'Cluster'} Status: ${card.fields.clusterName}`;
+                  cardTitle = `${t[THIS_LANG][(card.fields.sectionHeading || 'Cluster') + ' Status']}: ${card.fields.clusterName}`;
                   cardDescription = ('<h3>Needs</h3>' + richText(card.fields.clusterNeeds, renderOptions) +'<h3>Response</h3>'+ richText(card.fields.clusterResponse, renderOptions) +'<h3>Gaps</h3>'+ richText(card.fields.clusterGaps, renderOptions));
                 }
                 if (cardType === 'interactive') {
-                  cardTitle = card.fields.title || 'Untitled Interactive';
+                  cardTitle = `${t[THIS_LANG]['Interactive']}: ${card.fields.title}`;
                   cardDescription = richText(card.fields.description, renderOptions);
                 }
                 if (cardType === 'visual') {
-                  cardTitle = card.fields.title || 'Untitled Visual';
+                  cardTitle = `${t[THIS_LANG]['Visual']}: ${card.fields.title}`;
                   cardDescription = richText(card.fields.description, renderOptions);
                 }
                 if (cardType === 'video') {
-                  cardTitle = `Video: ${card.fields.videoUrl}`;
-                  cardDescription = richText(card.fields.description, renderOptions);
+                  cardTitle = `${t[THIS_LANG]['Video']}`;
+                  cardDescription = `<p><a href="${card.fields.videoUrl}">${t[THIS_LANG]['View this Video']}</a></p>` + richText(card.fields.description, renderOptions);
                 }
 
                 cardTitle && cardDescription && feedItems.push({
