@@ -100,7 +100,7 @@ module.exports = {
     // RSS: all SitReps
     feeds.push({
       path: '/feeds/sitreps.xml',
-      cacheTime: 1000,// * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 12,
       type: 'rss2',
       data: [],
       async create(feed) {
@@ -146,7 +146,7 @@ module.exports = {
           description: `All Situation Reports published on ${process.env.BASE_URL}`,
           docs: 'https://validator.w3.org/feed/docs/rss2.html',
           // Measured in MINUTES. See `docs` link.
-          ttl: 60 * 24,
+          ttl: 60 * 12,
           date: new Date(Date.now()),
         }
 
@@ -160,7 +160,7 @@ module.exports = {
     // RSS: all Flash Updates
     feeds.push({
       path: '/feeds/flashupdates.xml',
-      cacheTime: 1000,// * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 12,
       type: 'rss2',
       data: [],
       async create(feed) {
@@ -206,7 +206,7 @@ module.exports = {
           description: `All Flash Updates published on ${process.env.BASE_URL}`,
           docs: 'https://validator.w3.org/feed/docs/rss2.html',
           // Measured in MINUTES. See `docs` link.
-          ttl: 60 * 24,
+          ttl: 60 * 12,
           date: new Date(Date.now()),
         }
 
@@ -255,7 +255,7 @@ module.exports = {
       // Define this Sitrep's feed
       return {
         path: `/feeds/${THIS_LANG}/country/${THIS_SLUG}.xml`,
-        cacheTime: 1000,// * 60 * 60 * 24,
+        cacheTime: 1000 * 60 * 60 * 12,
         type: 'rss2',
         data: [],
         async create(feed) {
@@ -387,7 +387,7 @@ module.exports = {
             description: `All content for ${sitrep.fields.title} published on ${process.env.BASE_URL}`,
             docs: 'https://validator.w3.org/feed/docs/rss2.html',
             // Measured in MINUTES. See `docs` link.
-            ttl: 60 * 24,
+            ttl: 60 * 12,
             date: new Date(Date.now()),
           }
 
