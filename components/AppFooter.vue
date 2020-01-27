@@ -18,6 +18,7 @@
 
     <ul class="footer-menu">
       <li><a :href="$i18n.path('about/')">{{ $t('About', locale) }}</a></li>
+      <li><a :href="$t('href-tos', locale)" target="_blank" rel="noopener">{{ $t('Terms of Use', locale) }}</a></li>
       <li><a :href="$t('href-privacy', locale)" target="_blank" rel="noopener">{{ $t('Privacy policy', locale) }}</a></li>
       <li><a :href="$t('href-copyright', locale)" target="_blank" rel="noopener">{{ $t('Copyright notice', locale) }}</a></li>
     </ul>

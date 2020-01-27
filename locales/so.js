@@ -34,6 +34,8 @@ export default {
   'Read this Situation Report in a different language:': 'Akhri warbixinta xaaladda',
 
   // AppFooter
+  'Terms of Use': 'Terms of Use',
+  'href-tos': 'https://www.un.org/fr/sections/about-website/terms-use/',
   'Privacy policy': 'Sharciga ilaalinta xogta dhowrsan',
   'href-privacy': 'https://www.un.org/fr/sections/about-website/privacy-notice/',
   'Copyright notice': 'Ogeysiiska lahaanshaha nuqulka',

@@ -34,6 +34,8 @@ export default {
   'Read this Situation Report in a different language:': 'Прочитайте це Оперативне зведення іншою мовою',
 
   // AppFooter
+  'Terms of Use': 'Terms of Use',
+  'href-tos': 'https://www.un.org/ru/sections/about-website/terms-use/',
   'Privacy policy': 'Політика конфіденційності',
   'href-privacy': 'https://www.un.org/ru/sections/about-website/privacy-notice/',
   'Copyright notice': 'Повідомлення про авторські права',
