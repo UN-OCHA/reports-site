@@ -34,6 +34,8 @@ export default {
   'Read this Situation Report in a different language:': 'إقراء التقريرعن الوضع بلغة أخرى',
 
   // AppFooter
+  'Terms of Use': 'شروط الإستخدام',
+  'href-tos': 'https://www.un.org/ar/sections/about-website/terms-use/',
   'Privacy policy': 'اتفاقية الخصوصية',
   'href-privacy': 'https://www.un.org/ar/sections/about-website/privacy-notice/',
   'Copyright notice': 'حقوق الملكية',
