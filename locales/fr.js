@@ -34,6 +34,8 @@ export default {
   'Read this Situation Report in a different language:': 'Lire ce rapport de situation dans une autre langue :',
 
   // AppFooter
+  'Terms of Use': 'Conditions d\'utilisation',
+  'href-tos': 'https://www.un.org/fr/sections/about-website/terms-use/',
   'Privacy policy': 'Règle de confidentialité',
   'href-privacy': 'https://www.un.org/fr/sections/about-website/privacy-notice/',
   'Copyright notice': 'Droits d\'auteur',
