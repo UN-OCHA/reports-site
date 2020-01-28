@@ -66,7 +66,7 @@
         const finalSnapUrl = this.pdfUrl || this.defaultSitRepUrl;
 
         // Return the fully parameterized Snap request.
-        return `${this.snapEndpoint}?url=${encodeURIComponent(finalSnapUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=${this.pdfHeaderHeight}&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}`;
+        return `${this.snapEndpoint}?url=${encodeURIComponent(finalSnapUrl)}&service=${this.requestingService}&output=pdf&media=print&logo=ocha&cookies=${encodeURIComponent(cookies)}&pdfMarginTop=${this.pdfHeaderHeight}&pdfHeader=${encodeURIComponent(this.pdfHeader)}&pdfFooter=${encodeURIComponent(this.pdfFooter)}&delay=100`;
       },
 
       filename() {
