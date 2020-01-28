@@ -50,7 +50,7 @@
 
             <img
               class="article__img"
-              loading="lazy"
+              :loading="this.$store.state.globalFormatting.imgLoading"
               lazyload="1"
               :src="`${secureImageUrl}?w=413&h=${getImageHeight(413, content.fields.image)}`"
               :alt="content.fields.image.fields.title">

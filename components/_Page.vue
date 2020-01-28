@@ -27,23 +27,26 @@
         // Configure MutationOberver
         const mutationConfig = {attributes: true};
 
-        // Store `this` in a variable to access within MutationObserver.
-        const page = this;
-
         // Callback when Snap class is detected
-        const mutationCallback = function(mutationsList, oberver) {
+        const mutationCallback = (mutationsList, oberver) => {
           for (let mutation of mutationsList) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              // The classname implies that this is a short-lived page-view which
+              // only gets triggered by Snap Service so the app doesn't provide
+              // a way to "undo" the changes we're making here.
               if (mutation.target.className.indexOf('snap') !== -1) {
                 // Disable timestamp formatting *for the entire page* by updating
-                // the Vuex store. In theory this is a short-lived page-view that
-                // only gets triggered by Snap Service so the app doesn't provide
-                // a way to "undo" the change we're making here.
-                page.$store.commit('SET_GLOBAL_TIMESTAMP_FORMATTING', false);
+                // the Vuex store.
+                this.$store.commit('SET_GLOBAL_FORMATTING_TIMESTAMP', false);
+
+                // Additionally, set all images which we potentially marked for
+                // lazy-loading to be eagerly loaded, so that PDFs contain all
+                // expected media.
+                this.$store.commit('SET_GLOBAL_FORMATTING_IMGLOADING', 'eager');
               }
             }
           }
-        }
+        };
 
         // Create MutationOberver
         const observer = new MutationObserver(mutationCallback);
