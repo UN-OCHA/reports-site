@@ -51,7 +51,7 @@
 
             <img
               class="interactive__img"
-              loading="lazy"
+              :loading="this.$store.state.globalFormatting.imgLoading"
               lazyload="1"
               :src="`${secureImageUrl}?w=1048&h=${getImageHeight(1048, content.fields.image)}`"
               :alt="content.fields.image.fields.title">

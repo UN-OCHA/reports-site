@@ -120,9 +120,10 @@ export const state = () => ({
   },
 
   // Lets the whole app render dates consistently when context requires it.
-  // e.g. Used by Snaps to render PDF/PNGs with absolute dates.
+  // e.g. Used by Snaps to render PDF/PNGs.
   globalFormatting: {
     formatTimestamps: 'auto',
+    imgLoading: 'lazy',
   },
 });
 
@@ -148,7 +149,11 @@ export const mutations = {
     }
   },
 
-  SET_GLOBAL_TIMESTAMP_FORMATTING(state, setting) {
+  SET_GLOBAL_FORMATTING_TIMESTAMP(state, setting) {
     state.globalFormatting.formatTimestamps = setting;
+  },
+
+  SET_GLOBAL_FORMATTING_IMGLOADING(state, setting) {
+    state.globalFormatting.imgLoading = setting;
   },
 };

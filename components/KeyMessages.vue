@@ -47,7 +47,7 @@
             <img
               :src="`${secureImageUrl}?w=1032&h=${getImageHeight(1032, image)}`"
               :alt="image.fields.title"
-              loading="auto"
+              loading="eager"
             >
           </picture>
           <figcaption v-if="image.fields.description">{{ image.fields.description }}</figcaption>
