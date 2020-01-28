@@ -27,11 +27,8 @@
         // Configure MutationOberver
         const mutationConfig = {attributes: true};
 
-        // Store `this` in a variable to access within MutationObserver.
-        const page = this;
-
         // Callback when Snap class is detected
-        const mutationCallback = function(mutationsList, oberver) {
+        const mutationCallback = (mutationsList, oberver) => {
           for (let mutation of mutationsList) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
               if (mutation.target.className.indexOf('snap') !== -1) {
@@ -39,7 +36,7 @@
                 // the Vuex store. In theory this is a short-lived page-view that
                 // only gets triggered by Snap Service so the app doesn't provide
                 // a way to "undo" the change we're making here.
-                page.$store.commit('SET_GLOBAL_TIMESTAMP_FORMATTING', false);
+                this.$store.commit('SET_GLOBAL_TIMESTAMP_FORMATTING', false);
               }
             }
           }
