@@ -28,8 +28,7 @@
           class="video__container">
           <img
             class="video__img"
-            loading="lazy"
-            lazyload="1"
+            loading="eager"
             :src="videoEmbedPreview"
             :alt="`Preview of ${videoEmbedLink}`">
           <button class="video__play"></button>
