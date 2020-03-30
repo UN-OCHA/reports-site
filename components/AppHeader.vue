@@ -134,10 +134,21 @@
           ? process.env.baseUrl.match(/(https?:\/\/)?(\D*\.)?(demo|dev)\.reports-unocha-org\.ahconu\.org/)
           : window.location.href.match(/(https?:\/\/)?(\D*\.)?(demo|dev)\.reports-unocha-org\.ahconu\.org/);
 
-        // Only return an answer when matches contains it.
-        return matches && matches.length <= 4
-          ? matches[2]
-          : matches[3];
+        //
+        // Only return an answer when matches contains it. Our new logic matches
+        // AWS devsite naming conventions. The following URLs are expected. The
+        // subdomain TYPE is aligned:
+        //
+        //           dev.reports-unocha-org.ahconu.org (DEV)
+        // training.demo.reports-unocha-org.ahconu.org (TRAINING)
+        //  preview.demo.reports-unocha-org.ahconu.org (PREVIEW)
+        //
+        // On the `demo.` URLs, we extract the initial subdomain that describes
+        // the demo site. On `dev.` we want to display dev.
+        //
+        return matches && matches.length <= 4 && typeof matches[2] === 'undefined'
+          ? matches[3]
+          : matches[2].replace('.', '');
       },
 
       availableTranslations() {
