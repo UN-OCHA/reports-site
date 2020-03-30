@@ -131,11 +131,13 @@
     computed: {
       envClass() {
         const matches = process.server
-          ? process.env.baseUrl.match(/reports\.(\D*)\.ahconu\.org/)
-          : window.location.hostname.match(/reports\.(\D*)\.ahconu\.org/);
+          ? process.env.baseUrl.match(/(https?:\/\/)?(\D*\.)?(demo|dev)\.reports-unocha-org\.ahconu\.org/)
+          : window.location.href.match(/(https?:\/\/)?(\D*\.)?(demo|dev)\.reports-unocha-org\.ahconu\.org/);
 
         // Only return an answer when matches contains it.
-        return matches && matches.length <= 2 ? matches[1] : false;
+        return matches && matches.length <= 4
+          ? matches[2]
+          : matches[3];
       },
 
       availableTranslations() {
