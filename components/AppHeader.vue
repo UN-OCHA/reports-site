@@ -146,9 +146,11 @@
         // On the `demo.` URLs, we extract the initial subdomain that describes
         // the demo site. On `dev.` we want to display dev.
         //
-        return matches && matches.length <= 4 && typeof matches[2] === 'undefined'
-          ? matches[3]
-          : matches[2].replace('.', '');
+        return matches
+          ? matches.length <= 4 && typeof matches[2] === 'undefined'
+            ? matches[3] // DEV
+            : matches[2].replace('.', '') // TRAINING / PREVIEW
+          : '';
       },
 
       availableTranslations() {
