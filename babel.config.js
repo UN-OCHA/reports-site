@@ -1,13 +1,21 @@
-// We specify some Babel config for Jest only. Nuxt ignores this.
-module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
-  ],
+function isBabelLoader(caller) {
+  return caller && caller.name === "babel-loader";
+}
+
+module.exports = function(api) {
+  if (api.env("test") && !api.caller(isBabelLoader)) {
+    return {
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            targets: {
+              node: "current"
+            }
+          }
+        ]
+      ]
+    };
+  }
+  return {};
 };
