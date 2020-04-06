@@ -277,4 +277,32 @@ module.exports = function(migration) {
   articleRegional
     .moveField('country')
     .afterField('sectionHeading')
+
+  //
+  // ContentType: sitrep
+  //
+  // We need to add Article (Regional) as a possible Entry reference to the "article" field.
+  //
+  const sitrep = migration.editContentType('sitrep')
+
+  sitrep
+    .editField('article', {
+      items: {
+        type: 'Link',
+        linkType: 'Entry',
+        validations: [
+          {
+            linkContentType: [
+              'article',
+              'articleRegional',
+              'clusterInformation',
+              'interactive',
+              'video',
+              'visual',
+            ]
+          }
+        ]
+      }
+    })
+
 };
