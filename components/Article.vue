@@ -3,7 +3,7 @@
     <CardHeader />
 
     <span class="card__title">
-      <span class="card__heading">{{ $t(content.fields.sectionHeading, locale) }}</span>
+      <span class="card__heading">{{ countryHeading }}{{ $t(content.fields.sectionHeading, locale) }}</span>
       <time :datetime="updatedAt" class="card__time-ago" @click="toggleTimestampFormatting">({{ timestamp }})</time>
     </span>
 
@@ -124,6 +124,15 @@
 
       secureImageUrl() {
         return this.articleHasImage && 'https:' + this.content.fields.image.fields.file.url;
+      },
+
+      // Contentful now has two content-types for Articles: normal and regional.
+      // We're using one component to render both, and for now the only difference
+      // is that regional articles output a country name alongside the heading.
+      //
+      // @see https://humanitarian.atlassian.net/browse/DSR-335
+      countryHeading() {
+        return this.content.fields.country ? this.content.fields.country + ' — ' : '';
       },
     },
 

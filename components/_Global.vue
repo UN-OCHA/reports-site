@@ -122,6 +122,7 @@
       componentMap() {
         return {
           'article': 'Article',
+          'articleRegional': 'Article',
           'clusterInformation': 'Cluster',
           'flashUpdate': 'FlashUpdate',
           'interactive': 'Interactive',
