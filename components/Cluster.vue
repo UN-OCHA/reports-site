@@ -54,24 +54,26 @@
 </template>
 
 <script>
-  // Mixins
   import Global from '~/components/_Global';
-
-  // Extends
   import Card from '~/components/Card';
-
-  // Components
   import KeyFigures from '~/components/KeyFigures';
-
-  // Rich Text
   import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+  import { INLINES } from '@contentful/rich-text-types';
 
   export default {
     extends: Card,
     mixins: [Global],
 
     props: {
-      'content': Object,
+      'content': {
+        type: Object,
+        required: true,
+      },
+      'options': {
+        type: Object,
+        required: false,
+        default: {},
+      },
     },
 
     data() {
@@ -126,6 +128,16 @@
     },
 
     created() {
+      // Use the flag from the SitRep to determine whether we force links to
+      // open in a new tab, or do default expected behavior of links.
+      if (this.options.newWindow) {
+        this.renderOptions = {
+          renderNode: {
+            [INLINES.HYPERLINK]: (node, next) => `<a href="${node.data.uri}" target="_blank" rel="noopener noreferrer">${next(node.content)}</a>`,
+          },
+        };
+      }
+
       this.richNeeds = documentToHtmlString(this.content.fields.clusterNeeds, this.renderOptions);
       this.richResponse = documentToHtmlString(this.content.fields.clusterResponse, this.renderOptions);
       this.richGaps = documentToHtmlString(this.content.fields.clusterGaps, this.renderOptions);

@@ -1,5 +1,5 @@
 <template>
-  <div v-on-clickaway="closeMenu">
+  <div v-on-clickaway="closeMenu" @keyup.esc="closeMenu">
     <input id="app-bar__toggle" type="checkbox" v-model="isExpanded" class="element-invisible">
     <label for="app-bar__toggle" class="btn btn--toggle" :aria-label="$t('Toggle menu', locale)"></label>
 
@@ -43,13 +43,8 @@
 </template>
 
 <script>
-  // Mixins
   import Global from '~/components/_Global';
-
-  // Components
   import SitrepList from '~/components/SitrepList';
-
-  // Utilities
   import { mixin as clickaway } from 'vue-clickaway';
 
   export default {
