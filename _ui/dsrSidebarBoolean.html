@@ -64,7 +64,11 @@ ext.init(function(api) {
   // Listen for input
   radios.forEach(radio => {
     radio.addEventListener('change', function () {
-      handleInputChange(Boolean(radios.value));
+      if (radios.value === 'true') {
+        handleInputChange(true);
+      } else {
+        handleInputChange(false);
+      }
     })
   });
 
