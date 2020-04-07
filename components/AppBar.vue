@@ -43,13 +43,8 @@
 </template>
 
 <script>
-  // Mixins
   import Global from '~/components/_Global';
-
-  // Components
   import SitrepList from '~/components/SitrepList';
-
-  // Utilities
   import { mixin as clickaway } from 'vue-clickaway';
 
   export default {
