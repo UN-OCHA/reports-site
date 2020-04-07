@@ -34,7 +34,14 @@
       </section>
 
       <section class="section--everythingElse">
-        <component :is="componentMap[card.sys.contentType.sys.id]" :content="card" v-for="card in entry.fields.article" :key="card.sys.id" v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'" />
+        <component
+          v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'"
+          v-for="card in entry.fields.article"
+          :key="card.sys.id"
+          :is="componentMap[card.sys.contentType.sys.id]"
+          :content="card"
+          :options="{newWindow: entry.fields.newWindow}"
+        />
       </section>
     </main>
 
@@ -413,7 +420,7 @@
         const flashUpdates = flashUpdatesAll.items.filter((fu) => {
           // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
-        })
+        });
 
         // This is the data that the template will use to render page.
         return {
