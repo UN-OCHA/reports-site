@@ -567,10 +567,10 @@
         grid-column: 1 / span 2;
       }
       .card--keyFinancials {
-        grid-column: 2 / span 2;
+        grid-column: 3 / span 2;
       }
       .card--contacts {
-        grid-column: 3 / span 2;
+        grid-column: 5 / span 2;
       }
     }
   } /* @supports (display: grid) */
