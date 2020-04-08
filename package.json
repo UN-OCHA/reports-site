@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.9.10",
+  "version": "2.10.0",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -13,7 +13,9 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "migration": "contentful-migration",
-    "test": "jest"
+    "e2e": "jest _tests/*.test.js",
+    "unit": "jest _tests/unit/*.spec.js",
+    "test": "jest _tests/unit/*.spec.js && jest test/*.test.js"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^13.4.0",
@@ -44,9 +46,11 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "acorn": "^6.4.1",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
-    "@babel/runtime-corejs2": "^7.4.4",
+    "@babel/runtime-corejs3": "^7.9.2",
+    "@vue/test-utils": "^1.0.0-beta.32",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.9.0",
     "contentful-migration": "^1.0.8",
@@ -57,17 +61,19 @@
     "eslint-plugin-vue": "^4.0.0",
     "jest": "^24.7.1",
     "jest-puppeteer": "^4.1.0",
+    "jest-serializer-vue": "^2.0.2",
+    "kind-of": "6.0.3",
+    "minimist": "^1.2.2",
     "node-sass": "^4.12.0",
     "puppeteer": "^1.14.0",
     "sass-loader": "^7.1.0",
     "set-value": "^2.0.1",
+    "vue-jest": "^4.0.0-0",
+    "vue-template-compiler": "^2.6.11",
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
     "node": "^10.14.2",
     "npm": "6.13.0"
-  },
-  "jest": {
-    "preset": "jest-puppeteer"
   }
 }

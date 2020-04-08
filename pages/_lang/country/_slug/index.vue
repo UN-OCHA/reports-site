@@ -1,5 +1,5 @@
 <template>
-  <div class="page--sitrep" :id="'cf-' + entry.sys.id" @click="noop">
+  <div class="page--sitrep" :class="{ 'page--with-funding': fundingDataExists }" :id="'cf-' + entry.sys.id" @click="noop">
     <AppBar />
     <AppHeader
       :title="entry.fields.title"
@@ -24,12 +24,24 @@
       <section class="section--primary clearfix">
         <KeyMessages :messages="entry.fields.keyMessages" :image="entry.fields.keyMessagesImage" />
         <KeyFigures :content="entry.fields.keyFigure" />
-        <KeyFinancials :fts-raw-data="ftsData" :fts-manual-data="entry.fields.keyFinancialsManual" :fts-url="entry.fields.keyFinancialsUrl" />
+        <KeyFinancials
+          v-if="fundingDataExists"
+          :fts-raw-data="ftsData"
+          :fts-manual-data="entry.fields.keyFinancialsManual"
+          :fts-url="entry.fields.keyFinancialsUrl"
+        />
         <Contacts :content="entry.fields.contacts" />
       </section>
 
       <section class="section--everythingElse">
-        <component :is="componentMap[card.sys.contentType.sys.id]" :content="card" v-for="card in entry.fields.article" :key="card.sys.id" v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'" />
+        <component
+          v-if="typeof card !== 'undefined' && typeof card.fields !== 'undefined'"
+          v-for="card in entry.fields.article"
+          :key="card.sys.id"
+          :is="componentMap[card.sys.contentType.sys.id]"
+          :content="card"
+          :options="{newWindow: entry.fields.newWindow}"
+        />
       </section>
     </main>
 
@@ -103,6 +115,10 @@
       keyMessagesJoined() {
         const validHighlights = this.entry.fields.keyMessages.filter(highlight => typeof highlight.fields !== 'undefined');
         return validHighlights.map(msg => msg.fields.keyMessage).join(' — ');
+      },
+
+      fundingDataExists() {
+        return this.ftsData.length || this.entry.fields.keyFinancialsManual;
       },
     },
 
@@ -392,18 +408,26 @@
           }
         });
 
+        // Isolate only the FTS data we want to use. By reducing data set before returning
+        // it, we save bandwidth in the form of inline JS within HTML response.
+        const ftsDataPlan = ftsData.filter((plan) => {
+          // Look at the FTS URL and filter out any unrelated data
+          return plan.id === ftsPlanId;
+        });
+
+        // Isolate only FUs we want to use. By reducing data set before returning
+        // it, we save bandwidth in the form of inline JS within HTML response.
+        const flashUpdates = flashUpdatesAll.items.filter((fu) => {
+          // Look at the sys.id of the corresponding sitrep and only return matches.
+          return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+        });
+
         // This is the data that the template will use to render page.
         return {
           'translations': translations,
           'entry': entries.items[0],
-          'ftsData': ftsData.filter((plan) => {
-            // Look at the FTS URL and filter out any unrelated data
-            return plan.id === ftsPlanId;
-          }),
-          'flashUpdates': flashUpdatesAll.items.filter((fu) => {
-            // Look at the sys.id of the corresponding sitrep and only return matches.
-            return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
-          }),
+          'ftsData': ftsDataPlan,
+          'flashUpdates': flashUpdates,
         };
       }).catch((err) => {
         // Log to our stack
@@ -473,13 +497,14 @@
     width: 100%;
   }
 
+  // When Funding NOT present...
   .card--keyFigures,
   .card--keyFinancials,
   .card--contacts {
     float: left;
-    width: calc(100% / 3 - (2rem / 3));
-    min-height: 240px;
+    width: calc(100% / 2 - (1rem / 2));
     margin-right: .99rem;
+    min-height: 240px;
 
     [dir="rtl"] & {
       float: right;
@@ -488,6 +513,26 @@
     }
   }
 
+
+  // When Funding is present...
+  .page--with-funding {
+    .card--keyFigures,
+    .card--keyFinancials,
+    .card--contacts {
+      float: left;
+      width: calc(100% / 3 - (2rem / 3));
+      min-height: 240px;
+      margin-right: .99rem;
+
+      [dir="rtl"] & {
+        float: right;
+        margin-right: 0;
+        margin-left: .99rem;
+      }
+    }
+  }
+
+  .page--with-funding .card--contacts,
   .card--contacts {
     margin-right: 0;
 
@@ -502,28 +547,38 @@
   @supports (display: grid) {
     .section--primary {
       display: grid;
-      grid-template-areas: "keyMessages  keyMessages    keyMessages"
-                           "keyFigures   keyFinancials  contacts";
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(6, 1fr);
       grid-gap: 1rem;
     }
 
+    .page--with-funding .section--primary .card,
     .section--primary .card {
       width: auto;
       margin: 0;
     }
-
     .card--keyMessages {
-      grid-area: keyMessages;
+      grid-column: 1 / -1;
     }
+
+    // When Funding is NOT present...
     .card--keyFigures {
-      grid-area: keyFigures;
-    }
-    .card--keyFinancials {
-      grid-area: keyFinancials;
+      grid-column: 1 / span 3;
     }
     .card--contacts {
-      grid-area: contacts;
+      grid-column: 4 / span 3;
+    }
+
+    // When Funding is present...
+    .page--with-funding {
+      .card--keyFigures {
+        grid-column: 1 / span 2;
+      }
+      .card--keyFinancials {
+        grid-column: 3 / span 2;
+      }
+      .card--contacts {
+        grid-column: 5 / span 2;
+      }
     }
   } /* @supports (display: grid) */
 } /* @media print and (min-width: 10cm), screen and (min-width: 760px) */

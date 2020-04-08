@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+  <!--
+    * Field Types: Boolean
+    * Sidebar: Yes
+    * Hosted by Contentful
+  -->
+  <link href="https://static.contentful.com/app/main-62e0abc7.css" media="all" rel="stylesheet" type="text/css">
+  <link href="https://static.contentful.com/app/vendor-976872d7.css" media="all" rel="stylesheet" type="text/css">
+  <link href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css" media="all" rel="stylesheet" type="text/css">
+  <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+  <style>
+    form {
+      padding-bottom: 3em;
+    }
+    label {
+      padding-right: .5em;
+    }
+    input[type="radio"] {
+      transform: scale(1.5);
+    }
+    #feedback {
+      color: red;
+      transition: opacity .1666s ease-out;
+    }
+  </style>
+</head>
+
+<div class="cf-form-input">
+  <form name="sidebarBoolean">
+    <label for="booleanTrue">Yes</label>
+    <input id="booleanTrue" name="boolean" type="radio" value="true">
+    &nbsp; &nbsp;
+    <label for="booleanFalse">No</label>
+    <input id="booleanFalse" name="boolean" type="radio" value="false">
+    <p id="feedback"></p>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+<script>
+var ext = window.contentfulExtension;
+ext.init(function(api) {
+  if (api.location.is(ext.locations.LOCATION_ENTRY_SIDEBAR)) {
+    renderSidebarUI();
+  }
+
+  // Set up our HTML input and CTF field.
+  var radios = document.sidebarBoolean.boolean;
+  var apiField = api.field;
+
+  // Populate field with CTF data
+  var initialValue = apiField.getValue() || false;
+  if (initialValue === true) {
+    radios[0].checked = true;
+  } else {
+    radios[1].checked = true;
+  }
+
+  // Automatically adjust the height of this field within the sidebar
+  api.window.startAutoResizer();
+
+  // Listen for input
+  radios.forEach(radio => {
+    radio.addEventListener('change', function () {
+      if (radios.value === 'true') {
+        handleInputChange(true);
+      } else {
+        handleInputChange(false);
+      }
+    })
+  });
+
+  // Listen for CTF validations
+  apiField.onSchemaErrorsChanged(function (err) {
+    if (err.length > 0) {
+      feedback.innerHTML = err[0].message;
+      feedback.style.opacity = '1';
+    } else {
+      feedback.style.opacity = '0';
+    }
+  });
+
+  /**
+   * Respond to user input on the HTML input.
+   */
+  function handleInputChange(val) {
+    apiField.setValue(val);
+  }
+});
+</script>

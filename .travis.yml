@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "10"
+cache:
+  yarn: true
+  directories:
+    - node_modules
+install:
+  - yarn install
+before_script:
+  - export CTF_SPACE_ID='1'; export CTF_CDA_ACCESS_TOKEN='1';
+script:
+  - yarn run unit

@@ -15,5 +15,8 @@ dist
 # NewRelic logs
 newrelic_agent.log
 
+# code coverage reports
+coverage
+
 # temp files (Jest+Puppeteer artifacts)
 tmp
