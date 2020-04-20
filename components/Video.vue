@@ -179,7 +179,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: transparent url('/ui/button-youtube.png') no-repeat;
+    background: transparent url('/assets/ui/button-youtube.png') no-repeat;
     background-size: contain;
     cursor: pointer;
     transition: transform .08333s ease-in-out;
