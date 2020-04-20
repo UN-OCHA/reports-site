@@ -16,7 +16,7 @@
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
 
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(localeOrFallback).format('D MMM YYYY') }}</time></span>
-        <span class="past-sitreps" v-if="countrycode || customArchive"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
+        <span class="past-sitreps" v-if="!!archiveLink"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
 
@@ -176,14 +176,14 @@
       },
 
       archiveLink() {
-        let archiveLink;
+        let archiveLink = '';
 
         // When a custom link is provided, use its value.
         if (this.customArchive) {
           archiveLink = this.customArchive;
-        }
-        else {
-          // By default we use `countryCode` to create the archive link
+        } else if (this.countrycode && !this.countrycode.match(/^ro[1-9]$/)) {
+          // All countryCode values besides RO[1-9] can be formatted into the
+          // standard Archive link format.
           archiveLink = `https://reliefweb.int/updates?search=primary_country.iso3:${this.countrycode} AND ocha_product:("Humanitarian Bulletin" OR "Situation Report" OR "Flash Update") AND source:OCHA#content`;
         }
 
