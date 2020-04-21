@@ -48,7 +48,7 @@
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <client-only>
-            <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
+            <button class="share__toggle" @click.prevent="toggleShare" @touchend.prevent="toggleShare" v-on-clickaway="closeShare">
               <span class="element-invisible">{{ $t('Share', locale) }}</span>
             </button>
             <div class="share__options card">
@@ -107,14 +107,6 @@
     },
 
     methods: {
-      click(ev) {
-        // In order to normalize touch events, we trigger the click handler
-        // immediately and stop event propagation.
-        this.toggleShare();
-        ev.stopPropagation();
-        ev.preventDefault();
-      },
-
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
       },
@@ -191,7 +183,9 @@
       },
 
       shareBaseUrl() {
-        return typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+        return typeof window !== 'undefined'
+          ? encodeURIComponent(window.location.href)
+          : `${process.env.baseUrl}${this.$route.path}`;
       },
 
       shareMessage() {
