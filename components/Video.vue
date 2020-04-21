@@ -20,7 +20,7 @@
           allowfullscreen="allowfullscreen"></iframe>
         <a
           v-else
-          @click="processVideo"
+          @click.prevent="processVideo"
           :data-video-slug="videoSlug"
           :href="videoEmbedLink"
           target="_blank"
@@ -105,10 +105,7 @@
     },
 
     methods: {
-      processVideo(ev) {
-        ev.stopPropagation();
-        ev.preventDefault();
-
+      processVideo() {
         this.videoProcessed = true;
       },
     },
