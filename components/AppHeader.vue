@@ -16,7 +16,7 @@
         <span class="subtitle" v-else aria-hidden="true">&nbsp;</span>
 
         <span class="last-updated" v-if="updated">{{ $t('Last updated', locale) }}: <time :datetime="updated">{{ $moment(updated).locale(localeOrFallback).format('D MMM YYYY') }}</time></span>
-        <span class="past-sitreps" v-if="countrycode || customArchive"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
+        <span class="past-sitreps" v-if="!!archiveLink"><a :href="archiveLink" target="_blank" rel="noopener">({{ $t('Archive', locale) }})</a></span>
       </div>
     </div>
 
@@ -48,7 +48,7 @@
         />
         <div v-if="share" class="share" :class="{ 'share--is-open': shareIsOpen }">
           <client-only>
-            <button class="share__toggle" @click="toggleShare" @touchend="click" v-on-clickaway="closeShare">
+            <button class="share__toggle" @click.prevent="toggleShare" @touchend.prevent="toggleShare" v-on-clickaway="closeShare">
               <span class="element-invisible">{{ $t('Share', locale) }}</span>
             </button>
             <div class="share__options card">
@@ -107,14 +107,6 @@
     },
 
     methods: {
-      click(ev) {
-        // In order to normalize touch events, we trigger the click handler
-        // immediately and stop event propagation.
-        this.toggleShare();
-        ev.stopPropagation();
-        ev.preventDefault();
-      },
-
       toggleShare() {
         this.shareIsOpen = !this.shareIsOpen;
       },
@@ -176,14 +168,14 @@
       },
 
       archiveLink() {
-        let archiveLink;
+        let archiveLink = '';
 
         // When a custom link is provided, use its value.
         if (this.customArchive) {
           archiveLink = this.customArchive;
-        }
-        else {
-          // By default we use `countryCode` to create the archive link
+        } else if (this.countrycode && !this.countrycode.match(/^ro[1-9]$/)) {
+          // All countryCode values besides RO[1-9] can be formatted into the
+          // standard Archive link format.
           archiveLink = `https://reliefweb.int/updates?search=primary_country.iso3:${this.countrycode} AND ocha_product:("Humanitarian Bulletin" OR "Situation Report" OR "Flash Update") AND source:OCHA#content`;
         }
 
@@ -191,7 +183,9 @@
       },
 
       shareBaseUrl() {
-        return typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : `${process.env.baseUrl}${this.$route.path}`;
+        return typeof window !== 'undefined'
+          ? encodeURIComponent(window.location.href)
+          : `${process.env.baseUrl}${this.$route.path}`;
       },
 
       shareMessage() {
