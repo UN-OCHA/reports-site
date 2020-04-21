@@ -20,7 +20,7 @@
           allowfullscreen="allowfullscreen"></iframe>
         <a
           v-else
-          @click="processVideo"
+          @click.prevent="processVideo"
           :data-video-slug="videoSlug"
           :href="videoEmbedLink"
           target="_blank"
@@ -105,10 +105,7 @@
     },
 
     methods: {
-      processVideo(ev) {
-        ev.stopPropagation();
-        ev.preventDefault();
-
+      processVideo() {
         this.videoProcessed = true;
       },
     },
@@ -179,17 +176,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: transparent url('/ui/button-youtube.png') no-repeat;
+    background: transparent url('/assets/ui/button-youtube.png') no-repeat;
     background-size: contain;
     cursor: pointer;
     transition: transform .08333s ease-in-out;
   }
 
-  /* repeat styles to override WP defaults */
   .video__play:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    background: transparent url('/ui/button-youtube.png') no-repeat;
-    background-size: contain;
   }
 
   // Unprocessed styles
