@@ -182,11 +182,8 @@
     transition: transform .08333s ease-in-out;
   }
 
-  /* repeat styles to override WP defaults */
   .video__play:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    background: transparent url('/ui/button-youtube.png') no-repeat;
-    background-size: contain;
   }
 
   // Unprocessed styles
