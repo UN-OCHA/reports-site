@@ -1,4 +1,4 @@
-FROM unocha/nodejs:10.14.2
+FROM unocha/nodejs:12
 
 ENV CTF_HOST=cdn.contentful.com \
     CTF_SPACE_ID=123456 \
@@ -17,3 +17,4 @@ RUN yarn install && \
 
 # make sure this will run on container creation
 #    yarn run build && \
+\
