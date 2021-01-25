@@ -24,7 +24,7 @@
     "@nuxtjs/feed": "^1.1.0",
     "@nuxtjs/moment": "^1.0.0",
     "ajv": "^6.5.4",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "clipboard-polyfill": "^2.8.6",
     "consola": "^2.6.0",
     "contentful": "^7.1.0",
