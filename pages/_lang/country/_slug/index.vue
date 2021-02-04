@@ -240,21 +240,6 @@
           'content_type': 'flashUpdate',
         }),
 
-        // FTS: fetch all v2 plans for 2018.
-        (process.server)
-          ? axios({
-              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2018',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn)
-          : axios({
-              url: '/v2/fts/flow/plan/overview/progress/2018',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn),
-
         // FTS: fetch all v2 plans for 2019.
         (process.server)
           ? axios({
@@ -283,9 +268,24 @@
               method: 'GET',
             })
             .then(response => response.data)
-            .catch(console.warn)
+            .catch(console.warn),
 
-      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2018, ftsData2019, ftsData2020]) => {
+        // FTS: fetch all v2 plans for 2021.
+        (process.server)
+          ? axios({
+              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2021',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2021',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn),
+
+      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2019, ftsData2020, ftsData2021]) => {
         //
         // Check for 404
         //
@@ -390,23 +390,15 @@
           language: params.lang,
         });
 
-        // Combine both years of FTS responses into one array.
-        let fts2018 = ftsData2018 && ftsData2018.data && ftsData2018.data.plans || [];
+        // Combine all years of FTS responses into one array.
         let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
         let fts2020 = ftsData2020 && ftsData2020.data && ftsData2020.data.plans || [];
-        let ftsData = fts2018.concat(fts2019);
-        ftsData = ftsData.concat(fts2020);
+        let fts2021 = ftsData2021 && ftsData2021.data && ftsData2021.data.plans || [];
+        let ftsData = fts2019.concat(fts2020);
+        ftsData = ftsData.concat(fts2021);
 
         // Extract the FTS PlanID out of the SitRep field data
         let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
-
-        // Reformat CTF translations response so follows format of locales Store.
-        let translations = translationEntries.items.map((translation) => {
-          return {
-            code: translation.fields.language,
-            display: true,
-          }
-        });
 
         // Isolate only the FTS data we want to use. By reducing data set before returning
         // it, we save bandwidth in the form of inline JS within HTML response.
@@ -420,6 +412,14 @@
         const flashUpdates = flashUpdatesAll.items.filter((fu) => {
           // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+        });
+
+        // Reformat CTF translations response so follows format of locales Store.
+        let translations = translationEntries.items.map((translation) => {
+          return {
+            code: translation.fields.language,
+            display: true,
+          }
         });
 
         // This is the data that the template will use to render page.
