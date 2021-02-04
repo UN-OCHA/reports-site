@@ -417,14 +417,6 @@
         // Extract the FTS PlanID out of the SitRep field data
         let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
 
-        // Reformat CTF translations response so follows format of locales Store.
-        let translations = translationEntries.items.map((translation) => {
-          return {
-            code: translation.fields.language,
-            display: true,
-          }
-        });
-
         // Isolate only the FTS data we want to use. By reducing data set before returning
         // it, we save bandwidth in the form of inline JS within HTML response.
         const ftsDataPlan = ftsData.filter((plan) => {
@@ -437,6 +429,14 @@
         const flashUpdates = flashUpdatesAll.items.filter((fu) => {
           // Look at the sys.id of the corresponding sitrep and only return matches.
           return fu.fields.relatedSitRep && fu.fields.relatedSitRep.sys.id === entries.items[0].sys.id;
+        });
+
+        // Reformat CTF translations response so follows format of locales Store.
+        let translations = translationEntries.items.map((translation) => {
+          return {
+            code: translation.fields.language,
+            display: true,
+          }
         });
 
         // This is the data that the template will use to render page.
