@@ -17,4 +17,3 @@ RUN yarn install && \
 
 # make sure this will run on container creation
 #    yarn run build && \
-\
