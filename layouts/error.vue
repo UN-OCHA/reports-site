@@ -9,14 +9,14 @@
 
     <main class="container container--error-grid" v-if="statusCode === 404">
       <section class="card card--error card--error-404 rich-text">
-        <img class="card__image" src="/locust-404.svg" :alt="pageTitle">
+        <img class="card__image" src="/assets/locust-404.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
       </section>
     </main>
 
     <main class="container container--error-grid" v-if="statusCode === 500">
       <section class="card card--error card--error-500 rich-text">
-        <img class="card__image" src="/locust-500.svg" :alt="pageTitle">
+        <img class="card__image" src="/assets/locust-500.svg" :alt="pageTitle">
         <h2 class="card__title">{{ pageTitle }}</h2>
         <p class="error-text">{{ $t('The URL you requested exists, but there were problems displaying the page.', locale) }}</p>
       </section>
