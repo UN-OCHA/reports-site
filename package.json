@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.10.2",
+  "version": "2.10.3",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -43,7 +43,8 @@
     "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
     "webpack": "^4.20.2",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "yargs-parser": "5.0.0-security.0"
   },
   "devDependencies": {
     "acorn": "^6.4.1",
