@@ -37,7 +37,7 @@
     "pm2": "^4.5.6",
     "serialize-javascript": "^3.1.0",
     "system-font-css": "^2.0.2",
-    "tar": ">=2.2.2",
+    "tar": ">=6.1.2",
     "vue": "^2.6.11",
     "vue-clickaway": "^2.2.2",
     "vue-i18n": "^8.3.2",
