@@ -35,11 +35,11 @@ export default {
 
   // AppFooter
   'Terms of Use': 'شروط الإستخدام',
-  'href-tos': 'https://www.un.org/ar/sections/about-website/terms-use/',
+  'href-tos': 'https://www.un.org/ar/about-us/terms-of-use',
   'Privacy policy': 'اتفاقية الخصوصية',
-  'href-privacy': 'https://www.un.org/ar/sections/about-website/privacy-notice/',
+  'href-privacy': 'https://www.un.org/ar/about-us/privacy-notice',
   'Copyright notice': 'حقوق الملكية',
-  'href-copyright': 'https://www.un.org/ar/sections/about-website/copyright/index.html',
+  'href-copyright': 'https://www.un.org/ar/about-us/copyright',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'مھمة مكتب تنسیق الشؤون الإنسانية یقوم مكتب تنسیق الشؤون الإنسانية بتنسيق الاستجابة العالمية لحالات الطوارئ لإنقاذ الأرواح وحمایة الناس في الأزمات الإنسانية. ونحن ندعو إلى العمل الإنساني الفعال والقائم على المبادئ من قبل الجميع لصالح الجميع.',
 
   // Homepage
