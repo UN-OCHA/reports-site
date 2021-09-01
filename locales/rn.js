@@ -35,11 +35,11 @@ export default {
 
   // AppFooter
   'Terms of Use': 'Terms of Use',
-  'href-tos': 'https://www.un.org/en/sections/about-website/terms-use/',
+  'href-tos': 'https://www.un.org/en/about-us/terms-of-use',
   'Privacy policy': 'Ikingirwa ry\'akabanga',
-  'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
+  'href-privacy': 'https://www.un.org/en/about-us/privacy-notice',
   'Copyright notice': 'Ikingirwa ry\'ibikorwa mvamutwe',
-  'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'href-copyright': 'https://www.un.org/en/about-us/copyright',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'Ibiro vya OCHA bijejwe gutunganya inyishu zihuta mu ntumbero yo gutabara ubuzima bwa kiremwa muntu  mu gihe ashikiwe n\'ibiza bitandukanye. Tujejwe kandi guhimiriza kwishigwa mu ngiro, rya bose no kubwa bose, ry\'ibikorwa vy\'ubutabazi bushemeye kandi bushingiye ku mategeko ndanga butabazi.',
 
   // Homepage

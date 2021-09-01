@@ -35,11 +35,11 @@ export default {
 
   // AppFooter
   'Terms of Use': 'Terms of Use',
-  'href-tos': 'https://www.un.org/en/sections/about-website/terms-use/',
+  'href-tos': 'https://www.un.org/en/about-us/terms-of-use',
   'Privacy policy': 'Privacy policy',
-  'href-privacy': 'https://www.un.org/en/sections/about-website/privacy-notice/',
+  'href-privacy': 'https://www.un.org/en/about-us/privacy-notice',
   'Copyright notice': 'Copyright notice',
-  'href-copyright': 'https://www.un.org/en/sections/about-website/copyright/index.html',
+  'href-copyright': 'https://www.un.org/en/about-us/copyright',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.',
 
   // Homepage
