@@ -35,11 +35,11 @@ export default {
 
   // AppFooter
   'Terms of Use': 'Terms of Use',
-  'href-tos': 'https://www.un.org/ru/sections/about-website/terms-use/',
+  'href-tos': 'https://www.un.org/ru/about-us/terms-of-use',
   'Privacy policy': 'Політика конфіденційності',
-  'href-privacy': 'https://www.un.org/ru/sections/about-website/privacy-notice/',
+  'href-privacy': 'https://www.un.org/ru/about-us/privacy-notice',
   'Copyright notice': 'Повідомлення про авторські права',
-  'href-copyright': 'https://www.un.org/ru/sections/about-website/copyright/index.html',
+  'href-copyright': 'https://www.un.org/ru/about-us/copyright',
   'OCHA coordinates the global emergency response to save lives and protect people in humanitarian crises. We advocate for effective and principled humanitarian action by all, for all.': 'УКГС координує заходи реагування в надзвичайних ситуаціях по всьому світу заради спасіння життя та захисту людей в умовах гуманітарних криз. Ми підтримуємо ефективне виконання гуманітарної роботи всіма учасниками згідно з узгодженими принципами на користь усіх сторін.',
 
   // Homepage
