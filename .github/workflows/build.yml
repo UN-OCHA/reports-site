@@ -6,7 +6,6 @@ on:
       - dev
       - main
       - master
-      - ops-7809
   release:
     types: [published]
 
