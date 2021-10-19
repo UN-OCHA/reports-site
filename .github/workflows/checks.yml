@@ -1,0 +1,31 @@
+name: Run tests
+
+on: [push]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Get deps
+        run: |
+          npm install yarn
+          yarn install
+
+      - name: Run tests
+        run: |
+          export CTF_SPACE_ID='1'; export CTF_CDA_ACCESS_TOKEN='1';
+          yarn run unit
