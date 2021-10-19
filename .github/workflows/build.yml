@@ -6,6 +6,7 @@ on:
       - dev
       - main
       - master
+      - DSR-*
   release:
     types: [published]
 
