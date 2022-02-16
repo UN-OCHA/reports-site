@@ -23,7 +23,7 @@
     "@contentful/rich-text-types": "^13.4.0",
     "@nuxtjs/feed": "^1.1.0",
     "@nuxtjs/moment": "^1.0.0",
-    "ajv": "^6.5.4",
+    "ajv": "^6.12.3",
     "axios": "^0.21.2",
     "clipboard-polyfill": "^2.8.6",
     "consola": "^2.6.0",
