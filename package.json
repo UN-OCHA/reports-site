@@ -73,7 +73,7 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "^12",
-    "npm": "6.14.10"
+    "node": "^16.13.2",
+    "npm": "^8.1.2"
   }
 }
