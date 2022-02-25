@@ -18,11 +18,11 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
 
       - name: Get deps
         run: |
-          npm install yarn
+          npm install yarn --legacy-peer-deps
           yarn install
 
       - name: Run tests
