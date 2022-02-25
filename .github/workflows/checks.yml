@@ -22,7 +22,7 @@ jobs:
 
       - name: Get deps
         run: |
-          npm install yarn
+          npm install yarn --legacy-peer-deps
           yarn install
 
       - name: Run tests
