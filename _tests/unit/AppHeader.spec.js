@@ -151,10 +151,11 @@ describe('AppHeader', () => {
     expect(wrapper.vm.archiveLink).toBe('https://example.com');
   });
 
-  it('should show standard Archive link when countryCode is valid', () => {
+  it('should show standard Archive link when countryCode is valid', async () => {
     wrapper.setProps({
       countrycode: 'uno',
     });
+    await wrapper.vm.$nextTick();
     expect(wrapper.vm.archiveLink).toContain('iso3:uno');
   });
 

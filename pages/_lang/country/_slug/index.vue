@@ -285,7 +285,22 @@
             .then(response => response.data)
             .catch(console.warn),
 
-      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2019, ftsData2020, ftsData2021]) => {
+        // FTS: fetch all v2 plans for 2022.
+        (process.server)
+          ? axios({
+              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2022',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2022',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn),
+
+      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2019, ftsData2020, ftsData2021, ftsData2022]) => {
         //
         // Check for 404
         //
@@ -394,8 +409,10 @@
         let fts2019 = ftsData2019 && ftsData2019.data && ftsData2019.data.plans || [];
         let fts2020 = ftsData2020 && ftsData2020.data && ftsData2020.data.plans || [];
         let fts2021 = ftsData2021 && ftsData2021.data && ftsData2021.data.plans || [];
+        let fts2022 = ftsData2022 && ftsData2022.data && ftsData2022.data.plans || [];
         let ftsData = fts2019.concat(fts2020);
         ftsData = ftsData.concat(fts2021);
+        ftsData = ftsData.concat(fts2022);
 
         // Extract the FTS PlanID out of the SitRep field data
         let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);

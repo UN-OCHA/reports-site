@@ -1,6 +1,11 @@
+#
+# As of 2022-02-25 we use GitHub Actions to run CI.
+# See the `.github` directory.
+#
+
 language: node_js
 node_js:
-  - "12"
+  - "16"
 cache:
   yarn: true
   directories:
