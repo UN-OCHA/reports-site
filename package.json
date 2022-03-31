@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.10.6",
+  "version": "2.10.7",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -73,7 +73,7 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "^16.13.2",
+    "node": "^16.14.2",
     "npm": "^8.1.2"
   }
 }
