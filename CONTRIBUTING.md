@@ -28,13 +28,13 @@ Here are a few brief examples:
 # Outcome: new patch version (4.0.1)
 git cm -m "fix: fix typo in header"
 
-# a new feature that relates to "auth"
+# a new feature that relates to "cards"
 # Outcome: new minor version (4.1.0)
 git cm -m "feat(cards): cards can now do a new thing"
 
 # a bugfix that creates a breaking change
 # Outcome: new major version (5.0.0)
-git cm -m "fix!: new share URLs for Card component
+git cm -m "fix(cards)!: new share URLs for Card component
 
 Refs: DSR-XXXX
 BREAKING CHANGE: New Share URLs when using social sharing links. Old legacy URLs
@@ -58,11 +58,11 @@ Create a new branch from `dev` and run the release command to generate the new C
 # Example with the dry-run flag.
 $ npm run release -- --dry-run
 
-> reports-site@3.0.0 release
+> reports-site@4.0.0 release
 > standard-version "--dry-run"
 
-✔ bumping version in package.json from 3.0.0 to 3.0.1
-✔ bumping version in package-lock.json from 3.0.0 to 3.0.1
+✔ bumping version in package.json from 4.0.0 to 4.0.1
+✔ bumping version in package-lock.json from 4.0.0 to 4.0.1
 ✔ outputting changes to CHANGELOG.md
 ```
 
@@ -78,7 +78,7 @@ Review the commit and make any necessary adjustments to the CHANGELOG, using `gi
 
 - **Tag:** new tag with format `v0.0.0` — numbers should match [`package.json` in the `dev` branch][dev-package].
 - **Target branch:** `dev`
-- **Title:** `Production YYYY-MM-DD` using the PROD date (check the OPS calendar! it's normally two weeks from the STAGE release but may vary)
+- **Title:** `Production YYYY-MM-DD` using the expected PROD deployment date
 - **Release notes:** Copy the new CHANGELOG bullets. If dependabot made any updates during this cycle, you can include "regular security updates" without being specific.
 
 Once the tagged Release has been created, [create a PR from `dev` to `main`][pr-dev-master] which will include all work within the tagged release. You can merge that without review as well. This step allows hotfixes to be created from `main` should the need arise.
