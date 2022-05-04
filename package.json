@@ -32,7 +32,7 @@
     "file-saver": "^2.0.0",
     "lodash": ">=4.17.21",
     "lodash.debounce": "^4.0.8",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "nuxt": "2.15.8",
     "nuxt-start": "^2.6.3",
     "pm2": "^4.5.6",
