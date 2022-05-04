@@ -48,7 +48,7 @@ have been sunset and no longer function."
 | :---------- |
 | Maintainers |
 
-See our [DSR Standard Operating Procedure][dsr-sop] for the details about our release schedule. The rest of this section provides technical guidance for creating Releases.
+See our [DSR Standard Operating Procedure][dsr-sop] for details about our release process. The rest of this section provides technical guidance for creating Releases.
 
   [dsr-sop]: https://docs.google.com/document/d/1FQJjn469wod3Z_Oc6Y_321tXobIbER7AftcIs7vWduE/edit#heading=h.3t9e3dv1ao2z
 
@@ -81,7 +81,7 @@ Review the commit and make any necessary adjustments to the CHANGELOG, using `gi
 - **Title:** `Production YYYY-MM-DD` using the expected PROD deployment date
 - **Release notes:** Copy the new CHANGELOG bullets. If dependabot made any updates during this cycle, you can include "regular security updates" without being specific.
 
-Once the tagged Release has been created, [create a PR from `dev` to `main`][pr-dev-master] which will include all work within the tagged release. You can merge that without review as well. This step allows hotfixes to be created from `main` should the need arise.
+Once the tagged Release has been created, [create a PR from `dev` to `master`][pr-dev-master] which will include all work within the tagged release. You can merge that without review as well. This step allows hotfixes to be created from `main` should the need arise.
 
   [new-release]: https://github.com/UN-OCHA/reports-site/releases/new?target=dev
   [dev-package]: https://github.com/UN-OCHA/reports-site/blob/dev/package.json#L3
