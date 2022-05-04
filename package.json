@@ -36,6 +36,7 @@
     "nuxt-start": "^2.6.3",
     "pm2": "^4.5.6",
     "serialize-javascript": "^3.1.0",
+    "standard-version": "^9.3.2",
     "system-font-css": "^2.0.2",
     "tar": ">=6.1.9",
     "vue": "^2.6.14",
