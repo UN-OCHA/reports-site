@@ -15,7 +15,8 @@
     "migration": "contentful-migration",
     "e2e": "jest _tests/*.test.js",
     "unit": "jest _tests/unit/*.spec.js",
-    "test": "jest _tests/unit/*.spec.js && jest test/*.test.js"
+    "test": "jest _tests/unit/*.spec.js && jest test/*.test.js",
+    "release": "standard-version"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^13.4.0",
@@ -76,5 +77,10 @@
   "engines": {
     "node": "^16.14.2",
     "npm": "^8.1.2"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
   }
 }
