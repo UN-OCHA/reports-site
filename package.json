@@ -15,7 +15,8 @@
     "migration": "contentful-migration",
     "e2e": "jest _tests/*.test.js",
     "unit": "jest _tests/unit/*.spec.js",
-    "test": "jest _tests/unit/*.spec.js && jest test/*.test.js"
+    "test": "jest _tests/unit/*.spec.js && jest test/*.test.js",
+    "release": "standard-version"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^13.4.0",
@@ -68,6 +69,7 @@
     "puppeteer": "^1.14.0",
     "sass-loader": "^10.1.1",
     "set-value": "^4.0.1",
+    "standard-version": "^9.3.2",
     "vue-jest": "^4.0.0-0",
     "vue-template-compiler": "^2.6.14",
     "webpack-bundle-analyzer": ">=3.3.2"
@@ -75,5 +77,10 @@
   "engines": {
     "node": "^16.14.2",
     "npm": "^8.1.2"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
   }
 }
