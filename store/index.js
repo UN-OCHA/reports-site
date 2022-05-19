@@ -97,7 +97,7 @@ export const state = () => ({
       name: 'Українська',
       dir: 'ltr',
       display: false,
-      fallback: 'ru',
+      fallback: 'fr',
     },
   ],
 
