@@ -1,6 +1,6 @@
 {
   "name": "reports-site",
-  "version": "2.10.8",
+  "version": "2.10.9",
   "description": "Digital Situation Reports",
   "license": "Apache-2.0",
   "author": "UNOCHA",
@@ -60,7 +60,7 @@
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.0.0",
-    "jest": "^24.7.1",
+    "jest": "^26",
     "jest-puppeteer": "^4.1.0",
     "jest-serializer-vue": "^2.0.2",
     "kind-of": "6.0.3",
