@@ -409,6 +409,7 @@
         let fts2020 = ftsData2020 && ftsData2020.data && ftsData2020.data.plans || [];
         let fts2021 = ftsData2021 && ftsData2021.data && ftsData2021.data.plans || [];
         let fts2022 = ftsData2022 && ftsData2022.data && ftsData2022.data.plans || [];
+        let fts2023 = ftsData2023 && ftsData2023.data && ftsData2023.data.plans || [];
         let ftsData = fts2020.concat(fts2021);
         ftsData = ftsData.concat(fts2022);
         ftsData = ftsData.concat(fts2023);
