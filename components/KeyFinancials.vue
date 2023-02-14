@@ -95,8 +95,12 @@
               },
               fields: {
                 type: 'total',
-                raw: plan.funding.totalFunding,
-                financial: '$' + this.formatNumber(plan.funding.totalFunding),
+                raw: plan?.funding?.totalFunding
+                  ? plan.funding.totalFunding
+                  : 'n-a',
+                financial: plan?.funding?.totalFunding
+                  ? '$' + this.formatNumber(plan.funding.totalFunding)
+                  : 'N/A',
                 caption: this.$t('Received', this.locale),
               },
             },
@@ -107,8 +111,14 @@
               fields: {
                 type: 'progress',
                 // Do not allow raw vals greater than 100. Pie chart will break.
-                raw: (plan.funding.progress > 100) ? 100 : plan.funding.progress,
-                financial: Math.round(plan.funding.progress) + '%',
+                raw: plan?.funding?.progress
+                  ? plan.funding.progress > 100
+                    ? 100
+                    : plan.funding.progress
+                  : 0,
+                financial: plan?.funding?.progress
+                  ? Math.round(plan.funding.progress) + '%'
+                  : 'N/A',
                 caption: this.$t('Progress', this.locale),
               },
             },
