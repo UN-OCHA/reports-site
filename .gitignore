@@ -12,9 +12,6 @@ dist
 # the docker compose env file
 .env
 
-# NewRelic logs
-newrelic_agent.log
-
 # code coverage reports
 coverage
 
