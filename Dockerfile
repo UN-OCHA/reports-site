@@ -1,4 +1,4 @@
-FROM public.ecr.aws/unocha/nodejs:16-alpine
+FROM public.ecr.aws/unocha/nodejs:20-alpine
 
 ENV CTF_HOST=cdn.contentful.com \
     CTF_SPACE_ID=123456 \
