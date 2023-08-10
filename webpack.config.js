@@ -1,0 +1,5 @@
+{
+  "resolve": {
+    "mainFields": ["main", "module"]
+  }
+}
