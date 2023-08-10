@@ -78,7 +78,7 @@
   },
   "engines": {
     "node": "^20.5.0",
-    "npm": "^9.8.1"
+    "npm": "^9.8.0"
   },
   "standard-version": {
     "skip": {
