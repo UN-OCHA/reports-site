@@ -11,7 +11,7 @@ const config = {
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.js$': 'babel-jest',
-    '.*\\.(vue)$': '@vue/vue3-jest',
+    '.*\\.(vue)$': 'vue-jest',
   },
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
