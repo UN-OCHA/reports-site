@@ -23,7 +23,7 @@ const config = {
 
 // This fix suggested for browser.js but trying it here.
 // @see https://github.com/vuejs/core/issues/3379#issuecomment-792518313
-createSSRApp(Main()).mount(document.getElementById('app'));
+createSSRApp(document.getElementById('app'));
 
 // E2E requires a special preset
 config.preset = (E2E_MODE) ? 'jest-puppeteer' : '';
