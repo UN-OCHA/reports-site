@@ -1,6 +1,6 @@
 const E2E_MODE = process.env.npm_lifecycle_event === 'e2e';
 const { createSSRApp } = require('vue');
-import { getCurrentInstance } from 'vue';
+const { getCurrentInstance } = require('vue');
 
 const config = {
   moduleNameMapper: {
