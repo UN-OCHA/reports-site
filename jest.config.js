@@ -1,5 +1,6 @@
 const E2E_MODE = process.env.npm_lifecycle_event === 'e2e';
 const { createSSRApp } = require('vue');
+import { getCurrentInstance } from 'vue';
 
 const config = {
   moduleNameMapper: {
@@ -23,7 +24,8 @@ const config = {
 
 // This fix suggested for browser.js but trying it here.
 // @see https://github.com/vuejs/core/issues/3379#issuecomment-792518313
-createSSRApp(document.getElementById('app'));
+const app = getCurrentInstance();
+createSSRApp(app);
 
 // E2E requires a special preset
 config.preset = (E2E_MODE) ? 'jest-puppeteer' : '';
