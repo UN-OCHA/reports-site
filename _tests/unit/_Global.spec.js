@@ -1,3 +1,11 @@
+const { createSSRApp } = require('vue');
+const { getCurrentInstance } = require('vue');
+// This fix suggested for browser.js but trying it here.
+// @see https://github.com/vuejs/core/issues/3379#issuecomment-792518313
+const app = getCurrentInstance();
+createSSRApp(app);
+
+
 import { mount } from '@vue/test-utils';
 import Global from '~/components/_Global.vue';
 
