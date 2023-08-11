@@ -6,6 +6,9 @@ const config = {
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.global.js',
   },
+  resolve: {
+    mainFields: ["main", "module"]
+  },
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.js$': 'babel-jest',
@@ -16,6 +19,10 @@ const config = {
     '<rootDir>/pages/**/*.vue',
   ],
 };
+
+// This fix suggested for browser.js but trying it here.
+// @see https://github.com/vuejs/core/issues/3379#issuecomment-792518313
+createSSRApp(Main()).mount(document.getElementById('app'));
 
 // E2E requires a special preset
 config.preset = (E2E_MODE) ? 'jest-puppeteer' : '';

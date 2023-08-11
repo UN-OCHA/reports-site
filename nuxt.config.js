@@ -15,10 +15,6 @@ const client = contentful.createClient({
   accessToken: process.env.CTF_CDA_PREVIEW_TOKEN || process.env.CTF_CDA_ACCESS_TOKEN,
 });
 
-// This fix suggested for browser.js but trying it here.
-// @see https://github.com/vuejs/core/issues/3379#issuecomment-792518313
-createSSRApp(Main()).mount(document.getElementById('app'));
-
 module.exports = {
   //
   // Environment variables
@@ -453,9 +449,6 @@ module.exports = {
         return arrays.join().split(',');
       });
     }
-  },
-  resolve: {
-    mainFields: ["main", "module"]
   }
 }
 
