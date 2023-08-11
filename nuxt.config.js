@@ -449,6 +449,9 @@ module.exports = {
         return arrays.join().split(',');
       });
     }
+  },
+  resolve: {
+    mainFields: ["main", "module"]
   }
 }
 
