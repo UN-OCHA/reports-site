@@ -3679,6 +3679,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/compat@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "@vue/compat@npm:3.3.4"
+  dependencies:
+    "@babel/parser": ^7.21.3
+    estree-walker: ^2.0.2
+    source-map-js: ^1.0.2
+  peerDependencies:
+    vue: 3.3.4
+  checksum: a280f788494115c1ae1de8ef466a5ff9aad92c5aa87f0c42e4fdf58e6203e96d4500c7f493e90dfd52ce2cf343332453bb097e97e96d47d3ae93364beeee3e20
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-core@npm:3.3.4":
   version: 3.3.4
   resolution: "@vue/compiler-core@npm:3.3.4"
@@ -12743,6 +12756,7 @@ __metadata:
     "@nuxtjs/feed": ^2.0.0
     "@nuxtjs/moment": ^1.6.1
     "@types/node": ^20.4.9
+    "@vue/compat": ^3.3.4
     "@vue/compiler-sfc": ^3.3.4
     "@vue/test-utils": ^2.4.1
     "@vue/vue3-jest": ^29.2.5
