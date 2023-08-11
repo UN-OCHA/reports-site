@@ -8,9 +8,6 @@ const config = {
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.global.js',
   },
-  resolve: {
-    mainFields: ["main", "module"]
-  },
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.js$': 'babel-jest',
