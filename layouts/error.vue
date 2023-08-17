@@ -139,7 +139,8 @@
     left: 50%;
     transform: translate(-50%);
   }
-  /deep/ .sitrep-group__heading {
+
+  :deep(.sitrep-group__heading) {
     margin-bottom: 0;
   }
 </style>
