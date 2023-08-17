@@ -50,7 +50,7 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/runtime-corejs3": "^7.9.2",
-    "@vue/test-utils": "^1.0.0-beta.32",
+    "@vue/test-utils": "^1.3.6",
     "acorn": "^6.4.1",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.9.0",
@@ -65,8 +65,8 @@
     "jest-serializer-vue": "^2.0.2",
     "kind-of": "6.0.3",
     "minimist": "^1.2.6",
-    "node-sass": "^6.0.0",
     "puppeteer": "^1.14.0",
+    "sass": "^1.65.1",
     "sass-loader": "^10.1.1",
     "set-value": "^4.0.1",
     "standard-version": "^9.3.2",
@@ -75,8 +75,8 @@
     "webpack-bundle-analyzer": ">=3.3.2"
   },
   "engines": {
-    "node": "^16.14.2",
-    "npm": "^8.1.2"
+    "node": "^20",
+    "npm": "^9"
   },
   "standard-version": {
     "skip": {

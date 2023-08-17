@@ -219,7 +219,7 @@
       }
     }
 
-    /deep/ .btn--pdf {
+    :deep(.btn--pdf) {
       width: 16px;
       background-image: url('/assets/icons/icon--pdf--dark.svg');
     }

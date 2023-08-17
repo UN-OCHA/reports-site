@@ -265,7 +265,7 @@
 
   // Most styles for SitRepList are in the component itself, but we need to copy
   // .link styles from this component and using @extend here is the least messy.
-  /deep/ .sitrep-group__heading {
+  :deep(.sitrep-group__heading) {
     @extend .link;
 
     // Now unset some stuff.....
