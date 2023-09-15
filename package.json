@@ -50,6 +50,7 @@
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/runtime-corejs3": "^7.9.2",
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge",
     "@vue/test-utils": "^1.3.6",
     "acorn": "^6.4.1",
     "babel-eslint": "^8.2.1",
