@@ -1,3 +1,6 @@
+// Nuxt 2 -> 3
+import { defineNuxtConfig } from '@nuxt/bridge';
+
 // Enable file-based logging
 import consola from 'consola';
 import DSRWinstonReporter from './_stack/DSRWinstonReporter';
@@ -7,15 +10,18 @@ consola.wrapConsole();
 
 // Contentful + Environment variables
 // These allow us to query Contentful and get all of our valid URLs.
-const contentful = require('contentful');
-const client = contentful.createClient({
+import { createClient } from 'contentful';
+const client = createClient({
   host: process.env.CTF_HOST,
   space: process.env.CTF_SPACE_ID,
   environment: process.env.CTF_ENVIRONMENT,
   accessToken: process.env.CTF_CDA_PREVIEW_TOKEN || process.env.CTF_CDA_ACCESS_TOKEN,
 });
 
-module.exports = {
+export default defineNuxtConfig({
+  // As a first step, the migration guide says to set this to false.
+  bridge: false,
+
   //
   // Environment variables
   //
@@ -450,5 +456,5 @@ module.exports = {
       });
     }
   }
-}
+})
 
