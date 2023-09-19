@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [2.10.10](https://github.com/UN-OCHA/reports-site/compare/v2.10.9...v2.10.10) (2023-03-20)
 
+### [2.10.11](https://github.com/UN-OCHA/reports-site/compare/v2.10.10...v2.10.11) (2023-09-19)
+
+### Bug Fixes
+
+* **security:** upgrade to node.js 20
+* get rid of local development errors on a fresh node_modules install ([7d22f7d](https://github.com/UN-OCHA/reports-site/commit/7d22f7d75fa775acb8eeed0d5be6c0b7d4871b65))
+
+
+## [2.10.10](https://github.com/UN-OCHA/reports-site/compare/v2.10.9...v2.10.10) (2023-03-20)
 
 ### Bug Fixes
 
