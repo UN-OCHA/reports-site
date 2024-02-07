@@ -240,36 +240,6 @@
           'content_type': 'flashUpdate',
         }),
 
-        // FTS: fetch all v2 plans for 2020.
-        (process.server)
-          ? axios({
-              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2020',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn)
-          : axios({
-              url: '/v2/fts/flow/plan/overview/progress/2020',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn),
-
-        // FTS: fetch all v2 plans for 2021.
-        (process.server)
-          ? axios({
-              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2021',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn)
-          : axios({
-              url: '/v2/fts/flow/plan/overview/progress/2021',
-              method: 'GET',
-            })
-            .then(response => response.data)
-            .catch(console.warn),
-
         // FTS: fetch all v2 plans for 2022.
         (process.server)
           ? axios({
@@ -300,7 +270,22 @@
             .then(response => response.data)
             .catch(console.warn),
 
-      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2020, ftsData2021, ftsData2022, ftsData2023]) => {
+        // FTS: fetch all v2 plans for 2024.
+        (process.server)
+          ? axios({
+              url: 'https://reports.unocha.org/v2/fts/flow/plan/overview/progress/2024',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn)
+          : axios({
+              url: '/v2/fts/flow/plan/overview/progress/2024',
+              method: 'GET',
+            })
+            .then(response => response.data)
+            .catch(console.warn),
+
+      ]).then(([entries, translationEntries, flashUpdatesAll, ftsData2022, ftsData2023, ftsData2024]) => {
         //
         // Check for 404
         //
@@ -406,13 +391,11 @@
         });
 
         // Combine all years of FTS responses into one array.
-        let fts2020 = ftsData2020 && ftsData2020.data && ftsData2020.data.plans || [];
-        let fts2021 = ftsData2021 && ftsData2021.data && ftsData2021.data.plans || [];
         let fts2022 = ftsData2022 && ftsData2022.data && ftsData2022.data.plans || [];
         let fts2023 = ftsData2023 && ftsData2023.data && ftsData2023.data.plans || [];
-        let ftsData = fts2020.concat(fts2021);
-        ftsData = ftsData.concat(fts2022);
-        ftsData = ftsData.concat(fts2023);
+        let fts2024 = ftsData2024 && ftsData2024.data && ftsData2024.data.plans || [];
+        let ftsData = fts2022.concat(fts2023);
+        ftsData = ftsData.concat(fts2024);
 
         // Extract the FTS PlanID out of the SitRep field data
         let ftsPlanId = entries.items[0].fields.keyFinancialsUrl && Number(entries.items[0].fields.keyFinancialsUrl.match(/\d+/)[0]);
